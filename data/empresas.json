@@ -571,21 +571,22 @@
   { "origem": "Rosário Sentido Cabo", "destino": "Termope Suape (Pedágio Incluso)", "valor": 80, "regiao": "Cabo" },
   { "origem": "Rosário Sentido Cabo", "destino": "UltraCargo Suape (Pedágio Incluso)", "valor": 75, "regiao": "Cabo" },
 
-  { "origem": "Pista Preta (Vila Harminio)", "destino": "Loginvest (TUPAN)", "valor": 25, "regiao": "Cabo" },
-  { "origem": "Pista Preta (Vila Harminio)", "destino": "CONE antes do Armazena", "valor": 18, "regiao": "Cabo" },
-  { "origem": "Pista Preta (Vila Harminio)", "destino": "CONE ponte dos Carvalhos", "valor": 25, "regiao": "Cabo" },
-  { "origem": "Pista Preta (Vila Harminio)", "destino": "Armazena Em frente ao Dom Helder", "valor": 20, "regiao": "Cabo" },
-  { "origem": "Pista Preta (Vila Harminio)", "destino": "Americanas", "valor": 25, "regiao": "Cabo" },
-  { "origem": "Pista Preta (Vila Harminio)", "destino": "AMAZON", "valor": 25, "regiao": "Cabo" },
-  { "origem": "Pista Preta (Vila Harminio)", "destino": "FotLev", "valor": 25, "regiao": "Cabo" },
-  { "origem": "Pista Preta (Vila Harminio)", "destino": "Coca Cola Solar Cabo", "valor": 30, "regiao": "Cabo" },
-  { "origem": "Pista Preta (Vila Harminio)", "destino": "Coca Cola Prazeres", "valor": 40, "regiao": "Cabo" },
-  { "origem": "Pista Preta (Vila Harminio)", "destino": "PepsiCo Cabo", "valor": 30, "regiao": "Cabo" },
-  { "origem": "Pista Preta (Vila Harminio)", "destino": "Ball Cabo", "valor": 25, "regiao": "Cabo" },
-  { "origem": "Pista Preta (Vila Harminio)", "destino": "Camil Cabo", "valor": 30, "regiao": "Cabo" },
-  { "origem": "Pista Preta (Vila Harminio)", "destino": "Urbano Cabo", "valor": 30, "regiao": "Cabo" },
-  { "origem": "Pista Preta (Vila Harminio)", "destino": "Amcor serraria Cabo", "valor": 30, "regiao": "Cabo" },
-  { "origem": "Pista Preta (Vila Harminio)", "destino": "Amanco Suape (Pedágio Incluso)", "valor": 42, "regiao": "Cabo" },
+{ "origem": "Pista Preta (Vila Harminio)", "destino": "Loginvest (TUPAN)", "valor": 30, "regiao": "Cabo" },
+{ "origem": "Pista Preta (Vila Harminio)", "destino": "CONE (Antes do Armazena)", "valor": 20, "regiao": "Cabo" },
+{ "origem": "Pista Preta (Vila Harminio)", "destino": "CONE (Ponte dos Carvalhos)", "valor": 30, "regiao": "Cabo" },
+{ "origem": "Pista Preta (Vila Harminio)", "destino": "Armazena (em frente ao Don Helder)", "valor": 23, "regiao": "Cabo" },
+{ "origem": "Pista Preta (Vila Harminio)", "destino": "Americanas (Ponto dos Carvalhos)", "valor": 30, "regiao": "Cabo" },
+{ "origem": "Pista Preta (Vila Harminio)", "destino": "Amazon", "valor": 30, "regiao": "Cabo" },
+{ "origem": "Pista Preta (Vila Harminio)", "destino": "FortLev", "valor": 30, "regiao": "Cabo" },
+{ "origem": "Pista Preta (Vila Harminio)", "destino": "Coca-Cola Solar (Suape)", "valor": 45, "regiao": "Cabo" },
+{ "origem": "Pista Preta (Vila Harminio)", "destino": "Coca-Cola (Prazeres)", "valor": 45, "regiao": "Cabo" },
+{ "origem": "Pista Preta (Vila Harminio)", "destino": "Pepsico (Cabo)", "valor": 45, "regiao": "Cabo" },
+{ "origem": "Pista Preta (Vila Harminio)", "destino": "Baú (Cabo)", "valor": 40, "regiao": "Cabo" },
+{ "origem": "Pista Preta (Vila Harminio)", "destino": "Camil (Cabo)", "valor": 45, "regiao": "Cabo" },
+{ "origem": "Pista Preta (Vila Harminio)", "destino": "Urbano (Cabo)", "valor": 45, "regiao": "Cabo" },
+{ "origem": "Pista Preta (Vila Harminio)", "destino": "Ancor Serraria (Cabo)", "valor": 45, "regiao": "Cabo" },
+{ "origem": "Pista Preta (Vila Harminio)", "destino": "Amanco (Suape, pedágio incluso)", "valor": 57, "regiao": "Cabo" },
+  
   { "origem": "Pista Preta (Vila Harminio)", "destino": "Dexco Suape (Pedágio Incluso)", "valor": 42, "regiao": "Cabo" },
   { "origem": "Pista Preta (Vila Harminio)", "destino": "Pamesa Suape (Pedágio Incluso)", "valor": 42, "regiao": "Cabo" },
   { "origem": "Pista Preta (Vila Harminio)", "destino": "Refinaria LESTE Suape (Pedágio Incluso)", "valor": 47, "regiao": "Cabo" },
@@ -857,6 +858,7 @@
   { "origem": "Barbalho 1 e 2", "destino": "Termope Suape (Pedágio Incluso)", "valor": 67, "regiao": "Cabo" },
   { "origem": "Barbalho 1 e 2", "destino": "UltraCargo Suape (Pedágio Incluso)", "valor": 62, "regiao": "Cabo" }
   ]   
+
 
 
 
