@@ -586,17 +586,16 @@
 { "origem": "Pista Preta (Vila Harminio)", "destino": "Urbano (Cabo)", "valor": 45, "regiao": "Cabo" },
 { "origem": "Pista Preta (Vila Harminio)", "destino": "Ancor Serraria (Cabo)", "valor": 45, "regiao": "Cabo" },
 { "origem": "Pista Preta (Vila Harminio)", "destino": "Amanco (Suape, pedágio incluso)", "valor": 57, "regiao": "Cabo" },
-  
-  { "origem": "Pista Preta (Vila Harminio)", "destino": "Dexco Suape (Pedágio Incluso)", "valor": 42, "regiao": "Cabo" },
-  { "origem": "Pista Preta (Vila Harminio)", "destino": "Pamesa Suape (Pedágio Incluso)", "valor": 42, "regiao": "Cabo" },
-  { "origem": "Pista Preta (Vila Harminio)", "destino": "Refinaria LESTE Suape (Pedágio Incluso)", "valor": 47, "regiao": "Cabo" },
-  { "origem": "Pista Preta (Vila Harminio)", "destino": "SuperGas Suape (Pedágio Incluso)", "valor": 62, "regiao": "Cabo" },
-  { "origem": "Pista Preta (Vila Harminio)", "destino": "Ultragás Suape (Pedágio Incluso)", "valor": 62, "regiao": "Cabo" },
-  { "origem": "Pista Preta (Vila Harminio)", "destino": "Liquigás Suape (Pedágio Incluso)", "valor": 62, "regiao": "Cabo" },
-  { "origem": "Pista Preta (Vila Harminio)", "destino": "Tecon Suape (Pedágio Incluso)", "valor": 62, "regiao": "Cabo" },
-  { "origem": "Pista Preta (Vila Harminio)", "destino": "Bunge Suape (Pedágio Incluso)", "valor": 62, "regiao": "Cabo" },
-  { "origem": "Pista Preta (Vila Harminio)", "destino": "Termope Suape (Pedágio Incluso)", "valor": 67, "regiao": "Cabo" },
-  { "origem": "Pista Preta (Vila Harminio)", "destino": "UltraCargo Suape (Pedágio Incluso)", "valor": 62, "regiao": "Cabo" },
+{ "origem": "Pista Preta (Vila Harminio)", "destino": "Dexco (Suape, pedágio incluso)", "valor": 57, "regiao": "Cabo" },
+{ "origem": "Pista Preta (Vila Harminio)", "destino": "Pamesa (Suape, pedágio incluso)", "valor": 57, "regiao": "Cabo" },
+{ "origem": "Pista Preta (Vila Harminio)", "destino": "Refinaria Leste (Suape, pedágio incluso)", "valor": 62, "regiao": "Cabo" },
+{ "origem": "Pista Preta (Vila Harminio)", "destino": "Supergás (Porto de Suape, pedágio incluso)", "valor": 77, "regiao": "Cabo" },
+{ "origem": "Pista Preta (Vila Harminio)", "destino": "Ultragaz (Porto de Suape, pedágio incluso)", "valor": 77, "regiao": "Cabo" },
+{ "origem": "Pista Preta (Vila Harminio)", "destino": "Liquigás (Porto de Suape, pedágio incluso)", "valor": 77, "regiao": "Cabo" },
+{ "origem": "Pista Preta (Vila Harminio)", "destino": "Tecon (Porto de Suape, pedágio incluso)", "valor": 77, "regiao": "Cabo" },
+{ "origem": "Pista Preta (Vila Harminio)", "destino": "Bunge (Porto de Suape, pedágio incluso)", "valor": 77, "regiao": "Cabo" },
+{ "origem": "Pista Preta (Vila Harminio)", "destino": "Thermop (Porto de Suape, pedágio incluso)", "valor": 82, "regiao": "Cabo" },
+{ "origem": "Pista Preta (Vila Harminio)", "destino": "Ultracargo (Porto de Suape)", "valor": 77, "regiao": "Cabo" },
 
   { "origem": "Burrama/Lote 7/Quilombola", "destino": "Loginvest (TUPAN)", "valor": 25, "regiao": "Cabo" },
   { "origem": "Burrama/Lote 7/Quilombola", "destino": "CONE antes do Armazena", "valor": 18, "regiao": "Cabo" },
@@ -858,6 +857,7 @@
   { "origem": "Barbalho 1 e 2", "destino": "Termope Suape (Pedágio Incluso)", "valor": 67, "regiao": "Cabo" },
   { "origem": "Barbalho 1 e 2", "destino": "UltraCargo Suape (Pedágio Incluso)", "valor": 62, "regiao": "Cabo" }
   ]   
+
 
 
 
