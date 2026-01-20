@@ -478,7 +478,7 @@
 { "origem": "Charnequinha Alta", "destino": "Hospital InfantoJuvenil (Centro)", "valor": 13, "regiao": "Cabo" },
 { "origem": "Charnequinha Alta", "destino": "Hospital São Sebastião (Centro)", "valor": 15, "regiao": "Cabo" },
 { "origem": "Charnequinha Alta", "destino": "Hospital Samaritano (Centro)", "valor": 15, "regiao": "Cabo" },
-{ "origem": "Charnequinha Alta", "destino": "Hospital Dom Helder Câmara", "valor": 23, "regiao": "Cabo" }
+{ "origem": "Charnequinha Alta", "destino": "Hospital Dom Helder Câmara", "valor": 23, "regiao": "Cabo" },
 
 { "origem": "Santo Inácio/Roca", "destino": "Clinica Saúde (Centro)", "valor": 10, "regiao": "Cabo" },
 { "origem": "Santo Inácio/Roca", "destino": "Clinica Amor & Saúde (Centro)", "valor": 13, "regiao": "Cabo" },
@@ -1220,6 +1220,7 @@
 { "origem": "Barbalho 1 e 2", "destino": "Hospital Samaritano (Centro)", "valor": 18, "regiao": "Cabo" },
 { "origem": "Barbalho 1 e 2", "destino": "Hospital Dom Helder Câmara", "valor": 33, "regiao": "Cabo" }
 ]
+
 
 
 
