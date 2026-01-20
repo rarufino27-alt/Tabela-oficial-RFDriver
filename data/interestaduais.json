@@ -211,7 +211,7 @@
 { "origem": "Charneca Corgo", "destino": "Maragogí AL", "valor": 270, "regiao": "Cabo" },
 { "origem": "Charneca Corgo", "destino": "Porto de Pedras AL", "valor": 350, "regiao": "Cabo" },
 { "origem": "Charneca Corgo", "destino": "Tatuamunha AL", "valor": 350, "regiao": "Cabo" },
-{ "origem": "Charneca Corgo"", "destino": "João Pessoa PB", "valor": 380, "regiao": "Cabo" },
+{ "origem": "Charneca Corgo", "destino": "João Pessoa PB", "valor": 380, "regiao": "Cabo" },
 { "origem": "Charneca Corgo", "destino": "Salvador BA", "valor": 1800, "regiao": "Cabo" },
 { "origem": "Charneca Corgo", "destino": "Aracajú SE", "valor": 1300, "regiao": "Cabo" },
 
@@ -234,7 +234,7 @@
 { "origem": "Novo Horizonte (Difícil Acesso)", "destino": "Maceió AL", "valor": 550, "regiao": "Cabo" },
 { "origem": "Novo Horizonte (Difícil Acesso)", "destino": "Maragogí AL", "valor": 270, "regiao": "Cabo" },
 { "origem": "Novo Horizonte (Difícil Acesso)", "destino": "Porto de Pedras AL", "valor": 350, "regiao": "Cabo" },
-{ "origem": "Novo Horizonte (Difícil Acesso)"", "destino": "Tatuamunha AL", "valor": 350, "regiao": "Cabo" },
+{ "origem": "Novo Horizonte (Difícil Acesso)", "destino": "Tatuamunha AL", "valor": 350, "regiao": "Cabo" },
 { "origem": "Novo Horizonte (Difícil Acesso)", "destino": "João Pessoa PB", "valor": 380, "regiao": "Cabo" },
 { "origem": "Novo Horizonte (Difícil Acesso)", "destino": "Salvador BA", "valor": 1800, "regiao": "Cabo" },
 { "origem": "Novo Horizonte (Difícil Acesso)", "destino": "Aracajú SE", "valor": 1300, "regiao": "Cabo" },
