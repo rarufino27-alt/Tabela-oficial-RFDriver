@@ -1,22 +1,22 @@
 :root{
   /* ===============================
-     IDENTIDADE RF DRIVER – OFICIAL
+     IDENTIDADE RF DRIVER – CLARO PREMIUM
      =============================== */
 
-  /* FUNDO INSTITUCIONAL */
-  --bg:#0b1b2b;              /* azul-marinho profundo */
-  --bg-soft:#10263f;         /* variação suave */
+  /* FUNDO INSTITUCIONAL (AZUL QUASE BRANCO) */
+  --bg:#f4f7fb;              /* azul muito claro */
+  --bg-soft:#eef3f9;
 
   /* CARDS */
-  --card:#122b45;
-  --card-soft:#16355a;
+  --card:#0f2a44;            /* azul institucional */
+  --card-soft:#143a60;
 
   /* BORDAS */
-  --border:rgba(212,175,55,.35);
+  --border:rgba(212,175,55,.45);
 
   /* TEXTO */
-  --text:#f5f7fa;            /* branco suave */
-  --text-muted:#c7cfda;      /* prata claro */
+  --text:#0b1b2b;            /* azul escuro */
+  --text-muted:#5f6f82;      /* azul acinzentado */
 
   /* DOURADO RF */
   --gold:#d4af37;
@@ -54,7 +54,7 @@ body{
   background:
     radial-gradient(
       circle at top,
-      rgba(212,175,55,.15),
+      rgba(212,175,55,.12),
       transparent 45%
     ),
     linear-gradient(
