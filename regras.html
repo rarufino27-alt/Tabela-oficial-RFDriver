@@ -72,9 +72,6 @@ body{
   font-size:1.05rem;
   color:#f5c542;
   margin-bottom:14px;
-  display:flex;
-  align-items:center;
-  gap:8px;
 }
 
 .rules{
@@ -87,15 +84,7 @@ body{
 }
 
 .rules li{
-  display:flex;
-  gap:10px;
   margin-bottom:12px;
-}
-
-.rules li span{
-  color:#f5c542;
-  font-weight:700;
-  min-width:18px;
 }
 
 .alert{
@@ -105,10 +94,6 @@ body{
   border-radius:14px;
   font-size:.85rem;
   color:#ffe9b3;
-}
-
-.back{
-  margin-top:6px;
 }
 
 .back button{
@@ -136,64 +121,119 @@ body{
 
   <div class="header">
     <h1>RF DRIVER</h1>
-    <span>Regras oficiais do grupo</span>
+    <span>Regras oficiais para motoristas</span>
   </div>
 
-  <!-- MOTORISTAS -->
+  <!-- TÓPICO 1 -->
   <div class="section">
-    <h2>🚗 Regras para Motoristas</h2>
-
+    <h2>1. Elegibilidade e Localização</h2>
     <ul class="rules">
-      <li><span>1.</span> É obrigatória a ativação da localização em tempo real por 8 horas consecutivas no grupo de localização.</li>
-
-      <li><span>2.</span> A localização indica que o motorista está online e apto a receber solicitações. Sem localização ativa, não é permitido pegar corridas.</li>
-
-      <li><span>3.</span> Não é permitido desligar a localização antes do prazo e ligá-la novamente. A reativação só é permitida após o período completo de 8 horas.</li>
-
-      <li><span>4.</span> O descumprimento da regra de localização pode gerar advertência, suspensão temporária ou outras punições>, conforme decisão da administração.</li>
-
-      <li><span>5.</span> Somente são consideradas corridas elegíveis aquelas que contenham origem e destino. Corridas incompletas são proibidas.</li>
-
-      <li><span>6.</span> O motorista que pegar corrida sem origem ou destino será suspenso automaticamente por 24 horas.</li>
-
-      <li><span>7.</span> Para retornar antes das 24 horas, o motorista poderá pagar uma taxa de R$ 5,00, após confirmação da administração.</li>
-
-      <li><span>8.</span> Para aceitar uma corrida, o motorista deve digitar exclusivamente EU< ou PV. Qualquer outra mensagem não será considerada válida.</li>
-
-      <li><span>9.</span> Em períodos de tarifa dinâmica, o motorista deve informar corretamente o valor da corrida ao passageiro antes do início.</li>
-
-      <li><span>10.</span> É obrigatória a utilização de vestimenta adequada e profissional. É proibido qualquer tipo de roupa sensual ou inadequada.</li>
-
-      <li><span>11.</span> Mulheres: proibido shorts, bermudas curtas ou rasgadas, decotes ou roupas que exponham excessivamente o corpo.</li>
-
-      <li><span>12.</span> Homens: proibido calção, bermudas rasgadas e camisetas regata ou de alça.</li>
-
-      <li><span>13.</span> A apresentação do motorista deve transmitir seriedade, respeito, segurança e confiança em todas as viagens.</li>
+      <li>• Para estar elegível a pegar viagens, o motorista deve obrigatoriamente ativar a localização em tempo real por 8 horas no grupo de localização.</li>
+      <li>• Sem localização ativa, o motorista não pode aceitar nem realizar corridas.</li>
+      <li>• Caso aceite corrida sem localização, deve repassar imediatamente ao próximo motorista elegível.</li>
+      <li>• Se não houver concorrência, o motorista poderá atualizar a localização e sinalizar novamente.</li>
     </ul>
   </div>
 
-  <!-- PASSAGEIROS -->
+  <!-- TÓPICO 2 -->
   <div class="section">
-    <h2>🧍 Regras para Passageiros</h2>
-
+    <h2>2. Forma Correta de Aceite</h2>
     <ul class="rules">
-      <li><span>1.</span> O passageiro deve informar corretamente origem e destino ao solicitar a corrida.</li>
+      <li>• O aceite deve ser feito abaixo da solicitação contendo embarque e desembarque. Caso o motorista aceite a Viagem sem Embarque e Desembarque o mesmo fica suspenso 24h automaticamente ou paga uma taxa de R$ 5,00 no pix do grupo e fica liberado para as proximas viagens!</li>
+      <li>• A sinalização pode ser “EU”, “PV” ou similar.</li>
+      <li>• Erros de digitação não invalidam o aceite, desde que fique claro o interesse do motorista.</li>
+    </ul>
+  </div>
 
-      <li><span>2.</span> Corridas sem informações completas podem ser recusadas.</li>
+  <!-- TÓPICO 3 -->
+  <div class="section">
+    <h2>3. Ordem de Atendimento</h2>
+    <ul class="rules">
+      <li>• As viagens devem ser atendidas por ordem de solicitação.</li>
+      <li>• Viagens fora do eixo principal (ex.: Recife, Gaibu, Pujuca ou outras cidades distantes) podem ser puladas.</li>
+      <li>• O motorista não é obrigado a buscar passageiro em local distante.</li>
+    </ul>
+  </div>
 
-      <li><span>3.</span> Valores devem ser respeitados conforme informado pelo motorista antes da viagem.</li>
+  <!-- TÓPICO 4 -->
+  <div class="section">
+    <h2>4. Pontualidade e Compromisso</h2>
+    <ul class="rules">
+      <li>• Após o envio da localização pelo passageiro, o motorista tem até 10 minutos para chegar ao embarque.</li>
+      <li>• Atrasos recorrentes, sem justificativa válida, podem gerar advertência, suspensão ou multa.</li>
+      <li>• Penalidades serão definidas pela administração do grupo.</li>
+    </ul>
+  </div>
 
-      <li><span>4.</span> Cancelamentos após confirmação podem gerar cobrança.</li>
+  <!-- TÓPICO 5 -->
+  <div class="section">
+    <h2>5. Proibição de Amarrar Viagem</h2>
+    <ul class="rules">
+      <li>• É proibido aceitar nova viagem antes de finalizar a corrida atual.</li>
+      <li>• Amarrar viagem sem autorização limita outros motoristas e gera penalidade.</li>
+    </ul>
+  </div>
 
-      <li><span>5.</span> É obrigatório manter respeito e educação com o motorista durante toda a viagem.</li>
+  <!-- TÓPICO 6 -->
+  <div class="section">
+    <h2>6. Fidelização Indevida e Pacão</h2>
+    <ul class="rules">
+      <li>• Fidelização ocorre quando o motorista faz corridas por fora com passageiros não indicados por ele.</li>
+      <li>• Pacão ocorre quando outro motorista contata o passageiro por fora após a corrida ser aceita no grupo.</li>
+      <li>• Ambas as práticas resultam em expulsão definitiva, se comprovadas.</li>
+    </ul>
+  </div>
 
-      <li><span>6.</span> Danos ao veículo são de responsabilidade do passageiro.</li>
+  <!-- TÓPICO 7 -->
+  <div class="section">
+    <h2>7. Conduta Profissional</h2>
+    <ul class="rules">
+      <li>• É proibido contato físico inadequado ou qualquer atitude desrespeitosa.</li>
+      <li>• É proibido utilizar som alto durante a viagem.</li>
+      <li>• O motorista deve manter postura ética e respeitosa em todas as situações.</li>
+    </ul>
+  </div>
+
+  <!-- TÓPICO 8 -->
+  <div class="section">
+    <h2>8. Crianças e Segurança</h2>
+    <ul class="rules">
+      <li>• O transporte de crianças não gera custo adicional.</li>
+      <li>• A cadeirinha é responsabilidade do passageiro, salvo acordo prévio.</li>
+    </ul>
+  </div>
+
+  <!-- TÓPICO 9 -->
+  <div class="section">
+    <h2>9. Excesso de Pessoas e Bagagens</h2>
+    <ul class="rules">
+      <li>• O motorista não é obrigado a transportar excesso de pessoas ou bagagens.</li>
+      <li>• Essas corridas podem ser puladas na sequência.</li>
+      <li>• Caso aceite, o valor adicional será definido pela administração e deve ser seguido à risca.</li>
+    </ul>
+  </div>
+
+  <!-- TÓPICO 10 -->
+  <div class="section">
+    <h2>10. Vestimenta</h2>
+    <ul class="rules">
+      <li>• É obrigatória vestimenta composta e profissional.</li>
+      <li>• Homens: proibido regata, bermuda curta ou rasgada.</li>
+      <li>• Mulheres: proibido short, saia acima do joelho, blusa de alça ou decote.</li>
+    </ul>
+  </div>
+
+  <!-- TÓPICO 11 -->
+  <div class="section">
+    <h2>11. Tipo de Veículo</h2>
+    <ul class="rules">
+      <li>• Corridas para 6 lugares cobradas como 6 lugares, mesmo que feitas por carro de 4, se aceitas.</li>
+      <li>• Caso aceite por engano, o motorista deve informar e solicitar nova chamada no grupo.</li>
     </ul>
   </div>
 
   <div class="alert">
-    ⚠️ Todas as regras podem ser alteradas a qualquer momento, com ou sem aviso prévio.
-    É responsabilidade do motorista acompanhar e respeitar as regras vigentes.
+    ⚠️ O descumprimento das regras poderá resultar em advertência, suspensão ou exclusão definitiva.
   </div>
 
   <div class="back">
