@@ -265,6 +265,25 @@
 { "origem": "Santo Inácio/Roca", "destino": "SESI Cabo", "valor": 16, "regiao": "Cabo" },
 { "origem": "Santo Inácio/Roca", "destino": "SEST-SENAT (Rosário)", "valor": 15, "regiao": "Cabo" },
 
+{ "origem": "Garapú VILA DA CONEST", "destino": "Castelo Recepções", "valor": 38, "regiao": "Cabo" },
+{ "origem": "Garapú VILA DA CONEST", "destino": "Fazenda casa Branca - Pirapama", "valor": 26, "regiao": "Cabo" },
+{ "origem": "Garapú VILA DA CONEST", "destino": "Granja Pajeú", "valor": 33, "regiao": "Cabo" },
+{ "origem": "Garapú VILA DA CONEST", "destino": "Espaço Kids Cohab", "valor": 15, "regiao": "Cabo" },
+{ "origem": "Garapú VILA DA CONEST", "destino": "Casa Festa Garapú", "valor": 18, "regiao": "Cabo" },
+{ "origem": "Garapú VILA DA CONEST", "destino": "Pirapama CIDA PARK", "valor": 26, "regiao": "Cabo" },
+{ "origem": "Garapú VILA DA CONEST", "destino": "Rosa do Vento Chacara SHEKINÁ", "valor": 23, "regiao": "Cabo" },
+{ "origem": "Garapú VILA DA CONEST", "destino": "Churrascaria Ponto gaúcho (Cabo)", "valor": 15, "regiao": "Cabo" },
+{ "origem": "Garapú VILA DA CONEST", "destino": "Churrascaria Ponto gaúcho (Cajueiro Seco)", "valor": 45, "regiao": "Cabo" },
+{ "origem": "Garapú VILA DA CONEST", "destino": "Churrascaria Ponto gaúcho (Prazeres)", "valor": 45, "regiao": "Cabo" },
+{ "origem": "Garapú VILA DA CONEST", "destino": "Churrascaria Ponto gaúcho (Recife)", "valor": 85, "regiao": "Cabo" },
+{ "origem": "Garapú VILA DA CONEST", "destino": "Restaurante Sal e brasa (Av Recife)", "valor": 70, "regiao": "Cabo" },
+{ "origem": "Garapú VILA DA CONEST", "destino": "Churrascaria Boi Brasa (Cajueiro Seco)", "valor": 45, "regiao": "Cabo" },
+{ "origem": "Garapú VILA DA CONEST", "destino": "Churrascaria Leitão (Nossa Sra do Ó)", "valor": 65, "regiao": "Cabo" },
+{ "origem": "Garapú VILA DA CONEST", "destino": "Praça da Pentecostal (Cohab)", "valor": 15, "regiao": "Cabo" },
+{ "origem": "Garapú VILA DA CONEST", "destino": "Praça do Bairro", "valor": 15, "regiao": "Cabo" },
+{ "origem": "Garapú VILA DA CONEST", "destino": "SESI Cabo", "valor": 21, "regiao": "Cabo" },
+{ "origem": "Garapú VILA DA CONEST", "destino": "SEST-SENAT (Rosário)", "valor": 20, "regiao": "Cabo" },
+
 { "origem": "Garapú 1 (1º Modelo Até Nova Era)", "destino": "Castelo Recepções", "valor": 36, "regiao": "Cabo" },
 { "origem": "Garapú 1 (1º Modelo Até Nova Era)", "destino": "Fazenda casa Branca - Pirapama", "valor": 24, "regiao": "Cabo" },
 { "origem": "Garapú 1 (1º Modelo Até Nova Era)", "destino": "Granja Pajeú", "valor": 31, "regiao": "Cabo" },
@@ -628,3 +647,4 @@
 
 
  ]
+
