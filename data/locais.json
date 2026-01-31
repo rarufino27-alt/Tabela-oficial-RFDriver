@@ -919,7 +919,7 @@
 { "origem": "Charnequinha Baixa", "destino": "Pirapama Mangueirinha e TURURU", "valor": 23, "regiao": "Cabo" },
 { "origem": "Charnequinha Baixa", "destino": "Barbalho 1 e 2", "valor": 18, "regiao": "Cabo" },
 { "origem": "Charnequinha Baixa", "destino": "Barbalho em frente a lagoa", "valor": 18, "regiao": "Cabo" },
-{ "origem": "Charnequinha Baixa", "destino": "Vila do SESI", "valor": 13, "regiao": "Cabo" },-
+{ "origem": "Charnequinha Baixa", "destino": "Vila do SESI", "valor": 13, "regiao": "Cabo" },
 
 { "origem": "Charnequinha Alta", "destino": "Centro do Cabo", "valor": 12, "regiao": "Cabo" },
 { "origem": "Charnequinha Alta", "destino": "Praça Theo Silva (Centro)", "valor": 12, "regiao": "Cabo" },
@@ -2342,6 +2342,7 @@
 
 
 ]
+
 
 
 
