@@ -877,7 +877,7 @@
 { "origem": "Charnequinha Baixa", "destino": "Charnequinha Baixa", "valor": 10, "regiao": "Cabo" },
 { "origem": "Charnequinha Baixa", "destino": "Charnequinha Alta", "valor": 10, "regiao": "Cabo" },
 { "origem": "Charnequinha Baixa", "destino": "Charnequinha (R. 2 e área da quadra)", "valor": 10, "regiao": "Cabo" },
-{ "origem": "Charnequinha Baixa", "destino": "Sapucaia", "valor": 1,, "regiao": "Cabo" },
+{ "origem": "Charnequinha Baixa", "destino": "Sapucaia", "valor": 1, "regiao": "Cabo" },
 { "origem": "Charnequinha Baixa", "destino": "Destilaria", "valor": 15, "regiao": "Cabo" },
 { "origem": "Charnequinha Baixa", "destino": "Comunidade da Destilaria", "valor": 17, "regiao": "Cabo" },
 { "origem": "Charnequinha Baixa", "destino": "Clube da Destilaria", "valor": 15, "regiao": "Cabo" },
@@ -2329,5 +2329,6 @@
 
 
 ]
+
 
 
