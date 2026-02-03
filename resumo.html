@@ -438,13 +438,25 @@ if (taxaNoturna.checked) {
     detalhesWhats.push(`🐶 *Transporte animal*: +R$ ${animal.toFixed(2)}`);
   }
 
-  const min = Number(minutosEspera.value || 0);
-  if (min >= Taxas.espera.blocoMinutos) {
-    const acres = Math.floor(min / Taxas.espera.blocoMinutos) * Taxas.espera.valorPorBloco;
-    total += acres;
-    detalhes.push([`Tempo de espera (${min} min)`, acres]);
-    detalhesWhats.push(`⏱️ *Tempo de espera*: +R$ ${acres.toFixed(2)}`);
-  }
+const min = Number(minutosEspera.value || 0);
+
+if (min > Taxas.espera.minutosGratis) {
+  const minutosCobrados = min;
+  const acres =
+    Taxas.espera.valorInicial +
+    (minutosCobrados * Taxas.espera.valorPorMinuto);
+
+  total += acres;
+
+  detalhes.push([
+    `Tempo de espera (${min} min)`,
+    acres
+  ]);
+
+  detalhesWhats.push(
+    `⏱️ *Tempo de espera (${min} min)*: +R$ ${acres.toFixed(2)}`
+  );
+}
 
   detalheDiv.innerHTML = detalhes.map(d => `
     <div>
