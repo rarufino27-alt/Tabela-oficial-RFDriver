@@ -264,6 +264,7 @@ input::placeholder{color:#8a96a6}
   <div class="block">
     <div class="extra"><span>Desvio de rota simples</span><input type="checkbox" id="desvioSimples"></div>
     <div class="extra"><span>Volta da praia</span><input type="checkbox" id="voltaPraia"></div>
+    <div class="extra"><span>Veículo 6 lugares / excesso de passageiros</span><input type="checkbox" id="veiculo6"></div>
     <div class="extra"><span>Taxa de feira</span><input type="checkbox" id="taxaFeira"></div>
     <div class="extra"><span>Adicional noturno</span><input type="checkbox" id="taxaNoturna"></div>
   </div>
@@ -328,6 +329,7 @@ document.getElementById("destinoTxt").innerText = destino;
 const tipoViagem = document.getElementById("tipoViagem");
 const desvioSimples = document.getElementById("desvioSimples");
 const voltaPraia = document.getElementById("voltaPraia");
+const veiculo6 = document.getElementById("veiculo6");
 const taxaFeira = document.getElementById("taxaFeira");
 const taxaNoturna = document.getElementById("taxaNoturna");
 const animalSel = document.getElementById("animal");
@@ -397,6 +399,21 @@ function calcular(){
     detalhes.push(["Taxa de feira", Taxas.feira]);
     detalhesWhats.push("🧺 *Taxa de feira*: +R$ 5,00");
   }
+
+if (veiculo6.checked) {
+  const acres = valorBase * Taxas.veiculo6Lugares.percentual;
+
+  total += acres;
+
+  detalhes.push([
+    "Veículo 6 lugares / excesso de passageiros (50%)",
+    acres
+  ]);
+
+  detalhesWhats.push(
+    `🚐 *Veículo 6 lugares / excesso de passageiros*: +R$ ${acres.toFixed(2)}`
+  );
+}
 
 if (taxaNoturna.checked) {
   let acres = 0;
