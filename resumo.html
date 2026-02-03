@@ -440,11 +440,11 @@ if (taxaNoturna.checked) {
 
 const min = Number(minutosEspera.value || 0);
 
-if (min > Taxas.espera.minutosGratis) {
-  const minutosCobrados = min;
+if (min >= 5) {
+  const minutosExcedentes = min - 5;
   const acres =
     Taxas.espera.valorInicial +
-    (minutosCobrados * Taxas.espera.valorPorMinuto);
+    (minutosExcedentes * Taxas.espera.valorPorMinuto);
 
   total += acres;
 
