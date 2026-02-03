@@ -357,9 +357,9 @@ function calcular(){
   const tipo = tipoViagem.value;
 
   if (tipo === "bate_volta") {
-    const acres = valorBase * 1.00;
+    const acres = valorBase * 0.80;
     total += acres;
-    detalhes.push(["Bate e volta (+100%)", acres]);
+    detalhes.push(["Bate e volta (+80%)", acres]);
     detalhesWhats.push(`♻️ *Bate e volta*: +R$ ${acres.toFixed(2)}`);
   }
 
