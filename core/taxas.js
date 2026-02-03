@@ -46,10 +46,11 @@ veiculo6Lugares: {
   percentual: 0.5
 },
 
-  /* ================= ESPERA ================= */
-  espera: {
-    blocoMinutos: 5,
-    valorPorBloco: 3
-  }
+/* ================= ESPERA ================= */
+espera: {
+  minutosGratis: 4,
+  valorInicial: 3,
+  valorPorMinuto: 0.6
+}
 
 };
