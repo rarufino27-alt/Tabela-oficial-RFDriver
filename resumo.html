@@ -234,6 +234,7 @@ input::placeholder{color:#8a96a6}
     <div class="extra"><span>Desvio de rota simples</span><input type="checkbox" id="desvioSimples"></div>
     <div class="extra"><span>Volta da praia</span><input type="checkbox" id="voltaPraia"></div>
     <div class="extra"><span>Taxa de feira</span><input type="checkbox" id="taxaFeira"></div>
+    <div class="extra"><span>Adicional noturno</span><input type="checkbox" id="taxaNoturna"></div>
   </div>
 
   <div class="block">
@@ -285,6 +286,7 @@ const tipoViagem = document.getElementById("tipoViagem");
 const desvioSimples = document.getElementById("desvioSimples");
 const voltaPraia = document.getElementById("voltaPraia");
 const taxaFeira = document.getElementById("taxaFeira");
+const taxaNoturna = document.getElementById("taxaNoturna");
 const animalSel = document.getElementById("animal");
 const minutosEspera = document.getElementById("minutosEspera");
 const detalheDiv = document.getElementById("detalhamento");
@@ -352,6 +354,22 @@ function calcular(){
     detalhes.push(["Taxa de feira", Taxas.feira]);
     detalhesWhats.push("🧺 *Taxa de feira*: +R$ 5,00");
   }
+
+if (taxaNoturna.checked) {
+  let acres = 0;
+
+  if (total <= Taxas.noturno.limite) {
+    acres = Taxas.noturno.valorFixo;
+    detalhes.push(["Adicional noturno", acres]);
+    detalhesWhats.push("🌙 *Adicional noturno*: +R$ 5,00");
+  } else {
+    acres = total * Taxas.noturno.percentual;
+    detalhes.push(["Adicional noturno (35%)", acres]);
+    detalhesWhats.push(`🌙 *Adicional noturno (35%)*: +R$ ${acres.toFixed(2)}`);
+  }
+
+  total += acres;
+}
 
   const animal = Number(animalSel.value || 0);
   if (animal > 0) {
