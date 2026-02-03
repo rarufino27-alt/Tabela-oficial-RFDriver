@@ -13,6 +13,14 @@ const Taxas = {
     idaVoltaEspera: 1.2     // 2x + 10%
   },
 
+/* ================= TAXA NOTURNA ================= */
+
+noturno: {
+  limite: 29,
+  valorFixo: 5,
+  percentual: 0.35
+},
+
   /* ================= TAXAS FIXAS ================= */
 
   // Desvio simples (valor fixo)
