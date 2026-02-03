@@ -11,7 +11,6 @@ const DataManager = {
   "./data/lazer-festa.json",
   "./data/hospitais-clinicas.json",
   "./data/longas-locais.json",
-  "./data/mercado.json",
   "./data/shoppings.json"
 ],
 
@@ -60,3 +59,4 @@ const DataManager = {
     return rota ? rota.valor : null;
   }
 };
+
