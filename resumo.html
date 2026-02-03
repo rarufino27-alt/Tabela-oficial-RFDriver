@@ -326,15 +326,15 @@ const valorBase = Number(App.get("valorBase") || 0);
 document.getElementById("origemTxt").innerText = origem;
 document.getElementById("destinoTxt").innerText = destino;
 
-const 🚖tipoViagem = document.getElementById("tipoViagem");
-const 🛣️desvioSimples = document.getElementById("desvioSimples");
-const 🏖️voltaPraia = document.getElementById("voltaPraia");
-const 🚌veiculo6 = document.getElementById("veiculo6");
-const 🛒taxaFeira = document.getElementById("taxaFeira");
-const 🌙taxaNoturna = document.getElementById("taxaNoturna");
-const 🐶animalSel = document.getElementById("animal");
-const ⏱️minutosEspera = document.getElementById("minutosEspera");
-const 🗃️detalheDiv = document.getElementById("detalhamento");
+const tipoViagem = document.getElementById("🚖tipoViagem");
+const desvioSimples = document.getElementById("🛣️desvioSimples");
+const voltaPraia = document.getElementById("🏖️voltaPraia");
+const veiculo6 = document.getElementById("🚌veiculo6");
+const taxaFeira = document.getElementById("🛒taxaFeira");
+const taxaNoturna = document.getElementById("🌙taxaNoturna");
+const animalSel = document.getElementById("🐶animal");
+const minutosEspera = document.getElementById("⏱️minutosEspera");
+const detalheDiv = document.getElementById("🗃️detalhamento");
 const totalDiv = document.getElementById("total");
 
 let detalhesWhats = [];
@@ -357,9 +357,9 @@ function calcular(){
   const tipo = tipoViagem.value;
 
   if (tipo === "bate_volta") {
-    const acres = valorBase * 0.80;
+    const acres = valorBase * 1.00;
     total += acres;
-    detalhes.push(["Bate e volta (+80%)", acres]);
+    detalhes.push(["Bate e volta (+100%)", acres]);
     detalhesWhats.push(`♻️ *Bate e volta*: +R$ ${acres.toFixed(2)}`);
   }
 
