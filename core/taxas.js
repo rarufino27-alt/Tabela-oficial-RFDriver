@@ -40,6 +40,12 @@ noturno: {
     longa: 20
   },
 
+   /* ================= VEÍCULO 6 LUGARES ================= */
+
+veiculo6Lugares: {
+  percentual: 0.5
+},
+
   /* ================= ESPERA ================= */
   espera: {
     blocoMinutos: 5,
