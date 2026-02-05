@@ -246,8 +246,8 @@ input::placeholder{color:#8a96a6}
 <div class="container">
 
   <div class="header">
-    <h1>RF Driver</h1>
-    <span>Orçamento de viagem</span>
+    <h1>Resumo RF Driver</h1>
+    <span>Recibo/Orçamento de viagem</span>
   </div>
 
   <div class="route">
@@ -320,7 +320,7 @@ input::placeholder{color:#8a96a6}
   <div class="slogan">Mobilidade com excelência</div>
 </div>
 
-  <button class="btn-primary" onclick="enviarWhats()">Solicitar corrida no GRUPO</button>
+  <button class="btn-primary" onclick="enviarWhats()">Enviar Recibo Via Whatsapp</button>
   <button class="btn-secondary" onclick="App.go('destino.html')">⬅ Voltar</button>
 
 </div>
@@ -398,19 +398,19 @@ function calcular(){
   if (desvioSimples.checked) {
     total += Taxas.desvioRotaSimples;
     detalhes.push(["Desvio simples", Taxas.desvioRotaSimples]);
-    detalhesWhats.push("🛣️ *Desvio simples*: +R$ 5,00");
+    detalhesWhats.push("🛣️ *Desvio de Rota*: +R$ 5,00");
   }
 
   if (voltaPraia.checked) {
     total += Taxas.voltaPraia;
     detalhes.push(["Volta da praia", Taxas.voltaPraia]);
-    detalhesWhats.push("🏖️ *Volta da praia*: +R$ 10,00");
+    detalhesWhats.push("🏖️ *Volta das praias*: +R$ 10,00");
   }
 
   if (taxaFeira.checked) {
     total += Taxas.feira;
     detalhes.push(["Taxa de feira", Taxas.feira]);
-    detalhesWhats.push("🧺 *Taxa de feira*: +R$ 5,00");
+    detalhesWhats.push("🛒 *Taxa de feira*: +R$ 5,00");
   }
 
 if (veiculo6.checked) {
@@ -419,12 +419,12 @@ if (veiculo6.checked) {
   total += acres;
 
   detalhes.push([
-    "Veículo 6 lugares / excesso de passageiros (50%)",
+    "Veículo 6 lugares (50%)",
     acres
   ]);
 
   detalhesWhats.push(
-    `🚐 *Veículo 6 lugares / excesso de passageiros*: +R$ ${acres.toFixed(2)}`
+    `🚐 *Veículo 6 lugares*: +R$ ${acres.toFixed(2)}`
   );
 }
 
