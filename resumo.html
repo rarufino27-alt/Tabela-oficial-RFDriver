@@ -304,13 +304,21 @@ calcular();
 /* ===== WHATSAPP ===== */
 function enviarWhats(){
   const msg =
-`🚖 RF Driver
+`🚖 *Recibo de Viagem RF Driver*
 
-Origem: ${inverterRota.checked?destinoOriginal:origemOriginal}
-Destino: ${inverterRota.checked?origemOriginal:destinoOriginal}
+*Origem:* ${inverterRota.checked?destinoOriginal:origemOriginal}
+*Destino:* ${inverterRota.checked?origemOriginal:destinoOriginal}
 
-💰 Total: R$ ${App.get("total").toFixed(2)}
+💰 *Total:* R$ ${App.get("total").toFixed(2)}
 
+*Detalhamento*
+${detalhesWhats.join("\n")}
+
+—
+*Grupo RF Driver*
+CNPJ: 58.615.336/0001-49
+
+_Mobilidade com excelência_`;
 Mobilidade com excelência`;
   window.open("https://wa.me/?text="+encodeURIComponent(msg));
 }
