@@ -93,8 +93,33 @@ input,select{width:100%;padding:12px;margin-bottom:8px;border-radius:14px;border
 }
 
 .history-day{
-  border-top:1px solid var(--border);
-  padding-top:10px;margin-top:10px
+  margin-top:10px;
+  padding:12px;
+  border-radius:14px;
+  border:1px solid var(--border);
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:8px;
+}
+
+.history-actions button{
+  border:none;
+  padding:6px 10px;
+  border-radius:10px;
+  font-size:.75rem;
+  font-weight:700;
+  cursor:pointer;
+}
+
+.btn-whats{
+  background:var(--green);
+  color:#fff;
+}
+
+.btn-del{
+  background:var(--red);
+  color:#fff;
 }
 </style>
 </head>
@@ -155,10 +180,10 @@ input,select{width:100%;padding:12px;margin-bottom:8px;border-radius:14px;border
   </div>
 
   <!-- HISTÓRICO -->
-  <div class="card">
-    <strong>Histórico (últimos 30 dias)</strong>
-    <div id="historico"></div>
-  </div>
+<div class="card">
+  <strong>Histórico (últimos 30 dias)</strong>
+  <div id="historico"></div>
+</div>
 
 </div>
 
@@ -218,14 +243,56 @@ function finalizar(){
 }
 
 function renderHist(){
-  historico.innerHTML="";
-  hist.slice(-30).forEach((d,i)=>{
-    historico.innerHTML+=`
-      <div class="history-day">
-        <strong>${d.data}</strong>
-        <button onclick="whats(${i})">📲 WhatsApp</button>
-      </div>`;
+  const box = document.getElementById("historico");
+  box.innerHTML = "";
+
+  // mantém somente 30 dias
+  hist = hist.slice(-30);
+  localStorage.setItem(LS_HIST, JSON.stringify(hist));
+
+  hist.forEach((dia, index) => {
+    const div = document.createElement("div");
+    div.className = "history-day";
+
+    div.innerHTML = `
+      <strong>${dia.data}</strong>
+      <div class="history-actions">
+        <button class="btn-whats" onclick="enviarDiaWhats(${index})">📲</button>
+        <button class="btn-del" onclick="excluirDia(${index})">🗑️</button>
+      </div>
+    `;
+    box.appendChild(div);
   });
+}
+
+function enviarDiaWhats(i){
+  const dia = hist[i];
+  let msg = `📊 *RF Driver – Resumo do Dia*\n📅 *Data*: ${dia.data}\n\n`;
+
+  let ent = 0, sai = 0;
+
+  dia.itens.forEach(m => {
+    if(m.tipo === "entrada") ent += m.valor;
+    else sai += m.valor;
+
+    msg += `${m.tipo === "entrada" ? "➕" : "➖"} ${m.desc}: ${moeda(m.valor)}\n`;
+  });
+
+  msg += `\n💰 *Entradas*: ${moeda(ent)}`;
+  msg += `\n💸 *Saídas*: ${moeda(sai)}`;
+  msg += `\n🏁 *Lucro*: ${moeda(ent - sai)}`;
+
+  window.open(
+    "https://wa.me/?text=" + encodeURIComponent(msg),
+    "_blank"
+  );
+}
+
+function excluirDia(i){
+  if(!confirm("Deseja excluir este histórico?")) return;
+  hist.splice(i,1);
+  localStorage.setItem(LS_HIST, JSON.stringify(hist));
+  renderHist();
 }
 
 function whats(i){
