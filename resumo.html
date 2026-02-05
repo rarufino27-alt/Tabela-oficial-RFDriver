@@ -247,16 +247,23 @@ input::placeholder{color:#8a96a6}
 
   <div class="header">
     <h1>RF Driver</h1>
-    <span>Orçamento de viagem</span>
+    <span>Resumo da Viagem</span>
   </div>
 
   <div class="route">
-    <strong>📌🏁Origem/Destino</strong><br>
+    <strong>📌Origem</strong><br>
     <span id="origemTxt"></span>
     <div class="arrow">⬇</div>
-    <strong>🏁📌Destino/Origem</strong><br>
+    <strong>🏁Destino</strong><br>
     <span id="destinoTxt"></span>
   </div>
+
+   <div class="block">
+  <div class="extra">
+    <span>🔁 Inverter origem e destino</span>
+    <input type="checkbox" id="inverterRota">
+  </div>
+</div>
 
   <div class="block">
     <label>🚖Tipo de viagem</label>
@@ -334,11 +341,23 @@ input::placeholder{color:#8a96a6}
 <script>
 const origem = App.get("origem");
 const destino = App.get("destino");
+
+if(!origem || !destino){
+  App.go("index.html");
+}
+
+/* ====== VARIÁVEIS BASE ====== */
+const origemOriginal = origem;
+const destinoOriginal = destino;
 const valorBase = Number(App.get("valorBase") || 0);
 
-document.getElementById("origemTxt").innerText = origem;
-document.getElementById("destinoTxt").innerText = destino;
+const inverterRota = document.getElementById("inverterRota");
+const boxInverter = document.getElementById("boxInverter");
 
+document.getElementById("origemTxt").innerText = origemOriginal;
+document.getElementById("destinoTxt").innerText = destinoOriginal;
+   
+const inverterRota = document.getElementById("inverterRota");
 const tipoViagem = document.getElementById("tipoViagem");
 const desvioSimples = document.getElementById("desvioSimples");
 const voltaPraia = document.getElementById("voltaPraia");
@@ -352,6 +371,23 @@ const totalDiv = document.getElementById("total");
 
 let detalhesWhats = [];
 
+   * ====== ATUALIZA ROTA VISUAL ====== */
+function atualizarRotaVisual(){
+  if(inverterRota.checked){
+    origemTxt.innerText = destinoOriginal;
+    destinoTxt.innerText = origemOriginal;
+    boxInverter.classList.add("active");
+  } else {
+    origemTxt.innerText = origemOriginal;
+    destinoTxt.innerText = destinoOriginal;
+    boxInverter.classList.remove("active");
+  }
+}
+
+/* ====== LISTENER ====== */
+inverterRota.addEventListener("change", atualizarRotaVisual);
+atualizarRotaVisual();
+   
 function calcular(){
   let total = valorBase;
   let detalhes = [];
@@ -491,12 +527,22 @@ document.querySelectorAll("select,input").forEach(el=>{
 
 calcular();
 
+   function atualizarRotaVisual(){
+  if(inverterRota.checked){
+    document.getElementById("origemTxt").innerText = destinoOriginal;
+    document.getElementById("destinoTxt").innerText = origemOriginal;
+  } else {
+    document.getElementById("origemTxt").innerText = origemOriginal;
+    document.getElementById("destinoTxt").innerText = destinoOriginal;
+  }
+}
+
 function enviarWhats(){
   const msg =
 `🚖 *RF Driver – Recibo de viagem*
 
-📌 *Origem*: ${origem}
-🏁 *Destino*: ${destino}
+📌 *Origem*: ${inverterRota.checked ? destinoOriginal : origemOriginal}
+🏁 *Destino*: ${inverterRota.checked ? origemOriginal : destinoOriginal}
 
 *Detalhamento*
 ${detalhesWhats.join("\n")}
