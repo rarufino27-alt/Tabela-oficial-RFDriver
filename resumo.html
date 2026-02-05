@@ -221,6 +221,91 @@ function atualizarRotaVisual(){
 
 inverterRota.addEventListener("change", atualizarRotaVisual);
 
+  document.querySelectorAll("select").forEach(el=>{
+  el.addEventListener("change", calcular);
+});
+
+document.querySelectorAll("input[type='checkbox']").forEach(el=>{
+  el.addEventListener("change", e=>{
+    e.target.closest(".extra")?.classList.toggle("active", e.target.checked);
+    calcular();
+  });
+});
+
+document.querySelectorAll("input[type='number']").forEach(el=>{
+  el.addEventListener("input", calcular);
+});
+
+  function calcular(){
+  let totalCalc = valorBase;
+  let detalhes = [];
+
+  detalhes.push(["Viagem base", valorBase]);
+
+  if(tipoViagem.value === "bate_volta"){
+    const acres = valorBase;
+    totalCalc += acres;
+    detalhes.push(["Bate e volta", acres]);
+  }
+
+  if(desvioSimples.checked){
+    totalCalc += Taxas.desvioRotaSimples;
+    detalhes.push(["Desvio de rota", Taxas.desvioRotaSimples]);
+  }
+
+  if(voltaPraia.checked){
+    totalCalc += Taxas.voltaPraia;
+    detalhes.push(["Volta da praia", Taxas.voltaPraia]);
+  }
+
+  if(veiculo6.checked){
+    const acres = valorBase * Taxas.veiculo6Lugares.percentual;
+    totalCalc += acres;
+    detalhes.push(["Veículo 6 lugares", acres]);
+  }
+
+  if(taxaFeira.checked){
+    totalCalc += Taxas.feira;
+    detalhes.push(["Taxa de feira", Taxas.feira]);
+  }
+
+  if(taxaNoturna.checked){
+    const acres = totalCalc <= Taxas.noturno.limite
+      ? Taxas.noturno.valorFixo
+      : totalCalc * Taxas.noturno.percentual;
+
+    totalCalc += acres;
+    detalhes.push(["Adicional noturno", acres]);
+  }
+
+  const animalValor = Number(animal.value || 0);
+  if(animalValor){
+    totalCalc += animalValor;
+    detalhes.push(["Transporte animal", animalValor]);
+  }
+
+  const min = Number(minutosEspera.value || 0);
+  if(min >= 5){
+    const acres =
+      Taxas.espera.valorInicial +
+      ((min - 5) * Taxas.espera.valorPorMinuto);
+
+    totalCalc += acres;
+    detalhes.push([`Tempo de espera (${min} min)`, acres]);
+  }
+
+  detalhamento.innerHTML = detalhes.map(d=>`
+    <div>
+      <span>${d[0]}</span>
+      <strong>R$ ${d[1].toFixed(2)}</strong>
+    </div>
+  `).join("");
+
+  total.innerText = `R$ ${totalCalc.toFixed(2)}`;
+}
+
+  calcular();
+
 function enviarWhats(){
   const msg =
 `🚖 RF Driver
