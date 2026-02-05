@@ -493,10 +493,10 @@ calcular();
 
 function enviarWhats(){
   const msg =
-`🚖 *Solicitação de Viagem*
+`🚖 *Recibo de Viagem RF Driver*
 
-📌 *Origem*: ${origem}
-🏁 *Destino*: ${destino}
+📌 *Origem/Destino*: ${origem}
+🏁 *Destino/Origem*: ${destino}
 
 *Detalhamento*
 ${detalhesWhats.join("\n")}
@@ -504,7 +504,7 @@ ${detalhesWhats.join("\n")}
 💰 *Total*: R$ ${App.get("total").toFixed(2)}
 
 —
-*Grupo RF Driver*
+*Grupo de Viagens RF Driver*
 CNPJ: 58.615.336/0001-49
 
 _Mobilidade com excelência_`;
