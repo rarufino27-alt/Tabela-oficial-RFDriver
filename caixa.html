@@ -175,20 +175,35 @@ input,select{
   <!-- CORRIDAS -->
   <div class="card tab corridas">
     <label>Tipo de corrida</label>
-    <select id="tipoCorrida">
-      <option>Grupo RF Driver</option>
-      <option>Particular</option>
-      <option>Empresa</option>
-      <option>Aplicativo</option>
+    <select id="tipoCorrida" onchange="ajustarCamposCorrida()">
+      <option value="GRUPO">GRUPO RF DRIVER</option>
+      <option value="APP">Aplicativo</option>
+      <option value="PARTICULAR">Particular</option>
+      <option value="EMPRESA">Empresa</option>
     </select>
 
-    <label>Plataforma</label>
-    <select id="plataforma">
-      <option>Uber</option>
-      <option>99</option>
-      <option>InDrive</option>
-      <option>Outros</option>
-    </select>
+    <!-- Plataforma (APLICATIVO) -->
+    <div id="boxPlataforma" style="display:none">
+      <label>Plataforma</label>
+      <select id="plataforma">
+        <option>Uber</option>
+        <option>99</option>
+        <option>InDrive</option>
+        <option>Outros</option>
+      </select>
+    </div>
+
+    <!-- Empresa -->
+    <div id="boxEmpresa" style="display:none">
+      <label>Empresa</label>
+      <input type="text" id="empresaNome" placeholder="Nome da empresa">
+    </div>
+
+    <!-- Particular -->
+    <div id="boxDetalhes" style="display:none">
+      <label>Detalhes (opcional)</label>
+      <input type="text" id="detalhesParticular" placeholder="Ex: cliente fixo, bairro...">
+    </div>
 
     <input type="number" id="valorCorrida" placeholder="Valor da corrida">
     <button class="btn btn-green" onclick="registrarCorrida()">Registrar Corrida</button>
@@ -236,7 +251,6 @@ const LS_HIST="rf_caixa_historico";
 let caixa = JSON.parse(localStorage.getItem(LS_ATUAL)) || [];
 
 function salvar(){localStorage.setItem(LS_ATUAL,JSON.stringify(caixa));}
-
 const moeda=v=>v.toLocaleString("pt-BR",{style:"currency",currency:"BRL"});
 
 function atualizar(){
@@ -247,8 +261,39 @@ function atualizar(){
   salvar();
 }
 
+/* === NOVA LÓGICA === */
+function ajustarCamposCorrida(){
+  boxPlataforma.style.display="none";
+  boxEmpresa.style.display="none";
+  boxDetalhes.style.display="none";
+
+  if(tipoCorrida.value==="APP") boxPlataforma.style.display="block";
+  if(tipoCorrida.value==="EMPRESA") boxEmpresa.style.display="block";
+  if(tipoCorrida.value==="PARTICULAR") boxDetalhes.style.display="block";
+}
+
 function registrarCorrida(){
-  caixa.push({tipo:"entrada",desc:`Corrida (${tipoCorrida.value} - ${plataforma.value})`,valor:Number(valorCorrida.value)});
+  let desc="Corrida ";
+
+  if(tipoCorrida.value==="APP"){
+    desc+=`(Aplicativo - ${plataforma.value})`;
+  }
+  else if(tipoCorrida.value==="EMPRESA"){
+    if(!empresaNome.value){alert("Informe a empresa");return;}
+    desc+=`(Empresa - ${empresaNome.value})`;
+    empresaNome.value="";
+  }
+  else if(tipoCorrida.value==="PARTICULAR"){
+    desc+=detalhesParticular.value
+      ? `(Particular - ${detalhesParticular.value})`
+      : "(Particular)";
+    detalhesParticular.value="";
+  }
+  else{
+    desc+="(Grupo RF Driver)";
+  }
+
+  caixa.push({tipo:"entrada",desc,valor:Number(valorCorrida.value)});
   valorCorrida.value="";
   atualizar();
 }
@@ -266,8 +311,7 @@ function registrarSaida(){
 }
 
 function montarResumo(){
-  let ent=0,sai=0;
-  let html="";
+  let ent=0,sai=0,html="";
   caixa.forEach(m=>{
     if(m.tipo==="entrada") ent+=m.valor; else sai+=m.valor;
     html+=`<div class="item"><span>${m.desc}</span><strong>${moeda(m.valor)}</strong></div>`;
@@ -298,6 +342,7 @@ function abrirTab(tab,btn){
   btn.classList.add("active");
 }
 
+ajustarCamposCorrida();
 atualizar();
 </script>
 
