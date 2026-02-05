@@ -1,232 +1,296 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Livro Caixa - RF Driver</title>
-
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
-<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" rel="stylesheet">
+<meta charset="UTF-8">
+<title>Livro Caixa – RF Driver</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <style>
 :root{
-  --gold:#f5c542; --bg:#0d0d0d; --text:#f4f4f4;
-  --card:#161616; --border:#242424; --red:#ff3b30;
-}
-body[data-theme="light"]{
-  --bg:#f4f4f4; --text:#111; --card:#fff; --border:#ddd;
-}
-*{box-sizing:border-box;font-family:Inter}
-body{margin:0;background:var(--bg);color:var(--text);padding:70px 16px 150px}
-
-.header{text-align:center;margin-bottom:16px}
-.header h1{margin:0;font-size:32px;color:var(--gold)}
-.header small{opacity:.7}
-
-.card{
-  background:var(--card);border:1px solid var(--border);
-  border-radius:18px;padding:18px;margin-bottom:16px
+  --bg:#f4f7fb;
+  --blue:#0b2238;
+  --blue-soft:#12355b;
+  --gold:#d4af37;
+  --gold-light:#e6c97a;
+  --green:#1db954;
+  --red:#d9534f;
+  --card:#ffffff;
+  --border:#dce3ed;
+  --text:#0b1b2b;
 }
 
-.saldo-box{
-  border:2px solid var(--gold);
-  text-align:center
-}
-.saldo-box h2{font-size:34px;margin:10px 0}
+*{box-sizing:border-box;font-family:Inter,system-ui,Arial}
 
-.tabs{display:flex;gap:10px;margin-bottom:12px}
+body{
+  margin:0;
+  background:linear-gradient(180deg,#ffffff,var(--bg));
+  color:var(--text);
+  padding:20px;
+}
+
+.container{
+  max-width:420px;
+  margin:auto;
+  display:flex;
+  flex-direction:column;
+  gap:16px;
+}
+
+/* HEADER */
+.header{
+  background:linear-gradient(180deg,var(--blue),var(--blue-soft));
+  color:#fff;
+  border-radius:22px;
+  padding:20px;
+  text-align:center;
+  box-shadow:0 14px 36px rgba(0,0,0,.35);
+}
+
+.header h1{
+  margin:0;
+  font-size:1.4rem;
+  letter-spacing:2px;
+  background:linear-gradient(120deg,var(--gold),var(--gold-light),var(--gold));
+  -webkit-background-clip:text;
+  -webkit-text-fill-color:transparent;
+}
+
+.header small{color:#e6ecf3}
+
+/* SALDO */
+.saldo{
+  background:var(--card);
+  border-radius:20px;
+  padding:18px;
+  text-align:center;
+  box-shadow:0 8px 22px rgba(0,0,0,.08);
+}
+
+.saldo strong{
+  display:block;
+  font-size:2rem;
+  color:var(--gold);
+}
+
+/* TABS */
+.tabs{
+  display:flex;
+  gap:8px;
+}
+
 .tabs button{
-  flex:1;padding:12px;border:none;border-radius:12px;
-  background:var(--border);color:var(--text);font-weight:600
+  flex:1;
+  padding:12px;
+  border-radius:14px;
+  border:1px solid var(--border);
+  background:#fff;
+  font-weight:700;
 }
-.tabs button.active{background:var(--gold);color:#000}
+
+.tabs button.active{
+  background:linear-gradient(145deg,var(--gold-light),var(--gold));
+  color:#0b1b2b;
+}
+
+/* CARD */
+.card{
+  background:var(--card);
+  border-radius:18px;
+  padding:16px;
+  box-shadow:0 6px 18px rgba(0,0,0,.08);
+}
+
+label{
+  font-size:.8rem;
+  font-weight:700;
+  margin-bottom:4px;
+  display:block;
+}
 
 input,select{
-  width:100%;padding:12px;margin:6px 0 12px;
-  border-radius:12px;border:1px solid var(--border);
-  background:transparent;color:var(--text)
+  width:100%;
+  padding:12px;
+  margin-bottom:10px;
+  border-radius:14px;
+  border:1px solid var(--border);
 }
 
-.btn{width:100%;padding:14px;border:none;border-radius:14px;font-weight:700}
-.btn-primary{background:var(--gold);color:#000}
-.btn-danger{background:var(--red);color:#fff}
-
-.history-item{
-  display:flex;justify-content:space-between;
-  border-bottom:1px solid var(--border);
-  padding:8px 0;font-size:14px
+/* BOTÕES */
+.btn{
+  width:100%;
+  padding:14px;
+  border:none;
+  border-radius:16px;
+  font-weight:800;
 }
 
-/* NAV */
-.drawer-toggle,.theme-toggle{
-  position:fixed;top:15px;font-size:22px;color:var(--gold);
-  cursor:pointer;z-index:40
-}
-.drawer-toggle{left:15px}
-.theme-toggle{right:15px}
-
-.drawer{
-  position:fixed;top:0;left:-260px;width:260px;height:100%;
-  background:var(--card);border-right:1px solid var(--border);
-  padding-top:20px;transition:.3s;z-index:30
-}
-.drawer.open{left:0}
-.drawer a{
-  display:flex;gap:12px;padding:14px 20px;
-  color:var(--text);text-decoration:none;
-  border-bottom:1px solid var(--border)
+.btn-green{background:var(--green);color:#fff}
+.btn-red{background:var(--red);color:#fff}
+.btn-gold{
+  background:linear-gradient(145deg,var(--gold-light),var(--gold));
+  color:#0b1b2b
 }
 
-.bottom-nav{
-  position:fixed;bottom:0;left:0;right:0;
-  background:var(--card);display:flex;justify-content:space-around;
-  padding:8px 0
+/* HISTÓRICO */
+.item{
+  display:flex;
+  justify-content:space-between;
+  margin-bottom:6px;
+  font-size:.85rem;
 }
-.bottom-nav a{color:var(--text)}
-.center-btn{
-  background:var(--gold);color:#000;width:58px;height:58px;
-  border-radius:50%;display:flex;align-items:center;
-  justify-content:center;font-size:24px;margin-top:-30px
+
+/* RESUMO */
+.resumo-box{
+  background:linear-gradient(180deg,var(--blue),var(--blue-soft));
+  color:#fff;
+  border-radius:22px;
+  padding:18px;
 }
+
+.resumo-box strong{color:var(--gold)}
 </style>
 </head>
 
 <body>
 
-<div class="drawer-toggle" onclick="drawer.classList.toggle('open')"><i class="fa fa-bars"></i></div>
-<div class="theme-toggle" onclick="toggleTheme()"><i class="fa fa-moon"></i></div>
+<div class="container">
 
-<nav class="drawer" id="drawer">
-  <a href="perfil.html"><i class="fa fa-user"></i> Perfil</a>
-  <a href="instalar-app.html"><i class="fa fa-download"></i> Como Instalar</a>
-</nav>
+  <div class="header">
+    <h1>LIVRO CAIXA</h1>
+    <small>RF Driver – Controle diário</small>
+  </div>
 
-<div class="header">
-  <h1>Livro Caixa</h1>
-  <small>Controle diário de entradas e saídas</small>
+  <div class="saldo">
+    Saldo do dia
+    <strong id="saldo">R$ 0,00</strong>
+  </div>
+
+  <div class="tabs">
+    <button class="active" onclick="abrirTab('corridas',this)">Corridas</button>
+    <button onclick="abrirTab('entradas',this)">Entradas</button>
+    <button onclick="abrirTab('saidas',this)">Saídas</button>
+    <button onclick="abrirTab('resumo',this)">Resumo</button>
+  </div>
+
+  <!-- CORRIDAS -->
+  <div class="card tab corridas">
+    <label>Tipo de corrida</label>
+    <select id="tipoCorrida">
+      <option>Aplicativo</option>
+      <option>Particular</option>
+      <option>Empresa</option>
+    </select>
+
+    <label>Plataforma</label>
+    <select id="plataforma">
+      <option>Uber</option>
+      <option>99</option>
+      <option>InDrive</option>
+      <option>Outros</option>
+    </select>
+
+    <input type="number" id="valorCorrida" placeholder="Valor da corrida">
+    <button class="btn btn-green" onclick="registrarCorrida()">Registrar Corrida</button>
+  </div>
+
+  <!-- ENTRADAS -->
+  <div class="card tab entradas" style="display:none">
+    <input type="text" id="descEntrada" placeholder="Descrição">
+    <input type="number" id="valorEntrada" placeholder="Valor">
+    <button class="btn btn-green" onclick="registrarEntrada()">Registrar Entrada</button>
+  </div>
+
+  <!-- SAÍDAS -->
+  <div class="card tab saidas" style="display:none">
+    <select id="tipoSaida">
+      <option>Combustível</option>
+      <option>Alimentação</option>
+      <option>Manutenção</option>
+      <option>Outros</option>
+    </select>
+    <input type="number" id="valorSaida" placeholder="Valor">
+    <button class="btn btn-red" onclick="registrarSaida()">Registrar Saída</button>
+  </div>
+
+  <!-- RESUMO -->
+  <div class="card tab resumo" style="display:none">
+    <div class="resumo-box" id="resumoBox"></div>
+    <button class="btn btn-gold" onclick="exportarWhats()">📲 Exportar WhatsApp</button>
+    <button class="btn btn-gold" onclick="fecharDia()">Finalizar Dia</button>
+  </div>
+
 </div>
-
-<div class="card saldo-box">
-  <small>Saldo do Dia</small>
-  <h2 id="saldo">R$ 0,00</h2>
-</div>
-
-<div class="tabs">
-  <button class="active" onclick="openTab('corridas',this)">Corridas</button>
-  <button onclick="openTab('entradas',this)">Outras Entradas</button>
-  <button onclick="openTab('saidas',this)">Saídas</button>
-</div>
-
-<div class="card tab corridas">
-  <select id="appCorrida">
-    <option>Uber</option><option>99</option><option>InDriver</option>
-    <option>iFood</option><option>Uber Eats</option>
-    <option>99Food</option><option>Outros</option>
-  </select>
-  <input type="number" id="valorCorrida" placeholder="Valor">
-  <button class="btn btn-primary" onclick="registrarEntrada()">Registrar Corrida</button>
-</div>
-
-<div class="card tab entradas" style="display:none">
-  <input type="text" id="descEntrada" placeholder="Descrição">
-  <input type="number" id="valorEntrada" placeholder="Valor">
-  <button class="btn btn-primary" onclick="registrarOutraEntrada()">Registrar Entrada</button>
-</div>
-
-<div class="card tab saidas" style="display:none">
-  <select id="tipoSaida">
-    <option>Café da manhã</option><option>Almoço</option><option>Janta</option>
-    <option>Lanche</option><option>Serviços do carro</option>
-    <option>IPVA</option><option>Pagamentos pessoais</option>
-    <option>Outros</option>
-  </select>
-  <input type="number" id="valorSaida" placeholder="Valor">
-  <button class="btn btn-danger" onclick="registrarSaida()">Registrar Saída</button>
-</div>
-
-<div class="card">
-  <button class="btn btn-primary" onclick="fecharDia()">Fechar Dia e Repassar</button>
-</div>
-
-<div class="card">
-  <small>Histórico do Dia</small>
-  <div id="historico"></div>
-</div>
-
-<nav class="bottom-nav">
-  <a href="planos.html"><i class="fa fa-crown"></i></a>
-  <a href="entradas.html"><i class="fa fa-cash-register"></i></a>
-  <a href="index.html" class="center-btn"><i class="fa fa-house"></i></a>
-  <a href="carteira.html"><i class="fa fa-wallet"></i></a>
-  <a href="resumo.html"><i class="fa fa-file"></i></a>
-</nav>
-
-<script src="dataManager.js"></script>
 
 <script>
-/* ===== TEMA ===== */
-document.body.dataset.theme = DataManager.getTema();
-function toggleTheme(){
-  const t = DataManager.getTema()==="light"?"dark":"light";
-  DataManager.setTema(t);
-  document.body.dataset.theme = t;
-}
+const LS_ATUAL="rf_caixa_atual";
+const LS_HIST="rf_caixa_historico";
+
+let caixa = JSON.parse(localStorage.getItem(LS_ATUAL)) || [];
+
+function salvar(){localStorage.setItem(LS_ATUAL,JSON.stringify(caixa));}
 
 const moeda=v=>v.toLocaleString("pt-BR",{style:"currency",currency:"BRL"});
 
-function render(){
-  const caixa = DataManager.getCaixaAtual();
-  let total = 0;
-  historico.innerHTML = "";
+function atualizar(){
+  let total=0;
+  caixa.forEach(m=>total+=m.tipo==="entrada"?m.valor:-m.valor);
+  saldo.innerText=moeda(total);
+  montarResumo();
+  salvar();
+}
 
-  caixa.movimentos.forEach(m=>{
-    total += m.tipo==="entrada" ? m.valor : -m.valor;
-    historico.innerHTML += `
-      <div class="history-item">
-        <span>${m.desc}</span>
-        <strong>${moeda(m.tipo==="entrada"?m.valor:-m.valor)}</strong>
-      </div>`;
-  });
-
-  saldo.textContent = moeda(total);
+function registrarCorrida(){
+  caixa.push({tipo:"entrada",desc:`Corrida (${tipoCorrida.value} - ${plataforma.value})`,valor:Number(valorCorrida.value)});
+  valorCorrida.value="";
+  atualizar();
 }
 
 function registrarEntrada(){
-  DataManager.addMovimentoCaixa("entrada","Corrida - "+appCorrida.value,Number(valorCorrida.value));
-  valorCorrida.value="";
-  render();
-}
-
-function registrarOutraEntrada(){
-  DataManager.addMovimentoCaixa("entrada",descEntrada.value,Number(valorEntrada.value));
+  caixa.push({tipo:"entrada",desc:descEntrada.value,valor:Number(valorEntrada.value)});
   descEntrada.value=valorEntrada.value="";
-  render();
+  atualizar();
 }
 
 function registrarSaida(){
-  DataManager.addMovimentoCaixa("saida",tipoSaida.value,Number(valorSaida.value));
+  caixa.push({tipo:"saida",desc:tipoSaida.value,valor:Number(valorSaida.value)});
   valorSaida.value="";
-  render();
+  atualizar();
+}
+
+function montarResumo(){
+  let ent=0,sai=0;
+  let html="";
+  caixa.forEach(m=>{
+    if(m.tipo==="entrada") ent+=m.valor; else sai+=m.valor;
+    html+=`<div class="item"><span>${m.desc}</span><strong>${moeda(m.valor)}</strong></div>`;
+  });
+  resumoBox.innerHTML=`
+    <strong>Entradas:</strong> ${moeda(ent)}<br>
+    <strong>Saídas:</strong> ${moeda(sai)}<br>
+    <strong>Lucro:</strong> ${moeda(ent-sai)}<hr>${html}`;
 }
 
 function fecharDia(){
-  if(!DataManager.getCaixaAtual().movimentos.length){
-    alert("Nenhum registro no dia.");
-    return;
-  }
-  DataManager.fecharCaixa();
-  alert("Dia fechado e repassado para a carteira.");
-  render();
+  const hist = JSON.parse(localStorage.getItem(LS_HIST)) || [];
+  hist.push({data:new Date().toLocaleDateString(),caixa});
+  localStorage.setItem(LS_HIST,JSON.stringify(hist));
+  alert("Dia finalizado e salvo.");
 }
 
-function openTab(tab,btn){
+function exportarWhats(){
+  let msg="📊 RF Driver – Resumo do Dia\n\n";
+  caixa.forEach(m=>msg+=`${m.tipo==="entrada"?"➕":"➖"} ${m.desc}: ${moeda(m.valor)}\n`);
+  window.open("https://wa.me/?text="+encodeURIComponent(msg));
+}
+
+function abrirTab(tab,btn){
   document.querySelectorAll(".tab").forEach(t=>t.style.display="none");
   document.querySelectorAll(".tabs button").forEach(b=>b.classList.remove("active"));
   document.querySelector("."+tab).style.display="block";
   btn.classList.add("active");
 }
 
-render();
+atualizar();
 </script>
 
 </body>
