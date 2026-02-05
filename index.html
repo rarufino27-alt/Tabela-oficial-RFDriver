@@ -30,7 +30,6 @@
   align-items:center;
   justify-content:center;
   padding:24px;
-  position:relative;
 }
 
 .box{
@@ -51,7 +50,7 @@
   border:none;
   color:#0b1b2b;
   cursor:pointer;
-  z-index:200; /* 🔴 ISSO É O CRÍTICO */
+  z-index:300;
 }
 
 /* HERO */
@@ -106,61 +105,86 @@
 }
 
 /* ===============================
-   MENU OVERLAY
+   MENU OVERLAY PREMIUM
    =============================== */
 
 .menu-overlay{
   position:fixed;
   inset:0;
-  background:rgba(11,27,43,.75);
+  background:rgba(11,27,43,.85);
   display:none;
   align-items:center;
   justify-content:center;
-  z-index:150;
+  z-index:200;
 }
 
 .menu-panel{
-  background:#ffffff;
-  width:90%;
-  max-width:360px;
-  border-radius:22px;
-  padding:22px;
-  box-shadow:0 20px 50px rgba(0,0,0,.45);
+  background:linear-gradient(180deg,var(--card),#0b2238);
+  width:92%;
+  max-width:380px;
+  border-radius:24px;
+  padding:24px;
+  box-shadow:0 22px 60px rgba(0,0,0,.6);
+  border:1px solid var(--border);
+  color:#fff;
 }
 
 .menu-panel h3{
   text-align:center;
-  margin-bottom:16px;
-  color:#0b1b2b;
+  margin-bottom:18px;
+  background:linear-gradient(120deg,var(--gold),var(--gold-light),var(--gold));
+  -webkit-background-clip:text;
+  -webkit-text-fill-color:transparent;
+  letter-spacing:2px;
 }
 
+/* MENU ITEMS */
 .menu-item{
   display:block;
   padding:14px;
   border-radius:14px;
-  border:1px solid #cfd8e3;
+  border:1px solid rgba(212,175,55,.45);
   margin-bottom:10px;
   text-align:center;
-  color:#0b1b2b;
+  color:#fff;
   text-decoration:none;
   font-weight:600;
+  background:rgba(255,255,255,.05);
 }
 
 .menu-item:hover{
-  background:#f1f5f9;
+  background:rgba(212,175,55,.15);
 }
 
-/* WHATS */
+/* WHATSAPP ADMIN */
 .menu-whats{
-  margin-top:14px;
-  font-size:.85rem;
+  margin-top:18px;
+}
+
+.menu-whats strong{
+  display:block;
+  margin-bottom:10px;
+  font-size:.9rem;
+  color:var(--gold-light);
 }
 
 .menu-whats a{
-  display:block;
-  margin-top:6px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  gap:8px;
+  padding:12px;
+  border-radius:14px;
+  background:#1db954;
+  color:#fff;
   text-decoration:none;
-  color:#0b1b2b;
+  font-weight:700;
+  margin-bottom:8px;
+  box-shadow:0 6px 18px rgba(29,185,84,.45);
+}
+
+.menu-whats a:hover{
+  filter:brightness(1.1);
 }
 </style>
 </head>
@@ -192,19 +216,21 @@
 <!-- MENU -->
 <div class="menu-overlay" id="menu">
   <div class="menu-panel">
-    <h3>Menu</h3>
+    <h3>MENU</h3>
 
+    <a class="menu-item" href="calculadora.html">Calculadora Rápida</a>
     <a class="menu-item" href="caixa.html">Livro Caixa</a>
     <a class="menu-item" href="regras.html">Regras do Serviço</a>
     <a class="menu-item" href="instalar-app.html">Instalar App</a>
 
     <div class="menu-whats">
       <strong>WhatsApp – Administradores</strong>
-      <a href="https://wa.me/5581996054919" target="_blank">Rafael</a>
-      <a href="https://wa.me/5581992716132" target="_blank">Suporte</a>
-      <a href="https://wa.me/5581992951521" target="_blank">Juca Neves</a>
-      <a href="https://wa.me/5581987838403" target="_blank">Willams</a>
-      <a href="https://wa.me/5581999904183" target="_blank">Genilson</a>
+
+      <a href="https://wa.me/5581996054919" target="_blank">📱 Rafael</a>
+      <a href="https://wa.me/5581992716132" target="_blank">📱 Suporte</a>
+      <a href="https://wa.me/5581992951521" target="_blank">📱 Juca Neves</a>
+      <a href="https://wa.me/5581987838403" target="_blank">📱 Willams</a>
+      <a href="https://wa.me/5581999904183" target="_blank">📱 Genilson</a>
     </div>
   </div>
 </div>
@@ -220,9 +246,9 @@ function abrirMenu(){
   document.getElementById("menu").style.display="flex";
 }
 
-document.getElementById("menu").onclick = e => {
-  if(e.target.id === "menu"){
-    e.target.style.display = "none";
+document.getElementById("menu").onclick = e=>{
+  if(e.target.id==="menu"){
+    e.target.style.display="none";
   }
 };
 </script>
