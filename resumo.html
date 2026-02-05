@@ -10,17 +10,12 @@
 <link rel="stylesheet" href="./theme/components.css">
 
 <style>
-/* ===============================
-   RESUMO – RF DRIVER (INSTITUCIONAL)
-   =============================== */
-
 .page{
   min-height:100vh;
   display:flex;
   justify-content:center;
   padding:20px;
 }
-
 .container{
   width:100%;
   max-width:420px;
@@ -28,86 +23,51 @@
   flex-direction:column;
   gap:18px;
 }
-
-/* HEADER */
 .header{
   padding:18px;
   border-radius:22px;
-  background:linear-gradient(
-    180deg,
-    var(--card),
-    #0b2238
-  );
+  background:linear-gradient(180deg,var(--card),#0b2238);
   color:#fff;
   text-align:center;
   box-shadow:0 14px 36px rgba(0,0,0,.35);
 }
-
 .header h1{
   font-size:1.6rem;
   font-weight:800;
-  letter-spacing:1px;
-  background:linear-gradient(
-    120deg,
-    var(--gold),
-    var(--gold-light),
-    var(--gold)
-  );
+  background:linear-gradient(120deg,var(--gold),var(--gold-light),var(--gold));
   -webkit-background-clip:text;
   -webkit-text-fill-color:transparent;
 }
+.header span{font-size:.9rem;color:#e6ecf3}
 
-.header span{
-  font-size:.9rem;
-  color:#e6ecf3;
-}
-
-/* ROTA */
 .route{
-  background:#ffffff;
+  background:#fff;
   border-radius:20px;
   padding:18px;
   box-shadow:0 8px 22px rgba(0,0,0,.08);
   text-align:center;
 }
+.route .arrow{margin:6px 0;font-size:1.4rem}
 
-.route .arrow{
-  margin:6px 0;
-  color:#0b1b2b;
-  font-size:1.4rem;
-}
-
-/* BLOCOS */
 .block{
-  background:#ffffff;
+  background:#fff;
   border-radius:18px;
   padding:16px;
   box-shadow:0 6px 18px rgba(0,0,0,.08);
 }
-
 label{
   font-size:.8rem;
   font-weight:700;
   margin-bottom:6px;
   display:block;
-  color:#0b1b2b;
 }
-
-/* INPUTS */
-select,
-input[type="number"]{
+select,input[type="number"]{
   width:100%;
   padding:12px;
   border-radius:14px;
   border:1px solid #cfd8e3;
-  background:#ffffff;
-  color:#0b1b2b;
-  font-size:.95rem;
 }
 
-input::placeholder{color:#8a96a6}
-
-/* EXTRAS */
 .extra{
   display:flex;
   justify-content:space-between;
@@ -116,126 +76,44 @@ input::placeholder{color:#8a96a6}
   border-radius:14px;
   border:1px solid #e2e8f0;
   margin-bottom:8px;
-  transition:.25s;
 }
-
 .extra.active{
-  background:linear-gradient(
-    180deg,
-    rgba(212,175,55,.12),
-    #ffffff
-  );
+  background:linear-gradient(180deg,rgba(212,175,55,.12),#fff);
   border-color:var(--gold);
 }
 
-/* DETALHAMENTO */
-.details{
-  font-size:.85rem;
-}
-
+.details{font-size:.85rem}
 .details div{
   display:flex;
   justify-content:space-between;
   margin-bottom:6px;
 }
 
-/* TOTAL */
 .totalBox{
-  background:linear-gradient(
-    180deg,
-    var(--card),
-    #0b2238
-  );
+  background:linear-gradient(180deg,var(--card),#0b2238);
   border-radius:22px;
   padding:22px;
-  color:#fff;
   text-align:center;
-  box-shadow:0 16px 40px rgba(0,0,0,.35);
-  position:relative;
+  color:#fff;
 }
-
-.badge{
-  position:absolute;
-  top:-10px;
-  right:14px;
-  background:linear-gradient(
-    145deg,
-    var(--gold-light),
-    var(--gold)
-  );
-  color:#0b1b2b;
-  font-size:.65rem;
-  padding:6px 10px;
-  border-radius:12px;
-  font-weight:700;
-}
-
 .total{
   font-size:2.4rem;
   font-weight:800;
   color:var(--gold);
 }
 
-/* BOTÕES */
 .btn-primary{
   padding:18px;
   border-radius:18px;
   border:none;
-  background:linear-gradient(
-    145deg,
-    var(--gold-light),
-    var(--gold),
-    var(--gold-dark)
-  );
-  font-size:1.05rem;
+  background:linear-gradient(145deg,var(--gold-light),var(--gold));
   font-weight:800;
-  color:#0b1b2b;
 }
-
 .btn-secondary{
   padding:14px;
   border-radius:16px;
   border:1px solid #0b1b2b;
-  background:#ffffff;
-  color:#0b1b2b;
-}
-
-.assinatura{
-  margin-top:14px;
-  padding:14px;
-  border-radius:14px;
-  text-align:center;
-  background:#f8fafc;
-  font-size:.8rem;
-  color:#4b5563;
-}
-
-.assinatura strong{
-  color:#0b1b2b;
-}
-
-.assinatura .cnpj{
-  margin-top:2px;
-  font-size:.75rem;
-  color:#6b7280;
-}
-
-.assinatura .linha-envio{
-  margin-top:8px;
-}
-
-.assinatura .slogan{
-  margin-top:10px;
-  font-size:.75rem;
-  font-style:italic;
-  color:#9ca3af;
-}
-
-.info-noturno{
-  font-size:.75rem;
-  color:#6b7280;
-  margin-top:6px;
-  line-height:1.4;
+  background:#fff;
 }
 </style>
 </head>
@@ -266,11 +144,11 @@ input::placeholder{color:#8a96a6}
   </div>
 
   <div class="block">
-    <label>🚖Tipo de viagem</label>
+    <label>🚖 Tipo de viagem</label>
     <select id="tipoViagem">
       <option value="ida">Ida</option>
       <option value="bate_volta">Bate e volta</option>
-      <option value="ida_volta">Ida e volta (Até 30min)</option>
+      <option value="ida_volta">Ida e volta</option>
       <option value="ida_volta_espera">Ida e volta com espera</option>
     </select>
   </div>
@@ -282,12 +160,6 @@ input::placeholder{color:#8a96a6}
     <div class="extra"><span>🛒 Taxa de feira</span><input type="checkbox" id="taxaFeira"></div>
     <div class="extra"><span>🌙 Adicional noturno</span><input type="checkbox" id="taxaNoturna"></div>
   </div>
-
-<div class="info-noturno">
-  🌙 <strong>Adicional noturno</strong><br>
-  Aplicado em corridas realizadas das <strong>22:30h às 05:00h</strong>,
-  conforme política do Grupo RF Driver.
-</div>
 
   <div class="block">
     <label>🐶 Transporte de animal</label>
@@ -306,7 +178,7 @@ input::placeholder{color:#8a96a6}
   </div>
 
   <div class="block">
-    <strong>Detalhamento🗃️</strong>
+    <strong>Detalhamento</strong>
     <div class="details" id="detalhamento"></div>
   </div>
 
@@ -314,19 +186,7 @@ input::placeholder{color:#8a96a6}
     <div class="total" id="total">R$ 0,00</div>
   </div>
 
-<div class="assinatura">
-  <strong>RF Driver</strong>
-  <div class="cnpj">CNPJ: 58.615.336/0001-49</div>
-
-  <div class="linha-envio">
-    <span>Grupo de Viagens</span><br>
-    <strong>RF Driver</strong>
-  </div>
-
-  <div class="slogan">Mobilidade com excelência</div>
-</div>
-
-  <button class="btn-primary" onclick="enviarWhats()">Enviar Recibo via WhatsApp</button>
+  <button class="btn-primary" onclick="enviarWhats()">Enviar WhatsApp</button>
   <button class="btn-secondary" onclick="App.go('destino.html')">⬅ Voltar</button>
 
 </div>
@@ -337,16 +197,31 @@ input::placeholder{color:#8a96a6}
 <script src="core/dinamico.js"></script>
 
 <script>
+/* ===== DADOS BASE ===== */
 const origemOriginal = App.get("origem");
 const destinoOriginal = App.get("destino");
-const valorBase = Number(App.get("valorBase")||0);
+const valorBase = Number(App.get("valorBase") || 0);
 
 origemTxt.innerText = origemOriginal;
 destinoTxt.innerText = destinoOriginal;
 
+/* ===== ELEMENTOS ===== */
 const inverterRota = document.getElementById("inverterRota");
 const boxInverter = document.getElementById("boxInverter");
+const tipoViagem = document.getElementById("tipoViagem");
+const desvioSimples = document.getElementById("desvioSimples");
+const voltaPraia = document.getElementById("voltaPraia");
+const veiculo6 = document.getElementById("veiculo6");
+const taxaFeira = document.getElementById("taxaFeira");
+const taxaNoturna = document.getElementById("taxaNoturna");
+const animalSel = document.getElementById("animal");
+const minutosEspera = document.getElementById("minutosEspera");
+const detalheDiv = document.getElementById("detalhamento");
+const totalDiv = document.getElementById("total");
 
+let detalhesWhats = [];
+
+/* ===== INVERTER ROTA (VISUAL) ===== */
 function atualizarRotaVisual(){
   if(inverterRota.checked){
     origemTxt.innerText = destinoOriginal;
@@ -358,24 +233,9 @@ function atualizarRotaVisual(){
     boxInverter.classList.remove("active");
   }
 }
-
 inverterRota.addEventListener("change", atualizarRotaVisual);
 
-  document.querySelectorAll("select").forEach(el=>{
-  el.addEventListener("change", calcular);
-});
-
-document.querySelectorAll("input[type='checkbox']").forEach(el=>{
-  el.addEventListener("change", e=>{
-    e.target.closest(".extra")?.classList.toggle("active", e.target.checked);
-    calcular();
-  });
-});
-
-document.querySelectorAll("input[type='number']").forEach(el=>{
-  el.addEventListener("input", calcular);
-});
-
+/* ===== CÁLCULO ===== */
 function calcular(){
   let total = valorBase;
   let detalhes = [];
@@ -384,130 +244,56 @@ function calcular(){
   detalhes.push(["Viagem base", valorBase]);
   detalhesWhats.push(`🚖 *Viagem base*: R$ ${valorBase.toFixed(2)}`);
 
-  if (Dinamico?.ativo) {
-    const acres = valorBase * (Dinamico.multiplicador - 1);
-    total += acres;
-    detalhes.push(["Tarifa dinâmica", acres]);
-    detalhesWhats.push(`⚡ *Tarifa dinâmica*: +R$ ${acres.toFixed(2)}`);
-  }
-
   const tipo = tipoViagem.value;
 
-  if (tipo === "bate_volta") {
-    const acres = valorBase * 1.00;
-    total += acres;
-    detalhes.push(["Bate e volta (+100%)", acres]);
-    detalhesWhats.push(`♻️ *Bate e volta*: +R$ ${acres.toFixed(2)}`);
-  }
-
-  if (tipo === "ida_volta") {
+  if(tipo === "bate_volta"){
     const acres = valorBase;
     total += acres;
-    detalhes.push(["Ida e volta", acres]);
-    detalhesWhats.push(`🚕 *Ida e volta*: +R$ ${acres.toFixed(2)}`);
+    detalhes.push(["Bate e volta", acres]);
   }
 
-  if (tipo === "ida_volta_espera") {
-    const idaVolta = valorBase * 2;
-    const acres = idaVolta * 0.10;
-    total += (idaVolta - valorBase) + acres;
-
-    detalhes.push(["Ida e volta", idaVolta - valorBase]);
-    detalhes.push(["Acréscimo de espera (10%)", acres]);
-
-    detalhesWhats.push(`🚕 *Ida e volta*: +R$ ${(idaVolta - valorBase).toFixed(2)}`);
-    detalhesWhats.push(`⏳ *Acréscimo de espera (10%)*: +R$ ${acres.toFixed(2)}`);
+  if(tipo === "ida_volta"){
+    total += valorBase;
+    detalhes.push(["Ida e volta", valorBase]);
   }
 
-  if (desvioSimples.checked) {
-    total += Taxas.desvioRotaSimples;
-    detalhes.push(["Desvio simples", Taxas.desvioRotaSimples]);
-    detalhesWhats.push("🛣️ *Desvio simples*: +R$ 5,00");
+  if(tipo === "ida_volta_espera"){
+    const acres = valorBase * 1.1;
+    total += acres;
+    detalhes.push(["Ida e volta c/ espera", acres]);
   }
 
-  if (voltaPraia.checked) {
-    total += Taxas.voltaPraia;
-    detalhes.push(["Volta da praia", Taxas.voltaPraia]);
-    detalhesWhats.push("🏖️ *Volta da praia*: +R$ 10,00");
+  if(desvioSimples.checked){ total += Taxas.desvioRotaSimples; }
+  if(voltaPraia.checked){ total += Taxas.voltaPraia; }
+  if(taxaFeira.checked){ total += Taxas.feira; }
+
+  if(veiculo6.checked){
+    total += valorBase * Taxas.veiculo6Lugares.percentual;
   }
 
-  if (taxaFeira.checked) {
-    total += Taxas.feira;
-    detalhes.push(["Taxa de feira", Taxas.feira]);
-    detalhesWhats.push("🧺 *Taxa de feira*: +R$ 5,00");
+  if(taxaNoturna.checked){
+    total += Taxas.noturno.valorFixo;
   }
 
-if (veiculo6.checked) {
-  const acres = valorBase * Taxas.veiculo6Lugares.percentual;
+  const animal = Number(animalSel.value||0);
+  if(animal>0){ total += animal; }
 
-  total += acres;
-
-  detalhes.push([
-    "Veículo 6 lugares / excesso de passageiros (50%)",
-    acres
-  ]);
-
-  detalhesWhats.push(
-    `🚐 *Veículo 6 lugares / excesso de passageiros*: +R$ ${acres.toFixed(2)}`
-  );
-}
-
-if (taxaNoturna.checked) {
-  let acres = 0;
-
-  if (total <= Taxas.noturno.limite) {
-    acres = Taxas.noturno.valorFixo;
-    detalhes.push(["Adicional noturno", acres]);
-    detalhesWhats.push("🌙 *Adicional noturno*: +R$ 5,00");
-  } else {
-    acres = total * Taxas.noturno.percentual;
-    detalhes.push(["Adicional noturno (35%)", acres]);
-    detalhesWhats.push(`🌙 *Adicional noturno (35%)*: +R$ ${acres.toFixed(2)}`);
+  const min = Number(minutosEspera.value||0);
+  if(min>=5){
+    total += Taxas.espera.valorInicial + ((min-5)*Taxas.espera.valorPorMinuto);
   }
 
-  total += acres;
-}
-
-  const animal = Number(animalSel.value || 0);
-  if (animal > 0) {
-    total += animal;
-    detalhes.push(["Transporte animal", animal]);
-    detalhesWhats.push(`🐶 *Transporte animal*: +R$ ${animal.toFixed(2)}`);
-  }
-
-const min = Number(minutosEspera.value || 0);
-
-if (min >= 5) {
-  const minutosExcedentes = min - 5;
-  const acres =
-    Taxas.espera.valorInicial +
-    (minutosExcedentes * Taxas.espera.valorPorMinuto);
-
-  total += acres;
-
-  detalhes.push([
-    `Tempo de espera (${min} min)`,
-    acres
-  ]);
-
-  detalhesWhats.push(
-    `⏱️ *Tempo de espera (${min} min)*: +R$ ${acres.toFixed(2)}`
-  );
-}
-
-  detalheDiv.innerHTML = detalhes.map(d => `
-    <div>
-      <span><strong>${d[0]}</strong></span>
-      <strong>R$ ${d[1].toFixed(2)}</strong>
-    </div>
+  detalheDiv.innerHTML = detalhes.map(d=>`
+    <div><span>${d[0]}</span><strong>R$ ${d[1].toFixed(2)}</strong></div>
   `).join("");
 
   totalDiv.innerText = `R$ ${total.toFixed(2)}`;
   App.set("total", total);
 }
 
+/* ===== LISTENERS ===== */
 document.querySelectorAll("select,input").forEach(el=>{
-  el.addEventListener("change", () => {
+  el.addEventListener("change", ()=>{
     el.closest(".extra")?.classList.toggle("active", el.checked);
     calcular();
   });
@@ -515,6 +301,7 @@ document.querySelectorAll("select,input").forEach(el=>{
 
 calcular();
 
+/* ===== WHATSAPP ===== */
 function enviarWhats(){
   const msg =
 `🚖 RF Driver
@@ -522,14 +309,9 @@ function enviarWhats(){
 Origem: ${inverterRota.checked?destinoOriginal:origemOriginal}
 Destino: ${inverterRota.checked?origemOriginal:destinoOriginal}
 
-💰 *Total*: R$ ${App.get("total").toFixed(2)}
+💰 Total: R$ ${App.get("total").toFixed(2)}
 
-—
-*Grupo RF Driver*
-CNPJ: 58.615.336/0001-49
-
-_Mobilidade com excelência_`;
-
+Mobilidade com excelência`;
   window.open("https://wa.me/?text="+encodeURIComponent(msg));
 }
 </script>
