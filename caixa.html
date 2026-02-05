@@ -36,118 +36,66 @@ body{
   gap:16px;
 }
 
-/* HEADER */
 .header{
   background:linear-gradient(180deg,var(--blue),var(--blue-soft));
   color:#fff;
   border-radius:22px;
   padding:20px;
   text-align:center;
-  box-shadow:0 14px 36px rgba(0,0,0,.35);
 }
 
 .header h1{
   margin:0;
   font-size:1.4rem;
-  letter-spacing:2px;
   background:linear-gradient(120deg,var(--gold),var(--gold-light),var(--gold));
   -webkit-background-clip:text;
   -webkit-text-fill-color:transparent;
 }
 
-.header small{color:#e6ecf3}
-
-/* SALDO */
 .saldo{
-  background:var(--card);
+  background:#fff;
   border-radius:20px;
-  padding:18px;
+  padding:16px;
   text-align:center;
-  box-shadow:0 8px 22px rgba(0,0,0,.08);
 }
 
 .saldo strong{
-  display:block;
   font-size:2rem;
   color:var(--gold);
 }
 
-/* TABS */
-.tabs{
-  display:flex;
-  gap:8px;
-}
-
+.tabs{display:flex;gap:8px}
 .tabs button{
-  flex:1;
-  padding:12px;
-  border-radius:14px;
-  border:1px solid var(--border);
-  background:#fff;
-  font-weight:700;
+  flex:1;padding:12px;border-radius:14px;border:1px solid var(--border);
+  background:#fff;font-weight:700
 }
-
 .tabs button.active{
   background:linear-gradient(145deg,var(--gold-light),var(--gold));
-  color:#0b1b2b;
 }
 
-/* CARD */
 .card{
-  background:var(--card);
-  border-radius:18px;
-  padding:16px;
-  box-shadow:0 6px 18px rgba(0,0,0,.08);
+  background:#fff;border-radius:18px;padding:16px;
 }
 
-label{
-  font-size:.8rem;
-  font-weight:700;
-  margin-bottom:4px;
-  display:block;
-}
+input,select{width:100%;padding:12px;margin-bottom:8px;border-radius:14px;border:1px solid var(--border)}
 
-input,select{
-  width:100%;
-  padding:12px;
-  margin-bottom:10px;
-  border-radius:14px;
-  border:1px solid var(--border);
-}
-
-/* BOTÕES */
-.btn{
-  width:100%;
-  padding:14px;
-  border:none;
-  border-radius:16px;
-  font-weight:800;
-}
-
+.btn{padding:12px;border:none;border-radius:14px;font-weight:700;width:100%}
 .btn-green{background:var(--green);color:#fff}
 .btn-red{background:var(--red);color:#fff}
-.btn-gold{
-  background:linear-gradient(145deg,var(--gold-light),var(--gold));
-  color:#0b1b2b
-}
+.btn-gold{background:linear-gradient(145deg,var(--gold-light),var(--gold))}
 
-/* HISTÓRICO */
 .item{
-  display:flex;
-  justify-content:space-between;
-  margin-bottom:6px;
-  font-size:.85rem;
+  display:flex;justify-content:space-between;align-items:center;
+  font-size:.85rem;margin-bottom:6px
+}
+.item-actions button{
+  margin-left:6px;font-size:.7rem
 }
 
-/* RESUMO */
-.resumo-box{
-  background:linear-gradient(180deg,var(--blue),var(--blue-soft));
-  color:#fff;
-  border-radius:22px;
-  padding:18px;
+.history-day{
+  border-top:1px solid var(--border);
+  padding-top:10px;margin-top:10px
 }
-
-.resumo-box strong{color:var(--gold)}
 </style>
 </head>
 
@@ -157,7 +105,7 @@ input,select{
 
   <div class="header">
     <h1>LIVRO CAIXA</h1>
-    <small>RF Driver – Controle diário</small>
+    <small>RF Driver</small>
   </div>
 
   <div class="saldo">
@@ -174,72 +122,42 @@ input,select{
 
   <!-- CORRIDAS -->
   <div class="card tab corridas">
-    <label>Tipo de corrida</label>
-    <select id="tipoCorrida" onchange="ajustarCamposCorrida()">
-      <option value="GRUPO">GRUPO RF DRIVER</option>
-      <option value="APP">Aplicativo</option>
-      <option value="PARTICULAR">Particular</option>
-      <option value="EMPRESA">Empresa</option>
+    <select id="tipoCorrida">
+      <option>GRUPO RF DRIVER</option>
+      <option>Aplicativo</option>
+      <option>Particular</option>
+      <option>Empresa</option>
     </select>
-
-    <!-- Plataforma (APLICATIVO) -->
-    <div id="boxPlataforma" style="display:none">
-      <label>Plataforma</label>
-      <select id="plataforma">
-        <option>Uber</option>
-        <option>99</option>
-        <option>InDrive</option>
-        <option>Outros</option>
-      </select>
-    </div>
-
-    <!-- Empresa -->
-    <div id="boxEmpresa" style="display:none">
-      <label>Empresa</label>
-      <input type="text" id="empresaNome" placeholder="Nome da empresa">
-    </div>
-
-    <!-- Particular -->
-    <div id="boxDetalhes" style="display:none">
-      <label>Detalhes (opcional)</label>
-      <input type="text" id="detalhesParticular" placeholder="Ex: cliente fixo, bairro...">
-    </div>
-
-    <input type="number" id="valorCorrida" placeholder="Valor da corrida">
-    <button class="btn btn-green" onclick="registrarCorrida()">Registrar Corrida</button>
+    <input id="detalhe" placeholder="Detalhe opcional">
+    <input type="number" id="valorCorrida" placeholder="Valor">
+    <button class="btn btn-green" onclick="add('entrada','Corrida',valorCorrida.value)">Registrar</button>
   </div>
 
   <!-- ENTRADAS -->
   <div class="card tab entradas" style="display:none">
-    <input type="text" id="descEntrada" placeholder="Descrição">
+    <input id="descEntrada" placeholder="Descrição">
     <input type="number" id="valorEntrada" placeholder="Valor">
-    <button class="btn btn-green" onclick="registrarEntrada()">Registrar Entrada</button>
+    <button class="btn btn-green" onclick="add('entrada',descEntrada.value,valorEntrada.value)">Registrar</button>
   </div>
 
   <!-- SAÍDAS -->
   <div class="card tab saidas" style="display:none">
-    <select id="tipoSaida">
-      <option>PEDÁGIO</option>
-      <option>Combustível GNV</option>
-      <option>Combustível GASOLINA</option>
-      <option>Combustível ETANOL</option>
-      <option>LANCHE</option>
-      <option>CAFÉ</option>
-      <option>ALMOÇO</option>
-      <option>JANTAR</option>
-      <option>Manutenção PREVENTIVA</option>
-      <option>Manutenção CORRETIVA</option>
-      <option>Outros</option>
-    </select>
+    <input id="descSaida" placeholder="Descrição">
     <input type="number" id="valorSaida" placeholder="Valor">
-    <button class="btn btn-red" onclick="registrarSaida()">Registrar Saída</button>
+    <button class="btn btn-red" onclick="add('saida',descSaida.value,valorSaida.value)">Registrar</button>
   </div>
 
   <!-- RESUMO -->
   <div class="card tab resumo" style="display:none">
-    <div class="resumo-box" id="resumoBox"></div>
-    <button class="btn btn-gold" onclick="exportarWhats()">📲 Exportar WhatsApp</button>
-    <button class="btn btn-gold" onclick="fecharDia()">Finalizar Dia</button>
+    <div id="lista"></div>
+    <button class="btn btn-red" onclick="zerar()">Zerar Caixa</button>
+    <button class="btn btn-gold" onclick="finalizar()">Finalizar Dia</button>
+  </div>
+
+  <!-- HISTÓRICO -->
+  <div class="card">
+    <strong>Histórico (últimos 30 dias)</strong>
+    <div id="historico"></div>
   </div>
 
 </div>
@@ -247,91 +165,72 @@ input,select{
 <script>
 const LS_ATUAL="rf_caixa_atual";
 const LS_HIST="rf_caixa_historico";
-
 let caixa = JSON.parse(localStorage.getItem(LS_ATUAL)) || [];
+let hist = JSON.parse(localStorage.getItem(LS_HIST)) || [];
 
-function salvar(){localStorage.setItem(LS_ATUAL,JSON.stringify(caixa));}
 const moeda=v=>v.toLocaleString("pt-BR",{style:"currency",currency:"BRL"});
 
+function salvar(){
+  localStorage.setItem(LS_ATUAL,JSON.stringify(caixa));
+  localStorage.setItem(LS_HIST,JSON.stringify(hist.slice(-30)));
+}
+
 function atualizar(){
-  let total=0;
-  caixa.forEach(m=>total+=m.tipo==="entrada"?m.valor:-m.valor);
+  let total=0,html="";
+  caixa.forEach((m,i)=>{
+    total+=m.tipo==="entrada"?m.valor:-m.valor;
+    html+=`
+      <div class="item">
+        <span>${m.desc} – ${moeda(m.valor)}</span>
+        <span class="item-actions">
+          <button onclick="editar(${i})">✏️</button>
+          <button onclick="apagar(${i})">🗑️</button>
+        </span>
+      </div>`;
+  });
   saldo.innerText=moeda(total);
-  montarResumo();
+  lista.innerHTML=html;
   salvar();
 }
 
-/* === NOVA LÓGICA === */
-function ajustarCamposCorrida(){
-  boxPlataforma.style.display="none";
-  boxEmpresa.style.display="none";
-  boxDetalhes.style.display="none";
-
-  if(tipoCorrida.value==="APP") boxPlataforma.style.display="block";
-  if(tipoCorrida.value==="EMPRESA") boxEmpresa.style.display="block";
-  if(tipoCorrida.value==="PARTICULAR") boxDetalhes.style.display="block";
-}
-
-function registrarCorrida(){
-  let desc="Corrida ";
-
-  if(tipoCorrida.value==="APP"){
-    desc+=`(Aplicativo - ${plataforma.value})`;
-  }
-  else if(tipoCorrida.value==="EMPRESA"){
-    if(!empresaNome.value){alert("Informe a empresa");return;}
-    desc+=`(Empresa - ${empresaNome.value})`;
-    empresaNome.value="";
-  }
-  else if(tipoCorrida.value==="PARTICULAR"){
-    desc+=detalhesParticular.value
-      ? `(Particular - ${detalhesParticular.value})`
-      : "(Particular)";
-    detalhesParticular.value="";
-  }
-  else{
-    desc+="(Grupo RF Driver)";
-  }
-
-  caixa.push({tipo:"entrada",desc,valor:Number(valorCorrida.value)});
-  valorCorrida.value="";
+function add(tipo,desc,valor){
+  if(!desc||!valor) return;
+  caixa.push({tipo,desc,valor:Number(valor)});
   atualizar();
 }
 
-function registrarEntrada(){
-  caixa.push({tipo:"entrada",desc:descEntrada.value,valor:Number(valorEntrada.value)});
-  descEntrada.value=valorEntrada.value="";
-  atualizar();
+function editar(i){
+  const d=prompt("Descrição",caixa[i].desc);
+  const v=prompt("Valor",caixa[i].valor);
+  if(d&&v){caixa[i]={...caixa[i],desc:d,valor:Number(v)};atualizar();}
 }
 
-function registrarSaida(){
-  caixa.push({tipo:"saida",desc:tipoSaida.value,valor:Number(valorSaida.value)});
-  valorSaida.value="";
+function apagar(i){if(confirm("Apagar registro?")){caixa.splice(i,1);atualizar();}}
+
+function zerar(){if(confirm("Zerar todos os registros do dia?")){caixa=[];atualizar();}}
+
+function finalizar(){
+  if(!caixa.length) return alert("Sem registros");
+  hist.push({data:new Date().toLocaleDateString(),itens:caixa});
+  caixa=[];
   atualizar();
+  renderHist();
 }
 
-function montarResumo(){
-  let ent=0,sai=0,html="";
-  caixa.forEach(m=>{
-    if(m.tipo==="entrada") ent+=m.valor; else sai+=m.valor;
-    html+=`<div class="item"><span>${m.desc}</span><strong>${moeda(m.valor)}</strong></div>`;
+function renderHist(){
+  historico.innerHTML="";
+  hist.slice(-30).forEach((d,i)=>{
+    historico.innerHTML+=`
+      <div class="history-day">
+        <strong>${d.data}</strong>
+        <button onclick="whats(${i})">📲 WhatsApp</button>
+      </div>`;
   });
-  resumoBox.innerHTML=`
-    <strong>Entradas:</strong> ${moeda(ent)}<br>
-    <strong>Saídas:</strong> ${moeda(sai)}<br>
-    <strong>Lucro:</strong> ${moeda(ent-sai)}<hr>${html}`;
 }
 
-function fecharDia(){
-  const hist = JSON.parse(localStorage.getItem(LS_HIST)) || [];
-  hist.push({data:new Date().toLocaleDateString(),caixa});
-  localStorage.setItem(LS_HIST,JSON.stringify(hist));
-  alert("Dia finalizado e salvo.");
-}
-
-function exportarWhats(){
-  let msg="📊 RF Driver – Resumo do Dia\n\n";
-  caixa.forEach(m=>msg+=`${m.tipo==="entrada"?"➕":"➖"} ${m.desc}: ${moeda(m.valor)}\n`);
+function whats(i){
+  let msg=`📊 RF Driver – ${hist[i].data}\n\n`;
+  hist[i].itens.forEach(m=>msg+=`${m.tipo==="entrada"?"➕":"➖"} ${m.desc}: ${moeda(m.valor)}\n`);
   window.open("https://wa.me/?text="+encodeURIComponent(msg));
 }
 
@@ -342,7 +241,7 @@ function abrirTab(tab,btn){
   btn.classList.add("active");
 }
 
-ajustarCamposCorrida();
+renderHist();
 atualizar();
 </script>
 
