@@ -1,8 +1,8 @@
  [ 
-  { "origem": "Centro do Cabo", "destino": "Centro do Cabo", "valor": 9,99, "regiao": "Cabo" },
-  { "origem": "Centro do Cabo", "destino": "Praça Theo Silva (Centro)", "valor": 9,99, "regiao": "Cabo" },
-  { "origem": "Centro do Cabo", "destino": "Rua São joão (Centro)", "valor": 11,99, "regiao": "Cabo" },
-  { "origem": "Centro do Cabo", "destino": "Mauriti", "valor": 9,99, "regiao": "Cabo" },
+  { "origem": "Centro do Cabo", "destino": "Centro do Cabo", "valor": 9.99, "regiao": "Cabo" },
+  { "origem": "Centro do Cabo", "destino": "Praça Theo Silva (Centro)", "valor": 9.99, "regiao": "Cabo" },
+  { "origem": "Centro do Cabo", "destino": "Rua São joão (Centro)", "valor": 11.99, "regiao": "Cabo" },
+  { "origem": "Centro do Cabo", "destino": "Mauriti", "valor": 9.99, "regiao": "Cabo" },
   { "origem": "Centro do Cabo", "destino": "Mercadão", "valor": 10, "regiao": "Cabo" },
   { "origem": "Centro do Cabo", "destino": "Galeria da praça da Biblia (Centro)", "valor": 10, "regiao": "Cabo" },
   { "origem": "Centro do Cabo", "destino": "Galeria Espaço Cabense (Centro)", "valor": 10, "regiao": "Cabo" },
@@ -2329,6 +2329,7 @@
 
 
 ]
+
 
 
 
