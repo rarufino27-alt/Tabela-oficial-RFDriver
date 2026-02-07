@@ -24,20 +24,20 @@ noturno: {
   /* ================= TAXAS FIXAS ================= */
 
   // Desvio simples (valor fixo)
-  desvioRotaSimples: 5,
+  desvioRotaSimples: 4.99,
 
   // Volta da praia
-  voltaPraia: 10,
+  voltaPraia: 9.99,
 
   // Taxa de feira
-  feira: 5,
+  feira: 4.99,
 
   // Transporte de animal (fixo por porte)
   animal: {
-    pequeno: 5,
-    medio: 7,
-    grande: 10,
-    longa: 20
+    pequeno: 4.99,
+    medio: 6.99,
+    grande: 9.99,
+    longa: 19.90
   },
 
 /* ================= VEÍCULO 6 LUGARES ================= */
@@ -50,7 +50,7 @@ veiculo6Lugares: {
 espera: {
   minutosGratis: 4,
   valorInicial: 3,
-  valorPorMinuto: 0.6
+  valorPorMinuto: 0.59
 }
 
 };
