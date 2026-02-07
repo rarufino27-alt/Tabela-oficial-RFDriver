@@ -17,7 +17,7 @@ const Taxas = {
 
 noturno: {
   limite: 29,
-  valorFixo: 5,
+  valorFixo: 4.99,
   percentual: 0.35
 },
 
