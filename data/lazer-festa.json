@@ -39,10 +39,10 @@
 
 { "origem": "Shopping Costa Dourada", "destino": "Castelo Recepções", "valor": 37.99, "regiao": "Cabo" },
 { "origem": "Shopping Costa Dourada", "destino": "Fazenda casa Branca - Pirapama", "valor": 23.90, "regiao": "Cabo" },
-{ "origem": "Shopping Costa Dourada", "destino": "Granja Pajeú", "valor": 31,99, "regiao": "Cabo" },
+{ "origem": "Shopping Costa Dourada", "destino": "Granja Pajeú", "valor": 31.99, "regiao": "Cabo" },
 { "origem": "Shopping Costa Dourada", "destino": "Espaço Kids Cohab", "valor": 9.99, "regiao": "Cabo" },
 { "origem": "Shopping Costa Dourada", "destino": "Casa Festa Garapú", "valor": 12.99, "regiao": "Cabo" },
-{ "origem": "Shopping Costa Dourada", "destino": "Pirapama CIDA PARK", "valor": 23,90, "regiao": "Cabo" },
+{ "origem": "Shopping Costa Dourada", "destino": "Pirapama CIDA PARK", "valor": 23.90, "regiao": "Cabo" },
 { "origem": "Shopping Costa Dourada", "destino": "Rosa do Vento Chacara SHEKINÁ", "valor": 19.99, "regiao": "Cabo" },
 { "origem": "Shopping Costa Dourada", "destino": "Churrascaria Ponto gaúcho (Cabo)", "valor": 12.99, "regiao": "Cabo" },
 { "origem": "Shopping Costa Dourada", "destino": "Churrascaria Ponto gaúcho (Cajueiro Seco)", "valor": 49.90, "regiao": "Cabo" },
@@ -50,7 +50,7 @@
 { "origem": "Shopping Costa Dourada", "destino": "Churrascaria Ponto gaúcho (Recife)", "valor": 83.99, "regiao": "Cabo" },
 { "origem": "Shopping Costa Dourada", "destino": "Restaurante Sal e brasa (Av Recife)", "valor": 67.90, "regiao": "Cabo" },
 { "origem": "Shopping Costa Dourada", "destino": "Churrascaria Boi Brasa (Cajueiro Seco)", "valor": 49.90, "regiao": "Cabo" },
-{ "origem": "Shopping Costa Dourada", "destino": "Churrascaria Leitão (Nossa Sra do Ó)", "valor": 57,99, "regiao": "Cabo" },
+{ "origem": "Shopping Costa Dourada", "destino": "Churrascaria Leitão (Nossa Sra do Ó)", "valor": 57.99, "regiao": "Cabo" },
 { "origem": "Shopping Costa Dourada", "destino": "Praça da Pentecostal (Cohab)", "valor": 9.99, "regiao": "Cabo" },
 { "origem": "Shopping Costa Dourada", "destino": "Praça do Bairro", "valor": 12.99, "regiao": "Cabo" },
 { "origem": "Shopping Costa Dourada", "destino": "SESI Cabo", "valor": 15.99, "regiao": "Cabo" },
@@ -647,6 +647,7 @@
 
 
  ]
+
 
 
 
