@@ -191,7 +191,7 @@
 
 { "origem": "Bairro São Francisco Alto", "destino": "Castelo Recepções", "valor": 46, "regiao": "Cabo" },
 { "origem": "Bairro São Francisco Alto", "destino": "Fazenda casa Branca - Pirapama", "valor": 33, "regiao": "Cabo" },
-{ "origem": "Bairro São Francisco Alto", "destino": "Granja Pajeú", "valor": 38, "regiao": "Cabo" },
+{ "origem": "Bairro São Francisco Alto", "destino": "Granja Pajeú", "valor": 28, "regiao": "Cabo" },
 { "origem": "Bairro São Francisco Alto", "destino": "Espaço Kids Cohab", "valor": 13, "regiao": "Cabo" },
 { "origem": "Bairro São Francisco Alto", "destino": "Casa Festa Garapú", "valor": 18, "regiao": "Cabo" },
 { "origem": "Bairro São Francisco Alto", "destino": "Pirapama CIDA PARK", "valor": 33, "regiao": "Cabo" },
@@ -647,4 +647,5 @@
 
 
  ]
+
 
