@@ -55,6 +55,9 @@
 { "origem": "Centro do Cabo", "destino": "Santa Cruz do Capibaribe", "valor": 470, "regiao": "Cabo" },
 { "origem": "Centro do Cabo", "destino": "Arcoverde", "valor": 620, "regiao": "Cabo" },
 
+{ "origem": "Bela Vista/Cruzeiro", "destino": "Aeroporto", "valor": 65, "regiao": "Cabo" },
+
+
 { "origem": "Cohab", "destino": "Ipojuca Centro", "valor": 35, "regiao": "Cabo" },
 { "origem": "Cohab", "destino": "Ipojuca Rurópolis", "valor": 38, "regiao": "Cabo" },
 { "origem": "Cohab", "destino": "Ipojuca Vila do Estaleiro", "valor": 30, "regiao": "Cabo" },
