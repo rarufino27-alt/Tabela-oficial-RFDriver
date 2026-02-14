@@ -276,7 +276,7 @@ _${config.observacao}_`;
 
   const msg =
 `${blocoDataHora}
-_________________________________
+_____________________________
 *_📍 ITINERÁRIO_*  
 
 📌 Origem:
@@ -284,17 +284,17 @@ _________________________________
 
 🏁 Destino:
 👉 ${destino}
-_________________________________
+${blocoObservacao}
+______________________________
 *_Detalhamento da Viagem_*  
 
 ${detalhesTexto}
 _💳 *Pagamento:* ${pagamento}_
 
 _💰 *Total:* R$ ${Number(total).toFixed(2)}_
-${blocoObservacao}
-_________________________________
-_*RF Driver*_
--CNPJ: 58.615.336/0001-49`;
+______________________________
+         _*RF Driver*_
+_-Mobilidade com Excelência-_`;
 
   const url = `https://wa.me/?text=${encodeURIComponent(msg)}`;
 
