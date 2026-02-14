@@ -254,9 +254,9 @@ function enviarWhatsApp(){
   App.set("formaPagamento", pagamento);
 
   const blocoDataHora = 
-`*RECIBO DE VIAGEM*
+`*RECIBO DE VIAGEM 🚖*
 *${dataFormatada}*
-*${horaFormatada}
+*${horaFormatada}*
 `;
 
   let blocoObservacao = "";
@@ -275,6 +275,14 @@ _${config.observacao}_`;
 
   const msg =
 `${blocoDataHora}
+
+${blocoObservacao}
+______________________________
+*Detalhamento da Viagem*  
+
+${detalhesTexto}
+
+*Pagamento:* _${pagamento}_
 _____________________________
 *📍 ITINERÁRIO*  
 
@@ -283,13 +291,6 @@ _____________________________
 
 🏁 *Destino:*
 👉 _${destino}_
-${blocoObservacao}
-______________________________
-*Detalhamento da Viagem*  
-
-${detalhesTexto}
-
-*Pagamento:* _${pagamento}_
 
 _💰 *Total:* R$ ${Number(total).toFixed(2)}_
 `;
