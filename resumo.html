@@ -237,39 +237,83 @@ App.set("total", total);
 
 function enviarWhatsApp(){
 
-  const pagamento = document.getElementById("formaPagamento").value;
-  App.set("formaPagamento", pagamento);
+  const agora = new Date();
+
+  const dataFormatada = agora.toLocaleDateString("pt-BR");
+  const horaFormatada = agora.toLocaleTimeString("pt-BR", {
+    hour: "2-digit",
+    minute: "2-digit"
+  });
 
   const origem = App.get("origem") || "-";
   const destino = App.get("destino") || "-";
   const total = App.get("total") || 0;
-
+  const pagamento = document.getElementById("formaPagamento").value;
   const config = App.get("taxasConfig") || {};
-  const observacao = config.observacao || "";
 
-  // MONTA MENSAGEM BASE (vamos personalizar depois)
-  let mensagem =
-`*🚖 SOLICITAÇÃO DE VIAGEM*
+  App.set("formaPagamento", pagamento);
 
-📍 Origem: ${origem}
-🏁 Destino: ${destino}
+  // =========================
+  // DATA E HORA
+  // =========================
+  const blocoDataHora = `
+_________________________________
+*_📅 DATA E HORA DA SOLICITAÇÃO_*
 
-💰 Total: R$ ${Number(total).toFixed(2)}
-💳 Pagamento: ${pagamento}
+📆 ${dataFormatada}
+⏰ ${horaFormatada}
 `;
 
-  if(observacao){
-    mensagem += `\n📝 Observação: ${observacao}`;
+  // =========================
+  // OBSERVAÇÃO
+  // =========================
+  let blocoObservacao = "";
+
+  if(config.observacao && config.observacao.trim() !== ""){
+    blocoObservacao = `
+_________________________________
+*_📝 OBSERVAÇÃO DO PASSAGEIRO_*
+
+_${config.observacao}_`;
   }
 
-  mensagem += `\n\nMotorista disponível?`;
+  // =========================
+  // DETALHAMENTO
+  // =========================
+  const detalhesTexto = detalhes.map(d =>
+    `• ${d[0]}: R$ ${Number(d[1]).toFixed(2)}`
+  ).join("\n");
 
-  const numero = "5599999999999"; // ⚠️ COLOQUE AQUI O NÚMERO COM DDI (55 + DDD + NUMERO)
+  // =========================
+  // MENSAGEM FINAL
+  // =========================
+  const msg =
+`_*RF DRIVER*_
+${blocoDataHora}
+_________________________________
+*_🚕 SOLICITAÇÃO DE VIAGEM_*  
 
-  const url = `https://wa.me/${numero}?text=${encodeURIComponent(mensagem)}`;
+${detalhesTexto}
+
+_💰 *Total:* R$ ${Number(total).toFixed(2)}_
+_💳 *Pagamento:* ${pagamento}_
+
+${blocoObservacao}
+_________________________________
+*_📍 ITINERÁRIO_*  
+
+📌 Origem:
+👉 ${origem}
+
+🏁 Destino:
+👉 ${destino}
+
+  // =========================
+  // ENVIO WHATSAPP
+  // =========================
+  const url = `https://wa.me/?text=${encodeURIComponent(msg)}`;
 
   window.open(url, "_blank");
-}
 
 </script>
 
