@@ -253,11 +253,10 @@ function enviarWhatsApp(){
 
   App.set("formaPagamento", pagamento);
 
-  const blocoDataHora = `
-_________________________________
-*_Recibo de Viagem_*
-📆 ${dataFormatada}
-⏰ ${horaFormatada}
+  const blocoDataHora = 
+`*_RECIBO DE VIAGEM_*
+*${dataFormatada}*
+*${horaFormatada}
 `;
 
   let blocoObservacao = "";
@@ -277,24 +276,23 @@ _${config.observacao}_`;
   const msg =
 `${blocoDataHora}
 _____________________________
-*_📍 ITINERÁRIO_*  
+*📍 ITINERÁRIO*  
 
-📌 Origem:
-👉 ${origem}
+📌 *Origem:*
+👉 _${origem}_
 
-🏁 Destino:
-👉 ${destino}
+🏁 *Destino:*
+👉 _${destino}_
 ${blocoObservacao}
 ______________________________
-*_Detalhamento da Viagem_*  
+*Detalhamento da Viagem*  
 
 ${detalhesTexto}
-_💳 *Pagamento:* ${pagamento}_
+
+*Pagamento:* _${pagamento}_
 
 _💰 *Total:* R$ ${Number(total).toFixed(2)}_
-______________________________
-         _*RF Driver*_
-_-Mobilidade com Excelência-_`;
+`;
 
   const url = `https://wa.me/?text=${encodeURIComponent(msg)}`;
 
