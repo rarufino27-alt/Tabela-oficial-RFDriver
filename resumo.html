@@ -255,8 +255,7 @@ function enviarWhatsApp(){
 
   const blocoDataHora = `
 _________________________________
-*_📅 DATA E HORA DA SOLICITAÇÃO_*
-
+*_Recibo de Viagem_*
 📆 ${dataFormatada}
 ⏰ ${horaFormatada}
 `;
@@ -266,7 +265,7 @@ _________________________________
   if(config.observacao && config.observacao.trim() !== ""){
     blocoObservacao = `
 _________________________________
-*_📝 OBSERVAÇÃO DO PASSAGEIRO_*
+*_📝 Observações_*
 
 _${config.observacao}_`;
   }
@@ -276,17 +275,7 @@ _${config.observacao}_`;
   ).join("\n");
 
   const msg =
-`_*RF DRIVER*_
-${blocoDataHora}
-_________________________________
-*_🚕 SOLICITAÇÃO DE VIAGEM_*  
-
-${detalhesTexto}
-
-_💰 *Total:* R$ ${Number(total).toFixed(2)}_
-_💳 *Pagamento:* ${pagamento}_
-
-${blocoObservacao}
+`${blocoDataHora}
 _________________________________
 *_📍 ITINERÁRIO_*  
 
@@ -295,9 +284,17 @@ _________________________________
 
 🏁 Destino:
 👉 ${destino}
-
 _________________________________
-_ALGUM MOTORISTA DISPONÍVEL?_`;
+*_Detalhamento da Viagem_*  
+
+${detalhesTexto}
+_💳 *Pagamento:* ${pagamento}_
+
+_💰 *Total:* R$ ${Number(total).toFixed(2)}_
+${blocoObservacao}
+_________________________________
+_*RF Driver*_
+-CNPJ: 58.615.336/0001-49
 
   const url = `https://wa.me/?text=${encodeURIComponent(msg)}`;
 
