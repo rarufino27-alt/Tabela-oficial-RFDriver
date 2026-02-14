@@ -257,9 +257,8 @@ function enviarWhatsApp(){
 `*RECIBO DE VIAGEM 🚖*
 
 *${dataFormatada}*
-*${horaFormatada}*
-`;
-
+*${horaFormatada}*`;
+  
   let blocoObservacao = "";
 
   if(config.observacao && config.observacao.trim() !== ""){
@@ -282,17 +281,17 @@ ______________________________
 
 ${detalhesTexto}
 
-*Forma de Pagamento:* _${pagamento}_
+*Forma de Pagamento:* ${pagamento}
 _____________________________
 *📍 ITINERÁRIO*  
 
 📌 *Origem:*
-👉 _${origem}_
+👉 ${origem}
 
 🏁 *Destino:*
-👉 _${destino}_
+👉 ${destino}
 _____________________________
-_💰 *Total:* R$ ${Number(total).toFixed(2)}_
+💰 *Total:* R$ ${Number(total).toFixed(2)}
 `;
 
   const url = `https://wa.me/?text=${encodeURIComponent(msg)}`;
