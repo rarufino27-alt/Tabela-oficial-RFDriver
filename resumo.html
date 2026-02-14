@@ -253,9 +253,6 @@ function enviarWhatsApp(){
 
   App.set("formaPagamento", pagamento);
 
-  // =========================
-  // DATA E HORA
-  // =========================
   const blocoDataHora = `
 _________________________________
 *_📅 DATA E HORA DA SOLICITAÇÃO_*
@@ -264,9 +261,6 @@ _________________________________
 ⏰ ${horaFormatada}
 `;
 
-  // =========================
-  // OBSERVAÇÃO
-  // =========================
   let blocoObservacao = "";
 
   if(config.observacao && config.observacao.trim() !== ""){
@@ -277,16 +271,10 @@ _________________________________
 _${config.observacao}_`;
   }
 
-  // =========================
-  // DETALHAMENTO
-  // =========================
   const detalhesTexto = detalhes.map(d =>
     `• ${d[0]}: R$ ${Number(d[1]).toFixed(2)}`
   ).join("\n");
 
-  // =========================
-  // MENSAGEM FINAL
-  // =========================
   const msg =
 `_*RF DRIVER*_
 ${blocoDataHora}
@@ -308,13 +296,13 @@ _________________________________
 🏁 Destino:
 👉 ${destino}
 
-  // =========================
-  // ENVIO WHATSAPP
-  // =========================
+_________________________________
+_ALGUM MOTORISTA DISPONÍVEL?_`;
+
   const url = `https://wa.me/?text=${encodeURIComponent(msg)}`;
 
   window.open(url, "_blank");
-
+}
 </script>
 
 </body>
