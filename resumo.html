@@ -134,7 +134,7 @@
   <div class="total" id="total">R$ 0,00</div>
 </div>
 
-<button class="btn-primary" onclick="App.go('compartilhado.html')">
+<button class="btn-primary" onclick="enviarWhatsApp()">
   Solicitar Viagem
 </button>
 
@@ -235,11 +235,42 @@ document.getElementById("total").innerText =
 
 App.set("total", total);
 
-function solicitar(){
+function enviarWhatsApp(){
+
   const pagamento = document.getElementById("formaPagamento").value;
   App.set("formaPagamento", pagamento);
-  App.go("grupos.html");
+
+  const origem = App.get("origem") || "-";
+  const destino = App.get("destino") || "-";
+  const total = App.get("total") || 0;
+
+  const config = App.get("taxasConfig") || {};
+  const observacao = config.observacao || "";
+
+  // MONTA MENSAGEM BASE (vamos personalizar depois)
+  let mensagem =
+`*🚖 SOLICITAÇÃO DE VIAGEM*
+
+📍 Origem: ${origem}
+🏁 Destino: ${destino}
+
+💰 Total: R$ ${Number(total).toFixed(2)}
+💳 Pagamento: ${pagamento}
+`;
+
+  if(observacao){
+    mensagem += `\n📝 Observação: ${observacao}`;
+  }
+
+  mensagem += `\n\nMotorista disponível?`;
+
+  const numero = "5599999999999"; // ⚠️ COLOQUE AQUI O NÚMERO COM DDI (55 + DDD + NUMERO)
+
+  const url = `https://wa.me/${numero}?text=${encodeURIComponent(mensagem)}`;
+
+  window.open(url, "_blank");
 }
+
 </script>
 
 </body>
