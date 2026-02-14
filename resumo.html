@@ -264,9 +264,9 @@ function enviarWhatsApp(){
   if(config.observacao && config.observacao.trim() !== ""){
     blocoObservacao = `
 _________________________________
-*_📝 Observações_*
+*📝 Observações*
 
-_${config.observacao}_`;
+${config.observacao}`;
   }
 
   const detalhesTexto = detalhes.map(d =>
@@ -275,14 +275,13 @@ _${config.observacao}_`;
 
   const msg =
 `${blocoDataHora}
-
 ${blocoObservacao}
 ______________________________
 *Detalhamento da Viagem*  
 
 ${detalhesTexto}
 
-*Pagamento:* _${pagamento}_
+*Forma de Pagamento:* _${pagamento}_
 _____________________________
 *📍 ITINERÁRIO*  
 
