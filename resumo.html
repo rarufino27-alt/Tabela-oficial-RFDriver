@@ -6,6 +6,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <script src="core/global.js"></script>
+<script src="core/dinamico.js"></script>
 
 <style>
 *{
@@ -26,7 +27,6 @@ body{
   margin:0 auto;
 }
 
-/* LOGO */
 .logo-wrapper{
   width:90px;
   height:90px;
@@ -43,7 +43,6 @@ body{
   width:70%;
 }
 
-/* HEADER */
 .header{
   text-align:center;
   margin-bottom:25px;
@@ -59,7 +58,6 @@ body{
   color:#a1a1aa;
 }
 
-/* CARD */
 .card{
   background:#111;
   border-radius:16px;
@@ -86,7 +84,6 @@ body{
   font-size:.9rem;
 }
 
-/* TOTAL */
 .total-box{
   background:#151515;
   border:1px solid #facc15;
@@ -102,7 +99,6 @@ body{
   color:#facc15;
 }
 
-/* SELECT */
 select{
   width:100%;
   padding:14px;
@@ -112,7 +108,6 @@ select{
   border:1px solid #1c1c1c;
 }
 
-/* BOTÃO FIXO */
 .cta-area{
   position:fixed;
   bottom:0;
@@ -153,26 +148,22 @@ select{
     <span>Confirme as informações</span>
   </div>
 
-  <!-- ROTA -->
   <div class="card route">
     <div class="section-title">Itinerário</div>
     <span>📌 Origem: <strong id="origemTxt"></strong></span>
     <span>🏁 Destino: <strong id="destinoTxt"></strong></span>
   </div>
 
-  <!-- DETALHAMENTO -->
   <div class="card">
     <div class="section-title">Detalhamento</div>
     <div class="details" id="detalhamento"></div>
   </div>
 
-  <!-- OBSERVAÇÃO -->
   <div class="card" id="blocoObservacao" style="display:none;">
     <div class="section-title">Observação</div>
     <div id="observacaoTxt"></div>
   </div>
 
-  <!-- PAGAMENTO -->
   <div class="card">
     <div class="section-title">Forma de Pagamento</div>
     <select id="formaPagamento">
@@ -182,7 +173,6 @@ select{
     </select>
   </div>
 
-  <!-- TOTAL -->
   <div class="total-box">
     <div class="total" id="total">R$ 0,00</div>
   </div>
@@ -196,6 +186,7 @@ select{
 </div>
 
 <script>
+
 const origem = App.get("origem");
 const destino = App.get("destino");
 const valorBase = Number(App.get("valorBase") || 0);
@@ -214,7 +205,6 @@ let detalhes = [];
 
 detalhes.push(["Viagem base", valorBase]);
 
-// Tipo
 if(config.tipoViagem === "bate_volta"){
   total += valorBase;
   detalhes.push(["Bate e volta", valorBase]);
@@ -231,7 +221,6 @@ if(config.tipoViagem === "ida_volta_espera"){
   detalhes.push(["Ida e volta + espera", acres]);
 }
 
-// Fixas
 if(config.desvioSimples){
   total += 5;
   detalhes.push(["Desvio rápido",5]);
@@ -253,10 +242,8 @@ if(config.veiculo6){
   detalhes.push(["Veículo 6 lugares (50%)",acres]);
 }
 
-// 🔥 ADICIONAL NOTURNO CORRIGIDO
 if(config.taxaNoturna){
   let acres = 0;
-
   if(valorBase <= 29){
     acres = 5;
     detalhes.push(["Adicional noturno", 5]);
@@ -264,22 +251,37 @@ if(config.taxaNoturna){
     acres = valorBase * 0.35;
     detalhes.push(["Adicional noturno (35%)", acres]);
   }
-
   total += acres;
 }
 
-// Animal
 if(Number(config.animal)>0){
   total += Number(config.animal);
   detalhes.push(["Transporte animal",Number(config.animal)]);
 }
 
-// Espera
 if(Number(config.minutosEspera)>=5){
   const min = Number(config.minutosEspera);
   const acres = 3 + ((min-5)*0.60);
   total += acres;
   detalhes.push([`Tempo de espera (${min} min)`,acres]);
+}
+
+/* =========================================================
+   🔥 TARIFA DINÂMICA APLICADA NO FINAL
+========================================================= */
+
+if (typeof Dinamico !== "undefined" && Dinamico.ativo) {
+
+  const valorAntes = total;
+  const novoTotal = total * Dinamico.multiplicador;
+  const acrescimo = novoTotal - valorAntes;
+
+  total = novoTotal;
+
+  detalhes.push([
+    `Tarifa dinâmica (${Dinamico.multiplicador}x - ${Dinamico.motivo})`,
+    acrescimo
+  ]);
 }
 
 document.getElementById("detalhamento").innerHTML =
@@ -298,93 +300,36 @@ App.set("total", total);
 function solicitar(){
 
   const agora = new Date();
-
   const dataFormatada = agora.toLocaleDateString("pt-BR");
   const horaFormatada = agora.toLocaleTimeString("pt-BR", {
     hour: "2-digit",
     minute: "2-digit"
   });
 
-  const blocoDataHora = `
-*RECIBO DE VIAGEM RF*
-*${dataFormatada}*
-*${horaFormatada}*`;
-
-  const observacaoInput = document.getElementById("observacaoInput"); // ajuste se necessário
-  const observacao = observacaoInput ? observacaoInput.value.trim() : "";
-
-  let blocoObservacao = "";
-
-  if (observacao) {
-    blocoObservacao = `
-_____________________________
-*Observações*
-
-*${observacao}*`;
-  }
-
-  // Caso você tenha checkbox de agendamento
-  const viagemAgendada = document.getElementById("viagemAgendada"); 
-  const dataAgendamento = document.getElementById("dataAgendamento");
-  const horaAgendamento = document.getElementById("horaAgendamento");
-
-  let blocoAgendamento = "";
-
-  if (viagemAgendada && viagemAgendada.checked) {
-
-    if (!dataAgendamento.value || !horaAgendamento.value) {
-      alert("Por favor, selecione data e hora do agendamento.");
-      return;
-    }
-
-    const dataFormatadaAg = new Date(dataAgendamento.value + "T00:00")
-      .toLocaleDateString("pt-BR");
-
-    blocoAgendamento = `
-_____________________________
-*VIAGEM AGENDADA*
-
-📆 ${dataFormatadaAg}
-⏰ ${horaAgendamento.value}
-`;
-  }
-
-  // Montar detalhamento das taxas
   let detalhesWhats = detalhes.map(d =>
     `• ${d[0]}: R$ ${Number(d[1]).toFixed(2)}`
   );
 
   const msg =
-`${blocoDataHora}
-${blocoObservacao}
-_____________________________
-*Detalhamento da viagem*
+`*RECIBO DE VIAGEM RF*
+${dataFormatada} - ${horaFormatada}
 
+*Detalhamento*
 ${detalhesWhats.join("\n")}
-_____________________________
-*Itinerário 🚕*
 
- *📌 Origem*
-👉 ${origem}
+📌 Origem: ${origem}
+🏁 Destino: ${destino}
 
- *🏁 Destino*
-👉 ${destino}
-_____________________________
-*💰 Total: R$ ${total.toFixed(2)}*
+💰 *Total: R$ ${total.toFixed(2)}*
 
-*RF*
-_58.615.336/0001-49_
-_Mobilidade com Excelência_`;
+_RF Driver_
+Mobilidade com Excelência`;
 
   const url = `https://wa.me/?text=${encodeURIComponent(msg)}`;
-
   window.location.href = url;
 }
-
 
 </script>
 
 </body>
 </html>
-
-
