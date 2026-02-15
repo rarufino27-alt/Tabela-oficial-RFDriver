@@ -306,7 +306,6 @@ function solicitar(){
   });
 
   const blocoDataHora = `
-_________________________________
 *RECIBO DE VIAGEM*
 *${dataFormatada}*
 *${horaFormatada}*`;
@@ -318,7 +317,7 @@ _________________________________
 
   if (observacao) {
     blocoObservacao = `
-_________________________________
+_____________________________
 *_📝 Observações_*
 
 _*${observacao}_*`;
@@ -342,7 +341,7 @@ _*${observacao}_*`;
       .toLocaleDateString("pt-BR");
 
     blocoAgendamento = `
-_________________________________
+_____________________________
 *_VIAGEM AGENDADA_*
 
 📆 ${dataFormatadaAg}
@@ -359,10 +358,10 @@ _________________________________
 `${blocoDataHora}
 ${blocoAgendamento}
 ${blocoObservacao}
-_________________________________
+_____________________________
 *Detalhamento da viagem*
 ${detalhesWhats.join("\n")}
-_________________________________
+_____________________________
 *_Itinerário 🚕_*
 
  *_📌 Origem_*
@@ -370,7 +369,7 @@ _👉 ${origem}_
 
  *_🏁 Destino_*
 _👉 ${destino}_
-_________________________________
+_____________________________
 _💰 *Total*: R$ ${total.toFixed(2)}_
 
 *RF Driver*
