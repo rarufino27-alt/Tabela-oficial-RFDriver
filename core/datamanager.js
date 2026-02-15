@@ -2,16 +2,16 @@ const DataManager = {
   rotas: [],
 
   arquivos: [
-  "./data/Condomínio-Porto-do-Cabo.json",
-  "./data/Cohab.json",
-  "./data/Centro-do-Cabo.json",
-  "./data/Shopping-Costa-Dourada.json",
-  "./data/Engenho-Novo-Até-a-SETRE.json",
-  "./data/Engenho-Novo-Até-Status-Posto.json",
-  "./data/Engenho-Novo-Recanto-do-Paraíso.json",
-  "./data/Loteamento-DHARMA-VILLE.json",
-  "./data/Águia-American-Club-Br-101.json",
-  "./data/Bairro-São-Francisco-Baixo.json"
+  "./data/condominio-porto-do-cabo.json",
+  "./data/cohab.json",
+  "./data/centro-do-cabo.json",
+  "./data/shopping-costa-dourada.json",
+  "./data/engenho-novo-ate-a-setre.json",
+  "./data/engenho-novo-ate-status-posto.json",
+  "./data/engenho-novo-recanto-do-paraiso.json",
+  "./data/loteamento-dharma-ville.json",
+  "./data/aguia-american-club-br-101.json",
+  "./data/bairro-sao-francisco-Baixo.json"
 ],
 
   async carregar() {
@@ -59,5 +59,6 @@ const DataManager = {
     return rota ? rota.valor : null;
   }
 };
+
 
 
