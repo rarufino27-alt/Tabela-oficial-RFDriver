@@ -2,16 +2,16 @@ const DataManager = {
   rotas: [],
 
   arquivos: [
-  "./data/locais.json",
-  "./data/praias.json",
-  "./data/empresas.json",
-  "./data/engenhos.json",
-  "./data/interurbanas.json",
-  "./data/interestaduais.json",
-  "./data/lazer-festa.json",
-  "./data/hospitais-clinicas.json",
-  "./data/longas-locais.json",
-  "./data/shoppings.json"
+  "./data/Condomínio-Porto-do-Cabo.json",
+  "./data/Cohab.json",
+  "./data/Centro-do-Cabo.json",
+  "./data/Shopping-Costa-Dourada.json",
+  "./data/Engenho-Novo-Até-a-SETRE.json",
+  "./data/Engenho-Novo-Até-Status-Posto.json",
+  "./data/Engenho-Novo-Recanto-do-Paraíso.json",
+  "./data/Loteamento-DHARMA-VILLE.json",
+  "./data/Águia-American-Club-Br-101.json",
+  "./data/Bairro-São-Francisco-Baixo.json"
 ],
 
   async carregar() {
@@ -59,4 +59,5 @@ const DataManager = {
     return rota ? rota.valor : null;
   }
 };
+
 
