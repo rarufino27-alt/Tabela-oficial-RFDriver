@@ -318,9 +318,9 @@ function solicitar(){
   if (observacao) {
     blocoObservacao = `
 _____________________________
-*_📝 Observações_*
+*Observações*
 
-_*${observacao}_*`;
+*${observacao}*`;
   }
 
   // Caso você tenha checkbox de agendamento
@@ -342,7 +342,7 @@ _*${observacao}_*`;
 
     blocoAgendamento = `
 _____________________________
-*_VIAGEM AGENDADA_*
+*VIAGEM AGENDADA*
 
 📆 ${dataFormatadaAg}
 ⏰ ${horaAgendamento.value}
@@ -362,13 +362,13 @@ _____________________________
 *Detalhamento da viagem*
 ${detalhesWhats.join("\n")}
 _____________________________
-*_Itinerário 🚕_*
+*Itinerário 🚕*
 
- *_📌 Origem_*
-_👉 ${origem}_
+ *📌 Origem*
+👉 ${origem}
 
- *_🏁 Destino_*
-_👉 ${destino}_
+ *🏁 Destino*
+👉 ${destino}
 _____________________________
 _💰 *Total*: R$ ${total.toFixed(2)}_
 
