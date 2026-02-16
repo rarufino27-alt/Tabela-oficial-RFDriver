@@ -3,14 +3,20 @@ const DataManager = {
 
   arquivos: [
   "./data/condominio-porto-do-cabo.json",
+  "./data/lote-garapu2-lote-dona-amara.json",  
   "./data/cohab.json",
   "./data/centro-do-cabo.json",
   "./data/shopping-costa-dourada.json",
-  "./data/engenho-novo-ate-a-setre.json",
-  "./data/engenho-novo-ate-status-posto.json",
-  "./data/engenho-novo-recanto-do-paraiso.json",
-  "./data/loteamento-dharma-ville.json",
   "./data/aguia-american-club-br-101.json",
+  "./data/empresas.json",
+  "./data/engenhos.json",
+  "./data/hospitais-clinicas.json",
+  "./data/interurbanas.json",
+  "./data/interestaduais.json",
+  "./data/lazer-festa.json",
+  "./data/locais.json",
+  "./data/longas-locais.json",
+  "./data/praias.json",  
   "./data/bairro-sao-francisco-Baixo.json"
 ],
 
@@ -59,6 +65,7 @@ const DataManager = {
     return rota ? rota.valor : null;
   }
 };
+
 
 
 
