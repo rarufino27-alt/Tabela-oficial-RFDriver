@@ -17,7 +17,7 @@ const DataManager = {
   "./data/locais.json",
   "./data/longas-locais.json",
   "./data/praias.json",  
-  "./data/bairro-sao-francisco-Baixo.json"
+  "./data/bairro-sao-francisco-baixo.json"
 ],
 
   async carregar() {
@@ -65,6 +65,7 @@ const DataManager = {
     return rota ? rota.valor : null;
   }
 };
+
 
 
 
