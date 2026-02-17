@@ -435,7 +435,7 @@ function solicitar(){
 *${dataFormatada}*
 *${horaFormatada}*`;
 
-  const observacaoInput = document.getElementById("observacaoInput"); // ajuste se necessário
+  const observacaoInput = document.getElementById("observacaoInput");
   const observacao = observacaoInput ? observacaoInput.value.trim() : "";
 
   let blocoObservacao = "";
@@ -448,36 +448,16 @@ _____________________________
 *${observacao}*`;
   }
 
-  // Caso você tenha checkbox de agendamento
-  const viagemAgendada = document.getElementById("viagemAgendada"); 
-  const dataAgendamento = document.getElementById("dataAgendamento");
-  const horaAgendamento = document.getElementById("horaAgendamento");
+  const totalFinal = Number(App.get("total") || 0);
 
-  let blocoAgendamento = "";
+  // Montar detalhamento manual (baseado no que você já tem)
+  let detalhesWhats = [];
 
-  if (viagemAgendada && viagemAgendada.checked) {
+  detalhesWhats.push(`• Categoria: ${categoriaSelecionada}`);
 
-    if (!dataAgendamento.value || !horaAgendamento.value) {
-      alert("Por favor, selecione data e hora do agendamento.");
-      return;
-    }
-
-    const dataFormatadaAg = new Date(dataAgendamento.value + "T00:00")
-      .toLocaleDateString("pt-BR");
-
-    blocoAgendamento = `
-_____________________________
-*VIAGEM AGENDADA*
-
-📆 ${dataFormatadaAg}
-⏰ ${horaAgendamento.value}
-`;
+  if (noturnoAtivo) {
+    detalhesWhats.push(`• Adicional Noturno: + R$ ${adicionalNoturnoValor.toFixed(2)}`);
   }
-
-  // Montar detalhamento das taxas
-  let detalhesWhats = detalhes.map(d =>
-    `• ${d[0]}: R$ ${Number(d[1]).toFixed(2)}`
-  );
 
   const msg =
 `${blocoDataHora}
@@ -489,13 +469,14 @@ ${detalhesWhats.join("\n")}
 _____________________________
 *ITINERÁRIO*
 
- *📌 Origem*
-👉 ${origem}
+📍 Origem:
+${origem}
 
- *🏁 Destino*
-👉 ${destino}
+🏁 Destino:
+${destino}
+
 _____________________________
-💰 *Total: R$ ${total.toFixed(2)}*
+💰 *Total: R$ ${totalFinal.toFixed(2)}*
 
 _RF Driver_
 Mobilidade com Excelência`;
