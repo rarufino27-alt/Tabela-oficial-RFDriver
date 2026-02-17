@@ -2,191 +2,357 @@
 <html lang="pt-BR">
 <head>
 <meta charset="UTF-8">
-<title>RF Driver</title>
+<title>Viagem – RF Driver</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <style>
-*{
-  margin:0;
-  padding:0;
-  box-sizing:border-box;
-  font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;
-}
+*{margin:0;padding:0;box-sizing:border-box;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;}
 
-body{
-  background:#000;
-  color:#fff;
-}
+body{background:#000;color:#fff;}
 
-/* CONTAINER */
 .container{
   min-height:100vh;
   padding:40px 24px 140px;
   display:flex;
   flex-direction:column;
-  justify-content:space-between;
 }
 
-/* LOGO */
-.logo{
-  text-align:center;
-  margin-bottom:30px;
+.logo-wrapper{
+  width:110px;height:110px;margin:0 auto 25px;
+  border-radius:50%;background:#000;
+  display:flex;align-items:center;justify-content:center;
+  box-shadow:0 0 40px rgba(250,204,21,.35);
 }
 
-.logo img{
-  width:180px;
-  max-width:80%;
+.logo-img{width:70%;}
+
+.section{margin-bottom:25px;}
+.title{font-size:1.4rem;font-weight:700;margin-bottom:8px;}
+.subtitle{font-size:.9rem;color:#a1a1aa;margin-bottom:12px;}
+
+.card{
+  background:#111;border:1px solid #1c1c1c;
+  border-radius:16px;padding:18px;
 }
 
-/* HEADLINE */
-.headline{
-  font-size:2rem;
-  font-weight:700;
-  line-height:1.2;
-  margin-bottom:14px;
+.select-btn{
+  padding:16px;border-radius:12px;
+  background:#0d0d0d;border:1px solid #1f2937;
+  cursor:pointer;transition:.25s ease;
 }
 
-.sub{
-  font-size:1rem;
-  color:#a1a1aa;
-  margin-bottom:30px;
+.select-btn:hover{border-color:#facc15;}
+
+.select-btn.ativo{
+  border-color:#facc15;
+  box-shadow:0 0 12px rgba(250,204,21,.3);
+  transform:scale(1.02);
 }
 
-/* BENEFITS */
-.benefits{
-  display:flex;
-  flex-direction:column;
-  gap:12px;
-  margin-bottom:30px;
+.taxa-box{
+  background:#111;border:1px solid #1c1c1c;
+  border-radius:14px;padding:14px;
+  display:flex;justify-content:space-between;
+  align-items:center;font-size:.85rem;
+  margin-bottom:12px;transition:.2s ease;
 }
 
-.benefits div{
-  background:#111;
-  padding:14px;
-  border-radius:12px;
-  font-size:.95rem;
-  border:1px solid #1c1c1c;
+.taxa-box.ativa{
+  border-color:#facc15;
+  box-shadow:0 0 10px rgba(250,204,21,.2);
 }
 
-/* CTA FIXO */
 .cta-area{
-  position:fixed;
-  bottom:0;
-  left:0;
-  right:0;
-  padding:20px;
-  background:#000;
+  position:fixed;bottom:0;left:0;right:0;
+  padding:20px;background:#000;
 }
 
 .cta-primary{
-  width:100%;
-  padding:18px;
-  border:none;
-  border-radius:14px;
-  font-size:1.1rem;
-  font-weight:700;
-  background:#facc15;
-  color:#000;
-  cursor:pointer;
+  width:100%;padding:18px;border:none;
+  border-radius:14px;font-size:1rem;
+  font-weight:700;background:#facc15;
+  color:#000;cursor:pointer;transition:.3s ease;
 }
 
-.cta-primary:active{
-  transform:scale(.97);
+.cta-primary:disabled{opacity:.4;}
+.cta-primary:not(:disabled){
+  box-shadow:0 0 18px rgba(250,204,21,.4);
+  transform:translateY(-2px);
 }
 
-.links{
-  display:flex;
-  justify-content:center;
-  gap:20px;
-  margin-top:12px;
-  font-size:.85rem;
+.modal{
+  position:fixed;inset:0;background:rgba(0,0,0,.85);
+  display:none;align-items:center;justify-content:center;
+  padding:20px;
 }
 
-.links a{
-  color:#a1a1aa;
-  text-decoration:none;
+.modal-content{
+  background:#111;width:100%;max-width:400px;
+  border-radius:18px;padding:18px;
+  border:1px solid #1c1c1c;
 }
 
-.links a:hover{
-  color:#2563eb;
+.modal-content input{
+  width:100%;padding:14px;border-radius:12px;
+  border:1px solid #1f2937;background:#0d0d0d;
+  color:#fff;margin-bottom:12px;
 }
 
-  .logo-wrapper{
-  width:120px;
-  height:120px;
-  margin:0 auto 30px auto;
-  border-radius:50%;
-  background:#000;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  box-shadow:
-    0 0 40px rgba(250,204,21,.35),
-    0 0 80px rgba(250,204,21,.15);
+.modal-content div{
+  padding:12px;border-radius:10px;cursor:pointer;
 }
 
-.logo-img{
-  width:70%;
-  height:auto;
-  object-fit:contain;
-}
-
+.modal-content div:hover{background:#1a1a1a;}
 </style>
 </head>
+
 <body>
 
 <div class="container">
 
-  <div>
-
 <div class="logo-wrapper">
-  <img 
-    src="/Mobile-app-RFDriver/icons/logo-1024.png" 
-    alt="RF Driver"
-    class="logo-img"
-  >
+  <img src="./icons/logo-1024.png" class="logo-img">
 </div>
 
-    <div class="headline">
-      Preço da viagem na palma da mão<br>
-      em poucos segundos.
-    </div>
-
-    <div class="sub">
-      Tecnologia + Atendimento humano.<br>
-      Mobilidade com excelência.
-    </div>
-
-    <div class="benefits">
-      <div>✔ Melhores preços de Viagens</div>
-      <div>✔ Atendimento prioritário</div>
-      <div>✔ Valor transparente na palma da mão</div>
-    </div>
-
+<!-- ORIGEM -->
+<div class="section">
+  <div class="title">Origem</div>
+  <div class="card">
+    <div class="select-btn" id="origemBtn">Selecionar origem</div>
   </div>
+</div>
+
+<!-- PARADA -->
+<div class="section">
+  <div class="card">
+    <div class="select-btn" id="paradaBtn">
+      + Adicionar parada (opcional)
+    </div>
+  </div>
+</div>
+
+<!-- DESTINO -->
+<div class="section">
+  <div class="title">Destino</div>
+  <div class="card">
+    <div class="select-btn" id="destinoBtn">Selecionar destino</div>
+  </div>
+</div>
+
+<!-- TAXAS -->
+<div class="section">
+  <div class="title">Adicionais</div>
+
+  <div class="taxa-box">
+    <span>Desvio rápido</span>
+    <input type="checkbox" id="desvioSimples">
+  </div>
+
+  <div class="taxa-box">
+    <span>Taxa feira</span>
+    <input type="checkbox" id="taxaFeira">
+  </div>
+
+  <div class="taxa-box">
+    <span>Animal</span>
+    <select id="animal">
+      <option value="0">Não</option>
+      <option value="4.99">Pequeno</option>
+      <option value="6.99">Médio</option>
+      <option value="9.99">Grande</option>
+    </select>
+  </div>
+
+</div>
 
 </div>
 
 <div class="cta-area">
-  <button class="cta-primary" onclick="window.location.href='viagem.html'">
-    Acessar agora
+  <button class="cta-primary" id="btnAvancar" disabled>
+    Continuar
   </button>
+</div>
 
-  <div class="links">
-    <a href="instalar-app.html">Instalar o App</a>
-    <a href="regras.html">Regras do Grupo</a>
+<div class="modal" id="modal">
+  <div class="modal-content">
+    <input id="busca" placeholder="Buscar...">
+    <div id="lista" style="max-height:260px;overflow:auto"></div>
   </div>
 </div>
 
+<script src="core/global.js"></script>
+<script src="core/datamanager.js"></script>
+
+<script>
+
+const origemBtn = document.getElementById("origemBtn");
+const paradaBtn = document.getElementById("paradaBtn");
+const destinoBtn = document.getElementById("destinoBtn");
+const btn = document.getElementById("btnAvancar");
+const modal = document.getElementById("modal");
+const lista = document.getElementById("lista");
+const busca = document.getElementById("busca");
+
+let origens = [];
+let destinos = [];
+let origemSelecionada = null;
+let paradaSelecionada = null;
+let destinoSelecionado = null;
+
+let valorTrecho1 = 0;
+let valorTrecho2 = 0;
+let valorBase = 0;
+let modo = null;
+
+/* ================= CARREGAR DADOS ================= */
+
+document.addEventListener("DOMContentLoaded", async ()=>{
+  await DataManager.carregar();
+  origens = DataManager.listarOrigens();
+});
+
+/* ================= ORIGEM ================= */
+
+origemBtn.onclick = ()=>{
+  modo = "origem";
+  modal.style.display="flex";
+  busca.value="";
+  render(origens);
+};
+
+/* ================= PARADA ================= */
+
+paradaBtn.onclick = ()=>{
+  if(!origemSelecionada){
+    alert("Selecione a origem primeiro.");
+    return;
+  }
+
+  modo = "parada";
+  destinos = DataManager.listarDestinos(origemSelecionada);
+  modal.style.display="flex";
+  busca.value="";
+  render(destinos);
+};
+
+/* ================= DESTINO ================= */
+
+destinoBtn.onclick = ()=>{
+  if(!origemSelecionada){
+    alert("Selecione a origem primeiro.");
+    return;
+  }
+
+  modo = "destino";
+
+  if(paradaSelecionada){
+    destinos = DataManager.listarDestinos(paradaSelecionada);
+  }else{
+    destinos = DataManager.listarDestinos(origemSelecionada);
+  }
+
+  modal.style.display="flex";
+  busca.value="";
+  render(destinos);
+};
+
+/* ================= MODAL ================= */
+
+modal.onclick = e=>{
+  if(e.target===modal) modal.style.display="none";
+};
+
+/* ================= RENDER ================= */
+
+function render(arr){
+  lista.innerHTML="";
+
+  arr.forEach(item=>{
+    const div=document.createElement("div");
+    div.textContent=item;
+
+    div.onclick=()=>{
+
+      if(modo==="origem"){
+        origemSelecionada=item;
+        origemBtn.textContent=item;
+        origemBtn.classList.add("ativo");
+        paradaSelecionada=null;
+        paradaBtn.textContent="+ Adicionar parada (opcional)";
+        destinoSelecionado=null;
+      }
+
+      else if(modo==="parada"){
+        paradaSelecionada=item;
+        paradaBtn.textContent="Parada: " + item;
+        paradaBtn.classList.add("ativo");
+        valorTrecho1 = DataManager.buscarValor(origemSelecionada,item);
+      }
+
+      else if(modo==="destino"){
+        destinoSelecionado=item;
+        destinoBtn.textContent=item;
+        destinoBtn.classList.add("ativo");
+
+        if(paradaSelecionada){
+          valorTrecho2 = DataManager.buscarValor(paradaSelecionada,item);
+          valorBase = valorTrecho1 + valorTrecho2;
+        }else{
+          valorBase = DataManager.buscarValor(origemSelecionada,item);
+        }
+      }
+
+      modal.style.display="none";
+      validar();
+    };
+
+    lista.appendChild(div);
+  });
+}
+
+/* ================= BUSCA ================= */
+
+busca.oninput=()=>{
+  const t=busca.value.toLowerCase();
+  render(destinos.filter(i=>i.toLowerCase().includes(t)));
+};
+
+/* ================= VALIDAR ================= */
+
+function validar(){
+  btn.disabled = !(origemSelecionada && destinoSelecionado);
+}
+
+/* ================= TAXAS ANIMAÇÃO ================= */
+
+document.querySelectorAll(".taxa-box input").forEach(input=>{
+  input.addEventListener("change",()=>{
+    input.closest(".taxa-box")
+      .classList.toggle("ativa", input.checked);
+  });
+});
+
+/* ================= CONTINUAR ================= */
+
+btn.onclick=()=>{
+
+  const config = {
+    desvioSimples: desvioSimples.checked,
+    taxaFeira: taxaFeira.checked,
+    animal: animal.value
+  };
+
+  App.set("origem", origemSelecionada);
+  App.set("parada", paradaSelecionada);
+  App.set("destino", destinoSelecionado);
+  App.set("valorBase", Number(valorBase));
+  App.set("taxasConfig", config);
+
+  App.go("resumo.html");
+};
+
+</script>
+
 </body>
 </html>
-
-
-
-
-
-
-
-
-
 
