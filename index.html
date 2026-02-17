@@ -2,357 +2,412 @@
 <html lang="pt-BR">
 <head>
 <meta charset="UTF-8">
-<title>Viagem – RF Driver</title>
+<title>RF Driver – Solicitar Viagem</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <style>
-*{margin:0;padding:0;box-sizing:border-box;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;}
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+  font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;
+}
 
-body{background:#000;color:#fff;}
+body{
+  background:#000;
+  height:100vh;
+  overflow:hidden;
+}
 
-.container{
-  min-height:100vh;
-  padding:40px 24px 140px;
+/* HEADER */
+.top{
+  background:#facc15;
+  padding:20px;
+  padding-bottom:70px;
+  color:#000;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+}
+
+.top-left{
+  font-weight:600;
+  font-size:1.05rem;
+}
+
+.menu-btn{
+  font-size:22px;
+  cursor:pointer;
+  padding:6px 10px;
+  border-radius:8px;
+}
+
+.menu-btn:hover{
+  background:rgba(0,0,0,.1);
+}
+
+/* MAPA */
+.map{
+  position:absolute;
+  top:80px;
+  left:0;
+  right:0;
+  bottom:0;
+  background:#111;
+  opacity:.6;
+}
+
+/* CARD */
+.card{
+  position:absolute;
+  top:110px;
+  left:20px;
+  right:20px;
+  background:#fff;
+  border-radius:20px;
+  padding:20px;
+  box-shadow:0 20px 40px rgba(0,0,0,.4);
+}
+
+/* BOTÃO BUSCA */
+.search-main{
+  display:flex;
+  align-items:center;
+  gap:10px;
+  padding:14px;
+  background:#f2f2f2;
+  border-radius:14px;
+  font-weight:600;
+  font-size:1rem;
+  cursor:pointer;
+  margin-bottom:18px;
+}
+
+/* ROTA */
+.rota-box{
+  margin-top:10px;
+  background:#111;
+  border-radius:18px;
+  padding:16px;
+}
+
+.rota-item{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+}
+
+.label{
+  font-size:.75rem;
+  color:#888;
+}
+
+.valor{
+  font-size:.85rem;
+  font-weight:500;
+  color:#fff;
+  text-align:right;
+}
+
+.linha{
+  height:1px;
+  background:#222;
+  margin:10px 0;
+}
+
+/* TOTAL */
+.total{
+  margin-top:14px;
+  text-align:right;
+  font-size:1rem;
+  font-weight:700;
+  color:#facc15;
+}
+
+/* BOTÃO FIXO */
+.bottom{
+  position:absolute;
+  bottom:20px;
+  left:20px;
+  right:20px;
+}
+
+button{
+  width:100%;
+  padding:16px;
+  border:none;
+  border-radius:16px;
+  background:#facc15;
+  color:#000;
+  font-weight:700;
+  font-size:1rem;
+  cursor:pointer;
+}
+
+button:disabled{
+  background:#333;
+  color:#777;
+}
+
+/* OVERLAY */
+.menu-overlay{
+  position:fixed;
+  inset:0;
+  background:rgba(0,0,0,.5);
+  display:none;
+  z-index:99;
+}
+
+/* MENU */
+.menu-lateral{
+  position:fixed;
+  top:0;
+  left:-300px;
+  width:280px;
+  height:100%;
+  background:#fff;
+  z-index:100;
+  transition:.3s;
   display:flex;
   flex-direction:column;
 }
 
-.logo-wrapper{
-  width:110px;height:110px;margin:0 auto 25px;
-  border-radius:50%;background:#000;
-  display:flex;align-items:center;justify-content:center;
-  box-shadow:0 0 40px rgba(250,204,21,.35);
+.menu-lateral.ativo{
+  left:0;
 }
 
-.logo-img{width:70%;}
-
-.section{margin-bottom:25px;}
-.title{font-size:1.4rem;font-weight:700;margin-bottom:8px;}
-.subtitle{font-size:.9rem;color:#a1a1aa;margin-bottom:12px;}
-
-.card{
-  background:#111;border:1px solid #1c1c1c;
-  border-radius:16px;padding:18px;
-}
-
-.select-btn{
-  padding:16px;border-radius:12px;
-  background:#0d0d0d;border:1px solid #1f2937;
-  cursor:pointer;transition:.25s ease;
-}
-
-.select-btn:hover{border-color:#facc15;}
-
-.select-btn.ativo{
-  border-color:#facc15;
-  box-shadow:0 0 12px rgba(250,204,21,.3);
-  transform:scale(1.02);
-}
-
-.taxa-box{
-  background:#111;border:1px solid #1c1c1c;
-  border-radius:14px;padding:14px;
-  display:flex;justify-content:space-between;
-  align-items:center;font-size:.85rem;
-  margin-bottom:12px;transition:.2s ease;
-}
-
-.taxa-box.ativa{
-  border-color:#facc15;
-  box-shadow:0 0 10px rgba(250,204,21,.2);
-}
-
-.cta-area{
-  position:fixed;bottom:0;left:0;right:0;
-  padding:20px;background:#000;
-}
-
-.cta-primary{
-  width:100%;padding:18px;border:none;
-  border-radius:14px;font-size:1rem;
-  font-weight:700;background:#facc15;
-  color:#000;cursor:pointer;transition:.3s ease;
-}
-
-.cta-primary:disabled{opacity:.4;}
-.cta-primary:not(:disabled){
-  box-shadow:0 0 18px rgba(250,204,21,.4);
-  transform:translateY(-2px);
-}
-
-.modal{
-  position:fixed;inset:0;background:rgba(0,0,0,.85);
-  display:none;align-items:center;justify-content:center;
+.menu-header{
   padding:20px;
+  background:#facc15;
+  display:flex;
+  gap:15px;
+  align-items:center;
+  cursor:pointer;
 }
 
-.modal-content{
-  background:#111;width:100%;max-width:400px;
-  border-radius:18px;padding:18px;
-  border:1px solid #1c1c1c;
+.avatar{
+  width:50px;
+  height:50px;
+  border-radius:50%;
+  background:#000;
+  background-size:cover;
+  background-position:center;
 }
 
-.modal-content input{
-  width:100%;padding:14px;border-radius:12px;
-  border:1px solid #1f2937;background:#0d0d0d;
-  color:#fff;margin-bottom:12px;
+.menu-nome{
+  font-weight:600;
 }
 
-.modal-content div{
-  padding:12px;border-radius:10px;cursor:pointer;
+.menu-editar{
+  font-size:.8rem;
+  opacity:.7;
 }
 
-.modal-content div:hover{background:#1a1a1a;}
+.menu-lista{
+  padding:10px;
+  flex:1;
+  overflow:auto;
+}
+
+.menu-item{
+  padding:14px;
+  border-radius:12px;
+  margin-bottom:5px;
+  cursor:pointer;
+}
+
+.menu-item:hover{
+  background:#f2f2f2;
+}
+
+.menu-item.sair{
+  color:#d11a2a;
+  font-weight:600;
+}
 </style>
 </head>
-
 <body>
 
-<div class="container">
+<!-- OVERLAY -->
+<div id="menuOverlay" class="menu-overlay" onclick="fecharMenu()"></div>
 
-<div class="logo-wrapper">
-  <img src="./icons/logo-1024.png" class="logo-img">
-</div>
+<!-- MENU -->
+<div id="menuLateral" class="menu-lateral">
 
-<!-- ORIGEM -->
-<div class="section">
-  <div class="title">Origem</div>
-  <div class="card">
-    <div class="select-btn" id="origemBtn">Selecionar origem</div>
-  </div>
-</div>
-
-<!-- PARADA -->
-<div class="section">
-  <div class="card">
-    <div class="select-btn" id="paradaBtn">
-      + Adicionar parada (opcional)
+  <div class="menu-header" onclick="irPerfil()">
+    <div class="avatar" id="avatarMenu"></div>
+    <div>
+      <div class="menu-nome" id="menuNome">Usuário</div>
+      <div class="menu-editar">Editar minhas informações</div>
     </div>
   </div>
-</div>
 
-<!-- DESTINO -->
-<div class="section">
-  <div class="title">Destino</div>
-  <div class="card">
-    <div class="select-btn" id="destinoBtn">Selecionar destino</div>
+  <div class="menu-lista">
+
+    <div class="menu-item" onclick="window.location.href='viagem.html'">
+      🚕 Atividade
+    </div>
+
+    <div class="menu-item" onclick="irAjuda()">
+      💬 Ajuda
+    </div>
+
+    <div class="menu-item" onclick="window.location.href='mensagens.html'">
+      📩 Mensagens
+    </div>
+
+    <div class="menu-item" onclick="window.location.href='configuracoes.html'">
+      ⚙️ Configurações
+    </div>
+
+    <div class="menu-item" onclick="window.location.href='convite.html'">
+      🎁 Convide Amigos
+    </div>
+
+    <div class="menu-item sair" onclick="logout()">
+      🚪 Sair
+    </div>
+
   </div>
 </div>
 
-<!-- TAXAS -->
-<div class="section">
-  <div class="title">Adicionais</div>
+<div class="top">
+  <div class="top-left" id="saudacao">Olá!</div>
+  <div class="menu-btn" onclick="abrirMenu()">☰</div>
+</div>
 
-  <div class="taxa-box">
-    <span>Desvio rápido</span>
-    <input type="checkbox" id="desvioSimples">
+<div class="map"></div>
+
+<div class="card">
+
+  <div class="search-main" onclick="abrirBusca()">
+    🔎 Para onde vamos?
   </div>
 
-  <div class="taxa-box">
-    <span>Taxa feira</span>
-    <input type="checkbox" id="taxaFeira">
-  </div>
-
-  <div class="taxa-box">
-    <span>Animal</span>
-    <select id="animal">
-      <option value="0">Não</option>
-      <option value="4.99">Pequeno</option>
-      <option value="6.99">Médio</option>
-      <option value="9.99">Grande</option>
-    </select>
-  </div>
+  <div id="rotaBox" class="rota-box" style="display:none;"></div>
 
 </div>
 
+<div class="bottom">
+  <button id="btnSolicitar" disabled onclick="solicitar()">Solicitar corrida</button>
 </div>
-
-<div class="cta-area">
-  <button class="cta-primary" id="btnAvancar" disabled>
-    Continuar
-  </button>
-</div>
-
-<div class="modal" id="modal">
-  <div class="modal-content">
-    <input id="busca" placeholder="Buscar...">
-    <div id="lista" style="max-height:260px;overflow:auto"></div>
-  </div>
-</div>
-
-<script src="core/global.js"></script>
-<script src="core/datamanager.js"></script>
 
 <script>
 
-const origemBtn = document.getElementById("origemBtn");
-const paradaBtn = document.getElementById("paradaBtn");
-const destinoBtn = document.getElementById("destinoBtn");
-const btn = document.getElementById("btnAvancar");
-const modal = document.getElementById("modal");
-const lista = document.getElementById("lista");
-const busca = document.getElementById("busca");
+/* ================= MENU ================= */
 
-let origens = [];
-let destinos = [];
-let origemSelecionada = null;
-let paradaSelecionada = null;
-let destinoSelecionado = null;
-
-let valorTrecho1 = 0;
-let valorTrecho2 = 0;
-let valorBase = 0;
-let modo = null;
-
-/* ================= CARREGAR DADOS ================= */
-
-document.addEventListener("DOMContentLoaded", async ()=>{
-  await DataManager.carregar();
-  origens = DataManager.listarOrigens();
-});
-
-/* ================= ORIGEM ================= */
-
-origemBtn.onclick = ()=>{
-  modo = "origem";
-  modal.style.display="flex";
-  busca.value="";
-  render(origens);
-};
-
-/* ================= PARADA ================= */
-
-paradaBtn.onclick = ()=>{
-  if(!origemSelecionada){
-    alert("Selecione a origem primeiro.");
-    return;
-  }
-
-  modo = "parada";
-  destinos = DataManager.listarDestinos(origemSelecionada);
-  modal.style.display="flex";
-  busca.value="";
-  render(destinos);
-};
-
-/* ================= DESTINO ================= */
-
-destinoBtn.onclick = ()=>{
-  if(!origemSelecionada){
-    alert("Selecione a origem primeiro.");
-    return;
-  }
-
-  modo = "destino";
-
-  if(paradaSelecionada){
-    destinos = DataManager.listarDestinos(paradaSelecionada);
-  }else{
-    destinos = DataManager.listarDestinos(origemSelecionada);
-  }
-
-  modal.style.display="flex";
-  busca.value="";
-  render(destinos);
-};
-
-/* ================= MODAL ================= */
-
-modal.onclick = e=>{
-  if(e.target===modal) modal.style.display="none";
-};
-
-/* ================= RENDER ================= */
-
-function render(arr){
-  lista.innerHTML="";
-
-  arr.forEach(item=>{
-    const div=document.createElement("div");
-    div.textContent=item;
-
-    div.onclick=()=>{
-
-      if(modo==="origem"){
-        origemSelecionada=item;
-        origemBtn.textContent=item;
-        origemBtn.classList.add("ativo");
-        paradaSelecionada=null;
-        paradaBtn.textContent="+ Adicionar parada (opcional)";
-        destinoSelecionado=null;
-      }
-
-      else if(modo==="parada"){
-        paradaSelecionada=item;
-        paradaBtn.textContent="Parada: " + item;
-        paradaBtn.classList.add("ativo");
-        valorTrecho1 = DataManager.buscarValor(origemSelecionada,item);
-      }
-
-      else if(modo==="destino"){
-        destinoSelecionado=item;
-        destinoBtn.textContent=item;
-        destinoBtn.classList.add("ativo");
-
-        if(paradaSelecionada){
-          valorTrecho2 = DataManager.buscarValor(paradaSelecionada,item);
-          valorBase = valorTrecho1 + valorTrecho2;
-        }else{
-          valorBase = DataManager.buscarValor(origemSelecionada,item);
-        }
-      }
-
-      modal.style.display="none";
-      validar();
-    };
-
-    lista.appendChild(div);
-  });
+function abrirMenu(){
+  document.getElementById("menuLateral").classList.add("ativo");
+  document.getElementById("menuOverlay").style.display="block";
 }
 
-/* ================= BUSCA ================= */
-
-busca.oninput=()=>{
-  const t=busca.value.toLowerCase();
-  render(destinos.filter(i=>i.toLowerCase().includes(t)));
-};
-
-/* ================= VALIDAR ================= */
-
-function validar(){
-  btn.disabled = !(origemSelecionada && destinoSelecionado);
+function fecharMenu(){
+  document.getElementById("menuLateral").classList.remove("ativo");
+  document.getElementById("menuOverlay").style.display="none";
 }
 
-/* ================= TAXAS ANIMAÇÃO ================= */
+function carregarMenuUsuario(){
+  const nome = localStorage.getItem("rf_usuario_nome") || "Usuário";
+  const foto = localStorage.getItem("rf_usuario_foto");
 
-document.querySelectorAll(".taxa-box input").forEach(input=>{
-  input.addEventListener("change",()=>{
-    input.closest(".taxa-box")
-      .classList.toggle("ativa", input.checked);
-  });
-});
+  document.getElementById("menuNome").innerText = nome;
 
-/* ================= CONTINUAR ================= */
+  if(foto){
+    document.getElementById("avatarMenu").style.backgroundImage = `url('${foto}')`;
+  }
+}
 
-btn.onclick=()=>{
+function irPerfil(){
+  window.location.href = "perfil.html";
+}
 
-  const config = {
-    desvioSimples: desvioSimples.checked,
-    taxaFeira: taxaFeira.checked,
-    animal: animal.value
-  };
+function irAjuda(){
+  const nome = localStorage.getItem("rf_usuario_nome") || "Usuário";
+  const mensagem = encodeURIComponent(
+    "Olá, meu nome é " + nome + " e preciso de ajuda no RF Driver."
+  );
+  window.open("https://wa.me/5581992716132?text=" + mensagem, "_blank");
+}
 
-  App.set("origem", origemSelecionada);
-  App.set("parada", paradaSelecionada);
-  App.set("destino", destinoSelecionado);
-  App.set("valorBase", Number(valorBase));
-  App.set("taxasConfig", config);
+function logout(){
+  localStorage.removeItem("rf_usuario_logado");
+  window.location.href = "login.html";
+}
 
-  App.go("resumo.html");
-};
+/* ================= USUÁRIO ================= */
+
+function carregarUsuario(){
+  const nome = localStorage.getItem("rf_usuario_nome") || "Usuário";
+  document.getElementById("saudacao").innerText = "Olá, " + nome + "!";
+}
+
+/* ================= ROTA ================= */
+
+function abrirBusca(){
+  window.location.href = "buscar.html";
+}
+
+function carregarRota(){
+
+  const corrida = localStorage.getItem("rf_corrida_temp");
+  if(!corrida) return;
+
+  const dados = JSON.parse(corrida);
+  const { origem, parada, destino, valor } = dados;
+
+  if(!origem || !destino) return;
+
+  let html = "";
+
+  html += `
+    <div class="rota-item">
+      <span class="label">Origem</span>
+      <span class="valor">${origem}</span>
+    </div>
+  `;
+
+  if(parada){
+    html += `
+      <div class="linha"></div>
+      <div class="rota-item">
+        <span class="label">Parada</span>
+        <span class="valor">${parada}</span>
+      </div>
+    `;
+  }
+
+  html += `
+    <div class="linha"></div>
+    <div class="rota-item">
+      <span class="label">Destino</span>
+      <span class="valor">${destino}</span>
+    </div>
+  `;
+
+  html += `
+    <div class="total">
+      Total estimado: R$ ${Number(valor).toFixed(2)}
+    </div>
+  `;
+
+  document.getElementById("rotaBox").innerHTML = html;
+  document.getElementById("rotaBox").style.display = "block";
+  document.getElementById("btnSolicitar").disabled = false;
+}
+
+/* ================= AÇÃO ================= */
+
+function solicitar(){
+  window.location.href = "resumo.html";
+}
+
+/* ================= INIT ================= */
+
+carregarUsuario();
+carregarMenuUsuario();
+carregarRota();
 
 </script>
 
 </body>
 </html>
-
