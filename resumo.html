@@ -11,7 +11,9 @@
 
 <style>
 
-/* TARIFA DINÂMICA */
+/* =============================
+   TARIFA DINÂMICA
+============================= */
 
 .preco-normal{
   text-decoration:line-through;
@@ -38,7 +40,9 @@
   to{transform:scale(1.2);}
 }
 
-/* NOTURNO */
+/* =============================
+   ADICIONAL NOTURNO
+============================= */
 
 .noturno-badge{
   background:#7c3aed;
@@ -55,6 +59,40 @@
   font-size:.75rem;
   color:#a1a1aa;
   margin-top:8px;
+}
+
+/* LOADER */
+
+.loading-overlay{
+  position:fixed;
+  inset:0;
+  background:rgba(0,0,0,.6);
+  backdrop-filter:blur(4px);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  z-index:999;
+  opacity:0;
+  pointer-events:none;
+  transition:.3s;
+}
+
+.loading-overlay.active{
+  opacity:1;
+  pointer-events:all;
+}
+
+.loader{
+  width:45px;
+  height:45px;
+  border:4px solid #333;
+  border-top:4px solid #facc15;
+  border-radius:50%;
+  animation:spin 1s linear infinite;
+}
+
+@keyframes spin{
+  to{ transform:rotate(360deg); }
 }
 
 /* GERAL */
@@ -86,6 +124,8 @@ body{
   font-weight:700;
 }
 
+/* CATEGORIAS */
+
 .categoria-card{
   display:flex;
   justify-content:space-between;
@@ -102,7 +142,14 @@ body{
 .categoria-card.active{
   border-color:#facc15;
   box-shadow:0 0 20px rgba(250,204,21,.25);
+  animation:selectPop .25s ease;
   transform:scale(1.02);
+}
+
+@keyframes selectPop{
+  0%{transform:scale(1);}
+  50%{transform:scale(1.05);}
+  100%{transform:scale(1.02);}
 }
 
 .categoria-left{
@@ -129,6 +176,8 @@ body{
   text-align:right;
 }
 
+/* ROTA */
+
 .card{
   background:#111;
   border-radius:16px;
@@ -148,12 +197,16 @@ body{
   margin-bottom:6px;
 }
 
+/* DETALHES */
+
 .details div{
   display:flex;
   justify-content:space-between;
   margin-bottom:6px;
   font-size:.9rem;
 }
+
+/* TOTAL */
 
 .total-box{
   background:#151515;
@@ -169,6 +222,8 @@ body{
   font-weight:800;
   color:#facc15;
 }
+
+/* CTA */
 
 .cta-area{
   position:fixed;
@@ -237,21 +292,31 @@ body{
 
 const origem = App.get("origem");
 const destino = App.get("destino");
+const valorBase = Number(App.get("valorBase") || 0);
+const config = App.get("taxasConfig") || {};
+
 document.getElementById("origemTxt").innerText = origem || "-";
 document.getElementById("destinoTxt").innerText = destino || "-";
 
-let detalhesSalvos = App.get("detalhesViagem") || [];
-let totalBase = Number(App.get("totalBaseCalculado") || 0);
+let totalBase = valorBase;
+
+if(config.desvioSimples) totalBase += 5;
+if(config.taxaFeira) totalBase += 5;
+if(Number(config.animal) > 0) totalBase += Number(config.animal);
 
 /* =============================
-   ADICIONAL NOTURNO
+   ADICIONAL NOTURNO AUTOMÁTICO
 ============================= */
 
 function horarioNoturno(){
   const agora = new Date();
-  const totalMin = agora.getHours()*60 + agora.getMinutes();
+  const hora = agora.getHours();
+  const minuto = agora.getMinutes();
+  const totalMin = hora*60 + minuto;
+
   const inicio = 22*60 + 30;
   const fim = 5*60;
+
   return (totalMin >= inicio || totalMin <= fim);
 }
 
@@ -268,11 +333,14 @@ if(typeof Taxas !== "undefined" && Taxas.noturno && horarioNoturno()){
     adicionalNoturnoValor = totalBase * Taxas.noturno.percentual;
   }
 
-  detalhesSalvos.push(["Adicional Noturno", adicionalNoturnoValor]);
+  totalBase += adicionalNoturnoValor;
+
+  document.getElementById("noturnoArea").innerHTML =
+    `<div class="noturno-badge">🌙 Adicional Noturno aplicado</div>`;
 }
 
 /* =============================
-   CATEGORIAS
+   CATEGORIAS RF
 ============================= */
 
 const categorias = [
@@ -281,11 +349,19 @@ const categorias = [
 ];
 
 let categoriaSelecionada = categorias[0].nome;
+
 const lista = document.getElementById("listaCategorias");
 
 function renderCategorias(){
 
-  lista.innerHTML = categorias.map(cat=>{
+  lista.innerHTML = categorias.map((cat,i)=>{
+
+    let valor = totalBase * cat.multi;
+
+    if(typeof Dinamico !== "undefined" && Dinamico.ativo){
+      valor *= Dinamico.multiplicador;
+    }
+
     return `
       <div class="categoria-card ${cat.nome===categoriaSelecionada?'active':''}"
            data-nome="${cat.nome}">
@@ -295,6 +371,9 @@ function renderCategorias(){
             <h3>${cat.nome}</h3>
             <span>${cat.desc}</span>
           </div>
+        </div>
+        <div class="categoria-preco">
+          R$ ${valor.toFixed(2)}
         </div>
       </div>
     `;
@@ -312,45 +391,34 @@ function renderCategorias(){
 function atualizar(){
 
   const cat = categorias.find(c=>c.nome===categoriaSelecionada);
-  let subtotal = detalhesSalvos.reduce((acc,item)=> acc + Number(item[1]), 0);
-
-  let totalFinal = subtotal * cat.multi;
+  let valor = totalBase * cat.multi;
 
   if(typeof Dinamico !== "undefined" && Dinamico.ativo){
-    totalFinal *= Dinamico.multiplicador;
+    valor *= Dinamico.multiplicador;
   }
 
-  let html = "";
-
-  detalhesSalvos.forEach(item=>{
-    html += `
-      <div>
-        <span>${item[0]}</span>
-        <strong>R$ ${Number(item[1]).toFixed(2)}</strong>
-      </div>
-    `;
-  });
-
-  html += `
+  document.getElementById("detalhamento").innerHTML = `
     <div>
       <span>Categoria</span>
       <strong>${categoriaSelecionada}</strong>
     </div>
+    ${noturnoAtivo ? `
+    <div>
+      <span>Adicional Noturno</span>
+      <strong>+ R$ ${adicionalNoturnoValor.toFixed(2)}</strong>
+    </div>
+    `:''}
   `;
 
-  document.getElementById("detalhamento").innerHTML = html;
-  document.getElementById("total").innerText = `R$ ${totalFinal.toFixed(2)}`;
+  document.getElementById("total").innerText = `R$ ${valor.toFixed(2)}`;
 
-  App.set("total", totalFinal);
   App.set("categoria", categoriaSelecionada);
+  App.set("total", valor);
+  App.set("noturno", noturnoAtivo);
 }
 
 renderCategorias();
 atualizar();
-
-/* =============================
-   WHATSAPP
-============================= */
 
 function solicitar(){
 
