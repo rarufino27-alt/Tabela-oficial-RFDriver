@@ -3,6 +3,7 @@ const DataManager = {
 
   arquivos: [
   "./data/condominio-porto-do-cabo.json",
+  "./data/Padaria-de-Gilberto-Cruzeiro.json",
   "./data/lote-garapu2-lote-dona-amara.json",  
   "./data/cohab.json",
   "./data/centro-do-cabo.json",
@@ -65,6 +66,7 @@ const DataManager = {
     return rota ? rota.valor : null;
   }
 };
+
 
 
 
