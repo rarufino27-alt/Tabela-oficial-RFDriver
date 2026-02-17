@@ -7,6 +7,7 @@
 
 <script src="core/global.js"></script>
 <script src="core/dinamico.js"></script>
+<script src="core/taxas.js"></script>
 
 <style>
 
@@ -39,12 +40,25 @@
   to{transform:scale(1.2);}
 }
 
-/* MICRO ANIMAÇÃO */
+/* =============================
+   ADICIONAL NOTURNO
+============================= */
 
-@keyframes selectPop{
-  0%{transform:scale(1);}
-  50%{transform:scale(1.05);}
-  100%{transform:scale(1.02);}
+.noturno-badge{
+  background:#7c3aed;
+  color:#fff;
+  font-size:.75rem;
+  padding:4px 8px;
+  border-radius:8px;
+  display:inline-block;
+  margin-bottom:8px;
+  font-weight:600;
+}
+
+.noturno-info{
+  font-size:.75rem;
+  color:#a1a1aa;
+  margin-top:8px;
 }
 
 /* LOADER */
@@ -130,6 +144,12 @@ body{
   box-shadow:0 0 20px rgba(250,204,21,.25);
   animation:selectPop .25s ease;
   transform:scale(1.02);
+}
+
+@keyframes selectPop{
+  0%{transform:scale(1);}
+  50%{transform:scale(1.05);}
+  100%{transform:scale(1.02);}
 }
 
 .categoria-left{
@@ -247,7 +267,11 @@ body{
 
   <div class="card">
     <div class="section-title">Detalhamento</div>
+    <div id="noturnoArea"></div>
     <div class="details" id="detalhamento"></div>
+    <div class="noturno-info">
+      ⏰ O adicional noturno é aplicado automaticamente das 22:30 às 05:00.
+    </div>
   </div>
 
   <div class="total-box">
@@ -281,6 +305,41 @@ if(config.taxaFeira) totalBase += 5;
 if(Number(config.animal) > 0) totalBase += Number(config.animal);
 
 /* =============================
+   ADICIONAL NOTURNO AUTOMÁTICO
+============================= */
+
+function horarioNoturno(){
+  const agora = new Date();
+  const hora = agora.getHours();
+  const minuto = agora.getMinutes();
+  const totalMin = hora*60 + minuto;
+
+  const inicio = 22*60 + 30;
+  const fim = 5*60;
+
+  return (totalMin >= inicio || totalMin <= fim);
+}
+
+let noturnoAtivo = false;
+let adicionalNoturnoValor = 0;
+
+if(typeof Taxas !== "undefined" && Taxas.noturno && horarioNoturno()){
+
+  noturnoAtivo = true;
+
+  if(totalBase <= Taxas.noturno.limite){
+    adicionalNoturnoValor = Taxas.noturno.valorFixo;
+  }else{
+    adicionalNoturnoValor = totalBase * Taxas.noturno.percentual;
+  }
+
+  totalBase += adicionalNoturnoValor;
+
+  document.getElementById("noturnoArea").innerHTML =
+    `<div class="noturno-badge">🌙 Adicional Noturno aplicado</div>`;
+}
+
+/* =============================
    CATEGORIAS RF
 ============================= */
 
@@ -293,48 +352,41 @@ let categoriaSelecionada = categorias[0].nome;
 
 const lista = document.getElementById("listaCategorias");
 
-lista.innerHTML = categorias.map((cat,i)=>{
+function renderCategorias(){
 
-  const valorNormal = totalBase * cat.multi;
-  let valorFinal = valorNormal;
+  lista.innerHTML = categorias.map((cat,i)=>{
 
-  let precoHTML = `R$ ${valorNormal.toFixed(2)}`;
+    let valor = totalBase * cat.multi;
 
-  if(typeof Dinamico !== "undefined" && Dinamico.ativo){
-    valorFinal = valorNormal * Dinamico.multiplicador;
+    if(typeof Dinamico !== "undefined" && Dinamico.ativo){
+      valor *= Dinamico.multiplicador;
+    }
 
-    precoHTML = `
-      <span class="preco-normal">R$ ${valorNormal.toFixed(2)}</span>
-      <span class="preco-dinamico"><span class="raio">⚡</span>R$ ${valorFinal.toFixed(2)}</span>
-    `;
-  }
-
-  return `
-    <div class="categoria-card ${i===0 ? 'active':''}"
-         data-nome="${cat.nome}"
-         data-multi="${cat.multi}">
-      <div class="categoria-left">
-        <img src="${cat.img}">
-        <div class="categoria-info">
-          <h3>${cat.nome}</h3>
-          <span>${cat.desc}</span>
+    return `
+      <div class="categoria-card ${cat.nome===categoriaSelecionada?'active':''}"
+           data-nome="${cat.nome}">
+        <div class="categoria-left">
+          <img src="${cat.img}">
+          <div class="categoria-info">
+            <h3>${cat.nome}</h3>
+            <span>${cat.desc}</span>
+          </div>
+        </div>
+        <div class="categoria-preco">
+          R$ ${valor.toFixed(2)}
         </div>
       </div>
-      <div class="categoria-preco">${precoHTML}</div>
-    </div>
-  `;
-}).join("");
+    `;
+  }).join("");
 
-document.querySelectorAll(".categoria-card").forEach(card=>{
-  card.addEventListener("click",()=>{
-    document.querySelectorAll(".categoria-card")
-      .forEach(c=>c.classList.remove("active"));
-
-    card.classList.add("active");
-    categoriaSelecionada = card.dataset.nome;
-    atualizar();
+  document.querySelectorAll(".categoria-card").forEach(card=>{
+    card.addEventListener("click",()=>{
+      categoriaSelecionada = card.dataset.nome;
+      renderCategorias();
+      atualizar();
+    });
   });
-});
+}
 
 function atualizar(){
 
@@ -350,14 +402,22 @@ function atualizar(){
       <span>Categoria</span>
       <strong>${categoriaSelecionada}</strong>
     </div>
+    ${noturnoAtivo ? `
+    <div>
+      <span>Adicional Noturno</span>
+      <strong>+ R$ ${adicionalNoturnoValor.toFixed(2)}</strong>
+    </div>
+    `:''}
   `;
 
   document.getElementById("total").innerText = `R$ ${valor.toFixed(2)}`;
 
   App.set("categoria", categoriaSelecionada);
   App.set("total", valor);
+  App.set("noturno", noturnoAtivo);
 }
 
+renderCategorias();
 atualizar();
 
 function solicitar(){
