@@ -421,15 +421,90 @@ renderCategorias();
 atualizar();
 
 function solicitar(){
-  document.getElementById("loadingOverlay").classList.add("active");
-  setTimeout(()=>{ App.go("procurando.html"); },900);
+
+  const agora = new Date();
+
+  const dataFormatada = agora.toLocaleDateString("pt-BR");
+  const horaFormatada = agora.toLocaleTimeString("pt-BR", {
+    hour: "2-digit",
+    minute: "2-digit"
+  });
+
+  const blocoDataHora = `
+*RECIBO DE VIAGEM RF*
+*${dataFormatada}*
+*${horaFormatada}*`;
+
+  const observacaoInput = document.getElementById("observacaoInput"); // ajuste se necessário
+  const observacao = observacaoInput ? observacaoInput.value.trim() : "";
+
+  let blocoObservacao = "";
+
+  if (observacao) {
+    blocoObservacao = `
+_____________________________
+*Observações*
+
+*${observacao}*`;
+  }
+
+  // Caso você tenha checkbox de agendamento
+  const viagemAgendada = document.getElementById("viagemAgendada"); 
+  const dataAgendamento = document.getElementById("dataAgendamento");
+  const horaAgendamento = document.getElementById("horaAgendamento");
+
+  let blocoAgendamento = "";
+
+  if (viagemAgendada && viagemAgendada.checked) {
+
+    if (!dataAgendamento.value || !horaAgendamento.value) {
+      alert("Por favor, selecione data e hora do agendamento.");
+      return;
+    }
+
+    const dataFormatadaAg = new Date(dataAgendamento.value + "T00:00")
+      .toLocaleDateString("pt-BR");
+
+    blocoAgendamento = `
+_____________________________
+*VIAGEM AGENDADA*
+
+📆 ${dataFormatadaAg}
+⏰ ${horaAgendamento.value}
+`;
+  }
+
+  // Montar detalhamento das taxas
+  let detalhesWhats = detalhes.map(d =>
+    `• ${d[0]}: R$ ${Number(d[1]).toFixed(2)}`
+  );
+
+  const msg =
+`${blocoDataHora}
+${blocoObservacao}
+_____________________________
+*Detalhamento da viagem*
+
+${detalhesWhats.join("\n")}
+_____________________________
+*ITINERÁRIO*
+
+ *📌 Origem*
+👉 ${origem}
+
+ *🏁 Destino*
+👉 ${destino}
+_____________________________
+💰 *Total: R$ ${total.toFixed(2)}*
+
+_RF Driver_
+Mobilidade com Excelência`;
+
+  const url = `https://wa.me/?text=${encodeURIComponent(msg)}`;
+  window.location.href = url;
 }
 
 </script>
-
-<div class="loading-overlay" id="loadingOverlay">
-  <div class="loader"></div>
-</div>
 
 </body>
 </html>
