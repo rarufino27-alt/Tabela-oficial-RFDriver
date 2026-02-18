@@ -5,7 +5,7 @@
 
 const Dinamico = {
 
-  ativo: false,        // 🔥 liga / desliga aqui
+  ativo: true,        // 🔥 liga / desliga aqui
   multiplicador: 1.1,  // entre 1.1 e 2.0
   motivo: "Alta demanda"
 
