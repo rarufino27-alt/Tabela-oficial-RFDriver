@@ -309,7 +309,7 @@ function atualizarResumo(){
 
 function solicitar(){
 
-  atualizarResumo(); // garante que o total está atualizado
+  atualizarResumo(); // garante que está atualizado
 
   const agora = new Date();
 
@@ -324,40 +324,28 @@ function solicitar(){
 *${dataFormatada}*
 *${horaFormatada}*`;
 
-  const observacaoInput = document.getElementById("observacaoInput");
-  const observacao = observacaoInput ? observacaoInput.value.trim() : "";
+  // 🔥 PEGA TODO O DETALHAMENTO DA TELA
+  const detalhamentoDiv = document.getElementById("detalhamento");
 
-  let blocoObservacao = "";
+  // Converte HTML para texto puro
+  let linhas = [];
+  detalhamentoDiv.querySelectorAll(".linha").forEach(linha => {
+      const spans = linha.querySelectorAll("span");
+      if(spans.length === 2){
+          linhas.push(`${spans[0].innerText}: ${spans[1].innerText}`);
+      }
+  });
 
-  if (observacao) {
-    blocoObservacao = `
-_____________________________
-*Observações*
-
-*${observacao}*`;
-  }
+  const detalhamentoTexto = linhas.join("\n");
 
   const totalFinal = Number(localStorage.getItem("rf_total_final")) || 0;
-  const categoria = localStorage.getItem("rf_categoria") || "Driver";
-
-  let detalhesWhats = [];
-
-  detalhesWhats.push(`• Categoria: ${categoria}`);
-
-  const agoraHora = new Date();
-  const hora = agoraHora.getHours() + (agoraHora.getMinutes()/60);
-
-  if(hora >= 22.5 || hora <= 5){
-    detalhesWhats.push(`• Adicional Noturno: + R$ ${Taxas.noturno.valorFixo.toFixed(2)}`);
-  }
 
   const msg =
 `${blocoDataHora}
-${blocoObservacao}
 _____________________________
 *Detalhamento da viagem*
 
-${detalhesWhats.join("\n")}
+${detalhamentoTexto}
 _____________________________
 *ITINERÁRIO*
 
