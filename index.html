@@ -2,8 +2,10 @@
 <html lang="pt-BR">
 <head>
 <meta charset="UTF-8">
-<title>RF Driver – Solicitar Viagem</title>
+<title>RF – Viagem</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<script src="core/datamanager.js"></script>
 
 <style>
 *{
@@ -14,120 +16,143 @@
 }
 
 body{
-  background:#000;
+  background:#ffffff;
   height:100vh;
   overflow:hidden;
 }
 
-/* HEADER */
+/* ================= HEADER ================= */
+
 .top{
   background:#facc15;
-  padding:20px;
-  padding-bottom:70px;
-  color:#000;
+  padding:25px 20px 90px 20px;
+  border-bottom-left-radius:40px;
+  border-bottom-right-radius:40px;
   display:flex;
   justify-content:space-between;
   align-items:center;
 }
 
-.top-left{
-  font-weight:600;
-  font-size:1.05rem;
+.logo{
+  font-weight:900;
+  font-size:1.4rem;
+  letter-spacing:1px;
+  animation:fadeIn 1s ease forwards;
+}
+
+@keyframes fadeIn{
+  from{opacity:0; transform:translateY(-10px);}
+  to{opacity:1; transform:translateY(0);}
 }
 
 .menu-btn{
   font-size:22px;
   cursor:pointer;
-  padding:6px 10px;
-  border-radius:8px;
 }
 
-.menu-btn:hover{
-  background:rgba(0,0,0,.1);
+/* ================= MENU ================= */
+
+.menu-overlay{
+  position:fixed;
+  inset:0;
+  background:rgba(0,0,0,.4);
+  display:none;
+  z-index:99;
 }
 
-/* MAPA */
-.map{
-  position:absolute;
-  top:80px;
+.menu{
+  position:fixed;
+  top:0;
+  left:-260px;
+  width:260px;
+  height:100%;
+  background:#fff;
+  transition:.3s;
+  z-index:100;
+  padding:20px;
+}
+
+.menu.ativo{
   left:0;
-  right:0;
-  bottom:0;
-  background:#111;
-  opacity:.6;
 }
 
-/* CARD */
-.card{
+.menu h3{
+  margin-bottom:20px;
+}
+
+.menu-item{
+  padding:12px 0;
+  border-bottom:1px solid #eee;
+  cursor:pointer;
+}
+
+/* ================= CENTRO ================= */
+
+.center{
   position:absolute;
-  top:110px;
-  left:20px;
-  right:20px;
+  top:55%;
+  left:50%;
+  transform:translate(-50%,-50%);
+  width:90%;
+  max-width:420px;
+}
+
+.titulo-central{
+  text-align:center;
+  font-weight:700;
+  font-size:1.1rem;
+  margin-bottom:25px;
+}
+
+/* ================= CARD ================= */
+
+.card{
   background:#fff;
   border-radius:20px;
-  padding:20px;
-  box-shadow:0 20px 40px rgba(0,0,0,.4);
+  padding:18px;
+  box-shadow:0 10px 25px rgba(0,0,0,.1);
 }
 
-/* BOTÃO BUSCA */
-.search-main{
+.campo{
   display:flex;
   align-items:center;
-  gap:10px;
-  padding:14px;
-  background:#f2f2f2;
-  border-radius:14px;
-  font-weight:600;
-  font-size:1rem;
-  cursor:pointer;
-  margin-bottom:18px;
-}
-
-/* ROTA */
-.rota-box{
-  margin-top:10px;
-  background:#111;
-  border-radius:18px;
-  padding:16px;
-}
-
-.rota-item{
-  display:flex;
   justify-content:space-between;
+  padding:14px 0;
+  border-bottom:1px solid #eee;
+  cursor:pointer;
+}
+
+.campo:last-child{
+  border-bottom:none;
+}
+
+.campo-left{
+  display:flex;
   align-items:center;
+  gap:12px;
+  color:#000;
 }
 
-.label{
-  font-size:.75rem;
-  color:#888;
+.dot{
+  width:8px;
+  height:8px;
+  border-radius:50%;
 }
 
-.valor{
-  font-size:.85rem;
-  font-weight:500;
-  color:#fff;
-  text-align:right;
+.origem{ background:#22c55e; }
+.parada{ background:#facc15; }
+.destino{ background:#ef4444; }
+
+.plus{
+  font-size:20px;
+  color:#999;
 }
 
-.linha{
-  height:1px;
-  background:#222;
-  margin:10px 0;
-}
+/* ================= BOTÃO ================= */
 
-/* TOTAL */
-.total{
-  margin-top:14px;
-  text-align:right;
-  font-size:1rem;
-  font-weight:700;
-  color:#facc15;
-}
-
-/* BOTÃO FIXO */
 .bottom{
   position:absolute;
-  bottom:20px;
+  bottom:25px;
   left:20px;
   right:20px;
 }
@@ -136,136 +161,255 @@ button{
   width:100%;
   padding:16px;
   border:none;
-  border-radius:16px;
+  border-radius:30px;
   background:#facc15;
-  color:#000;
   font-weight:700;
   font-size:1rem;
   cursor:pointer;
 }
 
 button:disabled{
-  background:#333;
-  color:#777;
+  background:#ddd;
 }
 
-/* OVERLAY */
-.menu-overlay{
+/* ================= MODAL ================= */
+
+.modal{
   position:fixed;
   inset:0;
-  background:rgba(0,0,0,.5);
+  background:rgba(0,0,0,.6);
   display:none;
-  z-index:99;
+  align-items:center;
+  justify-content:center;
+  padding:20px;
+  z-index:200;
 }
 
+.modal-content{
+  background:#fff;
+  width:100%;
+  max-width:420px;
+  border-radius:20px;
+  padding:18px;
+  max-height:80vh;
+  display:flex;
+  flex-direction:column;
+}
 
+.modal-content input{
+  width:100%;
+  padding:12px;
+  border-radius:12px;
+  border:1px solid #ddd;
+  margin-bottom:12px;
+}
+
+.lista{
+  overflow-y:auto;
+  flex:1;
+}
+
+.lista div{
+  padding:10px;
+  border-radius:8px;
+  cursor:pointer;
+}
+
+.lista div:hover{
+  background:#f3f3f3;
+}
 </style>
 </head>
 <body>
 
-
-  <div class="menu-header" onclick="irPerfil()">
-    <div class="avatar" id="avatarMenu"></div>
-    <div>
-      <div class="menu-nome" id="menuNome">RF DRIVER</div>
-      <div class="menu-editar">Editar minhas informações</div>
-    </div>
-  </div>
-
-  <div class="top">
-  <div class="top-left" id="saudacao">Olá!</div>
+<!-- MENU -->
+<div class="menu-overlay" id="menuOverlay" onclick="fecharMenu()"></div>
+<div class="menu" id="menu">
+  <h3>Menu</h3>
+  <div class="menu-item">Histórico</div>
+  <div class="menu-item">Pagamentos</div>
+  <div class="menu-item">Configurações</div>
 </div>
 
-<div class="map"></div>
+<!-- HEADER -->
+<div class="top">
+  <div class="logo">RF</div>
+  <div class="menu-btn" onclick="abrirMenu()">☰</div>
+</div>
 
-<div class="card">
+<!-- CENTRO -->
+<div class="center">
 
-  <div class="search-main" onclick="abrirBusca()">
-    🔎 Para onde vamos?
+  <div class="titulo-central">
+    Para onde vamos hoje?
   </div>
 
-  <div id="rotaBox" class="rota-box" style="display:none;"></div>
+  <div class="card">
+
+    <div class="campo" id="origemBtn">
+      <div class="campo-left">
+        <div class="dot origem"></div>
+        <div id="origemTexto">Selecionar origem</div>
+      </div>
+    </div>
+
+    <div class="campo" id="paradaBtn" style="display:none;">
+      <div class="campo-left">
+        <div class="dot parada"></div>
+        <div id="paradaTexto">Selecionar parada</div>
+      </div>
+    </div>
+
+    <div class="campo" id="destinoBtn">
+      <div class="campo-left">
+        <div class="dot destino"></div>
+        <div id="destinoTexto">Selecionar destino</div>
+      </div>
+      <div class="plus" id="addParada">＋</div>
+    </div>
+
+  </div>
 
 </div>
 
 <div class="bottom">
-  <button id="btnSolicitar" disabled onclick="solicitar()">Solicitar corrida</button>
+  <button id="confirmar" disabled>Confirmar rota</button>
+</div>
+
+<!-- MODAL -->
+<div class="modal" id="modal">
+  <div class="modal-content">
+    <input type="text" id="busca" placeholder="Buscar local...">
+    <div class="lista" id="lista"></div>
+  </div>
 </div>
 
 <script>
 
-/* ================= USUÁRIO ================= */
+let origem=null, parada=null, destino=null, modo=null;
 
-function carregarUsuario(){
-  const nome = localStorage.getItem("rf_usuario_nome") || "Usuário";
-  document.getElementById("saudacao").innerText = "Olá, " + nome + "!";
+const modal=document.getElementById("modal");
+const lista=document.getElementById("lista");
+const busca=document.getElementById("busca");
+const confirmarBtn=document.getElementById("confirmar");
+
+/* MENU */
+function abrirMenu(){
+  document.getElementById("menu").classList.add("ativo");
+  document.getElementById("menuOverlay").style.display="block";
 }
 
-/* ================= ROTA ================= */
-
-function abrirBusca(){
-  window.location.href = "buscar.html";
+function fecharMenu(){
+  document.getElementById("menu").classList.remove("ativo");
+  document.getElementById("menuOverlay").style.display="none";
 }
 
-function carregarRota(){
+/* INIT */
+async function init(){
+  await DataManager.carregar();
+}
+init();
 
-  const corrida = localStorage.getItem("rf_corrida_temp");
-  if(!corrida) return;
-
-  const dados = JSON.parse(corrida);
-  const { origem, parada, destino, valor } = dados;
-
-  if(!origem || !destino) return;
-
-  let html = "";
-
-  html += `
-    <div class="rota-item">
-      <span class="label">Origem</span>
-      <span class="valor">${origem}</span>
-    </div>
-  `;
-
-  if(parada){
-    html += `
-      <div class="linha"></div>
-      <div class="rota-item">
-        <span class="label">Parada</span>
-        <span class="valor">${parada}</span>
-      </div>
-    `;
+/* MODAL */
+function abrirModal(tipo){
+  if(tipo!=="origem" && !origem){
+    alert("Selecione a origem primeiro.");
+    return;
   }
 
-  html += `
-    <div class="linha"></div>
-    <div class="rota-item">
-      <span class="label">Destino</span>
-      <span class="valor">${destino}</span>
-    </div>
-  `;
+  modo=tipo;
+  busca.value="";
+  modal.style.display="flex";
 
-  html += `
-    <div class="total">
-      Total estimado: R$ ${Number(valor).toFixed(2)}
-    </div>
-  `;
+  let dados=[];
+  if(tipo==="origem") dados=DataManager.listarOrigens();
+  if(tipo==="parada") dados=DataManager.listarDestinos(origem)
+      .filter(p=>DataManager.listarDestinos(p).length>0);
+  if(tipo==="destino"){
+    dados=parada?DataManager.listarDestinos(parada)
+                :DataManager.listarDestinos(origem);
+  }
 
-  document.getElementById("rotaBox").innerHTML = html;
-  document.getElementById("rotaBox").style.display = "block";
-  document.getElementById("btnSolicitar").disabled = false;
+  renderLista(dados);
 }
 
-/* ================= AÇÃO ================= */
-
-function solicitar(){
-  window.location.href = "resumo.html";
+function renderLista(arr){
+  lista.innerHTML="";
+  arr.forEach(item=>{
+    const div=document.createElement("div");
+    div.innerText=item;
+    div.onclick=()=>{
+      selecionar(item);
+      modal.style.display="none";
+    };
+    lista.appendChild(div);
+  });
 }
 
-/* ================= INIT ================= */
+/* BUSCA RÁPIDA CORRIGIDA */
+busca.addEventListener("input", ()=>{
+  const termo=busca.value.toLowerCase();
+  Array.from(lista.children).forEach(div=>{
+    div.style.display=div.innerText.toLowerCase().includes(termo)
+      ? "block" : "none";
+  });
+});
 
-carregarUsuario();
-carregarMenuUsuario();
-carregarRota();
+/* SELECIONAR */
+function selecionar(valor){
+  if(modo==="origem"){
+    origem=valor; parada=null; destino=null;
+    origemTexto.innerText=valor;
+    paradaTexto.innerText="Selecionar parada";
+    destinoTexto.innerText="Selecionar destino";
+    paradaBtn.style.display="none";
+  }
+  if(modo==="parada"){
+    parada=valor; destino=null;
+    paradaTexto.innerText=valor;
+  }
+  if(modo==="destino"){
+    destino=valor;
+    destinoTexto.innerText=valor;
+  }
+  confirmarBtn.disabled=!(origem && destino);
+}
+
+/* EVENTOS */
+origemBtn.onclick=()=>abrirModal("origem");
+paradaBtn.onclick=()=>abrirModal("parada");
+destinoBtn.onclick=()=>abrirModal("destino");
+
+addParada.onclick=(e)=>{
+  e.stopPropagation();
+  if(!origem){
+    alert("Selecione a origem primeiro.");
+    return;
+  }
+  paradaBtn.style.display="flex";
+};
+
+modal.onclick=e=>{
+  if(e.target===modal) modal.style.display="none";
+};
+
+/* CONFIRMAR */
+confirmarBtn.onclick=()=>{
+  let valorTotal=0;
+  if(!parada){
+    valorTotal=DataManager.buscarValor(origem,destino)||0;
+  }else{
+    const p1=DataManager.buscarValor(origem,parada)||0;
+    const p2=DataManager.buscarValor(parada,destino)||0;
+    valorTotal=p1+p2;
+  }
+
+  localStorage.setItem("rf_corrida_temp", JSON.stringify({
+    origem, parada, destino, valor:valorTotal
+  }));
+
+  window.location.href="selecionar.html";
+};
 
 </script>
 
