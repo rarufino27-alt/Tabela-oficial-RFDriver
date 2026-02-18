@@ -22,8 +22,6 @@ body{
   overflow:hidden;
 }
 
-/* ===== TOPO ===== */
-
 .top{
   background:#facc15;
   padding:25px 20px 100px 20px;
@@ -41,8 +39,6 @@ body{
   margin-top:5px;
 }
 
-/* ===== CONTEÚDO ===== */
-
 .content{
   position:absolute;
   top:130px;
@@ -53,8 +49,6 @@ body{
   bottom:110px;
   overflow-y:auto;
 }
-
-/* ===== BLOCOS ===== */
 
 .bloco{
   background:#fff;
@@ -74,8 +68,6 @@ body{
   margin-bottom:12px;
   font-size:.95rem;
 }
-
-/* ===== SWITCH ===== */
 
 .switch{
   display:flex;
@@ -114,8 +106,6 @@ body{
   left:24px;
 }
 
-/* ===== SELECT ANIMAL ===== */
-
 select{
   width:100%;
   padding:10px;
@@ -123,8 +113,6 @@ select{
   border:1px solid #ddd;
   margin-top:8px;
 }
-
-/* ===== DETALHAMENTO ===== */
 
 .linha{
   display:flex;
@@ -151,8 +139,6 @@ select{
   50%{transform:scale(1.08);}
   100%{transform:scale(1);}
 }
-
-/* ===== BOTÃO ===== */
 
 .bottom-bar{
   position:absolute;
@@ -183,7 +169,6 @@ button{
 
 <div class="content">
 
-  <!-- ADICIONAIS -->
   <div class="bloco">
     <h3>Adicionais</h3>
 
@@ -206,10 +191,8 @@ button{
         <option value="grande">Grande</option>
       </select>
     </div>
-
   </div>
 
-  <!-- DETALHAMENTO -->
   <div class="bloco">
     <h3>Detalhamento</h3>
     <div id="detalhamento"></div>
@@ -224,7 +207,10 @@ button{
 
 <script>
 
-const baseSelecionado = Number(localStorage.getItem("rf_valor_final")) || 0;
+const corrida = JSON.parse(localStorage.getItem("rf_corrida_temp"));
+if(!corrida) window.location.href = "viagem.html";
+
+const { origem, parada, destino, valor } = corrida;
 
 let extras = {
   mercado: false,
@@ -243,42 +229,40 @@ function selectAnimal(){
   atualizarResumo();
 }
 
+function aplicarNoturno(valorBase){
+  const agora = new Date();
+  const hora = agora.getHours() + (agora.getMinutes()/60);
+  if(hora >= 22.5 || hora <= 5){
+    return valorBase + Taxas.noturno.valorFixo;
+  }
+  return valorBase;
+}
+
 function atualizarResumo(){
 
-  let total = baseSelecionado;
+  const categoria = localStorage.getItem("rf_categoria") || "Driver";
+  const pagamento = localStorage.getItem("rf_pagamento") || "Dinheiro";
+
+  let base = valor;
+  base = aplicarNoturno(base);
+  let total = Dinamico.ativo ? base * Dinamico.multiplicador : base;
+
   let detalhamento = "";
 
   detalhamento += `
     <div class="linha">
-      <span>Valor categoria</span>
-      <span>R$ ${baseSelecionado.toFixed(2)}</span>
+      <span>Categoria</span>
+      <span>${categoria}</span>
     </div>
   `;
 
-  /* DINÂMICO */
-  if(Dinamico.ativo){
-    const valorSemDinamico = baseSelecionado / Dinamico.multiplicador;
-    detalhamento += `
-      <div class="linha">
-        <span>Tarifa dinâmica (${Dinamico.multiplicador}x)</span>
-        <span>+ R$ ${(baseSelecionado - valorSemDinamico).toFixed(2)}</span>
-      </div>
-    `;
-  }
+  detalhamento += `
+    <div class="linha">
+      <span>Valor base</span>
+      <span>R$ ${base.toFixed(2)}</span>
+    </div>
+  `;
 
-  /* NOTURNO */
-  const agora = new Date();
-  const hora = agora.getHours() + (agora.getMinutes()/60);
-  if(hora >= 22.5 || hora <= 5){
-    detalhamento += `
-      <div class="linha">
-        <span>Adicional noturno</span>
-        <span>+ R$ ${Taxas.noturno.valorFixo.toFixed(2)}</span>
-      </div>
-    `;
-  }
-
-  /* MERCADO */
   if(extras.mercado){
     total += Taxas.feira;
     detalhamento += `
@@ -289,7 +273,6 @@ function atualizarResumo(){
     `;
   }
 
-  /* PRAIA */
   if(extras.praia){
     total += Taxas.voltaPraia;
     detalhamento += `
@@ -300,7 +283,6 @@ function atualizarResumo(){
     `;
   }
 
-  /* ANIMAL */
   if(extras.animal !== "nao"){
     const valorAnimal = Taxas.animal[extras.animal];
     total += valorAnimal;
@@ -320,11 +302,7 @@ function atualizarResumo(){
   `;
 
   document.getElementById("detalhamento").innerHTML = detalhamento;
-
-  const totalEl = document.getElementById("totalFinal");
-  totalEl.classList.add("total-anim");
-  setTimeout(()=>totalEl.classList.remove("total-anim"),300);
-  totalEl.innerText = "R$ " + total.toFixed(2);
+  document.getElementById("totalFinal").innerText = "R$ " + total.toFixed(2);
 
   localStorage.setItem("rf_total_final", total);
 }
@@ -393,6 +371,8 @@ Mobilidade com Excelência`;
   const url = `https://wa.me/?text=${encodeURIComponent(msg)}`;
   window.location.href = url;
 }
+
+atualizarResumo();
 
 </script>
 
