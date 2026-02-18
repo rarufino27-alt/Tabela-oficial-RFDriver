@@ -304,12 +304,6 @@ function atualizarResumo(){
     </div>
   `;
 
-  document.getElementById("detalhamento").innerHTML = detalhamento;
-  document.getElementById("totalFinal").innerText = "R$ " + total.toFixed(2);
-
-  localStorage.setItem("rf_total_final", total);
-}
-
 function solicitar(){
 
   atualizarResumo();
@@ -344,6 +338,24 @@ _____________________________
 ${observacao}`;
   }
 
+  // 🔥 IMPLEMENTAÇÃO DO ITINERÁRIO DINÂMICO
+  let blocoItinerario = `
+📍 Origem:
+${origem}
+`;
+
+  if(parada && parada.trim() !== ""){
+    blocoItinerario += `
+🛑 Parada:
+${parada}
+`;
+  }
+
+  blocoItinerario += `
+🏁 Destino:
+${destino}
+`;
+
   const msg =
 `*RECIBO DE VIAGEM RF*
 ${dataFormatada}
@@ -354,13 +366,7 @@ _____________________________
 ${detalhamentoTexto}
 _____________________________
 *ITINERÁRIO*
-
-📍 Origem:
-${origem}
-
-🏁 Destino:
-${destino}
-
+${blocoItinerario}
 _____________________________
 💰 *Total: R$ ${totalFinal.toFixed(2)}*
 
