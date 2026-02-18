@@ -106,12 +106,18 @@ body{
   left:24px;
 }
 
-select{
+select, textarea{
   width:100%;
   padding:10px;
   border-radius:12px;
   border:1px solid #ddd;
   margin-top:8px;
+  resize:none;
+}
+
+textarea{
+  min-height:80px;
+  font-size:.85rem;
 }
 
 .linha{
@@ -128,16 +134,6 @@ select{
 .total{
   font-size:1.2rem;
   font-weight:700;
-}
-
-.total-anim{
-  animation:pulse .3s ease;
-}
-
-@keyframes pulse{
-  0%{transform:scale(1);}
-  50%{transform:scale(1.08);}
-  100%{transform:scale(1);}
 }
 
 .bottom-bar{
@@ -169,6 +165,7 @@ button{
 
 <div class="content">
 
+  <!-- ADICIONAIS -->
   <div class="bloco">
     <h3>Adicionais</h3>
 
@@ -193,6 +190,13 @@ button{
     </div>
   </div>
 
+  <!-- OBSERVAÇÕES -->
+  <div class="bloco">
+    <h3>Observações</h3>
+    <textarea id="observacaoInput" placeholder="Ex: Estou com mala grande, criança, preciso de troco, ponto de referência..."></textarea>
+  </div>
+
+  <!-- DETALHAMENTO -->
   <div class="bloco">
     <h3>Detalhamento</h3>
     <div id="detalhamento"></div>
@@ -241,7 +245,6 @@ function aplicarNoturno(valorBase){
 function atualizarResumo(){
 
   const categoria = localStorage.getItem("rf_categoria") || "Driver";
-  const pagamento = localStorage.getItem("rf_pagamento") || "Dinheiro";
 
   let base = valor;
   base = aplicarNoturno(base);
@@ -309,25 +312,19 @@ function atualizarResumo(){
 
 function solicitar(){
 
-  atualizarResumo(); // garante que está atualizado
+  atualizarResumo();
 
   const agora = new Date();
-
   const dataFormatada = agora.toLocaleDateString("pt-BR");
   const horaFormatada = agora.toLocaleTimeString("pt-BR", {
     hour: "2-digit",
     minute: "2-digit"
   });
 
-  const blocoDataHora = `
-*RECIBO DE VIAGEM RF*
-*${dataFormatada}*
-*${horaFormatada}*`;
+  const observacao = document.getElementById("observacaoInput").value.trim();
 
-  // 🔥 PEGA TODO O DETALHAMENTO DA TELA
   const detalhamentoDiv = document.getElementById("detalhamento");
 
-  // Converte HTML para texto puro
   let linhas = [];
   detalhamentoDiv.querySelectorAll(".linha").forEach(linha => {
       const spans = linha.querySelectorAll("span");
@@ -337,14 +334,23 @@ function solicitar(){
   });
 
   const detalhamentoTexto = linhas.join("\n");
-
   const totalFinal = Number(localStorage.getItem("rf_total_final")) || 0;
 
+  let blocoObservacao = "";
+  if(observacao){
+    blocoObservacao = `
+_____________________________
+*Observações*
+${observacao}`;
+  }
+
   const msg =
-`${blocoDataHora}
+`*RECIBO DE VIAGEM RF*
+${dataFormatada}
+${horaFormatada}
+${blocoObservacao}
 _____________________________
 *Detalhamento da viagem*
-
 ${detalhamentoTexto}
 _____________________________
 *ITINERÁRIO*
@@ -364,7 +370,6 @@ Mobilidade com Excelência`;
   const url = `https://wa.me/?text=${encodeURIComponent(msg)}`;
   window.open(url, "_blank");
 }
-
 
 atualizarResumo();
 
