@@ -2,101 +2,13 @@
 <html lang="pt-BR">
 <head>
 <meta charset="UTF-8">
-<title>Resumo – RF DRIVER</title>
+<title>RF – Resumo</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<script src="core/global.js"></script>
 <script src="core/dinamico.js"></script>
 <script src="core/taxas.js"></script>
 
 <style>
-
-/* =============================
-   TARIFA DINÂMICA
-============================= */
-
-.preco-normal{
-  text-decoration:line-through;
-  font-size:.85rem;
-  color:#777;
-  display:block;
-}
-
-.preco-dinamico{
-  color:#facc15;
-  font-size:1.2rem;
-  font-weight:800;
-  display:flex;
-  align-items:center;
-  gap:6px;
-}
-
-.raio{
-  animation:pulse 1s infinite alternate;
-}
-
-@keyframes pulse{
-  from{transform:scale(1);}
-  to{transform:scale(1.2);}
-}
-
-/* =============================
-   ADICIONAL NOTURNO
-============================= */
-
-.noturno-badge{
-  background:#7c3aed;
-  color:#fff;
-  font-size:.75rem;
-  padding:4px 8px;
-  border-radius:8px;
-  display:inline-block;
-  margin-bottom:8px;
-  font-weight:600;
-}
-
-.noturno-info{
-  font-size:.75rem;
-  color:#a1a1aa;
-  margin-top:8px;
-}
-
-/* LOADER */
-
-.loading-overlay{
-  position:fixed;
-  inset:0;
-  background:rgba(0,0,0,.6);
-  backdrop-filter:blur(4px);
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  z-index:999;
-  opacity:0;
-  pointer-events:none;
-  transition:.3s;
-}
-
-.loading-overlay.active{
-  opacity:1;
-  pointer-events:all;
-}
-
-.loader{
-  width:45px;
-  height:45px;
-  border:4px solid #333;
-  border-top:4px solid #facc15;
-  border-radius:50%;
-  animation:spin 1s linear infinite;
-}
-
-@keyframes spin{
-  to{ transform:rotate(360deg); }
-}
-
-/* GERAL */
-
 *{
   margin:0;
   padding:0;
@@ -105,320 +17,317 @@
 }
 
 body{
-  background:#000;
-  color:#fff;
+  background:#fff;
+  height:100vh;
+  overflow:hidden;
 }
 
-.container{
-  padding:20px 16px 140px;
-  max-width:480px;
-  margin:0 auto;
+/* ===== TOPO ===== */
+
+.top{
+  background:#facc15;
+  padding:25px 20px 100px 20px;
+  border-bottom-left-radius:40px;
+  border-bottom-right-radius:40px;
 }
 
-.header{
-  margin-bottom:20px;
-}
-
-.header h1{
+.logo{
+  font-weight:900;
   font-size:1.4rem;
+}
+
+.titulo{
   font-weight:700;
+  margin-top:5px;
 }
 
-/* CATEGORIAS */
+/* ===== CONTEÚDO ===== */
 
-.categoria-card{
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  padding:16px;
-  border-radius:16px;
-  background:#0d0d0d;
-  border:2px solid transparent;
-  margin-bottom:12px;
-  cursor:pointer;
-  transition:all .25s ease;
+.content{
+  position:absolute;
+  top:130px;
+  left:50%;
+  transform:translateX(-50%);
+  width:90%;
+  max-width:420px;
+  bottom:110px;
+  overflow-y:auto;
 }
 
-.categoria-card.active{
-  border-color:#facc15;
-  box-shadow:0 0 20px rgba(250,204,21,.25);
-  animation:selectPop .25s ease;
-  transform:scale(1.02);
-}
+/* ===== BLOCOS ===== */
 
-@keyframes selectPop{
-  0%{transform:scale(1);}
-  50%{transform:scale(1.05);}
-  100%{transform:scale(1.02);}
-}
-
-.categoria-left{
-  display:flex;
-  align-items:center;
-  gap:14px;
-}
-
-.categoria-left img{
-  width:55px;
-}
-
-.categoria-info h3{
-  font-size:1rem;
-  font-weight:700;
-}
-
-.categoria-info span{
-  font-size:.8rem;
-  color:#a1a1aa;
-}
-
-.categoria-preco{
-  text-align:right;
-}
-
-/* ROTA */
-
-.card{
-  background:#111;
-  border-radius:16px;
-  padding:16px;
-  border:1px solid #1c1c1c;
-  margin-top:18px;
-}
-
-.section-title{
-  font-size:.85rem;
-  color:#a1a1aa;
-  margin-bottom:10px;
-}
-
-.route span{
-  display:block;
-  margin-bottom:6px;
-}
-
-/* DETALHES */
-
-.details div{
-  display:flex;
-  justify-content:space-between;
-  margin-bottom:6px;
-  font-size:.9rem;
-}
-
-/* TOTAL */
-
-.total-box{
-  background:#151515;
-  border:1px solid #facc15;
+.bloco{
+  background:#fff;
   border-radius:18px;
-  padding:20px;
-  text-align:center;
-  margin-top:20px;
+  padding:18px;
+  margin-bottom:18px;
+  box-shadow:0 6px 15px rgba(0,0,0,.06);
+  animation:fadeUp .4s ease;
+}
+
+@keyframes fadeUp{
+  from{opacity:0; transform:translateY(10px);}
+  to{opacity:1; transform:translateY(0);}
+}
+
+.bloco h3{
+  margin-bottom:12px;
+  font-size:.95rem;
+}
+
+/* ===== SWITCH ===== */
+
+.switch{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  padding:10px 0;
+}
+
+.toggle{
+  width:45px;
+  height:24px;
+  background:#ddd;
+  border-radius:20px;
+  position:relative;
+  cursor:pointer;
+  transition:.3s;
+}
+
+.toggle::after{
+  content:"";
+  position:absolute;
+  width:18px;
+  height:18px;
+  background:#fff;
+  border-radius:50%;
+  top:3px;
+  left:3px;
+  transition:.3s;
+}
+
+.toggle.ativo{
+  background:#facc15;
+}
+
+.toggle.ativo::after{
+  left:24px;
+}
+
+/* ===== SELECT ANIMAL ===== */
+
+select{
+  width:100%;
+  padding:10px;
+  border-radius:12px;
+  border:1px solid #ddd;
+  margin-top:8px;
+}
+
+/* ===== DETALHAMENTO ===== */
+
+.linha{
+  display:flex;
+  justify-content:space-between;
+  margin-bottom:6px;
+  font-size:.85rem;
+}
+
+.linha span:first-child{
+  color:#777;
 }
 
 .total{
-  font-size:2rem;
-  font-weight:800;
-  color:#facc15;
-}
-
-/* CTA */
-
-.cta-area{
-  position:fixed;
-  bottom:0;
-  left:0;
-  right:0;
-  padding:20px;
-  background:#000;
-}
-
-.cta-primary{
-  width:100%;
-  padding:18px;
-  border:none;
-  border-radius:14px;
-  font-size:1.05rem;
+  font-size:1.2rem;
   font-weight:700;
+}
+
+.total-anim{
+  animation:pulse .3s ease;
+}
+
+@keyframes pulse{
+  0%{transform:scale(1);}
+  50%{transform:scale(1.08);}
+  100%{transform:scale(1);}
+}
+
+/* ===== BOTÃO ===== */
+
+.bottom-bar{
+  position:absolute;
+  bottom:25px;
+  left:20px;
+  right:20px;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+}
+
+button{
+  padding:12px 28px;
+  border:none;
+  border-radius:30px;
   background:#facc15;
-  color:#000;
+  font-weight:700;
   cursor:pointer;
 }
-
 </style>
 </head>
-
 <body>
 
-<div class="container">
+<div class="top">
+  <div class="logo">RF</div>
+  <div class="titulo">Resumo</div>
+</div>
 
-  <div class="header">
-    <h1>Escolha sua categoria</h1>
-  </div>
+<div class="content">
 
-  <div id="listaCategorias"></div>
+  <!-- ADICIONAIS -->
+  <div class="bloco">
+    <h3>Adicionais</h3>
 
-  <div class="card route">
-    <div class="section-title">Itinerário</div>
-    <span>📍 Origem: <strong id="origemTxt"></strong></span>
-    <span>🏁 Destino: <strong id="destinoTxt"></strong></span>
-  </div>
-
-  <div class="card">
-    <div class="section-title">Detalhamento</div>
-    <div id="noturnoArea"></div>
-    <div class="details" id="detalhamento"></div>
-    <div class="noturno-info">
-      ⏰ O adicional noturno é aplicado automaticamente das 22:30 às 05:00.
+    <div class="switch">
+      <span>Saída de mercado</span>
+      <div class="toggle" id="mercadoToggle" onclick="toggleExtra('mercado')"></div>
     </div>
+
+    <div class="switch">
+      <span>Saída de praia</span>
+      <div class="toggle" id="praiaToggle" onclick="toggleExtra('praia')"></div>
+    </div>
+
+    <div style="margin-top:10px;">
+      <label>Transporte animal</label>
+      <select id="animalSelect" onchange="selectAnimal()">
+        <option value="nao">Não</option>
+        <option value="pequeno">Pequeno</option>
+        <option value="medio">Médio</option>
+        <option value="grande">Grande</option>
+      </select>
+    </div>
+
   </div>
 
-  <div class="total-box">
-    <div class="total" id="total">R$ 0,00</div>
+  <!-- DETALHAMENTO -->
+  <div class="bloco">
+    <h3>Detalhamento</h3>
+    <div id="detalhamento"></div>
   </div>
 
 </div>
 
-<div class="cta-area">
-  <button class="cta-primary" onclick="solicitar()">
-    Enviar Recibo Via Whatsapp
-  </button>
+<div class="bottom-bar">
+  <div class="total" id="totalFinal">R$ 0,00</div>
+  <button onclick="finalizar()">Whatsapp</button>
 </div>
 
 <script>
 
-/* BASE */
+const baseSelecionado = Number(localStorage.getItem("rf_valor_final")) || 0;
 
-const origem = App.get("origem");
-const destino = App.get("destino");
-const valorBase = Number(App.get("valorBase") || 0);
-const config = App.get("taxasConfig") || {};
+let extras = {
+  mercado: false,
+  praia: false,
+  animal: "nao"
+};
 
-document.getElementById("origemTxt").innerText = origem || "-";
-document.getElementById("destinoTxt").innerText = destino || "-";
-
-let totalBase = valorBase;
-
-if(config.desvioSimples) totalBase += 5;
-if(config.taxaFeira) totalBase += 5;
-if(Number(config.animal) > 0) totalBase += Number(config.animal);
-
-/* =============================
-   ADICIONAL NOTURNO AUTOMÁTICO
-============================= */
-
-function horarioNoturno(){
-  const agora = new Date();
-  const hora = agora.getHours();
-  const minuto = agora.getMinutes();
-  const totalMin = hora*60 + minuto;
-
-  const inicio = 22*60 + 30;
-  const fim = 5*60;
-
-  return (totalMin >= inicio || totalMin <= fim);
+function toggleExtra(tipo){
+  extras[tipo] = !extras[tipo];
+  document.getElementById(tipo+"Toggle").classList.toggle("ativo");
+  atualizarResumo();
 }
 
-let noturnoAtivo = false;
-let adicionalNoturnoValor = 0;
-
-if(typeof Taxas !== "undefined" && Taxas.noturno && horarioNoturno()){
-
-  noturnoAtivo = true;
-
-  if(totalBase <= Taxas.noturno.limite){
-    adicionalNoturnoValor = Taxas.noturno.valorFixo;
-  }else{
-    adicionalNoturnoValor = totalBase * Taxas.noturno.percentual;
-  }
-
-  totalBase += adicionalNoturnoValor;
-
-  document.getElementById("noturnoArea").innerHTML =
-    `<div class="noturno-badge">🌙 Adicional Noturno aplicado</div>`;
+function selectAnimal(){
+  extras.animal = document.getElementById("animalSelect").value;
+  atualizarResumo();
 }
 
-/* =============================
-   CATEGORIAS RF
-============================= */
+function atualizarResumo(){
 
-const categorias = [
-  { nome:"RF 4 Lugares", multi:1.00, desc:"Mais econômico", img:"./icons/hatch.png" },
-  { nome:"RF 6 Lugares", multi:1.50, desc:"Ideal para grupos", img:"./icons/van.png" }
-];
+  let total = baseSelecionado;
+  let detalhamento = "";
 
-let categoriaSelecionada = categorias[0].nome;
-
-const lista = document.getElementById("listaCategorias");
-
-function renderCategorias(){
-
-  lista.innerHTML = categorias.map((cat,i)=>{
-
-    let valor = totalBase * cat.multi;
-
-    if(typeof Dinamico !== "undefined" && Dinamico.ativo){
-      valor *= Dinamico.multiplicador;
-    }
-
-    return `
-      <div class="categoria-card ${cat.nome===categoriaSelecionada?'active':''}"
-           data-nome="${cat.nome}">
-        <div class="categoria-left">
-          <img src="${cat.img}">
-          <div class="categoria-info">
-            <h3>${cat.nome}</h3>
-            <span>${cat.desc}</span>
-          </div>
-        </div>
-        <div class="categoria-preco">
-          R$ ${valor.toFixed(2)}
-        </div>
-      </div>
-    `;
-  }).join("");
-
-  document.querySelectorAll(".categoria-card").forEach(card=>{
-    card.addEventListener("click",()=>{
-      categoriaSelecionada = card.dataset.nome;
-      renderCategorias();
-      atualizar();
-    });
-  });
-}
-
-function atualizar(){
-
-  const cat = categorias.find(c=>c.nome===categoriaSelecionada);
-  let valor = totalBase * cat.multi;
-
-  if(typeof Dinamico !== "undefined" && Dinamico.ativo){
-    valor *= Dinamico.multiplicador;
-  }
-
-  document.getElementById("detalhamento").innerHTML = `
-    <div>
-      <span>Categoria</span>
-      <strong>${categoriaSelecionada}</strong>
+  detalhamento += `
+    <div class="linha">
+      <span>Valor categoria</span>
+      <span>R$ ${baseSelecionado.toFixed(2)}</span>
     </div>
-    ${noturnoAtivo ? `
-    <div>
-      <span>Adicional Noturno</span>
-      <strong>+ R$ ${adicionalNoturnoValor.toFixed(2)}</strong>
-    </div>
-    `:''}
   `;
 
-  document.getElementById("total").innerText = `R$ ${valor.toFixed(2)}`;
+  /* DINÂMICO */
+  if(Dinamico.ativo){
+    const valorSemDinamico = baseSelecionado / Dinamico.multiplicador;
+    detalhamento += `
+      <div class="linha">
+        <span>Tarifa dinâmica (${Dinamico.multiplicador}x)</span>
+        <span>+ R$ ${(baseSelecionado - valorSemDinamico).toFixed(2)}</span>
+      </div>
+    `;
+  }
 
-  App.set("categoria", categoriaSelecionada);
-  App.set("total", valor);
-  App.set("noturno", noturnoAtivo);
+  /* NOTURNO */
+  const agora = new Date();
+  const hora = agora.getHours() + (agora.getMinutes()/60);
+  if(hora >= 22.5 || hora <= 5){
+    detalhamento += `
+      <div class="linha">
+        <span>Adicional noturno</span>
+        <span>+ R$ ${Taxas.noturno.valorFixo.toFixed(2)}</span>
+      </div>
+    `;
+  }
+
+  /* MERCADO */
+  if(extras.mercado){
+    total += Taxas.feira;
+    detalhamento += `
+      <div class="linha">
+        <span>Saída de mercado</span>
+        <span>+ R$ ${Taxas.feira.toFixed(2)}</span>
+      </div>
+    `;
+  }
+
+  /* PRAIA */
+  if(extras.praia){
+    total += Taxas.voltaPraia;
+    detalhamento += `
+      <div class="linha">
+        <span>Saída de praia</span>
+        <span>+ R$ ${Taxas.voltaPraia.toFixed(2)}</span>
+      </div>
+    `;
+  }
+
+  /* ANIMAL */
+  if(extras.animal !== "nao"){
+    const valorAnimal = Taxas.animal[extras.animal];
+    total += valorAnimal;
+    detalhamento += `
+      <div class="linha">
+        <span>Animal (${extras.animal})</span>
+        <span>+ R$ ${valorAnimal.toFixed(2)}</span>
+      </div>
+    `;
+  }
+
+  detalhamento += `
+    <div class="linha total">
+      <span>Total</span>
+      <span>R$ ${total.toFixed(2)}</span>
+    </div>
+  `;
+
+  document.getElementById("detalhamento").innerHTML = detalhamento;
+
+  const totalEl = document.getElementById("totalFinal");
+  totalEl.classList.add("total-anim");
+  setTimeout(()=>totalEl.classList.remove("total-anim"),300);
+  totalEl.innerText = "R$ " + total.toFixed(2);
+
+  localStorage.setItem("rf_total_final", total);
 }
-
-renderCategorias();
-atualizar();
 
 function solicitar(){
 
@@ -484,6 +393,11 @@ Mobilidade com Excelência`;
   const url = `https://wa.me/?text=${encodeURIComponent(msg)}`;
   window.location.href = url;
 }
+
+</script>
+
+</body>
+</html>
 
 </script>
 
