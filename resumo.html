@@ -309,6 +309,8 @@ function atualizarResumo(){
 
 function solicitar(){
 
+  atualizarResumo(); // garante que o total está atualizado
+
   const agora = new Date();
 
   const dataFormatada = agora.toLocaleDateString("pt-BR");
@@ -335,15 +337,18 @@ _____________________________
 *${observacao}*`;
   }
 
-  const totalFinal = Number(App.get("total") || 0);
+  const totalFinal = Number(localStorage.getItem("rf_total_final")) || 0;
+  const categoria = localStorage.getItem("rf_categoria") || "Driver";
 
-  // Montar detalhamento manual (baseado no que você já tem)
   let detalhesWhats = [];
 
-  detalhesWhats.push(`• Categoria: ${categoriaSelecionada}`);
+  detalhesWhats.push(`• Categoria: ${categoria}`);
 
-  if (noturnoAtivo) {
-    detalhesWhats.push(`• Adicional Noturno: + R$ ${adicionalNoturnoValor.toFixed(2)}`);
+  const agoraHora = new Date();
+  const hora = agoraHora.getHours() + (agoraHora.getMinutes()/60);
+
+  if(hora >= 22.5 || hora <= 5){
+    detalhesWhats.push(`• Adicional Noturno: + R$ ${Taxas.noturno.valorFixo.toFixed(2)}`);
   }
 
   const msg =
@@ -369,8 +374,9 @@ _RF Driver_
 Mobilidade com Excelência`;
 
   const url = `https://wa.me/?text=${encodeURIComponent(msg)}`;
-  window.location.href = url;
+  window.open(url, "_blank");
 }
+
 
 atualizarResumo();
 
