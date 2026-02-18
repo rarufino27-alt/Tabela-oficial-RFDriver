@@ -17,7 +17,7 @@
   { "origem": "Centro do Cabo", "destino": "Nazaré", "valor": 40, "regiao": "Cabo" },
   { "origem": "Centro do Cabo", "destino": "Itapuama", "valor": 37, "regiao": "Cabo" },
   { "origem": "Centro do Cabo", "destino": "Xaréu", "valor": 40, "regiao": "Cabo" },
-  { "origem": "Centro do Cabo", "destino": "Paiva (Pedágio Pago pelo Passageiro)", "valor": 55, "regiao": "Cabo" },
+  { "origem": "Centro do Cabo", "destino": "Paiva (Pedágio Pago pelo Motorista)", "valor": 55, "regiao": "Cabo" },
   { "origem": "Centro do Cabo", "destino": "Praia de Muro Alto", "valor": 70, "regiao": "Cabo" },
   { "origem": "Centro do Cabo", "destino": "Praia de Porto de Galinhas", "valor": 80, "regiao": "Cabo" },
   { "origem": "Centro do Cabo", "destino": "Praia de Maracaípe", "valor": 85, "regiao": "Cabo" },
