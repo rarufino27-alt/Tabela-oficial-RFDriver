@@ -165,7 +165,6 @@ button{
 
 <div class="content">
 
-  <!-- ADICIONAIS -->
   <div class="bloco">
     <h3>Adicionais</h3>
 
@@ -190,13 +189,11 @@ button{
     </div>
   </div>
 
-  <!-- OBSERVAÇÕES -->
   <div class="bloco">
     <h3>Observações</h3>
     <textarea id="observacaoInput" placeholder="Ex: Estou com mala grande, criança, preciso de troco, ponto de referência..."></textarea>
   </div>
 
-  <!-- DETALHAMENTO -->
   <div class="bloco">
     <h3>Detalhamento</h3>
     <div id="detalhamento"></div>
@@ -304,6 +301,12 @@ function atualizarResumo(){
     </div>
   `;
 
+  document.getElementById("detalhamento").innerHTML = detalhamento;
+  document.getElementById("totalFinal").innerText = "R$ " + total.toFixed(2);
+
+  localStorage.setItem("rf_total_final", total);
+}
+
 function solicitar(){
 
   atualizarResumo();
@@ -338,7 +341,6 @@ _____________________________
 ${observacao}`;
   }
 
-  // 🔥 IMPLEMENTAÇÃO DO ITINERÁRIO DINÂMICO
   let blocoItinerario = `
 📍 Origem:
 ${origem}
