@@ -1,6 +1,10 @@
 [
 
 { "origem": "Centro do Cabo", "destino": "Centro do Cabo", "valor": 9.99, "regiao": "Cabo" },
+{ "origem": "Credimoveis (Centro)", "destino": "Centro do Cabo", "valor": 9.99, "regiao": "Cabo" },
+{ "origem": "Centro do Cabo", "destino": "Magazine Luiza (Centro)", "valor": 9.99, "regiao": "Cabo" },
+{ "origem": "Centro do Cabo", "destino": "Casas Bahia (Centro)", "valor": 9.99, "regiao": "Cabo" },
+{ "origem": "Centro do Cabo", "destino": "Casa das Embalagens (Centro)", "valor": 9.99, "regiao": "Cabo" },
 { "origem": "Centro do Cabo", "destino": "Churrascaria Ponto gaúcho (Cabo)", "valor": 9.99, "regiao": "Cabo" },
 { "origem": "Centro do Cabo", "destino": "T.I (Centro)", "valor": 9.99, "regiao": "Cabo" },
 { "origem": "Centro do Cabo", "destino": "Estação do Trem (Centro)", "valor": 9.99, "regiao": "Cabo" },
