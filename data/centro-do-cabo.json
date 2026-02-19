@@ -1,5 +1,4 @@
 [
-                  * ================= Locais ================= *
 
 { "origem": "Centro do Cabo", "destino": "Centro do Cabo", "valor": 9.99, "regiao": "Cabo" },
 { "origem": "Centro do Cabo", "destino": "Churrascaria Ponto gaúcho (Cabo)", "valor": 9.99, "regiao": "Cabo" },
@@ -120,7 +119,6 @@
 { "origem": "Centro do Cabo", "destino": "Vila do SESI", "valor": 11.99, "regiao": "Cabo" },
 { "origem": "Centro do Cabo", "destino": "Rosa do Vento Chacara SHEKINÁ", "valor": 14.99, "regiao": "Cabo" },
 
-                  /* ================= Igrejas ================= */
 
 { "origem": "Centro do Cabo", "destino": "Igreja do Amor PE-60", "valor": 9.99, "regiao": "Cabo" },
 { "origem": "Centro do Cabo", "destino": "Universal PE-60", "valor": 9.99, "regiao": "Cabo" },
@@ -174,9 +172,6 @@
 { "origem": "Centro do Cabo", "destino": "AD Seara Garapú (r. do canal)", "valor": 12.99, "regiao": "Cabo" },
 { "origem": "Centro do Cabo", "destino": "AD Seara Charneca (Praça Nova)", "valor": 14.99, "regiao": "Cabo" },
 
-
-                  /* ================= Praias ================= */
-
 { "origem": "Centro do Cabo", "destino": "Gaibu", "valor": 34.99, "regiao": "Cabo" },
 { "origem": "Centro do Cabo", "destino": "Gaibu loteamento Águas Cumpridas", "valor": 34.99, "regiao": "Cabo" },
 { "origem": "Centro do Cabo", "destino": "Gaibu Jaqueira", "valor": 39.99, "regiao": "Cabo" },
@@ -202,8 +197,6 @@
 { "origem": "Centro do Cabo", "destino": "Praia de Serrambi", "valor": 114.99, "regiao": "Cabo" },
 { "origem": "Centro do Cabo", "destino": "Praia do CUPE", "valor": 64.99, "regiao": "Cabo" },
 
-                  /* ================= Porto de Suape ================= */
-
 { "origem": "Centro do Cabo", "destino": "Porto de Suape Amanco (Pedágio Incluso)", "valor": 49.99, "regiao": "Cabo" },
 { "origem": "Centro do Cabo", "destino": "Porto de Suape Shineray (Pedágio Incluso)", "valor": 49.99, "regiao": "Cabo" },
 { "origem": "Centro do Cabo", "destino": "Porto de Suape POSTO SHELL (Pedágio Incluso)", "valor": 49.99, "regiao": "Cabo" },
@@ -220,4 +213,5 @@
 { "origem": "Centro do Cabo", "destino": "Porto de Suape UltraCargo (Pedágio Incluso)", "valor": 69.99, "regiao": "Cabo" }
 
 ]
+
 
