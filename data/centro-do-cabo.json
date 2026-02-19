@@ -1,5 +1,5 @@
 [
-                  /* ================= Locais ================= */
+                  * ================= Locais ================= *
 
 { "origem": "Centro do Cabo", "destino": "Centro do Cabo", "valor": 9.99, "regiao": "Cabo" },
 { "origem": "Centro do Cabo", "destino": "Churrascaria Ponto gaúcho (Cabo)", "valor": 9.99, "regiao": "Cabo" },
@@ -220,3 +220,4 @@
 { "origem": "Centro do Cabo", "destino": "Porto de Suape UltraCargo (Pedágio Incluso)", "valor": 69.99, "regiao": "Cabo" }
 
 ]
+
