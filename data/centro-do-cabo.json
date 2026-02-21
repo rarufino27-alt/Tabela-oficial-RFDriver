@@ -244,19 +244,19 @@
 { "origem": "Centro do Cabo", "destino": "Tabatinga até o arruado", "valor": 44.99, "regiao": "Cabo" },
 { "origem": "Centro do Cabo", "destino": "Tabatinga após o arruado", "valor": 54.99, "regiao": "Cabo" },
 
-{ "origem": "Centro do Cabo", "destino": "Gaibu", "valor": 34.99, "regiao": "Cabo" },
-{ "origem": "Centro do Cabo", "destino": "Gaibu Bar do thriller", "valor": 34.99, "regiao": "Cabo" },
-{ "origem": "Centro do Cabo", "destino": "Gaibu Bar do Mário", "valor": 34.99, "regiao": "Cabo" },
-{ "origem": "Centro do Cabo", "destino": "Gaibu Arco Mix", "valor": 34.99, "regiao": "Cabo" },
-{ "origem": "Centro do Cabo", "destino": "Gaibu Hotel Canários", "valor": 34.99, "regiao": "Cabo" },
-{ "origem": "Centro do Cabo", "destino": "Gaibu Maresia", "valor": 34.99, "regiao": "Cabo" },
-{ "origem": "Centro do Cabo", "destino": "Gaibu até Escola Modelo", "valor": 31.99, "regiao": "Cabo" },
-{ "origem": "Centro do Cabo", "destino": "Gaibu loteamento Águas Cumpridas", "valor": 34.99, "regiao": "Cabo" },
-{ "origem": "Centro do Cabo", "destino": "Gaibu Jaqueira", "valor": 39.99, "regiao": "Cabo" },
-{ "origem": "Centro do Cabo", "destino": "Gaibu Pantanal", "valor": 39.99, "regiao": "Cabo" },
-{ "origem": "Centro do Cabo", "destino": "Gaibu Areal", "valor": 34.99, "regiao": "Cabo" },
-{ "origem": "Centro do Cabo", "destino": "Enseadas", "valor": 29.99, "regiao": "Cabo" },
-{ "origem": "Centro do Cabo", "destino": "Enseadas Setor 4", "valor": 37.99, "regiao": "Cabo" },
+{ "origem": "Centro do Cabo", "destino": "Gaibú", "valor": 34.99, "regiao": "Cabo" },
+{ "origem": "Centro do Cabo", "destino": "Gaibú Bar do thriller", "valor": 34.99, "regiao": "Cabo" },
+{ "origem": "Centro do Cabo", "destino": "Gaibú Bar do Mário", "valor": 34.99, "regiao": "Cabo" },
+{ "origem": "Centro do Cabo", "destino": "Gaibú Arco Mix", "valor": 34.99, "regiao": "Cabo" },
+{ "origem": "Centro do Cabo", "destino": "Gaibú Hotel Canários", "valor": 34.99, "regiao": "Cabo" },
+{ "origem": "Centro do Cabo", "destino": "Gaibú Maresia", "valor": 34.99, "regiao": "Cabo" },
+{ "origem": "Centro do Cabo", "destino": "Gaibú até Escola Modelo", "valor": 31.99, "regiao": "Cabo" },
+{ "origem": "Centro do Cabo", "destino": "Gaibú loteamento Águas Cumpridas", "valor": 34.99, "regiao": "Cabo" },
+{ "origem": "Centro do Cabo", "destino": "Gaibú Jaqueira", "valor": 39.99, "regiao": "Cabo" },
+{ "origem": "Centro do Cabo", "destino": "Gaibú Pantanal", "valor": 39.99, "regiao": "Cabo" },
+{ "origem": "Centro do Cabo", "destino": "Gaibú Areal", "valor": 34.99, "regiao": "Cabo" },
+{ "origem": "Centro do Cabo", "destino": "Enseadas dos Corais", "valor": 29.99, "regiao": "Cabo" },
+{ "origem": "Centro do Cabo", "destino": "Enseadas dos Corais Setor 4", "valor": 37.99, "regiao": "Cabo" },
 { "origem": "Centro do Cabo", "destino": "Suape", "valor": 37.99, "regiao": "Cabo" },
 { "origem": "Centro do Cabo", "destino": "Suape Hotel Vila Galé", "valor": 39.99, "regiao": "Cabo" },
 { "origem": "Centro do Cabo", "destino": "Suape Paraíso", "valor": 44.99, "regiao": "Cabo" },
@@ -521,6 +521,7 @@
 { "origem": "Centro do Cabo", "destino": "Aracajú SE", "valor": 1299.99, "regiao": "Cabo" }
 
 ]
+
 
 
 
