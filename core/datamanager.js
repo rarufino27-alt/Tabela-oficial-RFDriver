@@ -4,6 +4,7 @@ const DataManager = {
   arquivos: [
     "./data/condominio-porto-do-cabo.json",
     "./data/gaibu.json",
+    "./data/enseadas.json",
     "./data/lote-garapu2-lote-dona-amara.json",
     "./data/cohab.json",
     "./data/centro-do-cabo.json",
@@ -82,4 +83,5 @@ const DataManager = {
     return trecho1 + trecho2;
   }
 };
+
 
