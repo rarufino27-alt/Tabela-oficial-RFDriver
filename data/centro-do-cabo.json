@@ -157,6 +157,7 @@
 { "origem": "Centro do Cabo", "destino": "Ponte dos Carvalhos Terminal de ônibus Nova Era", "valor": 27.99, "regiao": "Cabo" },
 { "origem": "Centro do Cabo", "destino": "Ponte dos Carvalhos Praça Marcos freire", "valor": 24.99, "regiao": "Cabo" },
 { "origem": "Centro do Cabo", "destino": "Ponte dos Carvalhos Cemitério", "valor": 27.99, "regiao": "Cabo" },
+  { "origem": "Centro do Cabo", "destino": "Ponte dos Carvalhos Alto do sol", "valor": 27.99, "regiao": "Cabo" },
 { "origem": "Centro do Cabo", "destino": "Ponte dos Carvalhos Santo Estevão", "valor": 24.99, "regiao": "Cabo" },
 { "origem": "Centro do Cabo", "destino": "Ponte dos Carvalhos Maternidade", "valor": 24.99, "regiao": "Cabo" },
 { "origem": "Centro do Cabo", "destino": "Pontezinha", "valor": 29.99, "regiao": "Cabo" },
@@ -520,5 +521,6 @@
 { "origem": "Centro do Cabo", "destino": "Aracajú SE", "valor": 1299.99, "regiao": "Cabo" }
 
 ]
+
 
 
