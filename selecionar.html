@@ -2,8 +2,8 @@
 <html lang="pt-BR">
 <head>
 <meta charset="UTF-8">
-<title>RF – Selecionar viagem</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>RF – Selecionar viagem</title>
 
 <script src="core/datamanager.js"></script>
 <script src="core/dinamico.js"></script>
@@ -14,7 +14,8 @@
 <link rel="stylesheet" href="css/components.css">
 
 <style>
-/* Apenas ajustes específicos desta página */
+
+/* ===== Ajustes específicos desta página ===== */
 
 .rota-box{
   margin:20px 0;
@@ -31,7 +32,7 @@
 .categoria{
   cursor:pointer;
   margin-bottom:12px;
-  transition:.25s ease;
+  transition:var(--transition);
 }
 
 .categoria.ativa{
@@ -66,7 +67,7 @@
   border:1px solid var(--border);
   margin-bottom:8px;
   cursor:pointer;
-  transition:.2s ease;
+  transition:var(--transition);
 }
 
 .pag-item.ativo{
@@ -87,6 +88,7 @@
   font-weight:800;
   color:var(--primary);
 }
+
 </style>
 </head>
 
@@ -126,18 +128,14 @@
   <!-- TOTAL -->
   <div class="bottom-bar">
     <div class="valor-total" id="valorTotal">R$ 0,00</div>
-    <button class="btn btn-primary" onclick="solicitar()">
-      Solicitar
-    </button>
+    <button class="btn btn-primary" onclick="solicitar()">Solicitar</button>
   </div>
 
 </div>
 
-<!-- ===== SUA LÓGICA ORIGINAL INTACTA ===== -->
-
 <script>
 
-/* === LÓGICA ORIGINAL (SEM ALTERAÇÃO) === */
+/* ===== LÓGICA ORIGINAL ===== */
 
 const corrida = JSON.parse(localStorage.getItem("rf_corrida_temp"));
 if(!corrida) window.location.href = "viagem.html";
@@ -212,6 +210,7 @@ function renderCategorias(){
 function renderPagamentos(){
   const pagamentos = ["Dinheiro","Pix","Cartão"];
   const box = document.getElementById("pagamentos");
+  box.innerHTML = "";
 
   pagamentos.forEach(p=>{
     const div = document.createElement("div");
