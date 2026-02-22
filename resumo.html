@@ -247,12 +247,14 @@ function arredondarParaCima(valor){
 
 function atualizarResumo(){
 
-  const categoria = localStorage.getItem("rf_categoria") || "Driver";
-  const pagamento = localStorage.getItem("rf_pagamento") || "Dinheiro";
+const categoria = localStorage.getItem("rf_categoria") || "Driver";
+const pagamento = localStorage.getItem("rf_pagamento") || "Dinheiro";
+const multiplicador = parseFloat(localStorage.getItem("rf_mult")) || 1;
 
-  let base = valor;
-  base = aplicarNoturno(base);
-  let total = Dinamico.ativo ? base * Dinamico.multiplicador : base;
+let base = valor * multiplicador;  // aplica 4 lugares ou 6 lugares
+base = aplicarNoturno(base);
+
+let total = Dinamico.ativo ? base * Dinamico.multiplicador : base;
 
   let detalhamento = "";
 
