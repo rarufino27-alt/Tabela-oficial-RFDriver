@@ -96,10 +96,10 @@ a{
   <div class="card">
     <div class="card-title">Preferências</div>
 
-    <div class="option">
-      Tema claro/escuro
-      <span class="badge">Em breve</span>
-    </div>
+<div class="option" onclick="alternarTema()">
+  Alternar tema
+  <span id="temaAtual"></span>
+</div>
 
     <div class="option">
       Atualizar tabela
@@ -130,6 +130,31 @@ a{
   <a href="index.html">← Voltar</a>
 
 </div>
+  
+<script>
 
+function alternarTema(){
+  const atual = document.body.getAttribute("data-theme");
+  const novo = atual === "dark" ? "light" : "dark";
+
+  document.body.setAttribute("data-theme", novo);
+  localStorage.setItem("rf_theme", novo);
+  atualizarLabel();
+}
+
+function atualizarLabel(){
+  const atual = document.body.getAttribute("data-theme");
+  document.getElementById("temaAtual").innerText =
+    atual === "dark" ? "🌙 Escuro" : "☀️ Claro";
+}
+
+atualizarLabel();
+
+(function(){
+  const temaSalvo = localStorage.getItem("rf_theme") || "dark";
+  document.body.setAttribute("data-theme", temaSalvo);
+})();
+  
+</script>  
 </body>
 </html>
