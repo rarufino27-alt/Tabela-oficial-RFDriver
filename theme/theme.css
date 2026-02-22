@@ -1,51 +1,54 @@
 :root{
 
-  /* ===============================
-     IDENTIDADE RF DRIVER – DARK MODERN
-     =============================== */
-
-  /* FUNDO */
-  --bg:#0f0f0f;
-  --bg-soft:#1a1a1a;
-
-  /* CARDS */
-  --card:#1c1c1c;
-  --card-soft:#252525;
-
-  /* BORDAS */
-  --border:rgba(255,255,255,.08);
-
-  /* TEXTO */
-  --text:#ffffff;
-  --text-muted:#9ca3af;
-
-  /* AMARELO RF */
-  --primary:#facc15;
-
-  /* STATUS */
-  --success:#22c55e;
-  --danger:#ef4444;
-  --whatsapp:#25D366;
-
   /* PADRÕES */
   --radius:22px;
   --transition:.25s ease;
+
+  --success:#22c55e;
+  --danger:#ef4444;
+  --whatsapp:#25D366;
 }
 
-
 /* ===============================
-   RESET
+   DARK (PADRÃO)
    =============================== */
 
-*{
-  box-sizing:border-box;
-  font-family:Inter, system-ui, -apple-system, BlinkMacSystemFont, Arial, sans-serif;
-  -webkit-tap-highlight-color:transparent;
+body[data-theme="dark"]{
+  --bg:#0f0f0f;
+  --bg-soft:#1a1a1a;
+
+  --card:#1c1c1c;
+  --card-soft:#252525;
+
+  --border:rgba(255,255,255,.08);
+
+  --text:#ffffff;
+  --text-muted:#9ca3af;
+
+  --primary:#facc15;
 }
 
+/* ===============================
+   LIGHT
+   =============================== */
+
+body[data-theme="light"]{
+  --bg:#f4f7fb;
+  --bg-soft:#eef3f9;
+
+  --card:#ffffff;
+  --card-soft:#f3f4f6;
+
+  --border:rgba(0,0,0,.08);
+
+  --text:#111827;
+  --text-muted:#6b7280;
+
+  --primary:#facc15;
+}
 
 /* ===============================
-   BODY
+   BODY BASE
    =============================== */
 
 body{
@@ -58,31 +61,5 @@ body{
     var(--bg-soft)
   );
   color:var(--text);
-}
-
-
-/* ===============================
-   TIPOGRAFIA
-   =============================== */
-
-h1, h2, h3, h4{
-  margin:0 0 10px;
-  font-weight:700;
-  color:var(--text);
-  letter-spacing:.4px;
-}
-
-h1{
-  font-size:1.8rem;
-}
-
-h2{
-  font-size:1.35rem;
-}
-
-p{
-  margin:0 0 10px;
-  color:var(--text-muted);
-  font-size:14px;
-  line-height:1.6;
+  font-family:Inter, system-ui, -apple-system, BlinkMacSystemFont, Arial, sans-serif;
 }
