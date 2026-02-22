@@ -89,5 +89,11 @@ a{
 
 </div>
 
+  <script>
+(function(){
+  const temaSalvo = localStorage.getItem("rf_theme") || "dark";
+  document.body.setAttribute("data-theme", temaSalvo);
+})();
+</script>
 </body>
 </html>
