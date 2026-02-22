@@ -18,16 +18,16 @@
 }
 
 body{
-  background:#ffffff;
-  height:100vh;
-  overflow:hidden;
+  background:#0f0f0f; /* FUNDO ESCURO */
+  color:#ffffff;
+  min-height:100vh;
 }
 
 /* ================= HEADER ================= */
 
 .top{
-  background:#facc15;
-  padding:25px 20px 150px 20px; /* AUMENTADO */
+  background:#ffffff; /* FAIXA SUPERIOR BRANCA */
+  padding:25px 20px 140px 20px;
   border-bottom-left-radius:40px;
   border-bottom-right-radius:40px;
   position:relative;
@@ -37,37 +37,34 @@ body{
   font-weight:900;
   font-size:1.4rem;
   letter-spacing:1px;
-  animation:fadeIn 1s ease forwards;
+  color:#000000; /* NOME PRETO */
 }
 
 .titulo-topo{
   position:absolute;
-  bottom:105px; /* SUBIU */
+  bottom:100px;
   left:20px;
   font-weight:700;
   font-size:1rem;
+  color:#facc15; /* AMARELO */
 }
 
-@keyframes fadeIn{
-  from{opacity:0; transform:translateY(-10px);}
-  to{opacity:1; transform:translateY(0);}
-}
-
-/* ================= ROTA FIXA ================= */
+/* ================= ROTA ================= */
 
 .rota-box{
   position:absolute;
-  top:115px; /* antes 90px */
+  top:110px;
   left:50%;
   transform:translateX(-50%);
   width:90%;
   max-width:420px;
-  background:#fff;
+  background:#1c1c1c; /* QUADRANTE ESCURO */
   border-radius:18px;
   padding:15px;
-  box-shadow:0 8px 20px rgba(0,0,0,.1);
+  box-shadow:0 8px 20px rgba(0,0,0,.4);
   font-size:.85rem;
   z-index:5;
+  color:#fff;
 }
 
 .rota-item{
@@ -77,14 +74,14 @@ body{
 }
 
 .rota-item span:first-child{
-  color:#777;
+  color:#999;
 }
 
-/* ================= CONTEÚDO ROLÁVEL ================= */
+/* ================= CONTEÚDO ================= */
 
 .content{
   position:absolute;
-  top:210px;
+  top:220px;
   left:50%;
   transform:translateX(-50%);
   width:90%;
@@ -98,33 +95,33 @@ body{
 .categoria{
   padding:14px;
   border-radius:14px;
-  border:1px solid #eee;
+  border:1px solid rgba(255,255,255,.08);
   margin-bottom:10px;
   display:flex;
   justify-content:space-between;
   cursor:pointer;
   transition:.25s ease;
+  background:#1c1c1c;
 }
 
 .categoria:hover{
-  background:#fafafa;
+  background:#252525;
 }
 
 .categoria.ativa{
   border-color:#facc15;
-  box-shadow:0 0 10px rgba(250,204,21,.3);
-  transform:scale(1.02);
+  box-shadow:0 0 12px rgba(250,204,21,.35);
 }
 
 .cat-desc{
   font-size:.75rem;
-  color:#777;
+  color:#aaa;
 }
 
 .preco-antigo{
   font-size:.7rem;
   text-decoration:line-through;
-  color:#999;
+  color:#888;
 }
 
 .preco-dinamico{
@@ -135,7 +132,7 @@ body{
 /* ================= PAGAMENTO ================= */
 
 .pagamento-bloco{
-  background:#fff6cc;
+  background:#1c1c1c;
   padding:15px;
   border-radius:16px;
   margin-top:20px;
@@ -150,7 +147,7 @@ body{
 }
 
 .pag-item:hover{
-  background:#fff2a8;
+  background:#252525;
 }
 
 .pag-item.ativo{
@@ -174,11 +171,7 @@ body{
 .valor-total{
   font-size:1.3rem;
   font-weight:700;
-  transition:.2s;
-}
-
-.valor-total.animar{
-  transform:scale(1.1);
+  color:#facc15;
 }
 
 button{
@@ -186,6 +179,7 @@ button{
   border:none;
   border-radius:30px;
   background:#facc15;
+  color:#000;
   font-weight:700;
   cursor:pointer;
 }
