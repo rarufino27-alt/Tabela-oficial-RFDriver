@@ -2,106 +2,137 @@
 <html lang="pt-BR">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>RF – Selecionar viagem</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <script src="core/datamanager.js"></script>
 <script src="core/dinamico.js"></script>
 <script src="core/taxas.js"></script>
 
-<link rel="stylesheet" href="css/theme.css">
-<link rel="stylesheet" href="css/layout.css">
-<link rel="stylesheet" href="css/components.css">
-
 <style>
-
-/* ===== Ajustes específicos desta página ===== */
-
-.rota-box{
-  margin:20px 0;
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+  font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;
 }
 
-.rota-item{
+body{
+  background:linear-gradient(to bottom, #0f0f0f, #1a1a1a);
+  color:#ffffff;
+  min-height:100vh;
+}
+
+/* ================= HEADER ================= */
+
+.top-white{
+  background:#ffffff;
+  padding:20px 20px 28px 20px;
   display:flex;
   justify-content:space-between;
-  font-size:.9rem;
-  margin-bottom:6px;
-  color:var(--text-muted);
+  align-items:center;
+  border-bottom-left-radius:32px;
+  border-bottom-right-radius:32px;
+  box-shadow:0 10px 30px rgba(0,0,0,.25);
+}
+
+.logo-area{
+  display:flex;
+  align-items:center;
+  gap:14px;
+}
+
+.logo-img{
+  height:60px;
+  width:auto;
+  border-radius:16px;
+}
+
+.logo-text-dark{
+  font-weight:900;
+  letter-spacing:1px;
+  color:#000;
+  font-size:1.1rem;
+}
+
+/* ================= CONTAINER ================= */
+
+.container{
+  width:90%;
+  max-width:420px;
+  margin:40px auto;
+}
+
+/* ================= CARD ================= */
+
+.card{
+  background:#1c1c1c;
+  border-radius:20px;
+  padding:20px;
+  box-shadow:0 15px 35px rgba(0,0,0,.5);
+  border:1px solid rgba(255,255,255,.05);
+  margin-bottom:15px;
 }
 
 .categoria{
   cursor:pointer;
-  margin-bottom:12px;
-  transition:var(--transition);
+  transition:.2s;
 }
 
 .categoria.ativa{
-  border-color:var(--primary);
-  box-shadow:0 0 20px rgba(250,204,21,.25);
-  transform:scale(1.02);
+  border-color:#facc15;
+  box-shadow:0 0 20px rgba(250,204,21,.3);
 }
 
 .cat-desc{
   font-size:.8rem;
-  color:var(--text-muted);
-}
-
-.preco-antigo{
-  font-size:.75rem;
-  text-decoration:line-through;
-  color:var(--text-muted);
+  color:#999;
 }
 
 .preco-dinamico{
   font-weight:700;
-  color:var(--primary);
-}
-
-.pagamento-bloco{
-  margin-top:24px;
+  color:#facc15;
 }
 
 .pag-item{
   padding:12px;
-  border-radius:14px;
-  border:1px solid var(--border);
-  margin-bottom:8px;
+  border-radius:10px;
+  margin-bottom:6px;
   cursor:pointer;
-  transition:var(--transition);
+  border:1px solid rgba(255,255,255,.1);
 }
 
 .pag-item.ativo{
-  background:var(--primary);
+  background:#facc15;
   color:#000;
   font-weight:700;
 }
 
-.bottom-bar{
-  margin-top:30px;
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-}
-
 .valor-total{
   font-size:1.4rem;
-  font-weight:800;
-  color:var(--primary);
+  font-weight:700;
+  color:#facc15;
+  margin:20px 0;
 }
 
+/* ================= BOTÃO ================= */
+
+button{
+  width:100%;
+  padding:18px;
+  border:none;
+  border-radius:35px;
+  background:#facc15;
+  color:#000;
+  font-weight:800;
+  font-size:1rem;
+  cursor:pointer;
+}
 </style>
 </head>
-
 <body>
 
-<script>
-(function(){
-  const temaSalvo = localStorage.getItem("rf_theme") || "dark";
-  document.body.setAttribute("data-theme", temaSalvo);
-})();
-</script>
-
-<!-- HEADER PADRÃO -->
+<!-- HEADER -->
 <div class="top-white">
   <div class="logo-area">
     <img src="icons/icon-192.png" class="logo-img">
@@ -111,42 +142,37 @@
 
 <div class="container">
 
-  <h1>Categoria de viagem</h1>
+  <h2 style="margin-bottom:20px;">Categoria de viagem</h2>
 
-  <!-- ROTA -->
-  <div class="card rota-box" id="rotaBox"></div>
+  <div class="card" id="rotaBox"></div>
 
-  <!-- CATEGORIAS -->
   <div id="categorias"></div>
 
-  <!-- PAGAMENTO -->
-  <div class="card pagamento-bloco">
-    <h3>Forma de pagamento</h3>
+  <div class="card">
+    <div style="font-weight:700; margin-bottom:10px;">Forma de pagamento</div>
     <div id="pagamentos"></div>
   </div>
 
-  <!-- TOTAL -->
-  <div class="bottom-bar">
-    <div class="valor-total" id="valorTotal">R$ 0,00</div>
-    <button class="btn btn-primary" onclick="solicitar()">Solicitar</button>
-  </div>
+  <div class="valor-total" id="valorTotal">R$ 0,00</div>
+
+  <button onclick="solicitar()">Solicitar</button>
 
 </div>
 
 <script>
 
-/* ===== LÓGICA ORIGINAL ===== */
+/* ===== SUA LÓGICA ORIGINAL ===== */
 
 const corrida = JSON.parse(localStorage.getItem("rf_corrida_temp"));
 if(!corrida) window.location.href = "viagem.html";
 
 const { origem, parada, destino, valor } = corrida;
 
-let rotaHTML = `<div class="rota-item"><span>Origem</span><span>${origem}</span></div>`;
+let rotaHTML = `<div><strong>Origem:</strong> ${origem}</div>`;
 if(parada){
-  rotaHTML += `<div class="rota-item"><span>Parada</span><span>${parada}</span></div>`;
+  rotaHTML += `<div><strong>Parada:</strong> ${parada}</div>`;
 }
-rotaHTML += `<div class="rota-item"><span>Destino</span><span>${destino}</span></div>`;
+rotaHTML += `<div><strong>Destino:</strong> ${destino}</div>`;
 document.getElementById("rotaBox").innerHTML = rotaHTML;
 
 function aplicarNoturno(valorBase){
@@ -181,17 +207,16 @@ function renderCategorias(){
     const noturno = aplicarNoturno(base);
     const valorFinal = Dinamico.ativo ? noturno * Dinamico.multiplicador : noturno;
 
-    let precoHTML = Dinamico.ativo
-      ? `<div class="preco-antigo">R$ ${noturno.toFixed(2)}</div>
-         <div class="preco-dinamico">⚡ R$ ${valorFinal.toFixed(2)}</div>`
-      : `<div class="preco-dinamico">R$ ${valorFinal.toFixed(2)}</div>`;
-
     card.innerHTML = `
-      <div>
-        <div>${cat.nome}</div>
-        <div class="cat-desc">${cat.desc}</div>
+      <div style="display:flex; justify-content:space-between;">
+        <div>
+          <div>${cat.nome}</div>
+          <div class="cat-desc">${cat.desc}</div>
+        </div>
+        <div class="preco-dinamico">
+          R$ ${valorFinal.toFixed(2)}
+        </div>
       </div>
-      <div>${precoHTML}</div>
     `;
 
     card.onclick = ()=>{
@@ -235,8 +260,8 @@ function atualizarTotal(){
   base = aplicarNoturno(base);
   let total = Dinamico.ativo ? base * Dinamico.multiplicador : base;
 
-  const el = document.getElementById("valorTotal");
-  el.innerText = "R$ " + total.toFixed(2);
+  document.getElementById("valorTotal").innerText =
+    "R$ " + total.toFixed(2);
 
   localStorage.setItem("rf_categoria", cat.nome);
   localStorage.setItem("rf_pagamento", pagamentoSelecionado);
