@@ -20,73 +20,110 @@
 body{
   background:linear-gradient(to bottom, #0f0f0f, #1a1a1a);
   color:#ffffff;
-  min-height:100vh;
+  height:100vh;
+  overflow:hidden;
 }
 
 /* ================= HEADER ================= */
 
-.top-white{
+.top{
   background:#ffffff;
-  padding:20px 20px 28px 20px;
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  border-bottom-left-radius:32px;
-  border-bottom-right-radius:32px;
+  padding:25px 20px 150px 20px;
+  border-bottom-left-radius:40px;
+  border-bottom-right-radius:40px;
+  position:relative;
   box-shadow:0 10px 30px rgba(0,0,0,.25);
 }
 
-.logo-area{
-  display:flex;
-  align-items:center;
-  gap:14px;
-}
-
-.logo-img{
-  height:60px;
-  width:auto;
-  border-radius:16px;
-}
-
-.logo-text-dark{
+.logo{
   font-weight:900;
+  font-size:1.4rem;
   letter-spacing:1px;
   color:#000;
-  font-size:1.1rem;
 }
 
-/* ================= CONTAINER ================= */
+.titulo-topo{
+  position:absolute;
+  bottom:105px;
+  left:20px;
+  font-weight:700;
+  font-size:1rem;
+  color:#000;
+}
 
-.container{
+/* ================= ROTA FIXA ================= */
+
+.rota-box{
+  position:absolute;
+  top:115px;
+  left:50%;
+  transform:translateX(-50%);
   width:90%;
   max-width:420px;
-  margin:40px auto;
-}
-
-/* ================= CARD ================= */
-
-.card{
   background:#1c1c1c;
-  border-radius:20px;
-  padding:20px;
+  border-radius:18px;
+  padding:15px;
   box-shadow:0 15px 35px rgba(0,0,0,.5);
   border:1px solid rgba(255,255,255,.05);
-  margin-bottom:15px;
+  font-size:.85rem;
+  z-index:5;
 }
 
+.rota-item{
+  display:flex;
+  justify-content:space-between;
+  margin-bottom:5px;
+}
+
+.rota-item span:first-child{
+  color:#999;
+}
+
+/* ================= CONTEÚDO ================= */
+
+.content{
+  position:absolute;
+  top:210px;
+  left:50%;
+  transform:translateX(-50%);
+  width:90%;
+  max-width:420px;
+  bottom:100px;
+  overflow-y:auto;
+}
+
+/* ================= CATEGORIA ================= */
+
 .categoria{
+  padding:14px;
+  border-radius:14px;
+  border:1px solid rgba(255,255,255,.08);
+  margin-bottom:10px;
+  display:flex;
+  justify-content:space-between;
   cursor:pointer;
-  transition:.2s;
+  transition:.25s ease;
+  background:#1c1c1c;
+}
+
+.categoria:hover{
+  background:#252525;
 }
 
 .categoria.ativa{
   border-color:#facc15;
-  box-shadow:0 0 20px rgba(250,204,21,.3);
+  box-shadow:0 0 15px rgba(250,204,21,.3);
 }
 
 .cat-desc{
-  font-size:.8rem;
+  font-size:.75rem;
   color:#999;
+}
+
+.preco-antigo{
+  font-size:.7rem;
+  text-decoration:line-through;
+  color:#777;
 }
 
 .preco-dinamico{
@@ -94,38 +131,64 @@ body{
   color:#facc15;
 }
 
+/* ================= PAGAMENTO ================= */
+
+.pagamento-bloco{
+  background:#1c1c1c;
+  padding:15px;
+  border-radius:16px;
+  margin-top:20px;
+  border:1px solid rgba(255,255,255,.05);
+}
+
 .pag-item{
-  padding:12px;
+  padding:10px;
   border-radius:10px;
   margin-bottom:6px;
   cursor:pointer;
-  border:1px solid rgba(255,255,255,.1);
+  transition:.2s;
+  border:1px solid rgba(255,255,255,.08);
+}
+
+.pag-item:hover{
+  background:#252525;
 }
 
 .pag-item.ativo{
   background:#facc15;
   color:#000;
-  font-weight:700;
+  font-weight:600;
+}
+
+/* ================= BOTTOM BAR ================= */
+
+.bottom-bar{
+  position:absolute;
+  bottom:25px;
+  left:20px;
+  right:20px;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
 }
 
 .valor-total{
-  font-size:1.4rem;
+  font-size:1.3rem;
   font-weight:700;
   color:#facc15;
-  margin:20px 0;
 }
 
-/* ================= BOTÃO ================= */
+.valor-total.animar{
+  transform:scale(1.1);
+}
 
 button{
-  width:100%;
-  padding:18px;
+  padding:12px 28px;
   border:none;
-  border-radius:35px;
+  border-radius:30px;
   background:#facc15;
   color:#000;
-  font-weight:800;
-  font-size:1rem;
+  font-weight:700;
   cursor:pointer;
 }
 </style>
