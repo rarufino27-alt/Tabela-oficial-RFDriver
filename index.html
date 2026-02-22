@@ -287,9 +287,9 @@ button:disabled{
 <div class="menu-overlay" id="menuOverlay" onclick="fecharMenu()"></div>
 <div class="menu" id="menu">
   <h3>Menu</h3>
-  <div class="menu-item">Histórico</div>
-  <div class="menu-item">Pagamentos</div>
-  <div class="menu-item">Configurações</div>
+<div class="menu-item" onclick="irPara('politica.html')">Política de Privacidade</div>
+<div class="menu-item" onclick="irPara('termos.html')">Termos de Uso</div>
+<div class="menu-item" onclick="irPara('configuracoes.html')">Configurações</div>
 </div>
 
 <!-- HEADER -->
@@ -366,6 +366,10 @@ function abrirMenu(){
 function fecharMenu(){
   document.getElementById("menu").classList.remove("ativo");
   document.getElementById("menuOverlay").style.display="none";
+}
+  
+  function irPara(pagina){
+  window.location.href = pagina;
 }
 
 /* INIT */
