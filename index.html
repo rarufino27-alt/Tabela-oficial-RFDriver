@@ -40,6 +40,25 @@ body{
   color:#facc15;
 }
 
+.logo-area{
+  display:flex;
+  align-items:center;
+  gap:10px;
+}
+
+.logo-img{
+  height:30px;
+  width:auto;
+  border-radius:8px;
+}
+
+.logo-text{
+  font-weight:900;
+  letter-spacing:1px;
+  color:#facc15;
+  font-size:1rem;
+}
+
 .menu-btn{
   font-size:22px;
   cursor:pointer;
@@ -251,7 +270,10 @@ button:disabled{
 
 <!-- HEADER -->
 <div class="top">
-  <div class="logo">GRUPO RF DRIVER</div>
+  <div class="logo-area">
+    <img src="icons/icon.192x192.png" class="logo-img">
+    <span class="logo-text">RF DRIVER</span>
+  </div>
   <div class="menu-btn" onclick="abrirMenu()">☰</div>
 </div>
 
