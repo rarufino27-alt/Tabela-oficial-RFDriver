@@ -33,6 +33,16 @@ body{
   border-bottom:1px solid rgba(255,255,255,.05);
 }
 
+  .top-white{
+  background:#ffffff;
+  height:60px;
+  padding:0 20px;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  box-shadow:0 2px 10px rgba(0,0,0,.2);
+}
+
 .logo{
   font-weight:900;
   font-size:1.2rem;
@@ -60,10 +70,23 @@ body{
   font-size:1rem;
 }
 
+  .logo-text-dark{
+  font-weight:900;
+  letter-spacing:1px;
+  color:#000;
+  font-size:1rem;
+}
+
 .menu-btn{
   font-size:22px;
   cursor:pointer;
   color:#ffffff;
+}
+
+  .menu-btn-dark{
+  font-size:22px;
+  cursor:pointer;
+  color:#000;
 }
 
 /* ================= MENU ================= */
@@ -270,12 +293,12 @@ button:disabled{
 </div>
 
 <!-- HEADER -->
-<div class="top">
+<div class="top-white">
   <div class="logo-area">
     <img src="icons/icon-192.png" class="logo-img">
-    <span class="logo-text">RF DRIVER</span>
+    <span class="logo-text-dark">GRUPO RF</span>
   </div>
-  <div class="menu-btn" onclick="abrirMenu()">☰</div>
+  <div class="menu-btn-dark" onclick="abrirMenu()">☰</div>
 </div>
 
 <!-- CENTRO -->
