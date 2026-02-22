@@ -6,6 +6,7 @@ const DataManager = {
     "./data/gaibu.json",
     "./data/enseadas.json",
     "./data/setor4.json",
+    "./data/xareu.json",
     "./data/calhetas.json",
     "./data/lote-garapu2-lote-dona-amara.json",
     "./data/cohab.json",
@@ -85,6 +86,7 @@ const DataManager = {
     return trecho1 + trecho2;
   }
 };
+
 
 
 
