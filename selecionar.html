@@ -274,11 +274,20 @@ function renderCategorias(){
     box.appendChild(card);
   });
 
+  function arredondarParaCima(valor){
+  return Math.ceil(valor * 100) / 100;
+}
+  
   atualizarTotal();
 }
 
 function renderPagamentos(){
-  const pagamentos = ["Dinheiro","Pix","Cartão"];
+  const pagamentos = [
+  "Dinheiro",
+  "Pix",
+  "Cartão Débito",
+  "Cartão Crédito"
+];
   const box = document.getElementById("pagamentos");
 
   pagamentos.forEach(p=>{
@@ -304,10 +313,19 @@ function atualizarTotal(){
   base = aplicarNoturno(base);
   let total = Dinamico.ativo ? base * Dinamico.multiplicador : base;
 
-  const el = document.getElementById("valorTotal");
-  el.classList.add("animar");
-  setTimeout(()=>el.classList.remove("animar"),200);
+  // === APLICAR TAXA DO CARTÃO ===
+  if(pagamentoSelecionado === "Cartão Crédito"){
+    total = total / 0.95;
+  }
 
+  if(pagamentoSelecionado === "Cartão Débito"){
+    total = total / 0.98;
+  }
+
+  // === ARREDONDAR CENTAVOS PARA CIMA ===
+  total = arredondarParaCima(total);
+
+  const el = document.getElementById("valorTotal");
   el.innerText = "R$ " + total.toFixed(2);
 
   localStorage.setItem("rf_categoria", cat.nome);
