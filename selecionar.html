@@ -328,9 +328,10 @@ function atualizarTotal(){
   const el = document.getElementById("valorTotal");
   el.innerText = "R$ " + total.toFixed(2);
 
-  localStorage.setItem("rf_categoria", cat.nome);
-  localStorage.setItem("rf_pagamento", pagamentoSelecionado);
-  localStorage.setItem("rf_valor_final", total);
+localStorage.setItem("rf_categoria", cat.nome);
+localStorage.setItem("rf_pagamento", pagamentoSelecionado);
+localStorage.setItem("rf_valor_final", total);
+localStorage.setItem("rf_mult", cat.mult);
 }
 
 function solicitar(){
