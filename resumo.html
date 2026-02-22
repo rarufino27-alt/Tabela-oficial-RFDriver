@@ -241,9 +241,14 @@ function aplicarNoturno(valorBase){
   return valorBase;
 }
 
+function arredondarParaCima(valor){
+  return Math.ceil(valor * 100) / 100;
+}
+
 function atualizarResumo(){
 
   const categoria = localStorage.getItem("rf_categoria") || "Driver";
+  const pagamento = localStorage.getItem("rf_pagamento") || "Dinheiro";
 
   let base = valor;
   base = aplicarNoturno(base);
@@ -264,6 +269,36 @@ function atualizarResumo(){
       <span>R$ ${base.toFixed(2)}</span>
     </div>
   `;
+
+  let taxaCartao = 0;
+
+  if(pagamento === "Cartão Crédito"){
+    const original = total;
+    total = total / 0.95;
+    total = arredondarParaCima(total);
+    taxaCartao = total - original;
+
+    detalhamento += `
+      <div class="linha">
+        <span>Taxa cartão crédito</span>
+        <span>+ R$ ${taxaCartao.toFixed(2)}</span>
+      </div>
+    `;
+  }
+
+  if(pagamento === "Cartão Débito"){
+    const original = total;
+    total = total / 0.98;
+    total = arredondarParaCima(total);
+    taxaCartao = total - original;
+
+    detalhamento += `
+      <div class="linha">
+        <span>Taxa cartão débito</span>
+        <span>+ R$ ${taxaCartao.toFixed(2)}</span>
+      </div>
+    `;
+  }
 
   if(extras.mercado){
     total += Taxas.feira;
@@ -295,6 +330,8 @@ function atualizarResumo(){
       </div>
     `;
   }
+
+  total = arredondarParaCima(total);
 
   detalhamento += `
     <div class="linha total">
