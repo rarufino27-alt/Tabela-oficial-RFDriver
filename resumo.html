@@ -258,7 +258,7 @@ function atualizarResumo(){
   let base = valor * multiplicador;
   base = aplicarNoturno(base);
 
-  let total = Dinamico.ativo ? base * Dinamico.multiplicador : base;
+  let subtotal = Dinamico.ativo ? base * Dinamico.multiplicador : base;
 
   let detalhamento = "";
 
@@ -276,12 +276,10 @@ function atualizarResumo(){
     </div>
   `;
 
-  // =====================
-  // EXTRAS PRIMEIRO
-  // =====================
+  // ===== EXTRAS =====
 
   if(extras.mercado){
-    total += Taxas.feira;
+    subtotal += Taxas.feira;
     detalhamento += `
       <div class="linha">
         <span>Saída de mercado</span>
@@ -291,7 +289,7 @@ function atualizarResumo(){
   }
 
   if(extras.praia){
-    total += Taxas.voltaPraia;
+    subtotal += Taxas.voltaPraia;
     detalhamento += `
       <div class="linha">
         <span>Saída de praia</span>
@@ -302,7 +300,7 @@ function atualizarResumo(){
 
   if(extras.animal !== "nao"){
     const valorAnimal = Taxas.animal[extras.animal];
-    total += valorAnimal;
+    subtotal += valorAnimal;
     detalhamento += `
       <div class="linha">
         <span>Animal (${extras.animal})</span>
@@ -311,53 +309,56 @@ function atualizarResumo(){
     `;
   }
 
-  // =====================
-  // CARTÃO POR ÚLTIMO
-  // =====================
+  subtotal = arredondarParaCima(subtotal);
+
+  // ===== TAXA CARTÃO =====
 
   let taxaCartao = 0;
+  let totalGeral = subtotal;
 
   if(pagamento === "Cartão Crédito"){
-    const antesCartao = total;
-    total = total / 0.95;
-    total = arredondarParaCima(total);
-    taxaCartao = total - antesCartao;
-
-    detalhamento += `
-      <div class="linha">
-        <span>Taxa cartão crédito</span>
-        <span>+ R$ ${taxaCartao.toFixed(2)}</span>
-      </div>
-    `;
+    totalGeral = arredondarParaCima(subtotal / 0.95);
+    taxaCartao = arredondarParaCima(totalGeral - subtotal);
   }
 
   if(pagamento === "Cartão Débito"){
-    const antesCartao = total;
-    total = total / 0.98;
-    total = arredondarParaCima(total);
-    taxaCartao = total - antesCartao;
+    totalGeral = arredondarParaCima(subtotal / 0.98);
+    taxaCartao = arredondarParaCima(totalGeral - subtotal);
+  }
 
+  // ===== MOSTRAR SUBTOTAL =====
+
+  detalhamento += `
+    <div class="linha">
+      <span>Subtotal</span>
+      <span>R$ ${subtotal.toFixed(2)}</span>
+    </div>
+  `;
+
+  // ===== MOSTRAR TAXA (SE HOUVER) =====
+
+  if(taxaCartao > 0){
     detalhamento += `
       <div class="linha">
-        <span>Taxa cartão débito</span>
+        <span>Taxa ${pagamento}</span>
         <span>+ R$ ${taxaCartao.toFixed(2)}</span>
       </div>
     `;
   }
 
-  total = arredondarParaCima(total);
+  // ===== TOTAL GERAL =====
 
   detalhamento += `
     <div class="linha total">
-      <span>Total</span>
-      <span>R$ ${total.toFixed(2)}</span>
+      <span>Total Geral</span>
+      <span>R$ ${totalGeral.toFixed(2)}</span>
     </div>
   `;
 
   document.getElementById("detalhamento").innerHTML = detalhamento;
-  document.getElementById("totalFinal").innerText = "R$ " + total.toFixed(2);
+  document.getElementById("totalFinal").innerText = "R$ " + totalGeral.toFixed(2);
 
-  localStorage.setItem("rf_total_final", total);
+  localStorage.setItem("rf_total_final", totalGeral);
 }
 
 function solicitar(){
