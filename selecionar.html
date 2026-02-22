@@ -274,10 +274,6 @@ function renderCategorias(){
     box.appendChild(card);
   });
 
-  function arredondarParaCima(valor){
-  return Math.ceil(valor * 100) / 100;
-}
-  
   atualizarTotal();
 }
 
@@ -307,6 +303,10 @@ function renderPagamentos(){
   });
 }
 
+    function arredondarParaCima(valor){
+  return Math.ceil(valor * 100) / 100;
+}
+  
 function atualizarTotal(){
   const cat = categoriasData[categoriaSelecionada];
   let base = valor * cat.mult;
