@@ -5,7 +5,7 @@ const DataManager = {
     "./data/condominio-porto-do-cabo.json",
     "./data/gaibu.json",
     "./data/enseadas.json",
-    "./data/setor4.json",
+    "./data/setor-4.json",
     "./data/xareu.json",
     "./data/itapuama.json",
     "./data/calhetas.json",
@@ -87,6 +87,7 @@ const DataManager = {
     return trecho1 + trecho2;
   }
 };
+
 
 
 
