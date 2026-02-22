@@ -245,16 +245,20 @@ function arredondarParaCima(valor){
   return Math.ceil(valor * 100) / 100;
 }
 
+function arredondarParaCima(valor){
+  return Math.ceil(valor * 100) / 100;
+}
+
 function atualizarResumo(){
 
-const categoria = localStorage.getItem("rf_categoria") || "Driver";
-const pagamento = localStorage.getItem("rf_pagamento") || "Dinheiro";
-const multiplicador = parseFloat(localStorage.getItem("rf_mult")) || 1;
+  const categoria = localStorage.getItem("rf_categoria") || "Driver";
+  const pagamento = localStorage.getItem("rf_pagamento") || "Dinheiro";
+  const multiplicador = parseFloat(localStorage.getItem("rf_mult")) || 1;
 
-let base = valor * multiplicador;  // aplica 4 lugares ou 6 lugares
-base = aplicarNoturno(base);
+  let base = valor * multiplicador;
+  base = aplicarNoturno(base);
 
-let total = Dinamico.ativo ? base * Dinamico.multiplicador : base;
+  let total = Dinamico.ativo ? base * Dinamico.multiplicador : base;
 
   let detalhamento = "";
 
@@ -267,40 +271,14 @@ let total = Dinamico.ativo ? base * Dinamico.multiplicador : base;
 
   detalhamento += `
     <div class="linha">
-      <span>Valor base</span>
+      <span>Valor base ajustado</span>
       <span>R$ ${base.toFixed(2)}</span>
     </div>
   `;
 
-  let taxaCartao = 0;
-
-  if(pagamento === "Cartão Crédito"){
-    const original = total;
-    total = total / 0.95;
-    total = arredondarParaCima(total);
-    taxaCartao = total - original;
-
-    detalhamento += `
-      <div class="linha">
-        <span>Taxa cartão crédito</span>
-        <span>+ R$ ${taxaCartao.toFixed(2)}</span>
-      </div>
-    `;
-  }
-
-  if(pagamento === "Cartão Débito"){
-    const original = total;
-    total = total / 0.98;
-    total = arredondarParaCima(total);
-    taxaCartao = total - original;
-
-    detalhamento += `
-      <div class="linha">
-        <span>Taxa cartão débito</span>
-        <span>+ R$ ${taxaCartao.toFixed(2)}</span>
-      </div>
-    `;
-  }
+  // =====================
+  // EXTRAS PRIMEIRO
+  // =====================
 
   if(extras.mercado){
     total += Taxas.feira;
@@ -329,6 +307,40 @@ let total = Dinamico.ativo ? base * Dinamico.multiplicador : base;
       <div class="linha">
         <span>Animal (${extras.animal})</span>
         <span>+ R$ ${valorAnimal.toFixed(2)}</span>
+      </div>
+    `;
+  }
+
+  // =====================
+  // CARTÃO POR ÚLTIMO
+  // =====================
+
+  let taxaCartao = 0;
+
+  if(pagamento === "Cartão Crédito"){
+    const antesCartao = total;
+    total = total / 0.95;
+    total = arredondarParaCima(total);
+    taxaCartao = total - antesCartao;
+
+    detalhamento += `
+      <div class="linha">
+        <span>Taxa cartão crédito</span>
+        <span>+ R$ ${taxaCartao.toFixed(2)}</span>
+      </div>
+    `;
+  }
+
+  if(pagamento === "Cartão Débito"){
+    const antesCartao = total;
+    total = total / 0.98;
+    total = arredondarParaCima(total);
+    taxaCartao = total - antesCartao;
+
+    detalhamento += `
+      <div class="linha">
+        <span>Taxa cartão débito</span>
+        <span>+ R$ ${taxaCartao.toFixed(2)}</span>
       </div>
     `;
   }
