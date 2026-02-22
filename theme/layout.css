@@ -1,31 +1,40 @@
 /* ===============================
+   LAYOUT – RF DRIVER 2.0
+   Estrutura visual moderna
+   =============================== */
+
+
+/* ===============================
    CARDS
    =============================== */
 
 .card{
-  background:linear-gradient(
-    180deg,
-    var(--card),
-    var(--card-soft)
-  );
+  background:var(--card);
   border:1px solid var(--border);
-  border-radius:var(--radius);
-  padding:16px;
-  margin-bottom:16px;
-  box-shadow:0 10px 28px rgba(0,0,0,.45);
+  border-radius:22px;
+  padding:18px;
+  margin-bottom:18px;
+  box-shadow:0 14px 32px rgba(0,0,0,.45);
+  transition:.25s ease;
 }
 
-/* Card em destaque */
+.card:hover{
+  transform:translateY(-3px);
+}
+
+/* Card destaque */
+
 .card.highlight{
-  border:1px solid var(--gold);
+  border:1px solid var(--primary);
   background:
     linear-gradient(
       180deg,
-      rgba(212,175,55,.10),
-      rgba(23,26,33,.95)
+      rgba(250,204,21,.12),
+      var(--card)
     );
-  box-shadow:0 12px 32px rgba(212,175,55,.18);
+  box-shadow:0 16px 38px rgba(250,204,21,.22);
 }
+
 
 /* ===============================
    GRID
@@ -34,26 +43,29 @@
 .grid{
   display:grid;
   grid-template-columns:repeat(auto-fit, minmax(240px, 1fr));
-  gap:14px;
+  gap:16px;
 }
+
 
 /* ===============================
    TÍTULOS
    =============================== */
 
 h2, h3{
-  margin:8px 0 6px;
-  font-weight:600;
-  color:var(--gold);
+  margin:10px 0 8px;
+  font-weight:700;
+  color:var(--primary);
+  letter-spacing:.4px;
 }
 
 h2{
-  font-size:1.1rem;
+  font-size:1.15rem;
 }
 
 h3{
   font-size:1rem;
 }
+
 
 /* ===============================
    TEXTOS AUXILIARES
@@ -62,17 +74,32 @@ h3{
 .muted{
   color:var(--text-muted);
   font-size:13px;
+  line-height:1.5;
 }
+
 
 /* ===============================
    VALORES / TOTAIS
    =============================== */
 
 .total{
-  font-size:28px;
-  font-weight:700;
+  font-size:30px;
+  font-weight:800;
   text-align:center;
-  color:var(--gold);
-  margin-top:6px;
-  letter-spacing:.5px;
+  color:var(--primary);
+  margin-top:10px;
+  letter-spacing:.6px;
+}
+
+
+/* ===============================
+   CONTAINERS PADRÃO
+   =============================== */
+
+.container{
+  padding:20px;
+}
+
+.section{
+  margin-bottom:24px;
 }
