@@ -46,7 +46,7 @@ body{
 .content{
   width:90%;
   max-width:420px;
-  margin:-60px auto 30px auto;
+  margin:0 auto 120px auto; /* espaço para o footer */
 }
 
 .bloco{
@@ -135,18 +135,34 @@ textarea{
   color:#facc15;
 }
 
-/* BOTTOM */
-.bottom-bar{
+/* ================= FOOTER FIXO ================= */
+
+.footer-fixo{
   position:fixed;
-  bottom:25px;
-  left:20px;
-  right:20px;
+  bottom:0;
+  left:0;
+  width:100%;
+  background:#0f0f0f; /* mesma cor do fundo */
+  padding:15px 20px;
+  box-shadow:0 -8px 25px rgba(0,0,0,.6);
+  z-index:100;
+}
+
+.footer-content{
+  max-width:420px;
+  margin:0 auto;
   display:flex;
   justify-content:space-between;
   align-items:center;
 }
 
-button{
+.valor-total{
+  font-size:1.4rem;
+  font-weight:700;
+  color:#facc15;
+}
+
+.footer-fixo button{
   padding:12px 28px;
   border:none;
   border-radius:30px;
@@ -202,9 +218,11 @@ button{
 
 </div>
 
-<div class="bottom-bar">
-  <div class="total" id="totalFinal">R$ 0,00</div>
-  <button onclick="solicitar()">Whatsapp</button>
+<div class="footer-fixo">
+  <div class="footer-content">
+    <div class="valor-total" id="totalFinal">R$ 0,00</div>
+    <button onclick="solicitar()">Whatsapp</button>
+  </div>
 </div>
 
 <script>
