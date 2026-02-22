@@ -483,6 +483,11 @@ confirmarBtn.onclick=()=>{
   window.location.href="selecionar.html";
 };
 
+(function(){
+  const temaSalvo = localStorage.getItem("rf_theme") || "dark";
+  document.body.setAttribute("data-theme", temaSalvo);
+})();
+
 </script>
 
 </body>
