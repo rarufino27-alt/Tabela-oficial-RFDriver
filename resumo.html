@@ -375,36 +375,72 @@ function solicitar(){
   atualizarResumo();
 
   const agora = new Date();
-  const data = agora.toLocaleDateString("pt-BR");
-  const hora = agora.toLocaleTimeString("pt-BR",{hour:"2-digit",minute:"2-digit"});
-  const totalFinal = Number(localStorage.getItem("rf_total_final")) || 0;
+  const dataFormatada = agora.toLocaleDateString("pt-BR");
+  const horaFormatada = agora.toLocaleTimeString("pt-BR", {
+    hour: "2-digit",
+    minute: "2-digit"
+  });
+
   const observacao = document.getElementById("observacaoInput").value.trim();
 
-  let msg =
-`*RECIBO DE VIAGEM RF*
-${data} - ${hora}
+  const detalhamentoDiv = document.getElementById("detalhamento");
 
-📍 Origem:
-${origem}
-${parada ? "\n🛑 Parada:\n"+parada : ""}
+  let linhas = [];
+  detalhamentoDiv.querySelectorAll(".linha").forEach(linha => {
+      const spans = linha.querySelectorAll("span");
+      if(spans.length === 2){
+          linhas.push(`${spans[0].innerText}: ${spans[1].innerText}`);
+      }
+  });
 
-🏁 Destino:
-${destino}
+  const detalhamentoTexto = linhas.join("\n");
+  const totalFinal = Number(localStorage.getItem("rf_total_final")) || 0;
 
-💰 Total: R$ ${totalFinal.toFixed(2)}
-`;
-
+  let blocoObservacao = "";
   if(observacao){
-    msg += `\n📝 Observações:\n${observacao}\n`;
+    blocoObservacao = `
+_____________________________
+*Observações*
+${observacao}`;
   }
 
-  msg += `
-_____________________________
-_GRUPO RF DRIVER_
-CNPJ: 58.615.336/0001-49
+  let blocoItinerario = `
+📍 Origem:
+${origem}
 `;
 
-  window.open(`https://wa.me/?text=${encodeURIComponent(msg)}`,"_blank");
+  if(parada && parada.trim() !== ""){
+    blocoItinerario += `
+🛑 Parada:
+${parada}
+`;
+  }
+
+  blocoItinerario += `
+🏁 Destino:
+${destino}
+`;
+
+  const msg =
+`*RECIBO DE VIAGEM RF*
+${dataFormatada}
+${horaFormatada}
+${blocoObservacao}
+_____________________________
+*Detalhamento da viagem*
+
+${detalhamentoTexto}
+_____________________________
+*ITINERÁRIO*
+${blocoItinerario}
+_____________________________
+💰 *Total: R$ ${totalFinal.toFixed(2)}*
+
+_GRUPO RF_
+58.615.336/0001-49`;
+
+  const url = `https://wa.me/?text=${encodeURIComponent(msg)}`;
+  window.open(url, "_blank");
 }
 
 atualizarResumo();
