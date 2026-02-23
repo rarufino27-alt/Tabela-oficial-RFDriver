@@ -364,42 +364,66 @@ if(extraManual > 0){
   `;
 }
   
-  subtotal = arredondarParaCima(subtotal);
+ // ARREDONDA SUBTOTAL BASE
+subtotal = arredondarParaCima(subtotal);
 
-  // ===== TAXA CARTÃO =====
+// VALOR EXTRA MANUAL (NÃO ENTRA NO CARTÃO)
+const extraManual = parseFloat(document.getElementById("extraManual").value) || 0;
 
-  let taxaCartao = 0;
-  let totalGeral = subtotal;
+// ===== TAXA CARTÃO (APENAS SOBRE SUBTOTAL BASE) =====
 
-  if(pagamento === "Cartão Crédito"){
-    totalGeral = arredondarParaCima(subtotal / 0.95);
-    taxaCartao = arredondarParaCima(totalGeral - subtotal);
-  }
+let taxaCartao = 0;
+let totalComCartao = subtotal;
 
-  if(pagamento === "Cartão Débito"){
-    totalGeral = arredondarParaCima(subtotal / 0.98);
-    taxaCartao = arredondarParaCima(totalGeral - subtotal);
-  }
+if(pagamento === "Cartão Crédito"){
+  totalComCartao = arredondarParaCima(subtotal / 0.95);
+  taxaCartao = arredondarParaCima(totalComCartao - subtotal);
+}
 
-  // ===== MOSTRAR SUBTOTAL =====
+if(pagamento === "Cartão Débito"){
+  totalComCartao = arredondarParaCima(subtotal / 0.98);
+  taxaCartao = arredondarParaCima(totalComCartao - subtotal);
+}
 
+// TOTAL GERAL = (TOTAL COM CARTÃO) + EXTRA MANUAL
+let totalGeral = arredondarParaCima(totalComCartao + extraManual);
+
+// ===== MOSTRAR SUBTOTAL =====
+
+detalhamento += `
+  <div class="linha">
+    <span>Subtotal</span>
+    <span>R$ ${subtotal.toFixed(2)}</span>
+  </div>
+`;
+
+// MOSTRAR TAXA CARTÃO
+if(taxaCartao > 0){
   detalhamento += `
     <div class="linha">
-      <span>Subtotal</span>
-      <span>R$ ${subtotal.toFixed(2)}</span>
+      <span>Taxa ${pagamento}</span>
+      <span>+ R$ ${taxaCartao.toFixed(2)}</span>
     </div>
   `;
+}
 
-  // ===== MOSTRAR TAXA (SE HOUVER) =====
+// MOSTRAR EXTRA MANUAL (SE HOUVER)
+if(extraManual > 0){
+  detalhamento += `
+    <div class="linha">
+      <span>Valor extra recebido</span>
+      <span>+ R$ ${extraManual.toFixed(2)}</span>
+    </div>
+  `;
+}
 
-  if(taxaCartao > 0){
-    detalhamento += `
-      <div class="linha">
-        <span>Taxa ${pagamento}</span>
-        <span>+ R$ ${taxaCartao.toFixed(2)}</span>
-      </div>
-    `;
-  }
+// TOTAL FINAL
+detalhamento += `
+  <div class="linha total">
+    <span>Total Geral</span>
+    <span>R$ ${totalGeral.toFixed(2)}</span>
+  </div>
+`;
 
   // ===== TOTAL GERAL =====
 
