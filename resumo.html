@@ -22,7 +22,6 @@ body{
   min-height:100vh;
 }
 
-/* HEADER */
 .top{
   background:#ffffff;
   padding:25px 20px 55px 20px;
@@ -42,11 +41,10 @@ body{
   color:#facc15;
 }
 
-/* CONTEÚDO */
 .content{
   width:90%;
   max-width:420px;
-  margin:0 auto 120px auto; /* espaço para o footer */
+  margin:0 auto 120px auto;
 }
 
 .bloco{
@@ -63,7 +61,6 @@ body{
   color:#facc15;
 }
 
-/* SWITCH */
 .switch{
   display:flex;
   justify-content:space-between;
@@ -101,14 +98,12 @@ body{
   left:24px;
 }
 
-/* FORM */
-select, textarea{
+select, textarea, input{
   width:100%;
   padding:10px;
   border-radius:12px;
   border:1px solid #333;
   margin-top:8px;
-  resize:none;
   background:#111;
   color:#fff;
 }
@@ -135,14 +130,12 @@ textarea{
   color:#facc15;
 }
 
-/* ================= FOOTER FIXO ================= */
-
 .footer-fixo{
   position:fixed;
   bottom:0;
   left:0;
   width:100%;
-  background:#0f0f0f; /* mesma cor do fundo */
+  background:#0f0f0f;
   padding:15px 20px;
   box-shadow:0 -8px 25px rgba(0,0,0,.6);
   z-index:100;
@@ -173,6 +166,7 @@ textarea{
 }
 </style>
 </head>
+
 <body>
 
 <div class="top">
@@ -196,20 +190,19 @@ textarea{
     </div>
 
     <div class="switch">
-  <span>Desvio de rota</span>
-  <div class="toggle" id="desvioToggle" onclick="toggleExtra('desvio')"></div>
-</div>
+      <span>Desvio de rota</span>
+      <div class="toggle" id="desvioToggle" onclick="toggleExtra('desvio')"></div>
+    </div>
 
-<div style="margin-top:12px;">
-  <label>Valor extra recebido</label>
-  <input type="number" id="extraManual"
-         value="0"
-         min="0"
-         step="0.01"
-         oninput="atualizarResumo()"
-         style="width:100%; padding:10px; border-radius:12px; border:1px solid #333; background:#111; color:#fff;">
-</div>
-    
+    <div style="margin-top:12px;">
+      <label>Valor extra recebido</label>
+      <input type="number" id="extraManual"
+             value="0"
+             min="0"
+             step="0.01"
+             oninput="atualizarResumo()">
+    </div>
+
     <div style="margin-top:10px;">
       <label>Transporte animal</label>
       <select id="animalSelect" onchange="selectAnimal()">
@@ -223,7 +216,8 @@ textarea{
 
   <div class="bloco">
     <h3>Observações</h3>
-    <textarea id="observacaoInput" placeholder="Ex: Estou com mala grande, criança, preciso de troco, ponto de referência..."></textarea>
+    <textarea id="observacaoInput"
+      placeholder="Ex: Estou com mala grande, criança, preciso de troco..."></textarea>
   </div>
 
   <div class="bloco">
@@ -242,17 +236,25 @@ textarea{
 
 <script>
 
+// ===============================
+// DADOS DA CORRIDA
+// ===============================
+
 const corrida = JSON.parse(localStorage.getItem("rf_corrida_temp"));
 if(!corrida) window.location.href = "viagem.html";
 
 const { origem, parada, destino, valor } = corrida;
 
 let extras = {
-  mercado: false,
-  praia: false,
-  desvio: false,
-  animal: "nao"
+  mercado:false,
+  praia:false,
+  desvio:false,
+  animal:"nao"
 };
+
+// ===============================
+// FUNÇÕES AUXILIARES
+// ===============================
 
 function toggleExtra(tipo){
   extras[tipo] = !extras[tipo];
@@ -274,13 +276,13 @@ function aplicarNoturno(valorBase){
   return valorBase;
 }
 
-function arredondarParaCima(valor){
+function arredondar(valor){
   return Math.ceil(valor * 100) / 100;
 }
 
-function arredondarParaCima(valor){
-  return Math.ceil(valor * 100) / 100;
-}
+// ===============================
+// CÁLCULO PRINCIPAL
+// ===============================
 
 function atualizarResumo(){
 
@@ -291,148 +293,72 @@ function atualizarResumo(){
   let base = valor * multiplicador;
   base = aplicarNoturno(base);
 
-  let subtotal = Dinamico.ativo ? base * Dinamico.multiplicador : base;
+  let subtotalBase = Dinamico.ativo ? base * Dinamico.multiplicador : base;
 
   let detalhamento = "";
 
   detalhamento += `
-    <div class="linha">
-      <span>Categoria</span>
-      <span>${categoria}</span>
-    </div>
+  <div class="linha">
+    <span>Categoria</span>
+    <span>${categoria}</span>
+  </div>
+  <div class="linha">
+    <span>Valor base ajustado</span>
+    <span>R$ ${base.toFixed(2)}</span>
+  </div>
   `;
-
-  detalhamento += `
-    <div class="linha">
-      <span>Valor base ajustado</span>
-      <span>R$ ${base.toFixed(2)}</span>
-    </div>
-  `;
-
-  // ===== EXTRAS =====
 
   if(extras.mercado){
-    subtotal += Taxas.feira;
-    detalhamento += `
-      <div class="linha">
-        <span>Saída de mercado</span>
-        <span>+ R$ ${Taxas.feira.toFixed(2)}</span>
-      </div>
-    `;
+    subtotalBase += Taxas.feira;
+    detalhamento += `<div class="linha"><span>Saída de mercado</span><span>+ R$ ${Taxas.feira.toFixed(2)}</span></div>`;
   }
 
   if(extras.praia){
-    subtotal += Taxas.voltaPraia;
-    detalhamento += `
-      <div class="linha">
-        <span>Saída de praia</span>
-        <span>+ R$ ${Taxas.voltaPraia.toFixed(2)}</span>
-      </div>
-    `;
+    subtotalBase += Taxas.voltaPraia;
+    detalhamento += `<div class="linha"><span>Saída de praia</span><span>+ R$ ${Taxas.voltaPraia.toFixed(2)}</span></div>`;
   }
 
   if(extras.desvio){
-  subtotal += 4.99;
-  detalhamento += `
-    <div class="linha">
-      <span>Desvio de rota</span>
-      <span>+ R$ 4.99</span>
-    </div>
-  `;
-}
-  
+    subtotalBase += 4.99;
+    detalhamento += `<div class="linha"><span>Desvio de rota</span><span>+ R$ 4.99</span></div>`;
+  }
+
   if(extras.animal !== "nao"){
     const valorAnimal = Taxas.animal[extras.animal];
-    subtotal += valorAnimal;
-    detalhamento += `
-      <div class="linha">
-        <span>Animal (${extras.animal})</span>
-        <span>+ R$ ${valorAnimal.toFixed(2)}</span>
-      </div>
-    `;
+    subtotalBase += valorAnimal;
+    detalhamento += `<div class="linha"><span>Animal (${extras.animal})</span><span>+ R$ ${valorAnimal.toFixed(2)}</span></div>`;
   }
+
+  subtotalBase = arredondar(subtotalBase);
 
   const extraManual = parseFloat(document.getElementById("extraManual").value) || 0;
 
-if(extraManual > 0){
-  subtotal += extraManual;
-  detalhamento += `
-    <div class="linha">
-      <span>Valor extra recebido</span>
-      <span>+ R$ ${extraManual.toFixed(2)}</span>
-    </div>
-  `;
-}
-  
- // ARREDONDA SUBTOTAL BASE
-subtotal = arredondarParaCima(subtotal);
+  let taxaCartao = 0;
+  let totalComCartao = subtotalBase;
 
-// VALOR EXTRA MANUAL (NÃO ENTRA NO CARTÃO)
-const extraManual = parseFloat(document.getElementById("extraManual").value) || 0;
+  if(pagamento === "Cartão Crédito"){
+    totalComCartao = arredondar(subtotalBase / 0.95);
+    taxaCartao = arredondar(totalComCartao - subtotalBase);
+  }
 
-// ===== TAXA CARTÃO (APENAS SOBRE SUBTOTAL BASE) =====
+  if(pagamento === "Cartão Débito"){
+    totalComCartao = arredondar(subtotalBase / 0.98);
+    taxaCartao = arredondar(totalComCartao - subtotalBase);
+  }
 
-let taxaCartao = 0;
-let totalComCartao = subtotal;
+  let totalGeral = arredondar(totalComCartao + extraManual);
 
-if(pagamento === "Cartão Crédito"){
-  totalComCartao = arredondarParaCima(subtotal / 0.95);
-  taxaCartao = arredondarParaCima(totalComCartao - subtotal);
-}
+  detalhamento += `<div class="linha"><span>Subtotal</span><span>R$ ${subtotalBase.toFixed(2)}</span></div>`;
 
-if(pagamento === "Cartão Débito"){
-  totalComCartao = arredondarParaCima(subtotal / 0.98);
-  taxaCartao = arredondarParaCima(totalComCartao - subtotal);
-}
+  if(taxaCartao > 0){
+    detalhamento += `<div class="linha"><span>Taxa ${pagamento}</span><span>+ R$ ${taxaCartao.toFixed(2)}</span></div>`;
+  }
 
-// TOTAL GERAL = (TOTAL COM CARTÃO) + EXTRA MANUAL
-let totalGeral = arredondarParaCima(totalComCartao + extraManual);
+  if(extraManual > 0){
+    detalhamento += `<div class="linha"><span>Valor extra recebido</span><span>+ R$ ${extraManual.toFixed(2)}</span></div>`;
+  }
 
-// ===== MOSTRAR SUBTOTAL =====
-
-detalhamento += `
-  <div class="linha">
-    <span>Subtotal</span>
-    <span>R$ ${subtotal.toFixed(2)}</span>
-  </div>
-`;
-
-// MOSTRAR TAXA CARTÃO
-if(taxaCartao > 0){
-  detalhamento += `
-    <div class="linha">
-      <span>Taxa ${pagamento}</span>
-      <span>+ R$ ${taxaCartao.toFixed(2)}</span>
-    </div>
-  `;
-}
-
-// MOSTRAR EXTRA MANUAL (SE HOUVER)
-if(extraManual > 0){
-  detalhamento += `
-    <div class="linha">
-      <span>Valor extra recebido</span>
-      <span>+ R$ ${extraManual.toFixed(2)}</span>
-    </div>
-  `;
-}
-
-// TOTAL FINAL
-detalhamento += `
-  <div class="linha total">
-    <span>Total Geral</span>
-    <span>R$ ${totalGeral.toFixed(2)}</span>
-  </div>
-`;
-
-  // ===== TOTAL GERAL =====
-
-  detalhamento += `
-    <div class="linha total">
-      <span>Total Geral</span>
-      <span>R$ ${totalGeral.toFixed(2)}</span>
-    </div>
-  `;
+  detalhamento += `<div class="linha total"><span>Total Geral</span><span>R$ ${totalGeral.toFixed(2)}</span></div>`;
 
   document.getElementById("detalhamento").innerHTML = detalhamento;
   document.getElementById("totalFinal").innerText = "R$ " + totalGeral.toFixed(2);
@@ -440,77 +366,45 @@ detalhamento += `
   localStorage.setItem("rf_total_final", totalGeral);
 }
 
+// ===============================
+// RECIBO WHATSAPP
+// ===============================
+
 function solicitar(){
 
   atualizarResumo();
 
   const agora = new Date();
-  const dataFormatada = agora.toLocaleDateString("pt-BR");
-  const horaFormatada = agora.toLocaleTimeString("pt-BR", {
-    hour: "2-digit",
-    minute: "2-digit"
-  });
-
+  const data = agora.toLocaleDateString("pt-BR");
+  const hora = agora.toLocaleTimeString("pt-BR",{hour:"2-digit",minute:"2-digit"});
+  const totalFinal = Number(localStorage.getItem("rf_total_final")) || 0;
   const observacao = document.getElementById("observacaoInput").value.trim();
 
-  const detalhamentoDiv = document.getElementById("detalhamento");
+  let msg =
+`*RECIBO DE VIAGEM RF*
+${data} - ${hora}
 
-  let linhas = [];
-  detalhamentoDiv.querySelectorAll(".linha").forEach(linha => {
-      const spans = linha.querySelectorAll("span");
-      if(spans.length === 2){
-          linhas.push(`${spans[0].innerText}: ${spans[1].innerText}`);
-      }
-  });
-
-  const detalhamentoTexto = linhas.join("\n");
-  const totalFinal = Number(localStorage.getItem("rf_total_final")) || 0;
-
-  let blocoObservacao = "";
-  if(observacao){
-    blocoObservacao = `
-_____________________________
-*Observações*
-${observacao}`;
-  }
-
-  let blocoItinerario = `
 📍 Origem:
 ${origem}
-`;
+${parada ? "\n🛑 Parada:\n"+parada : ""}
 
-  if(parada && parada.trim() !== ""){
-    blocoItinerario += `
-🛑 Parada:
-${parada}
-`;
-  }
-
-  blocoItinerario += `
 🏁 Destino:
 ${destino}
+
+💰 Total: R$ ${totalFinal.toFixed(2)}
 `;
 
-  const msg =
-`*RECIBO DE VIAGEM RF*
-${dataFormatada}
-${horaFormatada}
-${blocoObservacao}
-_____________________________
-*Detalhamento da viagem*
+  if(observacao){
+    msg += `\n📝 Observações:\n${observacao}\n`;
+  }
 
-${detalhamentoTexto}
+  msg += `
 _____________________________
-*ITINERÁRIO*
-${blocoItinerario}
-_____________________________
-💰 *Total: R$ ${totalFinal.toFixed(2)}*
+_GRUPO RF DRIVER_
+CNPJ: 58.615.336/0001-49
+`;
 
-_GRUPO RF_
-58.615.336/0001-49`;
-
-  const url = `https://wa.me/?text=${encodeURIComponent(msg)}`;
-  window.open(url, "_blank");
+  window.open(`https://wa.me/?text=${encodeURIComponent(msg)}`,"_blank");
 }
 
 atualizarResumo();
