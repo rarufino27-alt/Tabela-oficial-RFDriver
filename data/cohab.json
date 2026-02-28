@@ -1,4 +1,5 @@
 [
+{ "origem": "Cohab", "destino": "Barra de Jangada", "valor": 39.99, "regiao": "Cabo" },
 { "origem": "Cohab", "destino": "Gaibu", "valor": 30, "regiao": "Cabo" },
 { "origem": "Cohab", "destino": "Gaibu loteamento Águas Cumpridas", "valor": 35, "regiao": "Cabo" },
 { "origem": "Cohab", "destino": "Gaibu Jaqueira", "valor": 40, "regiao": "Cabo" },
