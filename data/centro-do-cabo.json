@@ -41,6 +41,7 @@
 { "origem": "Centro do Cabo", "destino": "Galeria Espaço Cabense (Centro)", "valor": 9.99, "regiao": "Cabo" },
 { "origem": "Centro do Cabo", "destino": "Torrinha Baixa", "valor": 9.99, "regiao": "Cabo" },
 { "origem": "Centro do Cabo", "destino": "Torrinha Alta", "valor": 12.99, "regiao": "Cabo" },
+  
 { "origem": "Centro do Cabo", "destino": "Bar da Charque", "valor": 9.99, "regiao": "Cabo" },
 { "origem": "Centro do Cabo", "destino": "Bar das Morenas (Cohab)", "valor": 9.99, "regiao": "Cabo" },
 { "origem": "Centro do Cabo", "destino": "Malaquias Baixo (inclui R. 5,9)", "valor": 11.99, "regiao": "Cabo" },
@@ -58,13 +59,16 @@
 { "origem": "Centro do Cabo", "destino": "UPA24h (Cohab)", "valor": 9.99, "regiao": "Cabo" },
 { "origem": "Centro do Cabo", "destino": "Rua Do Açude (Cohab)", "valor": 12.99, "regiao": "Cabo" },
 { "origem": "Centro do Cabo", "destino": "Rua Cristo Rei (Cohab)", "valor": 9.99, "regiao": "Cabo" },
-{ "origem": "Centro do Cabo", "destino": "Bairro São Francisco (PRAÇA)", "valor": 9.99, "regiao": "Cabo" },
+  
+{ "origem": "Centro do Cabo", "destino": "Bairro São Francisco (PRAÇA)", "valor": 11.99, "regiao": "Cabo" },
 { "origem": "Centro do Cabo", "destino": "Bairro São Francisco Baixo", "valor": 11.99, "regiao": "Cabo" },
-{ "origem": "Centro do Cabo", "destino": "Bairro São Francisco Alto", "valor": 13.99, "regiao": "Cabo" },
+{ "origem": "Centro do Cabo", "destino": "Bairro São Francisco Alto", "valor": 14.99, "regiao": "Cabo" },
 { "origem": "Centro do Cabo", "destino": "Bairro São Francisco Alto dos Mirandas", "valor": 14.99, "regiao": "Cabo" },
 { "origem": "Centro do Cabo", "destino": "Bairro São Francisco Caixa D'água", "valor": 14.99, "regiao": "Cabo" },
-{ "origem": "Centro do Cabo", "destino": "Bairro São Francisco (Rua 53 e Bicudo)", "valor": 13.99, "regiao": "Cabo" },
+{ "origem": "Centro do Cabo", "destino": "Bairro São Francisco Rua do Bicudo", "valor": 14.99, "regiao": "Cabo" },
+{ "origem": "Centro do Cabo", "destino": "Bairro São Francisco Rua 53", "valor": 12.99, "regiao": "Cabo" },
 { "origem": "Centro do Cabo", "destino": "Bairro São Francisco (R. da Aurora)", "valor": 11.99, "regiao": "Cabo" },
+  
 { "origem": "Centro do Cabo", "destino": "Bela Vista/Cruzeiro", "valor": 12.99, "regiao": "Cabo" },
 { "origem": "Centro do Cabo", "destino": "Padaria de gilberto (cruzeiro)", "valor": 9.99, "regiao": "Cabo" },
 { "origem": "Centro do Cabo", "destino": "Toca", "valor": 11.99, "regiao": "Cabo" },
@@ -521,6 +525,7 @@
 { "origem": "Centro do Cabo", "destino": "Aracajú SE", "valor": 1299.99, "regiao": "Cabo" }
 
 ]
+
 
 
 
