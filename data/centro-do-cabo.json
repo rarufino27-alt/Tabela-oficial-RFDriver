@@ -271,13 +271,13 @@
 { "origem": "Centro do Cabo", "destino": "Gaibú Areal", "valor": 34.99, "regiao": "Cabo" },
 { "origem": "Centro do Cabo", "destino": "Enseadas dos Corais", "valor": 29.99, "regiao": "Cabo" },
 { "origem": "Centro do Cabo", "destino": "Enseadas dos Corais Setor 4", "valor": 37.99, "regiao": "Cabo" },
-{ "origem": "Centro do Cabo", "destino": "Suape", "valor": 37.99, "regiao": "Cabo" },
+{ "origem": "Centro do Cabo", "destino": "Suape", "valor": 39.99, "regiao": "Cabo" },
 { "origem": "Centro do Cabo", "destino": "Suape Hotel Vila Galé", "valor": 39.99, "regiao": "Cabo" },
-{ "origem": "Centro do Cabo", "destino": "Suape Paraíso", "valor": 44.99, "regiao": "Cabo" },
+{ "origem": "Centro do Cabo", "destino": "Suape Paraíso", "valor": 49.99, "regiao": "Cabo" },
 { "origem": "Centro do Cabo", "destino": "Suape Lagoa do Zumbi", "valor": 59.99, "regiao": "Cabo" },
 { "origem": "Centro do Cabo", "destino": "Suape TIRIRI", "valor": 49.99, "regiao": "Cabo" },
-{ "origem": "Centro do Cabo", "destino": "Suape Bar do Doido", "valor": 64.99, "regiao": "Cabo" },
-{ "origem": "Centro do Cabo", "destino": "Suape Até Água Mineral", "valor": 34.99, "regiao": "Cabo" },
+{ "origem": "Centro do Cabo", "destino": "Suape Bar do Doido", "valor": 69.99, "regiao": "Cabo" },
+{ "origem": "Centro do Cabo", "destino": "Suape Até Água Mineral", "valor": 37.99, "regiao": "Cabo" },
 { "origem": "Centro do Cabo", "destino": "Suape Sê Povo Entrada Bar do Doido", "valor": 49.99, "regiao": "Cabo" },
 { "origem": "Centro do Cabo", "destino": "Calhetas", "valor": 49.99, "regiao": "Cabo" },
 { "origem": "Centro do Cabo", "destino": "Nazaré", "valor": 37.99, "regiao": "Cabo" },
@@ -535,6 +535,7 @@
 { "origem": "Centro do Cabo", "destino": "Aracajú SE", "valor": 1299.99, "regiao": "Cabo" }
 
 ]
+
 
 
 
