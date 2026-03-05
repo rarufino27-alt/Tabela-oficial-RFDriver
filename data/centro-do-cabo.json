@@ -69,36 +69,45 @@
 { "origem": "Centro do Cabo", "destino": "Bairro São Francisco Rua 53", "valor": 12.99, "regiao": "Cabo" },
 { "origem": "Centro do Cabo", "destino": "Bairro São Francisco (R. da Aurora)", "valor": 11.99, "regiao": "Cabo" },
   
-{ "origem": "Centro do Cabo", "destino": "Bela Vista/Cruzeiro", "valor": 12.99, "regiao": "Cabo" },
+{ "origem": "Centro do Cabo", "destino": "Bela Vista", "valor": 12.99, "regiao": "Cabo" },
+{ "origem": "Centro do Cabo", "destino": "Cruzeiro", "valor": 12.99, "regiao": "Cabo" },
 { "origem": "Centro do Cabo", "destino": "Padaria de gilberto (cruzeiro)", "valor": 9.99, "regiao": "Cabo" },
 { "origem": "Centro do Cabo", "destino": "Toca", "valor": 11.99, "regiao": "Cabo" },
 { "origem": "Centro do Cabo", "destino": "Rua 25 da Bela Vista", "valor": 12.99, "regiao": "Cabo" },
+  
 { "origem": "Centro do Cabo", "destino": "Charnequinha Baixa", "valor": 9.99, "regiao": "Cabo" },
 { "origem": "Centro do Cabo", "destino": "Charnequinha Alta", "valor": 12.99, "regiao": "Cabo" },
 { "origem": "Centro do Cabo", "destino": "Charnequinha (R. 2 e área da quadra)", "valor": 13.99, "regiao": "Cabo" },
 { "origem": "Centro do Cabo", "destino": "Sapucaia", "valor": 9.99, "regiao": "Cabo" },
+  
 { "origem": "Centro do Cabo", "destino": "Destilaria", "valor": 9.99, "regiao": "Cabo" },
 { "origem": "Centro do Cabo", "destino": "Comunidade da Destilaria", "valor": 11.99, "regiao": "Cabo" },
 { "origem": "Centro do Cabo", "destino": "Clube da Destilaria", "valor": 9.99, "regiao": "Cabo" },
 { "origem": "Centro do Cabo", "destino": "Vila Social", "valor": 9.99, "regiao": "Cabo" },
 { "origem": "Centro do Cabo", "destino": "Rua do Dique (Vila Social)", "valor": 11.99, "regiao": "Cabo" },
+  
 { "origem": "Centro do Cabo", "destino": "SAFPE PE-60", "valor": 9.99, "regiao": "Cabo" },
+{ "origem": "Centro do Cabo", "destino": "ATACADÃO PE-60", "valor": 9.99, "regiao": "Cabo" },
+{ "origem": "Centro do Cabo", "destino": "ASSAÍ PE-60", "valor": 9.99, "regiao": "Cabo" },
 { "origem": "Centro do Cabo", "destino": "Santo Inácio", "valor": 9.99, "regiao": "Cabo" },
 { "origem": "Centro do Cabo", "destino": "Vila Roca", "valor": 9.99, "regiao": "Cabo" },
+{ "origem": "Centro do Cabo", "destino": "Vila Roca Armazém Cusino", "valor": 9.99, "regiao": "Cabo" },
 { "origem": "Centro do Cabo", "destino": "Vila Claudete Antiga", "valor": 12.99, "regiao": "Cabo" },
 { "origem": "Centro do Cabo", "destino": "Casinhas 1ª Etapa (Até Marcelino Reboque)", "valor": 12.99, "regiao": "Cabo" },
 { "origem": "Centro do Cabo", "destino": "Casinhas 1ª Etapa (Direita após SENAI)", "valor": 12.99, "regiao": "Cabo" },
 { "origem": "Centro do Cabo", "destino": "Casinhas 2ª Etapa", "valor": 14.99, "regiao": "Cabo" },
-{ "origem": "Centro do Cabo", "destino": "Garapú 1 (1º Modelo Até Nova Era)", "valor": 12.99, "regiao": "Cabo" },
-{ "origem": "Centro do Cabo", "destino": "Garapú 2 (Nova Era Até 2º Modelo)", "valor": 14.99, "regiao": "Cabo" },
-{ "origem": "Centro do Cabo", "destino": "Garapú 3 (2º Modelo Até Flamenguinho)", "valor": 17.99, "regiao": "Cabo" },
-{ "origem": "Centro do Cabo", "destino": "Garapú 4 (Em frente Ao Shopping)", "valor": 19.99, "regiao": "Cabo" },
-{ "origem": "Centro do Cabo", "destino": "Garapú Após Flamenguinho", "valor": 19.99, "regiao": "Cabo" },
-{ "origem": "Centro do Cabo", "destino": "Garapú Campo de Aranha", "valor": 14.99, "regiao": "Cabo" },
-{ "origem": "Centro do Cabo", "destino": "Garapú Espaço Cidadania", "valor": 12.99, "regiao": "Cabo" },
-{ "origem": "Centro do Cabo", "destino": "Casa Festa Garapú", "valor": 12.99, "regiao": "Cabo" },
-{ "origem": "Centro do Cabo", "destino": "Garapú VILA DA CONEST", "valor": 14.99, "regiao": "Cabo" },
+{ "origem": "Centro do Cabo", "destino": "Garapú Parte 1 (1º Modelo Até Nova Era)", "valor": 12.99, "regiao": "Cabo" },
+{ "origem": "Centro do Cabo", "destino": "Garapú Parte 1 Casa Festa Garapú", "valor": 12.99, "regiao": "Cabo" },
+{ "origem": "Centro do Cabo", "destino": "Garapú Parte 1 Espaço Cidadania", "valor": 12.99, "regiao": "Cabo" },
+{ "origem": "Centro do Cabo", "destino": "Garapú Parte 1 Deli Sorveteria", "valor": 12.99, "regiao": "Cabo" },
+{ "origem": "Centro do Cabo", "destino": "Garapú Parte 1 Garagem Burguer", "valor": 12.99, "regiao": "Cabo" },
+{ "origem": "Centro do Cabo", "destino": "Garapú Parte 2 (Nova Era Até 2º Modelo)", "valor": 14.99, "regiao": "Cabo" },
+{ "origem": "Centro do Cabo", "destino": "Garapú Parte 2 Campo de Aranha", "valor": 14.99, "regiao": "Cabo" },
+{ "origem": "Centro do Cabo", "destino": "Garapú Parte 3 (2º Modelo Até Flamenguinho)", "valor": 17.99, "regiao": "Cabo" },
+{ "origem": "Centro do Cabo", "destino": "Garapú Parte 3 Após Flamenguinho", "valor": 19.99, "regiao": "Cabo" },
+{ "origem": "Centro do Cabo", "destino": "Garapú 2 (Em frente Ao Shopping)", "valor": 19.99, "regiao": "Cabo" },
 { "origem": "Centro do Cabo", "destino": "Lote Garapú 2 (Lote Dona Amara)", "valor": 14.99, "regiao": "Cabo" },
+{ "origem": "Centro do Cabo", "destino": "Garapú VILA DA CONEST", "valor": 14.99, "regiao": "Cabo" },
 { "origem": "Centro do Cabo", "destino": "Condomínio Porto do Cabo", "valor": 14.99, "regiao": "Cabo" },
 { "origem": "Centro do Cabo", "destino": "Loteamento DHARMA VILLE", "valor": 16.99, "regiao": "Cabo" },
 { "origem": "Centro do Cabo", "destino": "Comunidade Madri Iva (Subida do Shopping)", "valor": 13.99, "regiao": "Cabo" },
@@ -161,7 +170,7 @@
 { "origem": "Centro do Cabo", "destino": "Ponte dos Carvalhos Terminal de ônibus Nova Era", "valor": 27.99, "regiao": "Cabo" },
 { "origem": "Centro do Cabo", "destino": "Ponte dos Carvalhos Praça Marcos freire", "valor": 24.99, "regiao": "Cabo" },
 { "origem": "Centro do Cabo", "destino": "Ponte dos Carvalhos Cemitério", "valor": 27.99, "regiao": "Cabo" },
-  { "origem": "Centro do Cabo", "destino": "Ponte dos Carvalhos Alto do sol", "valor": 27.99, "regiao": "Cabo" },
+{ "origem": "Centro do Cabo", "destino": "Ponte dos Carvalhos Alto do sol", "valor": 27.99, "regiao": "Cabo" },
 { "origem": "Centro do Cabo", "destino": "Ponte dos Carvalhos Santo Estevão", "valor": 24.99, "regiao": "Cabo" },
 { "origem": "Centro do Cabo", "destino": "Ponte dos Carvalhos Maternidade", "valor": 24.99, "regiao": "Cabo" },
 { "origem": "Centro do Cabo", "destino": "Pontezinha", "valor": 29.99, "regiao": "Cabo" },
@@ -525,6 +534,7 @@
 { "origem": "Centro do Cabo", "destino": "Aracajú SE", "valor": 1299.99, "regiao": "Cabo" }
 
 ]
+
 
 
 
