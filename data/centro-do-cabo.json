@@ -110,7 +110,7 @@
 { "origem": "Centro do Cabo", "destino": "Garapú VILA DA CONEST", "valor": 14.99, "regiao": "Cabo" },
 { "origem": "Centro do Cabo", "destino": "Condomínio Porto do Cabo", "valor": 14.99, "regiao": "Cabo" },
 { "origem": "Centro do Cabo", "destino": "Loteamento DHARMA VILLE", "valor": 16.99, "regiao": "Cabo" },
-{ "origem": "Centro do Cabo", "destino": "Comunidade Madri Iva (Subida do Shopping)", "valor": 13.99, "regiao": "Cabo" },
+{ "origem": "Centro do Cabo", "destino": "Comunidade Madri Iva (Subida do Shopping)", "valor": 12.99, "regiao": "Cabo" },
 { "origem": "Centro do Cabo", "destino": "Shopping Costa Dourada", "valor": 13.99, "regiao": "Cabo" },
 { "origem": "Centro do Cabo", "destino": "Rosário", "valor": 16.99, "regiao": "Cabo" },
 { "origem": "Centro do Cabo", "destino": "SEST-SENAT (Rosário)", "valor": 16.99, "regiao": "Cabo" },
@@ -535,6 +535,7 @@
 { "origem": "Centro do Cabo", "destino": "Aracajú SE", "valor": 1299.99, "regiao": "Cabo" }
 
 ]
+
 
 
 
