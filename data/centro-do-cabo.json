@@ -125,7 +125,8 @@
 { "origem": "Centro do Cabo", "destino": "Fábrica Urbano(Próx. a PepsiCo)", "valor": 29.99, "regiao": "Cabo" },
 { "origem": "Centro do Cabo", "destino": "Fábrica Amcor (Próx. a PepsiCo)", "valor": 29.99, "regiao": "Cabo" },
 { "origem": "Centro do Cabo", "destino": "Fábrica Coca-Cola Solar Suape", "valor": 29.99, "regiao": "Cabo" },
-{ "origem": "Centro do Cabo", "destino": "Massangana", "valor": 26.99, "regiao": "Cabo" },
+{ "origem": "Centro do Cabo", "destino": "Massangana", "valor": 27.99, "regiao": "Cabo" },
+  
 { "origem": "Centro do Cabo", "destino": "Pista Preta (Vila Harminio)", "valor": 14.99, "regiao": "Cabo" },
 { "origem": "Centro do Cabo", "destino": "Pista Preta (Alto Macaíba)", "valor": 21.99, "regiao": "Cabo" },
 { "origem": "Centro do Cabo", "destino": "Burrama/Lote 7/Quilombola", "valor": 19.99, "regiao": "Cabo" },
@@ -534,6 +535,7 @@
 { "origem": "Centro do Cabo", "destino": "Aracajú SE", "valor": 1299.99, "regiao": "Cabo" }
 
 ]
+
 
 
 
