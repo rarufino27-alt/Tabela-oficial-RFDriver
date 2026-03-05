@@ -311,7 +311,7 @@
 { "origem": "Centro do Cabo", "destino": "Ipojuca-Centro", "valor": 34.99, "regiao": "Cabo" },
 { "origem": "Centro do Cabo", "destino": "Ipojuca-Maternidade", "valor": 34.99, "regiao": "Cabo" },
 { "origem": "Centro do Cabo", "destino": "Ipojuca-Rurópolis", "valor": 37.99, "regiao": "Cabo" },
-{ "origem": "Centro do Cabo", "destino": "Ipojuca-Eng Maranhão", "valor": 37.99, "regiao": "Cabo" },
+{ "origem": "Centro do Cabo", "destino": "Ipojuca-Eng Maranhão", "valor": 49.99, "regiao": "Cabo" },
 { "origem": "Centro do Cabo", "destino": "Ipojuca-Nossa Senhora do Ó", "valor": 59.99, "regiao": "Cabo" },
 { "origem": "Centro do Cabo", "destino": "Ipojuca-Camela", "valor": 74.99, "regiao": "Cabo" },
 { "origem": "Centro do Cabo", "destino": "Tamandaré", "valor": 99.99, "regiao": "Cabo" },
@@ -535,6 +535,7 @@
 { "origem": "Centro do Cabo", "destino": "Aracajú SE", "valor": 1299.99, "regiao": "Cabo" }
 
 ]
+
 
 
 
