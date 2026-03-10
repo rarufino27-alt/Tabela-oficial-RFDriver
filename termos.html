@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
+
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
@@ -22,19 +23,20 @@ background:#fff;
 padding:18px;
 display:flex;
 align-items:center;
-border-bottom-left-radius:28px;
-border-bottom-right-radius:28px;
-box-shadow:0 10px 25px rgba(0,0,0,.3);
+border-bottom-left-radius:30px;
+border-bottom-right-radius:30px;
+box-shadow:0 10px 25px rgba(0,0,0,.25);
 }
 
 .logo{
-height:42px;
+height:45px;
 margin-right:10px;
 }
 
 .header-title{
 font-weight:600;
-color:#111;
+color:#000;
+font-size:18px;
 }
 
 /* TITULO */
@@ -53,7 +55,7 @@ margin:0 20px 25px;
 opacity:.8;
 }
 
-/* BOTÕES */
+/* MENU */
 
 .menu{
 padding:0 15px 30px;
@@ -65,28 +67,27 @@ border-radius:18px;
 padding:18px;
 margin-bottom:12px;
 display:flex;
-justify-content:space-between;
 align-items:center;
 cursor:pointer;
 transition:.2s;
 }
 
 .card:hover{
-transform:scale(1.02);
 background:#202020;
+transform:scale(1.02);
 }
 
 .card span{
 font-size:16px;
 }
 
-.card .num{
+.num{
 color:#facc15;
 font-weight:bold;
-margin-right:10px;
+margin-right:8px;
 }
 
-/* CONTEUDO */
+/* PAGINAS */
 
 .page{
 display:none;
@@ -99,13 +100,18 @@ color:#facc15;
 }
 
 .back{
-margin-top:25px;
+margin-top:30px;
 display:inline-block;
 color:#facc15;
 cursor:pointer;
 }
 
+ul{
+padding-left:18px;
+}
+
 </style>
+
 </head>
 
 <body>
@@ -122,138 +128,101 @@ Regulamento Operacional
 </div>
 
 <div class="intro">
-Escolha um tópico para visualizar as regras do Grupo RF.
+Escolha um tópico para visualizar as regras completas.
 </div>
 
 <div class="menu">
 
-<div class="card" onclick="openPage('r1')">
-<span><span class="num">1.</span>Localização</span>
-</div>
-
-<div class="card" onclick="openPage('r2')">
-<span><span class="num">2.</span>Condições do Veículo</span>
-</div>
-
-<div class="card" onclick="openPage('r3')">
-<span><span class="num">3.</span>Solicitação de Viagens</span>
-</div>
-
-<div class="card" onclick="openPage('r4')">
-<span><span class="num">4.</span>Taxas Adicionais</span>
-</div>
-
-<div class="card" onclick="openPage('r5')">
-<span><span class="num">5.</span>Taxa Semanal</span>
-</div>
-
-<div class="card" onclick="openPage('r6')">
-<span><span class="num">6.</span>Prioridade de Atendimento</span>
-</div>
-
-<div class="card" onclick="openPage('r7')">
-<span><span class="num">7.</span>Medidas Disciplinares</span>
-</div>
-
-<div class="card" onclick="openPage('r8')">
-<span><span class="num">8.</span>Cancelamento</span>
-</div>
-
-<div class="card" onclick="openPage('r9')">
-<span><span class="num">9.</span>Tempo de Resposta</span>
-</div>
-
-<div class="card" onclick="openPage('r10')">
-<span><span class="num">10.</span>Reserva de Corridas</span>
-</div>
-
-<div class="card" onclick="openPage('r11')">
-<span><span class="num">11.</span>Ordem de Atendimento</span>
-</div>
+<div class="card" onclick="openPage('r1')"><span class="num">1.</span>Localização</div>
+<div class="card" onclick="openPage('r2')"><span class="num">2.</span>Condições do Veículo</div>
+<div class="card" onclick="openPage('r3')"><span class="num">3.</span>Solicitação de Viagens</div>
+<div class="card" onclick="openPage('r4')"><span class="num">4.</span>Taxas Adicionais</div>
+<div class="card" onclick="openPage('r5')"><span class="num">5.</span>Taxa Semanal</div>
+<div class="card" onclick="openPage('r6')"><span class="num">6.</span>Prioridade de Atendimento</div>
+<div class="card" onclick="openPage('r7')"><span class="num">7.</span>Medidas Disciplinares</div>
+<div class="card" onclick="openPage('r8')"><span class="num">8.</span>Cancelamento</div>
+<div class="card" onclick="openPage('r9')"><span class="num">9.</span>Tempo de Resposta</div>
+<div class="card" onclick="openPage('r10')"><span class="num">10.</span>Reserva de Corridas</div>
+<div class="card" onclick="openPage('r11')"><span class="num">11.</span>Ordem de Atendimento</div>
 
 </div>
 </div>
 
-
-<!-- PÁGINAS -->
+<!-- PAGINA 1 -->
 
 <div id="r1" class="page">
+
 <h2>1. Localização</h2>
-<p>Motoristas devem manter localização ativa por 8 horas para participar das corridas.</p>
+
+<p>Para participar das solicitações de viagens dentro dos grupos de passageiros do RF, é obrigatório que o motorista esteja com a localização em tempo real ativa no grupo de localização.</p>
+
+<ul>
+
+<li>1.1 – O motorista deverá manter a localização ativa por 8 horas no grupo de localização.</li>
+
+<li>1.2 – Caso o motorista aceite uma solicitação de viagem sem estar com a localização ativa, ele não estará elegível para realizar a viagem, salvo quando houver autorização prévia da administração do grupo.</li>
+
+<li>1.3 – Caso o motorista ative a localização posteriormente, ele poderá voltar a disputar a corrida desde que:
+<ul>
+<li>ative a localização de 8 horas</li>
+<li>sinalize novamente interesse com “Eu” ou “Pv”.</li>
+</ul>
+</li>
+
+<li>1.4 – Os administradores do grupo não são obrigados a manter localização ativa.</li>
+
+</ul>
+
 <div class="back" onclick="back()">← voltar</div>
+
 </div>
 
-
-<div id="r2" class="page">
-<h2>2. Condições do Veículo</h2>
-<p>Veículo deve estar limpo, higienizado e em boas condições.</p>
-<div class="back" onclick="back()">← voltar</div>
-</div>
-
+<!-- PAGINA 3 (EXEMPLO COMPLETO) -->
 
 <div id="r3" class="page">
+
 <h2>3. Solicitação de Viagens</h2>
-<p>Toda solicitação deve conter origem e destino.</p>
+
+<ul>
+
+<li>3.1 – Toda solicitação deve conter obrigatoriamente:
+<ul>
+<li>local de embarque</li>
+<li>local de desembarque</li>
+</ul>
+</li>
+
+<li>3.2 – Solicitações incompletas não serão elegíveis.</li>
+
+<li>3.3 – Mensagens genéricas não serão consideradas solicitações válidas.</li>
+
+<li>3.4 – Para disputar uma corrida o motorista deve sinalizar interesse com “Eu” ou “Pv”.</li>
+
+<li>3.5 – Em corridas fora do centro operacional principal, poderá ser priorizado o motorista mais próximo.</li>
+
+</ul>
+
+<h3>3.6 Amarração de Viagem</h3>
+
+<ul>
+
+<li>3.6.1 – Essa prática é permitida quando a nova corrida estiver preferencialmente no mesmo sentido da finalização da corrida atual.</li>
+
+<li>3.6.2 – A amarração poderá ocorrer mediante autorização prévia da administração.</li>
+
+<li>3.6.3 – Caso nenhuma resposta seja dada em até 3 minutos, motorista em viagem pode amarrar corrida.</li>
+
+<li>3.6.4 – Deve comunicar no grupo de motoristas.</li>
+
+<li>3.6.5 – Caso exista motorista mais próximo, ele poderá assumir.</li>
+
+<li>3.6.6 – Caso passageiro confirme espera, prioridade permanece com o motorista que amarrou.</li>
+
+</ul>
+
 <div class="back" onclick="back()">← voltar</div>
+
 </div>
-
-
-<div id="r4" class="page">
-<h2>4. Taxas Adicionais</h2>
-<p>Inclui taxa de feira, deslocamento, espera e excesso de passageiros.</p>
-<div class="back" onclick="back()">← voltar</div>
-</div>
-
-
-<div id="r5" class="page">
-<h2>5. Taxa Semanal</h2>
-<p>Pagamento toda segunda-feira entre 00h00 e 23h59.</p>
-<div class="back" onclick="back()">← voltar</div>
-</div>
-
-
-<div id="r6" class="page">
-<h2>6. Prioridade de Atendimento</h2>
-<p>Prioridade para quem responder primeiro à corrida.</p>
-<div class="back" onclick="back()">← voltar</div>
-</div>
-
-
-<div id="r7" class="page">
-<h2>7. Medidas Disciplinares</h2>
-<p>Advertência, suspensão ou exclusão do grupo.</p>
-<div class="back" onclick="back()">← voltar</div>
-</div>
-
-
-<div id="r8" class="page">
-<h2>8. Cancelamento</h2>
-<p>Permitido em caso de emergência ou falta de segurança.</p>
-<div class="back" onclick="back()">← voltar</div>
-</div>
-
-
-<div id="r9" class="page">
-<h2>9. Tempo de Resposta</h2>
-<p>Motorista deve chegar em até 10 minutos após confirmação.</p>
-<div class="back" onclick="back()">← voltar</div>
-</div>
-
-
-<div id="r10" class="page">
-<h2>10. Reserva de Corridas</h2>
-<p>Corridas podem ser agendadas previamente.</p>
-<div class="back" onclick="back()">← voltar</div>
-</div>
-
-
-<div id="r11" class="page">
-<h2>11. Ordem de Atendimento</h2>
-<p>Deve ser respeitada a ordem das solicitações.</p>
-<div class="back" onclick="back()">← voltar</div>
-</div>
-
-
 
 <script>
 
