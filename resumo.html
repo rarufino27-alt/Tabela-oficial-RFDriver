@@ -6,132 +6,237 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <style>
-:root{
-  --rf-yellow:#ffd600;
-  --rf-yellow-strong:#ffb800;
-}
 
 *{
-  margin:0;
-  padding:0;
-  box-sizing:border-box;
-  font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;
 }
 
 body{
-  background: radial-gradient(circle at top,#1a1a1a 0%,#000 70%);
-  color:#fff;
+background:linear-gradient(to bottom,#0f0f0f,#1a1a1a);
+color:#fff;
+min-height:100vh;
 }
 
-.header{
-  padding:30px 25px 10px;
-  font-size:22px;
-  font-weight:900;
+/* HEADER */
+
+.top-white{
+background:#fff;
+padding:20px 20px 28px 20px;
+display:flex;
+justify-content:space-between;
+align-items:center;
+border-bottom-left-radius:32px;
+border-bottom-right-radius:32px;
+box-shadow:0 10px 30px rgba(0,0,0,.25);
 }
+
+.logo-area{
+display:flex;
+align-items:center;
+gap:14px;
+}
+
+.logo-img{
+height:60px;
+border-radius:16px;
+}
+
+.logo-text-dark{
+font-weight:900;
+letter-spacing:1px;
+color:#000;
+font-size:1.1rem;
+}
+
+.menu-btn-dark{
+font-size:24px;
+cursor:pointer;
+color:#000;
+}
+
+/* MENU */
+
+.menu-overlay{
+position:fixed;
+inset:0;
+background:rgba(0,0,0,.6);
+display:none;
+z-index:99;
+}
+
+.menu{
+position:fixed;
+top:0;
+left:-260px;
+width:260px;
+height:100%;
+background:#1a1a1a;
+transition:left .3s ease;
+z-index:100;
+padding:20px;
+}
+
+.menu.ativo{
+left:0;
+}
+
+.menu h3{
+margin-bottom:20px;
+color:#facc15;
+}
+
+.menu-item{
+padding:14px 0;
+border-bottom:1px solid rgba(255,255,255,.08);
+cursor:pointer;
+}
+
+.menu-item:hover{
+color:#facc15;
+}
+
+/* CONTAINER */
 
 .container{
-  padding:10px 25px 140px;
-  max-width:450px;
-  margin:auto;
+padding:30px 25px 140px;
+max-width:450px;
+margin:auto;
 }
 
+/* CARD */
+
 .card{
-  background:rgba(255,255,255,.06);
-  backdrop-filter:blur(20px);
-  border-radius:26px;
-  padding:22px;
-  margin-bottom:22px;
-  border:1px solid rgba(255,255,255,.08);
+background:#1c1c1c;
+border-radius:20px;
+padding:20px;
+margin-bottom:22px;
+border:1px solid rgba(255,255,255,.05);
+box-shadow:0 15px 35px rgba(0,0,0,.5);
 }
 
 .card h3{
-  margin-bottom:14px;
-  font-size:15px;
-  opacity:.8;
+margin-bottom:14px;
+font-size:15px;
+opacity:.8;
 }
 
 .rota-item{
-  font-size:15px;
-  margin-bottom:6px;
+font-size:15px;
+margin-bottom:6px;
 }
 
 .rota-item span{
-  opacity:.5;
+opacity:.5;
 }
 
 textarea{
-  width:100%;
-  border-radius:16px;
-  padding:14px;
-  border:none;
-  background:rgba(255,255,255,.08);
-  color:#fff;
-  resize:none;
-  height:90px;
+width:100%;
+border-radius:16px;
+padding:14px;
+border:none;
+background:#111;
+color:#fff;
+resize:none;
+height:90px;
+}
+
+.select{
+width:100%;
+padding:12px;
+border-radius:12px;
+background:#111;
+color:#fff;
+border:1px solid rgba(255,255,255,.1);
 }
 
 .linha{
-  display:flex;
-  justify-content:space-between;
-  margin-bottom:8px;
-  font-size:14px;
-  opacity:.85;
+display:flex;
+justify-content:space-between;
+margin-bottom:8px;
+font-size:14px;
 }
 
 .total{
-  font-size:22px;
-  font-weight:900;
-  margin-top:14px;
-  color:var(--rf-yellow);
+font-size:22px;
+font-weight:900;
+margin-top:14px;
+color:#facc15;
 }
 
 .badge{
-  display:inline-block;
-  padding:6px 10px;
-  border-radius:12px;
-  font-size:11px;
-  background:#ff3b30;
-  margin-top:8px;
+display:inline-block;
+padding:6px 10px;
+border-radius:12px;
+font-size:11px;
+background:#ff3b30;
+margin-top:8px;
 }
 
+/* FOOTER */
+
 .footer{
-  position:fixed;
-  bottom:0;
-  left:0;
-  width:100%;
-  background:#000;
-  padding:20px;
-  box-shadow:0 -10px 30px rgba(0,0,0,.8);
+position:fixed;
+bottom:0;
+left:0;
+width:100%;
+background:#000;
+padding:20px;
 }
 
 .footer-inner{
-  max-width:450px;
-  margin:auto;
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
+max-width:450px;
+margin:auto;
+display:flex;
+justify-content:space-between;
+align-items:center;
 }
 
 .valor{
-  font-size:26px;
-  font-weight:900;
-  color:var(--rf-yellow);
+font-size:26px;
+font-weight:900;
+color:#facc15;
 }
 
 button{
-  padding:14px 30px;
-  border:none;
-  border-radius:30px;
-  background:linear-gradient(135deg,var(--rf-yellow),var(--rf-yellow-strong));
-  font-weight:800;
-  cursor:pointer;
+padding:14px 30px;
+border:none;
+border-radius:30px;
+background:#facc15;
+color:#000;
+font-weight:800;
+cursor:pointer;
 }
+
 </style>
 </head>
 
 <body>
 
-<div class="header">Resumo da Viagem</div>
+<!-- MENU -->
+
+<div class="menu-overlay" id="menuOverlay" onclick="fecharMenu()"></div>
+
+<div class="menu" id="menu">
+<h3>Menu</h3>
+<div class="menu-item" onclick="irPara('home.html')">Nova viagem</div>
+<div class="menu-item" onclick="irPara('termos.html')">Regras do grupo</div>
+</div>
+
+<!-- HEADER -->
+
+<div class="top-white">
+
+<div class="logo-area">
+<img src="icons/icon-192.png" class="logo-img">
+<span class="logo-text-dark">GRUPO RF</span>
+</div>
+
+<div class="menu-btn-dark" onclick="abrirMenu()">☰</div>
+
+</div>
 
 <div class="container">
 
@@ -142,24 +247,94 @@ button{
 
 <div class="card">
 <h3>Observação ao motorista</h3>
-<textarea id="observacaoInput"></textarea>
+<textarea id="obs"></textarea>
+</div>
+
+<div class="card">
+<h3>Forma de pagamento</h3>
+<select id="pagamento" class="select">
+<option value="dinheiro">Dinheiro</option>
+<option value="pix">Pix</option>
+<option value="debito">Cartão Débito</option>
+<option value="credito">Cartão Crédito</option>
+</select>
+</div>
+
+<div class="card">
+<h3>Taxa de Feira</h3>
+<select id="feira" class="select">
+<option value="0">Sem feira</option>
+<option value="5">1 carrinho (R$ 5.00)</option>
+<option value="7.99">2 carrinhos ou mais (R$ 7.99)</option>
+</select>
+</div>
+
+<div class="card">
+<h3>Transporte Animal</h3>
+<select id="animal" class="select">
+<option value="0">Nenhum</option>
+<option value="4.99">Pequeno (R$ 4.99)</option>
+<option value="7.99">Médio (R$ 7.99)</option>
+<option value="11.99">Grande (R$ 11.99)</option>
+</select>
+</div>
+
+<div class="card">
+<h3>Tempo de espera embarque (min)</h3>
+<input type="number" id="espera" class="select" value="0">
+</div>
+
+<div class="card">
+<h3>Saída de Praia</h3>
+
+<select id="saidaPraia" class="select">
+<option value="0">Não</option>
+<option value="10">Sim (+ R$ 10,00)</option>
+</select>
+
+<p style="font-size:12px;opacity:.7;margin-top:8px">
+Taxa válida para saídas de praia aos sábados, domingos e feriados.  
+A ida mantém o valor normal da tabela.
+</p>
+
 </div>
 
 <div class="card">
 <h3>Detalhamento</h3>
-<div id="detalhamento"></div>
+<div id="detalhe"></div>
 </div>
 
 </div>
 
 <div class="footer">
+
 <div class="footer-inner">
+
 <div class="valor" id="valorFinal">R$ 0,00</div>
-<button onclick="solicitar()">Solicitar</button>
+
+<button onclick="confirmar()">Solicitar</button>
+
 </div>
+
 </div>
 
 <script>
+
+function abrirMenu(){
+document.getElementById("menu").classList.add("ativo");
+document.getElementById("menuOverlay").style.display="block";
+}
+
+function fecharMenu(){
+document.getElementById("menu").classList.remove("ativo");
+document.getElementById("menuOverlay").style.display="none";
+}
+
+function irPara(p){
+window.location.href=p;
+}
+
+/* RESTANTE DO SCRIPT ORIGINAL */
 
 const corrida = JSON.parse(localStorage.getItem("rf_corrida_temp"));
 if(!corrida) window.location.href="home.html";
@@ -167,202 +342,141 @@ if(!corrida) window.location.href="home.html";
 let { origem, parada, destino, valor } = corrida;
 
 function montarRota(){
-  let html = `<div class="rota-item"><span>Origem:</span> ${origem}</div>`;
 
-  if(parada){
-    html += `<div class="rota-item"><span>Parada:</span> ${parada}</div>`;
-  }
+let html=`<div class="rota-item"><span>Origem:</span> ${origem}</div>`;
 
-  html += `<div class="rota-item"><span>Destino:</span> ${destino}</div>`;
+if(parada){
+html+=`<div class="rota-item"><span>Parada:</span> ${parada}</div>`;
+}
 
-  document.getElementById("rota").innerHTML = html;
+html+=`<div class="rota-item"><span>Destino:</span> ${destino}</div>`;
+
+document.getElementById("rota").innerHTML=html;
+
 }
 
 function adicionalNoturno(base){
 
-  const agora = new Date();
-  const hora = agora.getHours() + agora.getMinutes()/60;
+const agora=new Date();
+const hora=agora.getHours()+agora.getMinutes()/60;
 
-  if(hora >= 22.5 || hora <= 5){
+if(hora>=22.5 || hora<=5){
 
-    if(base <= 24.99){
-      return 4.99;
-    }
+if(base<=24.99){
+return 4.99;
+}
 
-    return base * 0.35;
-  }
+return base*0.35;
 
-  return 0;
+}
+
+return 0;
+
 }
 
 function calcular(){
 
-  let base = parseFloat(valor);
-  let detalheHTML = "";
+let base=parseFloat(valor);
+let taxas=0;
+let detalhe="";
 
-  detalheHTML += `<div class="linha"><span>Base</span><span>R$ ${base.toFixed(2)}</span></div>`;
+detalhe+=`<div class="linha"><span>Rota</span><span>R$ ${base.toFixed(2)}</span></div>`;
 
-  const noturno = adicionalNoturno(base);
+const noturno=adicionalNoturno(base);
 
-  if(noturno > 0){
+if(noturno>0){
 
-    detalheHTML += `
-    <div class="linha"><span>Adicional Noturno</span><span>R$ ${noturno.toFixed(2)}</span></div>
-    <div class="badge">Tarifa Noturna Ativa</div>
-    `;
+detalhe+=`<div class="linha"><span>Adicional Noturno</span><span>R$ ${noturno.toFixed(2)}</span></div>
+<div class="badge">Tarifa Noturna</div>`;
 
-    base += noturno;
-  }
-
-  /* TAXA SAÍDA DE PRAIA */
-
-  const praias = [
-  "Gaibu",
-  "Calhetas",
-  "Itapuama",
-  "Enseada"
-  ];
-
-  const dia = new Date().getDay();
-
-  if(praias.includes(destino) && (dia === 0 || dia === 6)){
-
-    detalheHTML += `
-    <div class="linha"><span>Saída de Praia</span><span>R$ 10.00</span></div>
-    <div class="badge">Taxa válida sábados, domingos e feriados. Ida segue valor normal.</div>
-    `;
-
-    base += 10;
-  }
-
-  detalheHTML += `<div class="total">Total: R$ ${base.toFixed(2)}</div>`;
-
-  document.getElementById("detalhamento").innerHTML = detalheHTML;
-  document.getElementById("valorFinal").innerText = "R$ "+base.toFixed(2);
-
-  localStorage.setItem("rf_total_final",base.toFixed(2));
-}
-
-function abrirEscolhaWhatsApp(msg){
-
-const texto = encodeURIComponent(msg);
-
-const modal = document.createElement("div");
-
-modal.style.position="fixed";
-modal.style.inset="0";
-modal.style.background="rgba(0,0,0,.7)";
-modal.style.display="flex";
-modal.style.alignItems="center";
-modal.style.justifyContent="center";
-modal.style.zIndex="9999";
-
-modal.innerHTML = `
-<div style="background:#111;padding:25px;border-radius:20px;text-align:center;max-width:300px">
-
-<h3 style="margin-bottom:15px">Enviar via</h3>
-
-<button id="waNormal" style="width:100%;margin-bottom:10px;padding:12px;border-radius:10px;">
-WhatsApp
-</button>
-
-<button id="waBusiness" style="width:100%;padding:12px;border-radius:10px;">
-WhatsApp Business
-</button>
-
-</div>
-`;
-
-document.body.appendChild(modal);
-
-document.getElementById("waNormal").onclick=()=>{
-window.open(`https://wa.me/?text=${texto}`,"_blank");
-modal.remove();
-};
-
-document.getElementById("waBusiness").onclick=()=>{
-window.open(`https://api.whatsapp.com/send?text=${texto}`,"_blank");
-modal.remove();
-};
+base+=noturno;
 
 }
 
-function solicitar(){
+const saidaPraia=parseFloat(document.getElementById("saidaPraia").value);
 
-  const agora = new Date();
+if(saidaPraia>0){
 
-  const dataFormatada = agora.toLocaleDateString("pt-BR");
+detalhe+=`<div class="linha"><span>Saída de Praia</span><span>R$ ${saidaPraia.toFixed(2)}</span></div>`;
 
-  const horaFormatada = agora.toLocaleTimeString("pt-BR", {
-    hour: "2-digit",
-    minute: "2-digit"
-  });
+taxas+=saidaPraia;
 
-  const observacao = document.getElementById("observacaoInput").value.trim();
+}
 
-  const detalhamentoDiv = document.getElementById("detalhamento");
+const feira=parseFloat(document.getElementById("feira").value);
 
-  let linhas = [];
+if(feira>0){
 
-  detalhamentoDiv.querySelectorAll(".linha").forEach(linha => {
+detalhe+=`<div class="linha"><span>Feira</span><span>R$ ${feira.toFixed(2)}</span></div>`;
 
-      const spans = linha.querySelectorAll("span");
+taxas+=feira;
 
-      if(spans.length === 2){
-          linhas.push(`${spans[0].innerText}: ${spans[1].innerText}`);
-      }
+}
 
-  });
+const animal=parseFloat(document.getElementById("animal").value);
 
-  const detalhamentoTexto = linhas.join("\n");
+if(animal>0){
 
-  const totalFinal = Number(localStorage.getItem("rf_total_final")) || 0;
+detalhe+=`<div class="linha"><span>Animal</span><span>R$ ${animal.toFixed(2)}</span></div>`;
 
-  let blocoObservacao = "";
+taxas+=animal;
 
-  if(observacao){
-    blocoObservacao = `
-_____________________________
-*Observações*
-${observacao}`;
-  }
+}
 
-  let blocoItinerario = `
-📍 Origem:
-${origem}
-`;
+const espera=parseFloat(document.getElementById("espera").value);
 
-  if(parada){
-    blocoItinerario += `
-🛑 Parada:
-${parada}
-`;
-  }
+if(espera>5){
 
-  blocoItinerario += `
-🏁 Destino:
-${destino}
-`;
+const taxaEspera=3 + ((espera-5)*0.60);
 
-  const msg =
-`*RECIBO DE VIAGEM RF*
-${dataFormatada}
-${horaFormatada}
-${blocoObservacao}
-_____________________________
-*Detalhamento da viagem*
+detalhe+=`<div class="linha"><span>Espera</span><span>R$ ${taxaEspera.toFixed(2)}</span></div>`;
 
-${detalhamentoTexto}
-_____________________________
-*ITINERÁRIO*
-${blocoItinerario}
-_____________________________
-💰 *Total: R$ ${totalFinal.toFixed(2)}*
+taxas+=taxaEspera;
 
-_GRUPO RF_
-58.615.336/0001-49`;
+}
 
-  abrirEscolhaWhatsApp(msg);
+let subtotal=base+taxas;
+
+detalhe+=`<div class="linha"><span>Subtotal</span><span>R$ ${subtotal.toFixed(2)}</span></div>`;
+
+let pagamento=document.getElementById("pagamento").value;
+let total=subtotal;
+
+if(pagamento==="debito"){
+total=subtotal/0.98;
+}
+
+if(pagamento==="credito"){
+total=subtotal/0.95;
+}
+
+detalhe+=`<div class="linha"><span>Pagamento</span><span>${pagamento}</span></div>`;
+
+detalhe+=`<div class="total">Total: R$ ${total.toFixed(2)}</div>`;
+
+document.getElementById("detalhe").innerHTML=detalhe;
+document.getElementById("valorFinal").innerText="R$ "+total.toFixed(2);
+
+localStorage.setItem("rf_total_final",total.toFixed(2));
+
+}
+
+document.querySelectorAll("select,input").forEach(e=>{
+e.addEventListener("change",calcular);
+});
+
+function confirmar(){
+
+const final={
+...corrida,
+total:localStorage.getItem("rf_total_final"),
+observacao:document.getElementById("obs").value
+};
+
+localStorage.setItem("rf_corrida_confirmada",JSON.stringify(final));
+
+window.location.href="procurando.html";
+
 }
 
 montarRota();
