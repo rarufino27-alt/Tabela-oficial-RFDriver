@@ -2,12 +2,16 @@
 <html lang="pt-BR">
 <head>
 <meta charset="UTF-8">
-<title>RF – Viagem</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-<script src="core/datamanager.js"></script>
+<title>RF Passageiro</title>
 
 <style>
+
+:root{
+  --rf-gold:#D6B85F;
+  --rf-gold-strong:#F4D97A;
+}
+
 *{
   margin:0;
   padding:0;
@@ -15,477 +19,223 @@
   font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;
 }
 
-body{
-  background:linear-gradient(to bottom, #0f0f0f, #1a1a1a);
-  color:#ffffff;
-  height:100vh;
-  overflow:hidden;
-}
-
-/* ================= HEADER ================= */
-
-.top{
-  background:#111111;
-  padding:22px 20px;
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  border-bottom:1px solid rgba(255,255,255,.05);
-}
-
-.top-white{
-  background:#ffffff;
-  padding:20px 20px 28px 20px;
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  border-bottom-left-radius:32px;
-  border-bottom-right-radius:32px;
-  box-shadow:0 10px 30px rgba(0,0,0,.25);
-}
-
-.logo{
-  font-weight:900;
-  font-size:1.2rem;
-  letter-spacing:1px;
-  color:#facc15;
-}
-
-.logo-area{
-  display:flex;
-  align-items:center;
-  gap:14px;
-}
-
-.logo-img{
-  height:60px;
-  width:auto;
-  border-radius:16px;
-}
-
-.logo-text{
-  font-weight:900;
-  letter-spacing:1px;
-  color:#facc15;
-  font-size:1rem;
-}
-
-.logo-text-dark{
-  font-weight:900;
-  letter-spacing:1px;
-  color:#000;
-  font-size:1.1rem;
-}
-
-.menu-btn{
-  font-size:22px;
-  cursor:pointer;
-  color:#ffffff;
-}
-
-.menu-btn-dark{
-  font-size:24px;
-  cursor:pointer;
-  color:#000;
-}
-
-/* ================= MENU ================= */
-
-.menu-overlay{
-  position:fixed;
-  inset:0;
-  background:rgba(0,0,0,.6);
-  display:none;
-  z-index:99;
-}
-
-.menu{
-  position:fixed;
-  top:0;
-  left:-260px;
-  width:260px;
+html,body{
   height:100%;
-  background:#1a1a1a;
-  transition:left .3s ease;
-  z-index:100;
-  padding:20px;
-  color:#fff;
 }
 
-  .menu.ativo{
-  left:0;
-}
-
-.menu h3{
-  margin-bottom:20px;
-  color:#facc15;
-}
-
-.menu-item{
-  padding:14px 0;
-  border-bottom:1px solid rgba(255,255,255,.08);
-  cursor:pointer;
-  transition:.2s;
-}
-
-.menu-item:hover{
-  color:#facc15;
-}
-
-/* ================= CENTRO ================= */
-
-.center{
-  position:absolute;
-  top:52%;
-  left:50%;
-  transform:translate(-50%,-50%);
-  width:90%;
-  max-width:420px;
-}
-
-.titulo-central{
-  text-align:center;
-  font-weight:700;
-  font-size:1.3rem;
-  margin-bottom:30px;
-  color:#ffffff;
-}
-
-/* ================= CARD ================= */
-
-.card{
-  background:#1c1c1c;
-  border-radius:20px;
-  padding:20px;
-  box-shadow:0 15px 35px rgba(0,0,0,.5);
-  border:1px solid rgba(255,255,255,.05);
-}
-
-.campo{
+body{
+  position:relative;
+  overflow:hidden;
+  background: radial-gradient(circle at top,#1A2133 0%,#080A12 70%);
   display:flex;
-  align-items:center;
-  justify-content:space-between;
-  padding:16px 0;
-  border-bottom:1px solid rgba(255,255,255,.08);
-  cursor:pointer;
-  transition:.2s;
-}
-
-.campo:hover{
-  opacity:.85;
-}
-
-.campo:last-child{
-  border-bottom:none;
-}
-
-.campo-left{
-  display:flex;
-  align-items:center;
-  gap:12px;
-  color:#ffffff;
-  font-weight:500;
-}
-
-.dot{
-  width:10px;
-  height:10px;
-  border-radius:50%;
-}
-
-.origem{ background:#22c55e; }
-.parada{ background:#facc15; }
-.destino{ background:#ef4444; }
-
-.plus{
-  font-size:20px;
-  color:#facc15;
-}
-
-/* ================= BOTÃO ================= */
-
-.bottom{
-  position:absolute;
-  bottom:30px;
-  left:20px;
-  right:20px;
-}
-
-button{
-  width:100%;
-  padding:18px;
-  border:none;
-  border-radius:35px;
-  background:#facc15;
-  color:#000;
-  font-weight:800;
-  font-size:1rem;
-  cursor:pointer;
-  transition:.2s;
-}
-
-button:hover{
-  transform:translateY(-2px);
-}
-
-button:disabled{
-  background:#333;
-  color:#777;
-}
-
-/* ================= MODAL ================= */
-
-.modal{
-  position:fixed;
-  inset:0;
-  background:rgba(0,0,0,.8);
-  display:none;
   align-items:center;
   justify-content:center;
-  padding:20px;
-  z-index:200;
-}
-
-.modal-content{
-  background:#1c1c1c;
-  width:100%;
-  max-width:420px;
-  border-radius:20px;
-  padding:20px;
-  max-height:80vh;
-  display:flex;
-  flex-direction:column;
-  border:1px solid rgba(255,255,255,.08);
-}
-
-.modal-content input{
-  width:100%;
-  padding:14px;
-  border-radius:12px;
-  border:1px solid rgba(255,255,255,.1);
-  background:#111;
   color:#fff;
-  margin-bottom:14px;
+  animation:fadeIn .4s ease;
 }
 
-.lista{
-  overflow-y:auto;
-  flex:1;
+/* FUNDO ROTATIVO */
+
+body::before{
+  content:"";
+  position:absolute;
+  top:50%;
+  left:50%;
+  width:160%;
+  height:160%;
+  transform:translate(-50%,-50%);
+  background:radial-gradient(circle, rgba(214,184,95,.15), transparent 70%);
+  animation:rotateBg 18s linear infinite;
+  pointer-events:none;
 }
 
-.lista div{
-  padding:12px;
-  border-radius:10px;
-  cursor:pointer;
-  transition:.2s;
+@keyframes rotateBg{
+  from{transform:translate(-50%,-50%) rotate(0deg);}
+  to{transform:translate(-50%,-50%) rotate(360deg);}
 }
 
-.lista div:hover{
-  background:#2a2a2a;
+/* CONTAINER */
+
+.container{
+  position:relative;
+  text-align:center;
+  z-index:2;
 }
+
+/* RADAR */
+
+.radar{
+  position:absolute;
+  width:300px;
+  height:300px;
+  border-radius:50%;
+  border:2px solid rgba(214,184,95,.4);
+  left:50%;
+  top:50%;
+  transform:translate(-50%,-50%);
+}
+
+.radar::before,
+.radar::after{
+  content:"";
+  position:absolute;
+  inset:0;
+  border-radius:50%;
+  border:2px solid rgba(214,184,95,.3);
+  animation:pulse 4s infinite;
+}
+
+.radar::after{
+  animation-delay:2s;
+}
+
+@keyframes pulse{
+  0%{
+    transform:scale(.7);
+    opacity:.8;
+  }
+  100%{
+    transform:scale(1.6);
+    opacity:0;
+  }
+}
+
+/* GLOW */
+
+.glow{
+  position:absolute;
+  width:260px;
+  height:260px;
+  border-radius:50%;
+  background:radial-gradient(circle,var(--rf-gold),transparent 70%);
+  filter:blur(60px);
+  opacity:.4;
+  left:50%;
+  top:50%;
+  transform:translate(-50%,-50%);
+  animation:glowPulse 4s ease-in-out infinite;
+  pointer-events:none;
+}
+
+@keyframes glowPulse{
+  0%,100%{opacity:.3;}
+  50%{opacity:.6;}
+}
+
+/* LOGO */
+
+.logo{
+  width:160px;
+  max-width:70%;
+  position:relative;
+  z-index:3;
+  opacity:0;
+  transform:scale(.85);
+  animation:logoFast .5s ease forwards, logoFloat 4s ease-in-out infinite 1s;
+}
+
+@keyframes logoFast{
+  to{
+    opacity:1;
+    transform:scale(1);
+  }
+}
+
+@keyframes logoFloat{
+  0%{transform:scale(.95);}
+  50%{transform:scale(1);}
+  100%{transform:scale(.95);}
+}
+
+/* TEXTO */
+
+.tagline{
+  margin-top:25px;
+  font-size:14px;
+  letter-spacing:.5px;
+  opacity:0;
+  animation:textFade 1s ease forwards 1.6s;
+}
+
+@keyframes textFade{
+  to{opacity:.9;}
+}
+
+/* PROGRESS */
+
+.progress{
+  margin-top:30px;
+  width:200px;
+  height:4px;
+  background:rgba(255,255,255,.1);
+  border-radius:6px;
+  overflow:hidden;
+  margin-left:auto;
+  margin-right:auto;
+}
+
+.progress-bar{
+  height:100%;
+  width:0%;
+  background:linear-gradient(90deg,var(--rf-gold),var(--rf-gold-strong));
+  animation:load 4s ease forwards;
+}
+
+@keyframes load{
+  to{width:100%;}
+}
+
+/* FADE OUT */
+
+.fade-out{
+  animation:fadeOut .5s ease forwards;
+}
+
+@keyframes fadeOut{
+  to{
+    opacity:0;
+    transform:scale(.98);
+  }
+}
+
+@keyframes fadeIn{
+  from{opacity:0;}
+  to{opacity:1;}
+}
+
 </style>
 </head>
+
 <body>
 
-<!-- MENU -->
-<div class="menu-overlay" id="menuOverlay" onclick="fecharMenu()"></div>
-<div class="menu" id="menu">
-  <h3>Menu</h3>
-<div class="menu-item" onclick="irPara('termos.html')">Regras do Grupo RF</div>
-<div class="menu-item" onclick="irPara('configuracoes.html')">Configurações</div>
-</div>
+<div class="container">
 
-<!-- HEADER -->
-<div class="top-white">
-  <div class="logo-area">
-    <img src="icons/icon-192.png" class="logo-img">
-    <span class="logo-text-dark">GRUPO RF</span>
-  </div>
-  <div class="menu-btn-dark" onclick="abrirMenu()">☰</div>
-</div>
+  <div class="radar"></div>
+  <div class="glow"></div>
 
-<!-- CENTRO -->
-<div class="center">
+  <img src="assets/icons/logo-1024.png" class="logo" alt="RF Passageiro">
 
-  <div class="titulo-central">
-    Para onde vamos hoje?
+  <div class="tagline">
+    Mobilidade com excelência
   </div>
 
-  <div class="card">
-
-    <div class="campo" id="origemBtn">
-      <div class="campo-left">
-        <div class="dot origem"></div>
-        <div id="origemTexto">Selecionar origem</div>
-      </div>
-    </div>
-
-    <div class="campo" id="paradaBtn" style="display:none;">
-      <div class="campo-left">
-        <div class="dot parada"></div>
-        <div id="paradaTexto">Selecionar parada</div>
-      </div>
-    </div>
-
-    <div class="campo" id="destinoBtn">
-      <div class="campo-left">
-        <div class="dot destino"></div>
-        <div id="destinoTexto">Selecionar destino</div>
-      </div>
-      <div class="plus" id="addParada">＋</div>
-    </div>
-
+  <div class="progress">
+    <div class="progress-bar"></div>
   </div>
 
-</div>
-
-<div class="bottom">
-  <button id="confirmar" disabled>Confirmar rota</button>
-</div>
-
-<!-- MODAL -->
-<div class="modal" id="modal">
-  <div class="modal-content">
-    <input type="text" id="busca" placeholder="Buscar local...">
-    <div class="lista" id="lista"></div>
-  </div>
 </div>
 
 <script>
 
-let origem=null, parada=null, destino=null, modo=null;
+/* Splash otimizado (4.5s total) */
 
-const modal=document.getElementById("modal");
-const lista=document.getElementById("lista");
-const busca=document.getElementById("busca");
-const confirmarBtn=document.getElementById("confirmar");
+setTimeout(()=>{
+  document.body.classList.add("fade-out");
+},4000);
 
-/* MENU */
-function abrirMenu(){
-  document.getElementById("menu").classList.add("ativo");
-  document.getElementById("menuOverlay").style.display="block";
-}
-
-function fecharMenu(){
-  document.getElementById("menu").classList.remove("ativo");
-  document.getElementById("menuOverlay").style.display="none";
-}
-  
-  function irPara(pagina){
-  window.location.href = pagina;
-}
-
-/* INIT */
-async function init(){
-  await DataManager.carregar();
-}
-init();
-
-/* MODAL */
-function abrirModal(tipo){
-  if(tipo!=="origem" && !origem){
-    alert("Selecione a origem primeiro.");
-    return;
-  }
-
-  modo=tipo;
-  busca.value="";
-  modal.style.display="flex";
-
-  let dados=[];
-  if(tipo==="origem") dados=DataManager.listarOrigens();
-  if(tipo==="parada") dados=DataManager.listarDestinos(origem)
-      .filter(p=>DataManager.listarDestinos(p).length>0);
-  if(tipo==="destino"){
-    dados=parada?DataManager.listarDestinos(parada)
-                :DataManager.listarDestinos(origem);
-  }
-
-  renderLista(dados);
-}
-
-function renderLista(arr){
-  lista.innerHTML="";
-  arr.forEach(item=>{
-    const div=document.createElement("div");
-    div.innerText=item;
-    div.onclick=()=>{
-      selecionar(item);
-      modal.style.display="none";
-    };
-    lista.appendChild(div);
-  });
-}
-
-/* BUSCA RÁPIDA CORRIGIDA */
-busca.addEventListener("input", ()=>{
-  const termo=busca.value.toLowerCase();
-  Array.from(lista.children).forEach(div=>{
-    div.style.display=div.innerText.toLowerCase().includes(termo)
-      ? "block" : "none";
-  });
-});
-
-/* SELECIONAR */
-function selecionar(valor){
-  if(modo==="origem"){
-    origem=valor; parada=null; destino=null;
-    origemTexto.innerText=valor;
-    paradaTexto.innerText="Selecionar parada";
-    destinoTexto.innerText="Selecionar destino";
-    paradaBtn.style.display="none";
-  }
-  if(modo==="parada"){
-    parada=valor; destino=null;
-    paradaTexto.innerText=valor;
-  }
-  if(modo==="destino"){
-    destino=valor;
-    destinoTexto.innerText=valor;
-  }
-  confirmarBtn.disabled=!(origem && destino);
-}
-
-/* EVENTOS */
-origemBtn.onclick=()=>abrirModal("origem");
-paradaBtn.onclick=()=>abrirModal("parada");
-destinoBtn.onclick=()=>abrirModal("destino");
-
-addParada.onclick=(e)=>{
-  e.stopPropagation();
-  if(!origem){
-    alert("Selecione a origem primeiro.");
-    return;
-  }
-  paradaBtn.style.display="flex";
-};
-
-modal.onclick=e=>{
-  if(e.target===modal) modal.style.display="none";
-};
-
-/* CONFIRMAR */
-confirmarBtn.onclick=()=>{
-  let valorTotal=0;
-  if(!parada){
-    valorTotal=DataManager.buscarValor(origem,destino)||0;
-  }else{
-    const p1=DataManager.buscarValor(origem,parada)||0;
-    const p2=DataManager.buscarValor(parada,destino)||0;
-    valorTotal=p1+p2;
-  }
-
-  localStorage.setItem("rf_corrida_temp", JSON.stringify({
-    origem, parada, destino, valor:valorTotal
-  }));
-
-  window.location.href="selecionar.html";
-};
-
-(function(){
-  const temaSalvo = localStorage.getItem("rf_theme") || "dark";
-  document.body.setAttribute("data-theme", temaSalvo);
-})();
+setTimeout(()=>{
+  window.location.href="home.html";
+},4500);
 
 </script>
 
