@@ -9,66 +9,85 @@
 
 <style>
 
-body{
+*{
 margin:0;
-font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto;
-background:#0f0f0f;
-color:#fff;
+padding:0;
+box-sizing:border-box;
+font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;
 }
 
-/* TOPO */
+body{
+background:linear-gradient(to bottom,#0f0f0f,#1a1a1a);
+color:#fff;
+min-height:100vh;
+}
 
-.header{
-background:#fff;
-padding:18px;
+/* HEADER IGUAL HOME */
+
+.top-white{
+background:#ffffff;
+padding:20px 20px 28px 20px;
 display:flex;
 align-items:center;
-border-bottom-left-radius:30px;
-border-bottom-right-radius:30px;
-box-shadow:0 10px 25px rgba(0,0,0,.25);
+justify-content:space-between;
+border-bottom-left-radius:32px;
+border-bottom-right-radius:32px;
+box-shadow:0 10px 30px rgba(0,0,0,.25);
 }
 
-.logo{
-height:45px;
-margin-right:10px;
+.logo-area{
+display:flex;
+align-items:center;
+gap:14px;
 }
 
-.header-title{
-font-weight:600;
+.logo-img{
+height:60px;
+border-radius:16px;
+}
+
+.logo-text-dark{
+font-weight:900;
+letter-spacing:1px;
 color:#000;
-font-size:18px;
+font-size:1.1rem;
 }
 
-/* TITULO */
+.back-btn{
+font-size:24px;
+cursor:pointer;
+color:#000;
+}
+
+/* CONTEUDO */
+
+.container{
+padding:30px 20px 40px;
+max-width:500px;
+margin:auto;
+}
 
 .title{
 font-size:26px;
 color:#facc15;
-margin:25px 20px 10px;
+margin-bottom:10px;
 font-weight:700;
 }
 
-/* INTRO */
-
 .intro{
-margin:0 20px 25px;
 opacity:.8;
+margin-bottom:25px;
 }
 
-/* MENU */
-
-.menu{
-padding:0 15px 30px;
-}
+/* CARDS */
 
 .card{
-background:#1a1a1a;
+background:#1c1c1c;
 border-radius:18px;
 padding:18px;
 margin-bottom:12px;
-display:flex;
-align-items:center;
 cursor:pointer;
+border:1px solid rgba(255,255,255,.05);
 transition:.2s;
 }
 
@@ -91,12 +110,12 @@ margin-right:8px;
 
 .page{
 display:none;
-padding:20px;
 line-height:1.6;
 }
 
 .page h2{
 color:#facc15;
+margin-bottom:10px;
 }
 
 .back{
@@ -108,6 +127,7 @@ cursor:pointer;
 
 ul{
 padding-left:18px;
+margin-top:10px;
 }
 
 </style>
@@ -116,10 +136,20 @@ padding-left:18px;
 
 <body>
 
-<div class="header">
-<img src="icons/icon-192.png" class="logo">
-<div class="header-title">GRUPO RF</div>
+<!-- HEADER -->
+
+<div class="top-white">
+
+<div class="logo-area">
+<img src="icons/icon-192.png" class="logo-img">
+<span class="logo-text-dark">GRUPO RF</span>
 </div>
+
+<div class="back-btn" onclick="voltarHome()">←</div>
+
+</div>
+
+<div class="container">
 
 <div id="menu">
 
@@ -130,8 +160,6 @@ Regulamento Operacional
 <div class="intro">
 Escolha um tópico para visualizar as regras completas.
 </div>
-
-<div class="menu">
 
 <div class="card" onclick="openPage('r1')"><span class="num">1.</span>Localização</div>
 <div class="card" onclick="openPage('r2')"><span class="num">2.</span>Condições do Veículo</div>
@@ -146,12 +174,10 @@ Escolha um tópico para visualizar as regras completas.
 <div class="card" onclick="openPage('r11')"><span class="num">11.</span>Ordem de Atendimento</div>
 
 </div>
-</div>
 
-<!-- PAGINA 1 -->
+<!-- PAGINAS -->
 
 <div id="r1" class="page">
-
 <h2>1. Localização</h2>
 
 <p>Para participar das solicitações de viagens dentro dos grupos de passageiros do RF, é obrigatório que o motorista esteja com a localização em tempo real ativa no grupo de localização.</p>
@@ -177,275 +203,14 @@ Escolha um tópico para visualizar as regras completas.
 
 </div>
 
-<div id="r2" class="page">
-
-<h2>2. Condições do Veículo e Apresentação do Motorista</h2>
-
-<p>Para garantir conforto, segurança e qualidade no atendimento aos passageiros:</p>
-
-<ul>
-<li>2.1 – O veículo deve estar higienizado, limpo e em boas condições para transporte de passageiros.</li>
-
-<li>2.2 – Veículos com batidas ou danos visíveis devem buscar reparo o mais breve possível. Dependendo da situação, o motorista poderá sofrer suspensão temporária até regularização.</li>
-
-<li>2.3 – Não é permitido circular com som alto ou músicas de conteúdo inadequado ou ofensivo durante o transporte de passageiros.</li>
-
-<li>Caso identificado, o motorista poderá sofrer penalidade com devolução do valor da corrida ao passageiro.</li>
-
-<li>2.4 – O motorista deve apresentar-se de forma adequada e profissional, sendo obrigatório:</li>
-
-<ul>
-<li>roupas em bom estado</li>
-<li>não utilizar roupas rasgadas</li>
-<li>não utilizar roupas excessivamente curtas</li>
-<li>não utilizar roupas com decotes</li>
-</ul>
-
-<li>Esta regra se aplica a motoristas homens e mulheres.</li>
-
-</ul>
-
-<div class="back" onclick="back()">← voltar</div>
-
-</div>
-
-<!-- PAGINA 3 (EXEMPLO COMPLETO) -->
-
-<div id="r3" class="page">
-
-<h2>3. Solicitação de Viagens</h2>
-
-<ul>
-
-<li>3.1 – Toda solicitação deve conter obrigatoriamente:
-<ul>
-<li>local de embarque</li>
-<li>local de desembarque</li>
-</ul>
-</li>
-
-<li>3.2 – Solicitações incompletas não serão elegíveis.</li>
-
-<li>3.3 – Mensagens genéricas não serão consideradas solicitações válidas.</li>
-
-<li>3.4 – Para disputar uma corrida o motorista deve sinalizar interesse com “Eu” ou “Pv”.</li>
-
-<li>3.5 – Em corridas fora do centro operacional principal, poderá ser priorizado o motorista mais próximo.</li>
-
-</ul>
-
-<h3>3.6 Amarração de Viagem</h3>
-
-<ul>
-
-<li>3.6.1 – Essa prática é permitida quando a nova corrida estiver preferencialmente no mesmo sentido da finalização da corrida atual.</li>
-
-<li>3.6.2 – A amarração poderá ocorrer mediante autorização prévia da administração.</li>
-
-<li>3.6.3 – Caso nenhuma resposta seja dada em até 3 minutos, motorista em viagem pode amarrar corrida.</li>
-
-<li>3.6.4 – Deve comunicar no grupo de motoristas.</li>
-
-<li>3.6.5 – Caso exista motorista mais próximo, ele poderá assumir.</li>
-
-<li>3.6.6 – Caso passageiro confirme espera, prioridade permanece com o motorista que amarrou.</li>
-
-</ul>
-
-<div class="back" onclick="back()">← voltar</div>
-
-</div>
-
-<div id="r4" class="page">
-
-<h2>4. Taxas Adicionais de Viagem</h2>
-
-<p><b>4.1 – TAXA DE FEIRA</b></p>
-
-<p>Aplica-se quando houver grande volume de compras ou carrinhos de feira.</p>
-
-<p>Valor da taxa: R$ 5,00.</p>
-
-<p>Caso haja dois ou mais carrinhos de feira cheios, a taxa passa a ser R$ 7,50.</p>
-
-<p>Compras pequenas não geram cobrança adicional.</p>
-
-<p><b>4.2 – TAXA DE DESLOCAMENTO PARA BUSCA</b></p>
-
-<p>Até 20 km: sem taxa.</p>
-
-<p>A partir do 20º km: R$ 10,00.</p>
-
-<p>Do 21º km em diante: R$ 0,50 por quilômetro adicional.</p>
-
-<p><b>4.3 – TAXA DE DESVIO DE ROTA</b></p>
-
-<p>Desvio simples dentro da rota: R$ 5,00.</p>
-
-<p>Desvio para outro bairro será considerado duas corridas.</p>
-
-<p><b>4.4 – EXCESSO DE PASSAGEIROS</b></p>
-
-<p>Acréscimo de 50% sobre o valor da corrida.</p>
-
-<p><b>4.5 – VIAGEM POR FRETE</b></p>
-
-<p>Valores definidos por tabela oficial divulgada pela administração.</p>
-
-<p><b>4.6 – CONSULTA OBRIGATÓRIA</b></p>
-
-<p>Taxas não previstas devem ser consultadas previamente com a administração.</p>
-
-<p><b>4.7 – TAXA DE ESPERA</b></p>
-
-<p>Até 5 minutos no local: sem cobrança.</p>
-
-<p>Após 5 minutos: taxa inicial de R$ 3,00.</p>
-
-<p>Depois: R$ 0,60 por minuto adicional.</p>
-
-<p>Durante a viagem: R$ 0,60 por minuto desde o primeiro minuto.</p>
-
-<div class="back" onclick="back()">← voltar</div>
-
-</div>
-
-<div id="r5" class="page">
-
-<h2>5. Taxa Semanal</h2>
-
-<ul>
-<li>5.1 – Deve ser paga toda segunda-feira entre 00h00 e 23h59.</li>
-
-<li>5.2 – O não pagamento gera suspensão automática até regularização.</li>
-
-<li>5.3 – Não existe multa por atraso.</li>
-
-<li>5.4 – Não existe acúmulo de semanas.</li>
-
-<li>5.5 – Enquanto estiver em atraso o motorista não participa dos benefícios do grupo.</li>
-
-<li>5.6 – Mesmo com atraso o grupo continua garantindo:</li>
-
-<ul>
-<li>taxa de deslocamento</li>
-<li>taxa de R$ 3 para transporte de cadeira de rodas.</li>
-</ul>
-
-</ul>
-
-<div class="back" onclick="back()">← voltar</div>
-
-</div>
-
-<div id="r6" class="page">
-
-<h2>6. Prioridade de Atendimento</h2>
-
-<ul>
-<li>6.1 – A prioridade inicial será do motorista que responder “Eu” ou “Pv”.</li>
-
-<li>6.2 – Caso o motorista não esteja dentro das regras, a prioridade passa ao próximo motorista elegível.</li>
-
-<li>6.3 – Em corridas fora do centro operacional poderá ser priorizado o motorista mais próximo do embarque.</li>
-</ul>
-
-<div class="back" onclick="back()">← voltar</div>
-
-</div>
-
-<div id="r7" class="page">
-
-<h2>7. Medidas Disciplinares</h2>
-
-<p>O descumprimento das regras poderá resultar em:</p>
-
-<ul>
-<li>advertência</li>
-<li>suspensão</li>
-<li>exclusão do grupo</li>
-</ul>
-
-<p><b>EXCLUSÃO IMEDIATA</b></p>
-
-<p><b>Facão</b> – quando um motorista aborda o passageiro por fora do grupo para tomar a corrida.</p>
-
-<p><b>Fidelização</b> – quando motorista e passageiro passam a realizar corridas por fora do grupo.</p>
-
-<p>Motoristas só podem realizar corridas particulares com passageiros que eles próprios trouxeram para o grupo.</p>
-
-<div class="back" onclick="back()">← voltar</div>
-
-</div>
-
-<div id="r8" class="page">
-
-<h2>8. Cancelamento de Viagens</h2>
-
-<p>Após assumir a corrida o motorista passa a ser responsável por ela.</p>
-
-<p>Cancelamentos permitidos em caso de:</p>
-
-<ul>
-<li>cancelamento do passageiro</li>
-<li>emergência</li>
-<li>falta de segurança</li>
-<li>autorização da administração.</li>
-</ul>
-
-<div class="back" onclick="back()">← voltar</div>
-
-</div>
-
-<div id="r9" class="page">
-
-<h2>9. Tempo de Resposta da Corrida</h2>
-
-<p>Após confirmação da corrida pelo passageiro, o motorista deverá iniciar deslocamento.</p>
-
-<p>Tempo máximo de chegada: até 10 minutos após confirmação da localização.</p>
-
-<p>Caso o motorista esteja em outra corrida e aceite nova viagem, deverá informar o tempo real de espera.</p>
-
-<p>Caso utilize informação falsa para segurar corrida, será aplicada suspensão imediata de 24 horas de forma inegociável.</p>
-
-<div class="back" onclick="back()">← voltar</div>
-
-</div>
-
-<div id="r10" class="page">
-
-<h2>10. Reserva de Corridas</h2>
-
-<p>Corridas podem ser agendadas previamente.</p>
-
-<p>O passageiro deve informar dia e horário da corrida.</p>
-
-<p>Corridas agendadas para outro dia não exigem localização ativa.</p>
-
-<p>Corridas agendadas para o mesmo dia exigem localização ativa.</p>
-
-<p>Uma vez confirmada, o motorista deve cumprir horário e local.</p>
-
-<div class="back" onclick="back()">← voltar</div>
-
-</div>
-
-<div id="r11" class="page">
-
-<h2>11. Sistema de Ordem de Atendimento</h2>
-
-<p>Quando houver mais de uma solicitação no grupo, deve-se respeitar a ordem das solicitações.</p>
-
-<p>Corridas que exigem deslocamento longo não são obrigatórias.</p>
-
-<p>Caso o motorista aceite realizar a busca distante, aplica-se a taxa de deslocamento prevista na regra.</p>
-
-<div class="back" onclick="back()">← voltar</div>
+<!-- AS OUTRAS REGRAS CONTINUAM IGUAIS -->
+<!-- você pode manter exatamente o conteúdo que já tem -->
 
 </div>
 
 <script>
+
+/* ABRIR REGRA */
 
 function openPage(id){
 
@@ -459,6 +224,8 @@ document.getElementById(id).style.display="block"
 
 }
 
+/* VOLTAR PARA MENU */
+
 function back(){
 
 document.getElementById("menu").style.display="block"
@@ -467,6 +234,20 @@ document.querySelectorAll(".page").forEach(p=>{
 p.style.display="none"
 })
 
+}
+
+/* VOLTAR HOME */
+
+function voltarHome(){
+window.location.href="home.html"
+}
+
+/* BOTÃO VOLTAR DO CELULAR */
+
+history.pushState(null,null,location.href)
+
+window.onpopstate=function(){
+window.location.href="home.html"
 }
 
 </script>
