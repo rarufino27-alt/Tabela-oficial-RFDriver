@@ -5,10 +5,12 @@
 <title>RF – Resumo</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<script src="core/dinamico.js"></script>
-<script src="core/taxas.js"></script>
-
 <style>
+:root{
+  --rf-yellow:#ffd600;
+  --rf-yellow-strong:#ffb800;
+}
+
 *{
   margin:0;
   padding:0;
@@ -17,151 +19,111 @@
 }
 
 body{
-  background:#0f0f0f;
+  background: radial-gradient(circle at top,#1a1a1a 0%,#000 70%);
   color:#fff;
-  min-height:100vh;
 }
 
-.top{
-  background:#ffffff;
-  padding:25px 20px 55px 20px;
-  border-bottom-left-radius:40px;
-  border-bottom-right-radius:40px;
-}
-
-.logo{
+.header{
+  padding:30px 25px 10px;
+  font-size:22px;
   font-weight:900;
-  font-size:1.4rem;
-  color:#000;
 }
 
-.titulo{
-  margin-top:5px;
-  font-weight:700;
-  color:#facc15;
+.container{
+  padding:10px 25px 140px;
+  max-width:450px;
+  margin:auto;
 }
 
-.content{
-  width:90%;
-  max-width:420px;
-  margin:0 auto 120px auto;
+.card{
+  background:rgba(255,255,255,.06);
+  backdrop-filter:blur(20px);
+  border-radius:26px;
+  padding:22px;
+  margin-bottom:22px;
+  border:1px solid rgba(255,255,255,.08);
 }
 
-.bloco{
-  background:#1c1c1c;
-  border-radius:20px;
-  padding:18px;
-  margin-bottom:18px;
-  box-shadow:0 12px 30px rgba(0,0,0,.5);
+.card h3{
+  margin-bottom:14px;
+  font-size:15px;
+  opacity:.8;
 }
 
-.bloco h3{
-  margin-bottom:12px;
-  font-size:.95rem;
-  color:#facc15;
+.rota-item{
+  font-size:15px;
+  margin-bottom:6px;
 }
 
-.switch{
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  padding:10px 0;
-}
-
-.toggle{
-  width:45px;
-  height:24px;
-  background:#333;
-  border-radius:20px;
-  position:relative;
-  cursor:pointer;
-  transition:.3s;
-}
-
-.toggle::after{
-  content:"";
-  position:absolute;
-  width:18px;
-  height:18px;
-  background:#fff;
-  border-radius:50%;
-  top:3px;
-  left:3px;
-  transition:.3s;
-}
-
-.toggle.ativo{
-  background:#facc15;
-}
-
-.toggle.ativo::after{
-  left:24px;
-}
-
-select, textarea, input{
-  width:100%;
-  padding:10px;
-  border-radius:12px;
-  border:1px solid #333;
-  margin-top:8px;
-  background:#111;
-  color:#fff;
+.rota-item span{
+  opacity:.5;
 }
 
 textarea{
-  min-height:80px;
-  font-size:.85rem;
+  width:100%;
+  border-radius:16px;
+  padding:14px;
+  border:none;
+  background:rgba(255,255,255,.08);
+  color:#fff;
+  resize:none;
+  height:90px;
 }
 
 .linha{
   display:flex;
   justify-content:space-between;
-  margin-bottom:6px;
-  font-size:.85rem;
-}
-
-.linha span:first-child{
-  color:#aaa;
+  margin-bottom:8px;
+  font-size:14px;
+  opacity:.85;
 }
 
 .total{
-  font-size:1.1rem;
-  font-weight:700;
-  color:#facc15;
+  font-size:22px;
+  font-weight:900;
+  margin-top:14px;
+  color:var(--rf-yellow);
 }
 
-.footer-fixo{
+.badge{
+  display:inline-block;
+  padding:6px 10px;
+  border-radius:12px;
+  font-size:11px;
+  background:#ff3b30;
+  margin-top:8px;
+}
+
+.footer{
   position:fixed;
   bottom:0;
   left:0;
   width:100%;
-  background:#0f0f0f;
-  padding:15px 20px;
-  box-shadow:0 -8px 25px rgba(0,0,0,.6);
-  z-index:100;
+  background:#000;
+  padding:20px;
+  box-shadow:0 -10px 30px rgba(0,0,0,.8);
 }
 
-.footer-content{
-  max-width:420px;
-  margin:0 auto;
+.footer-inner{
+  max-width:450px;
+  margin:auto;
   display:flex;
   justify-content:space-between;
   align-items:center;
 }
 
-.valor-total{
-  font-size:1.4rem;
-  font-weight:700;
-  color:#facc15;
+.valor{
+  font-size:26px;
+  font-weight:900;
+  color:var(--rf-yellow);
 }
 
-.footer-fixo button{
-  padding:12px 28px;
+button{
+  padding:14px 30px;
   border:none;
   border-radius:30px;
-  background:#facc15;
-  color:#000;
-  font-weight:700;
+  background:linear-gradient(135deg,var(--rf-yellow),var(--rf-yellow-strong));
+  font-weight:800;
   cursor:pointer;
 }
 </style>
@@ -169,213 +131,168 @@ textarea{
 
 <body>
 
-<div class="top">
-  <div class="logo">GRUPO RF DRIVER</div>
-  <div class="titulo">Resumo</div>
+<div class="header">Resumo da Viagem</div>
+
+<div class="container">
+
+<div class="card">
+<h3>Rota</h3>
+<div id="rota"></div>
 </div>
 
-<div class="content">
+<div class="card">
+<h3>Observação ao motorista</h3>
+<textarea id="observacaoInput"></textarea>
+</div>
 
-  <div class="bloco">
-    <h3>Adicionais</h3>
-
-    <div class="switch">
-      <span>Saída de mercado</span>
-      <div class="toggle" id="mercadoToggle" onclick="toggleExtra('mercado')"></div>
-    </div>
-
-    <div class="switch">
-      <span>Saída de praia</span>
-      <div class="toggle" id="praiaToggle" onclick="toggleExtra('praia')"></div>
-    </div>
-
-    <div class="switch">
-      <span>Desvio de rota</span>
-      <div class="toggle" id="desvioToggle" onclick="toggleExtra('desvio')"></div>
-    </div>
-
-    <div style="margin-top:12px;">
-      <label>Valor extra recebido</label>
-      <input type="number" id="extraManual"
-             value="0"
-             min="0"
-             step="0.01"
-             oninput="atualizarResumo()">
-    </div>
-
-    <div style="margin-top:10px;">
-      <label>Transporte animal</label>
-      <select id="animalSelect" onchange="selectAnimal()">
-        <option value="nao">Não</option>
-        <option value="pequeno">Pequeno</option>
-        <option value="medio">Médio</option>
-        <option value="grande">Grande</option>
-      </select>
-    </div>
-  </div>
-
-  <div class="bloco">
-    <h3>Observações</h3>
-    <textarea id="observacaoInput"
-      placeholder="Ex: Estou com mala grande, criança, preciso de troco..."></textarea>
-  </div>
-
-  <div class="bloco">
-    <h3>Detalhamento</h3>
-    <div id="detalhamento"></div>
-  </div>
+<div class="card">
+<h3>Detalhamento</h3>
+<div id="detalhamento"></div>
+</div>
 
 </div>
 
-<div class="footer-fixo">
-  <div class="footer-content">
-    <div class="valor-total" id="totalFinal">R$ 0,00</div>
-    <button onclick="solicitar()">Enviar recibo via Whatsapp</button>
-  </div>
+<div class="footer">
+<div class="footer-inner">
+<div class="valor" id="valorFinal">R$ 0,00</div>
+<button onclick="solicitar()">Solicitar</button>
+</div>
 </div>
 
 <script>
 
-// ===============================
-// DADOS DA CORRIDA
-// ===============================
-
 const corrida = JSON.parse(localStorage.getItem("rf_corrida_temp"));
-if(!corrida) window.location.href = "viagem.html";
+if(!corrida) window.location.href="home.html";
 
-const { origem, parada, destino, valor } = corrida;
+let { origem, parada, destino, valor } = corrida;
 
-let extras = {
-  mercado:false,
-  praia:false,
-  desvio:false,
-  animal:"nao"
+function montarRota(){
+  let html = `<div class="rota-item"><span>Origem:</span> ${origem}</div>`;
+
+  if(parada){
+    html += `<div class="rota-item"><span>Parada:</span> ${parada}</div>`;
+  }
+
+  html += `<div class="rota-item"><span>Destino:</span> ${destino}</div>`;
+
+  document.getElementById("rota").innerHTML = html;
+}
+
+function adicionalNoturno(base){
+
+  const agora = new Date();
+  const hora = agora.getHours() + agora.getMinutes()/60;
+
+  if(hora >= 22.5 || hora <= 5){
+
+    if(base <= 24.99){
+      return 4.99;
+    }
+
+    return base * 0.35;
+  }
+
+  return 0;
+}
+
+function calcular(){
+
+  let base = parseFloat(valor);
+  let detalheHTML = "";
+
+  detalheHTML += `<div class="linha"><span>Base</span><span>R$ ${base.toFixed(2)}</span></div>`;
+
+  const noturno = adicionalNoturno(base);
+
+  if(noturno > 0){
+
+    detalheHTML += `
+    <div class="linha"><span>Adicional Noturno</span><span>R$ ${noturno.toFixed(2)}</span></div>
+    <div class="badge">Tarifa Noturna Ativa</div>
+    `;
+
+    base += noturno;
+  }
+
+  /* TAXA SAÍDA DE PRAIA */
+
+  const praias = [
+  "Gaibu",
+  "Calhetas",
+  "Itapuama",
+  "Enseada"
+  ];
+
+  const dia = new Date().getDay();
+
+  if(praias.includes(destino) && (dia === 0 || dia === 6)){
+
+    detalheHTML += `
+    <div class="linha"><span>Saída de Praia</span><span>R$ 10.00</span></div>
+    <div class="badge">Taxa válida sábados, domingos e feriados. Ida segue valor normal.</div>
+    `;
+
+    base += 10;
+  }
+
+  detalheHTML += `<div class="total">Total: R$ ${base.toFixed(2)}</div>`;
+
+  document.getElementById("detalhamento").innerHTML = detalheHTML;
+  document.getElementById("valorFinal").innerText = "R$ "+base.toFixed(2);
+
+  localStorage.setItem("rf_total_final",base.toFixed(2));
+}
+
+function abrirEscolhaWhatsApp(msg){
+
+const texto = encodeURIComponent(msg);
+
+const modal = document.createElement("div");
+
+modal.style.position="fixed";
+modal.style.inset="0";
+modal.style.background="rgba(0,0,0,.7)";
+modal.style.display="flex";
+modal.style.alignItems="center";
+modal.style.justifyContent="center";
+modal.style.zIndex="9999";
+
+modal.innerHTML = `
+<div style="background:#111;padding:25px;border-radius:20px;text-align:center;max-width:300px">
+
+<h3 style="margin-bottom:15px">Enviar via</h3>
+
+<button id="waNormal" style="width:100%;margin-bottom:10px;padding:12px;border-radius:10px;">
+WhatsApp
+</button>
+
+<button id="waBusiness" style="width:100%;padding:12px;border-radius:10px;">
+WhatsApp Business
+</button>
+
+</div>
+`;
+
+document.body.appendChild(modal);
+
+document.getElementById("waNormal").onclick=()=>{
+window.open(`https://wa.me/?text=${texto}`,"_blank");
+modal.remove();
 };
 
-// ===============================
-// FUNÇÕES AUXILIARES
-// ===============================
+document.getElementById("waBusiness").onclick=()=>{
+window.open(`https://api.whatsapp.com/send?text=${texto}`,"_blank");
+modal.remove();
+};
 
-function toggleExtra(tipo){
-  extras[tipo] = !extras[tipo];
-  document.getElementById(tipo+"Toggle").classList.toggle("ativo");
-  atualizarResumo();
 }
-
-function selectAnimal(){
-  extras.animal = document.getElementById("animalSelect").value;
-  atualizarResumo();
-}
-
-function aplicarNoturno(valorBase){
-  const agora = new Date();
-  const hora = agora.getHours() + (agora.getMinutes()/60);
-  if(hora >= 22.5 || hora <= 5){
-    return valorBase + Taxas.noturno.valorFixo;
-  }
-  return valorBase;
-}
-
-function arredondar(valor){
-  return Math.ceil(valor * 100) / 100;
-}
-
-// ===============================
-// CÁLCULO PRINCIPAL
-// ===============================
-
-function atualizarResumo(){
-
-  const categoria = localStorage.getItem("rf_categoria") || "Driver";
-  const pagamento = localStorage.getItem("rf_pagamento") || "Dinheiro";
-  const multiplicador = parseFloat(localStorage.getItem("rf_mult")) || 1;
-
-  let base = valor * multiplicador;
-  base = aplicarNoturno(base);
-
-  let subtotalBase = Dinamico.ativo ? base * Dinamico.multiplicador : base;
-
-  let detalhamento = "";
-
-  detalhamento += `
-  <div class="linha">
-    <span>Categoria</span>
-    <span>${categoria}</span>
-  </div>
-  <div class="linha">
-    <span>Valor base ajustado</span>
-    <span>R$ ${base.toFixed(2)}</span>
-  </div>
-  `;
-
-  if(extras.mercado){
-    subtotalBase += Taxas.feira;
-    detalhamento += `<div class="linha"><span>Saída de mercado</span><span>+ R$ ${Taxas.feira.toFixed(2)}</span></div>`;
-  }
-
-  if(extras.praia){
-    subtotalBase += Taxas.voltaPraia;
-    detalhamento += `<div class="linha"><span>Saída de praia</span><span>+ R$ ${Taxas.voltaPraia.toFixed(2)}</span></div>`;
-  }
-
-  if(extras.desvio){
-    subtotalBase += 4.99;
-    detalhamento += `<div class="linha"><span>Desvio de rota</span><span>+ R$ 4.99</span></div>`;
-  }
-
-  if(extras.animal !== "nao"){
-    const valorAnimal = Taxas.animal[extras.animal];
-    subtotalBase += valorAnimal;
-    detalhamento += `<div class="linha"><span>Animal (${extras.animal})</span><span>+ R$ ${valorAnimal.toFixed(2)}</span></div>`;
-  }
-
-  subtotalBase = arredondar(subtotalBase);
-
-  const extraManual = parseFloat(document.getElementById("extraManual").value) || 0;
-
-  let taxaCartao = 0;
-  let totalComCartao = subtotalBase;
-
-  if(pagamento === "Cartão Crédito"){
-    totalComCartao = arredondar(subtotalBase / 0.95);
-    taxaCartao = arredondar(totalComCartao - subtotalBase);
-  }
-
-  if(pagamento === "Cartão Débito"){
-    totalComCartao = arredondar(subtotalBase / 0.98);
-    taxaCartao = arredondar(totalComCartao - subtotalBase);
-  }
-
-  let totalGeral = arredondar(totalComCartao + extraManual);
-
-  detalhamento += `<div class="linha"><span>Subtotal</span><span>R$ ${subtotalBase.toFixed(2)}</span></div>`;
-
-  if(taxaCartao > 0){
-    detalhamento += `<div class="linha"><span>Taxa ${pagamento}</span><span>+ R$ ${taxaCartao.toFixed(2)}</span></div>`;
-  }
-
-  if(extraManual > 0){
-    detalhamento += `<div class="linha"><span>Valor extra recebido</span><span>+ R$ ${extraManual.toFixed(2)}</span></div>`;
-  }
-
-  detalhamento += `<div class="linha total"><span>Total Geral</span><span>R$ ${totalGeral.toFixed(2)}</span></div>`;
-
-  document.getElementById("detalhamento").innerHTML = detalhamento;
-  document.getElementById("totalFinal").innerText = "R$ " + totalGeral.toFixed(2);
-
-  localStorage.setItem("rf_total_final", totalGeral);
-}
-
-// ===============================
-// RECIBO WHATSAPP
-// ===============================
 
 function solicitar(){
 
-  atualizarResumo();
-
   const agora = new Date();
+
   const dataFormatada = agora.toLocaleDateString("pt-BR");
+
   const horaFormatada = agora.toLocaleTimeString("pt-BR", {
     hour: "2-digit",
     minute: "2-digit"
@@ -386,17 +303,23 @@ function solicitar(){
   const detalhamentoDiv = document.getElementById("detalhamento");
 
   let linhas = [];
+
   detalhamentoDiv.querySelectorAll(".linha").forEach(linha => {
+
       const spans = linha.querySelectorAll("span");
+
       if(spans.length === 2){
           linhas.push(`${spans[0].innerText}: ${spans[1].innerText}`);
       }
+
   });
 
   const detalhamentoTexto = linhas.join("\n");
+
   const totalFinal = Number(localStorage.getItem("rf_total_final")) || 0;
 
   let blocoObservacao = "";
+
   if(observacao){
     blocoObservacao = `
 _____________________________
@@ -409,7 +332,7 @@ ${observacao}`;
 ${origem}
 `;
 
-  if(parada && parada.trim() !== ""){
+  if(parada){
     blocoItinerario += `
 🛑 Parada:
 ${parada}
@@ -439,11 +362,11 @@ _____________________________
 _GRUPO RF_
 58.615.336/0001-49`;
 
-  const url = `https://wa.me/?text=${encodeURIComponent(msg)}`;
-  window.open(url, "_blank");
+  abrirEscolhaWhatsApp(msg);
 }
 
-atualizarResumo();
+montarRota();
+calcular();
 
 </script>
 
