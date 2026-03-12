@@ -1,6 +1,5 @@
 [
-
-{ "origem": "Cohab", "destino": "Centro do Cabo", "valor": 9.99, "regiao": "Cabo" },
+
 { "origem": "Cohab", "destino": "Credimoveis (Centro)", "valor": 9.99, "regiao": "Cabo" },
 { "origem": "Cohab", "destino": "Magazine Luiza (Centro)", "valor": 9.99, "regiao": "Cabo" },
 { "origem": "Cohab", "destino": "Casas Bahia (Centro)", "valor": 9.99, "regiao": "Cabo" },
@@ -29,8 +28,8 @@
 { "origem": "Cohab", "destino": "Praça Theo Silva (Centro)", "valor": 9.99, "regiao": "Cabo" },
 { "origem": "Cohab", "destino": "Rua São joão (Centro)", "valor": 12.99, "regiao": "Cabo" },
 { "origem": "Cohab", "destino": "Hospital Mendo Sampaio (Mista)", "valor": 14.99, "regiao": "Cabo" },
-{ "origem": "Cohab", "destino": "Hospital Infantil (Centro)", "valor": 9.99, "regiao": "Cabo" },
-{ "origem": "Cohab", "destino": "Hospital InfantoJuvenil (Centro)", "valor": 10.99, "regiao": "Cabo" },
+{ "origem": "Cohab", "destino": "Hospital Infantil (Centro)", "valor": 11.99, "regiao": "Cabo" },
+{ "origem": "Cohab", "destino": "Hospital InfantoJuvenil (Centro)", "valor": 11.99, "regiao": "Cabo" },
 { "origem": "Cohab", "destino": "Hospital São Sebastião (Centro)", "valor": 9.99, "regiao": "Cabo" },
 { "origem": "Cohab", "destino": "Hospital Samaritano (Centro)", "valor": 9.99, "regiao": "Cabo" },
 { "origem": "Cohab", "destino": "Hospital HapVida Cabo", "valor": 9.99, "regiao": "Cabo" },
@@ -67,18 +66,19 @@
 { "origem": "Cohab", "destino": "Bairro São Francisco Alto dos Mirandas", "valor": 12.99, "regiao": "Cabo" },
 { "origem": "Cohab", "destino": "Bairro São Francisco Caixa D'água", "valor": 12.99, "regiao": "Cabo" },
 { "origem": "Cohab", "destino": "Bairro São Francisco Rua do Bicudo", "valor": 12.99, "regiao": "Cabo" },
-{ "origem": "Cohab", "destino": "Bairro São Francisco Rua 53", "valor": 10.99, "regiao": "Cabo" },
-{ "origem": "Cohab", "destino": "Bairro São Francisco (R. da Aurora)", "valor": 11.99, "regiao": "Cabo" },
+{ "origem": "Cohab", "destino": "Bairro São Francisco Rua 53", "valor": 11.99, "regiao": "Cabo" },
+{ "origem": "Cohab", "destino": "Bairro São Francisco (R. da Aurora)", "valor": 12.99, "regiao": "Cabo" },
   
 { "origem": "Cohab", "destino": "Bela Vista", "valor": 12.99, "regiao": "Cabo" },
 { "origem": "Cohab", "destino": "Cruzeiro", "valor": 12.99, "regiao": "Cabo" },
-{ "origem": "Cohab", "destino": "Padaria de gilberto (cruzeiro)", "valor": 12.99, "regiao": "Cabo" },
+{ "origem": "Cohab", "destino": "Padaria de gilberto (cruzeiro)", "valor": 11.99, "regiao": "Cabo" },
 { "origem": "Cohab", "destino": "Toca", "valor": 9.99, "regiao": "Cabo" },
 { "origem": "Cohab", "destino": "Rua 25 da Bela Vista", "valor": 11.99, "regiao": "Cabo" },
   
 { "origem": "Cohab", "destino": "Charnequinha Baixa", "valor": 12.99, "regiao": "Cabo" },
 { "origem": "Cohab", "destino": "Charnequinha Alta", "valor": 12.99, "regiao": "Cabo" },
-{ "origem": "Cohab", "destino": "Charnequinha (R. 2 e área da quadra)", "valor": 13.99, "regiao": "Cabo" },
+{ "origem": "Cohab", "destino": "Charnequinha (Área da quadra e aredores)", "valor": 12.99, "regiao": "Cabo" },
+{ "origem": "Cohab", "destino": "Charnequinha (R. 2 após área da quadra)", "valor": 14.99, "regiao": "Cabo" },
 { "origem": "Cohab", "destino": "Sapucaia", "valor": 11.99, "regiao": "Cabo" },
   
 { "origem": "Cohab", "destino": "Destilaria", "valor": 9.99, "regiao": "Cabo" },
@@ -86,7 +86,9 @@
 { "origem": "Cohab", "destino": "Clube da Destilaria", "valor": 9.99, "regiao": "Cabo" },
 { "origem": "Cohab", "destino": "Vila Social", "valor": 9.99, "regiao": "Cabo" },
 { "origem": "Cohab", "destino": "Rua do Dique (Vila Social)", "valor": 11.99, "regiao": "Cabo" },
-  
+
+{ "origem": "Cohab", "destino": "Condomínio em frente ao Intense", "valor": 11.99, "regiao": "Cabo" },
+{ "origem": "Cohab", "destino": "Motel Intense Prime", "valor": 11.99, "regiao": "Cabo" }, 
 { "origem": "Cohab", "destino": "SAFPE PE-60", "valor": 9.99, "regiao": "Cabo" },
 { "origem": "Cohab", "destino": "ATACADÃO PE-60", "valor": 9.99, "regiao": "Cabo" },
 { "origem": "Cohab", "destino": "ASSAÍ PE-60", "valor": 9.99, "regiao": "Cabo" },
