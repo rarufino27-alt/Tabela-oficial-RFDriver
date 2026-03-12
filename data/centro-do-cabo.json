@@ -58,7 +58,7 @@
 { "origem": "Centro do Cabo", "destino": "Posto de Saúde (Cohab)", "valor": 9.99, "regiao": "Cabo" },
 { "origem": "Centro do Cabo", "destino": "UPA24h (Cohab)", "valor": 9.99, "regiao": "Cabo" },
 { "origem": "Centro do Cabo", "destino": "Rua Do Açude (Cohab)", "valor": 12.99, "regiao": "Cabo" },
-{ "origem": "Centro do Cabo", "destino": "Rua Cristo Rei (Cohab)", "valor": 9.99, "regiao": "Cabo" },
+{ "origem": "Centro do Cabo", "destino": "Rua Cristo Rei (Cohab)", "valor": 11.99, "regiao": "Cabo" },
   
 { "origem": "Centro do Cabo", "destino": "Bairro São Francisco (PRAÇA)", "valor": 11.99, "regiao": "Cabo" },
 { "origem": "Centro do Cabo", "destino": "Bairro São Francisco Baixo", "valor": 11.99, "regiao": "Cabo" },
@@ -75,9 +75,10 @@
 { "origem": "Centro do Cabo", "destino": "Toca", "valor": 11.99, "regiao": "Cabo" },
 { "origem": "Centro do Cabo", "destino": "Rua 25 da Bela Vista", "valor": 12.99, "regiao": "Cabo" },
   
-{ "origem": "Centro do Cabo", "destino": "Charnequinha Baixa", "valor": 9.99, "regiao": "Cabo" },
+{ "origem": "Centro do Cabo", "destino": "Charnequinha Baixa", "valor": 11.99, "regiao": "Cabo" },
 { "origem": "Centro do Cabo", "destino": "Charnequinha Alta", "valor": 12.99, "regiao": "Cabo" },
-{ "origem": "Centro do Cabo", "destino": "Charnequinha (R. 2 e área da quadra)", "valor": 13.99, "regiao": "Cabo" },
+{ "origem": "Centro do Cabo", "destino": "Charnequinha (Área da quadra e aredores)", "valor": 12.99, "regiao": "Cabo" },
+{ "origem": "Centro do Cabo", "destino": "Charnequinha (R. 2 após área da quadra)", "valor": 14.99, "regiao": "Cabo" },
 { "origem": "Centro do Cabo", "destino": "Sapucaia", "valor": 9.99, "regiao": "Cabo" },
   
 { "origem": "Centro do Cabo", "destino": "Destilaria", "valor": 9.99, "regiao": "Cabo" },
@@ -85,7 +86,9 @@
 { "origem": "Centro do Cabo", "destino": "Clube da Destilaria", "valor": 9.99, "regiao": "Cabo" },
 { "origem": "Centro do Cabo", "destino": "Vila Social", "valor": 9.99, "regiao": "Cabo" },
 { "origem": "Centro do Cabo", "destino": "Rua do Dique (Vila Social)", "valor": 11.99, "regiao": "Cabo" },
-  
+
+{ "origem": "Centro do Cabo", "destino": "Motel Intense Prime", "valor": 12.99, "regiao": "Cabo" },
+{ "origem": "Centro do Cabo", "destino": "Condomínio em frente ao Intense", "valor": 12.99, "regiao": "Cabo" },  
 { "origem": "Centro do Cabo", "destino": "SAFPE PE-60", "valor": 9.99, "regiao": "Cabo" },
 { "origem": "Centro do Cabo", "destino": "ATACADÃO PE-60", "valor": 9.99, "regiao": "Cabo" },
 { "origem": "Centro do Cabo", "destino": "ASSAÍ PE-60", "valor": 9.99, "regiao": "Cabo" },
