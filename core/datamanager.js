@@ -3,9 +3,10 @@ const DataManager = {
   rotas: [],
 
   arquivos: [
-    "./data/shopping-costinha.json",
+    
     "./data/condominio-porto-do-cabo.json",
     "./data/gaibu.json",
+    "./data/shopping-costinha.json",
     "./data/enseadas.json",
     "./data/setor-4.json",
     "./data/xareu.json",
