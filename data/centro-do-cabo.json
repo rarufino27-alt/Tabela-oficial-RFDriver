@@ -228,6 +228,6 @@
 { "origem": "Centro do Cabo", "destino": "Barra de Sirinhaém", "valor": 119.99, "regiao": "Cabo" },
 { "origem": "Centro do Cabo", "destino": "Rio Formoso", "valor": 129.99, "regiao": "Cabo" },
 { "origem": "Centro do Cabo", "destino": "Barreiros", "valor": 174.99, "regiao": "Cabo" },
-{ "origem": "Centro do Cabo", "destino": "São José da Coroa Grande", "valor": 199.99, "regiao": "Cabo" },
+{ "origem": "Centro do Cabo", "destino": "São José da Coroa Grande", "valor": 199.99, "regiao": "Cabo" }
 
 ]
