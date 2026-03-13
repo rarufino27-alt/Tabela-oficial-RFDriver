@@ -14,7 +14,6 @@ const DataManager = {
     "./data/lote-garapu2-lote-dona-amara.json",
     "./data/cohab.json",
     "./data/centro-do-cabo.json",
-    "./data/shopping-costa-dourada.json",
     "./data/aguia-american-club-br-101.json",
     "./data/empresas.json",
     "./data/engenhos.json",
