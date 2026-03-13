@@ -69,7 +69,8 @@
 { "origem": "Centro do Cabo", "destino": "Bairro São Francisco Rua 53", "valor": 12.99, "regiao": "Cabo" },
 { "origem": "Centro do Cabo", "destino": "Bairro São Francisco (R. da Aurora)", "valor": 11.99, "regiao": "Cabo" },
   
-{ "origem": "Centro do Cabo", "destino": "Bela Vista", "valor": 12.99, "regiao": "Cabo" },
+{ "origem": "Centro do Cabo", "destino": "Bela Vista Alta", "valor": 12.99, "regiao": "Cabo" },
+{ "origem": "Centro do Cabo", "destino": "Bela Vista Baixa", "valor": 10.99, "regiao": "Cabo" },
 { "origem": "Centro do Cabo", "destino": "Cruzeiro", "valor": 12.99, "regiao": "Cabo" },
 { "origem": "Centro do Cabo", "destino": "Padaria de gilberto (cruzeiro)", "valor": 9.99, "regiao": "Cabo" },
 { "origem": "Centro do Cabo", "destino": "Toca", "valor": 11.99, "regiao": "Cabo" },
