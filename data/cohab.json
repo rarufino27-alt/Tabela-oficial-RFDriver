@@ -75,8 +75,6 @@
 { "origem": "Cohab", "destino": "Condomínio Porto do Cabo", "valor": 11.99, "regiao": "Cabo" },
 { "origem": "Cohab", "destino": "Loteamento DHARMA VILLE", "valor": 13.99, "regiao": "Cabo" },
 { "origem": "Cohab", "destino": "Comunidade Madri Iva (Subida do Shopping)", "valor": 9.99, "regiao": "Cabo" },
-{ "origem": "Cohab", "destino": "Shopping Costa Dourada (Cohab Antes da Passira)", "valor": 9.99, "regiao": "Cabo" },
-{ "origem": "Cohab", "destino": "Shopping Costa Dourada (Cohab Após a Passira)", "valor": 12.99, "regiao": "Cabo" },
 { "origem": "Cohab", "destino": "Rosário", "valor": 14.99, "regiao": "Cabo" },
 { "origem": "Cohab", "destino": "SEST-SENAT (Rosário)", "valor": 14.99, "regiao": "Cabo" },
 { "origem": "Cohab", "destino": "Agodoais Sentido Ipojuca", "valor": 24.99, "regiao": "Cabo" },
