@@ -23,7 +23,7 @@ const DataManager = {
     "./data/locais.json",
     "./data/longas-locais.json",
     "./data/praias.json",
-    "./data/bairro-sao-francisco-baixo.json"
+    "./data/bairro-baixo.json"
   ],
 
   async carregar() {
