@@ -93,6 +93,7 @@
 { "origem": "Cohab", "destino": "SAFPE PE-60", "valor": 9.99, "regiao": "Cabo" },
 { "origem": "Cohab", "destino": "ATACADÃO PE-60", "valor": 9.99, "regiao": "Cabo" },
 { "origem": "Cohab", "destino": "ASSAÍ PE-60", "valor": 9.99, "regiao": "Cabo" },
+  
 { "origem": "Cohab", "destino": "Santo Inácio", "valor": 9.99, "regiao": "Cabo" },
 { "origem": "Cohab", "destino": "Vila Roca", "valor": 9.99, "regiao": "Cabo" },
 { "origem": "Cohab", "destino": "Vila Roca Armazém Cusino", "valor": 9.99, "regiao": "Cabo" },
@@ -103,7 +104,7 @@
 { "origem": "Cohab", "destino": "Garapú 1 (1º Modelo Até Nova Era)", "valor": 12.99, "regiao": "Cabo" },
 { "origem": "Cohab", "destino": "Garapú Espaço Cidadania", "valor": 12.99, "regiao": "Cabo" },
 { "origem": "Cohab", "destino": "Garapú 2 (Nova Era Até 2º Modelo)", "valor": 14.99, "regiao": "Cabo" },
-{ "origem": "Cohab", "destino": "Garapú 2 Campo de Aranha", "valor": 14.99, "regiao": "Cabo" },
+{ "origem": "Cohab", "destino": "Garapú Campo de Aranha", "valor": 14.99, "regiao": "Cabo" },
 { "origem": "Cohab", "destino": "Garapú 3 (2º Modelo Até Flamenguinho)", "valor": 17.99, "regiao": "Cabo" },
 { "origem": "Cohab", "destino": "Garapú 3 Após Flamenguinho", "valor": 19.99, "regiao": "Cabo" },
 { "origem": "Cohab", "destino": "Garapú Em frente Ao Shopping", "valor": 14.99, "regiao": "Cabo" },
