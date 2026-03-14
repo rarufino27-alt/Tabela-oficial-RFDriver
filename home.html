@@ -350,10 +350,109 @@ text-align:center;
 background:#2a2a2a;
 }
 
+/* RADAR FUNDO */
+
+.radar-bg{
+position:fixed;
+top:50%;
+left:50%;
+transform:translate(-50%,-50%);
+width:900px;
+height:900px;
+pointer-events:none;
+opacity:0.08;
+z-index:0;
+}
+
+.radar-circle{
+position:absolute;
+border:1px solid #ffd700;
+border-radius:50%;
+animation:radarPulse 6s infinite;
+}
+
+.radar-circle:nth-child(1){
+width:200px;
+height:200px;
+top:350px;
+left:350px;
+animation-delay:0s;
+}
+
+.radar-circle:nth-child(2){
+width:400px;
+height:400px;
+top:250px;
+left:250px;
+animation-delay:1s;
+}
+
+.radar-circle:nth-child(3){
+width:600px;
+height:600px;
+top:150px;
+left:150px;
+animation-delay:2s;
+}
+
+.radar-circle:nth-child(4){
+width:800px;
+height:800px;
+top:50px;
+left:50px;
+animation-delay:3s;
+}
+
+/* varredura */
+
+.radar-line{
+position:absolute;
+width:450px;
+height:2px;
+background:linear-gradient(90deg,transparent,#ffd700);
+top:449px;
+left:450px;
+transform-origin:left center;
+animation:radarSweep 8s linear infinite;
+}
+
+/* animações */
+
+@keyframes radarSweep{
+0%{ transform:rotate(0deg); }
+100%{ transform:rotate(360deg); }
+}
+
+@keyframes radarPulse{
+0%{opacity:0.2;}
+50%{opacity:0.6;}
+100%{opacity:0.2;}
+}
+
+.center,
+.slider,
+.top-white,
+.menu,
+.bottom{
+position:relative;
+z-index:2;
+}
+
 </style>
 </head>
 
 <body>
+
+<div class="radar-bg">
+
+<div class="radar-circle"></div>
+<div class="radar-circle"></div>
+<div class="radar-circle"></div>
+<div class="radar-circle"></div>
+
+<div class="radar-line"></div>
+
+</div>
 
 <!-- MENU LATERAL -->
 
