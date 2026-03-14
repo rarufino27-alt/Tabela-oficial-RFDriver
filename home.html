@@ -16,11 +16,8 @@ box-sizing:border-box;
 font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;
 }
 
-/* FUNDO PREMIUM */
-
 body{
-background:
-radial-gradient(circle at top,#1f1f1f 0%,#0a0a0a 55%,#000 100%);
+background:radial-gradient(circle at top,#1f1f1f 0%,#0a0a0a 55%,#000 100%);
 color:#fff;
 height:100vh;
 overflow:hidden;
@@ -29,7 +26,7 @@ overflow:hidden;
 /* HEADER */
 
 .top-white{
-background:#ffffff;
+background:#fff;
 padding:20px 20px 28px 20px;
 display:flex;
 justify-content:space-between;
@@ -94,17 +91,7 @@ margin-bottom:20px;
 color:#ffd700;
 }
 
-.menu-item{
-padding:14px 0;
-border-bottom:1px solid rgba(255,255,255,.08);
-cursor:pointer;
-}
-
-.menu-item:hover{
-color:#ffd700;
-}
-
-/* SLIDES */
+/* SLIDER */
 
 .slider{
 width:90%;
@@ -112,7 +99,8 @@ max-width:420px;
 margin:20px auto;
 overflow:hidden;
 border-radius:18px;
-border:1px solid rgba(255,215,0,0.15);
+border:1px solid rgba(255,215,0,0.2);
+box-shadow:0 10px 25px rgba(0,0,0,.6);
 }
 
 .slides{
@@ -127,6 +115,26 @@ background-size:cover;
 background-position:center;
 }
 
+/* INDICADOR */
+
+.indicadores{
+display:flex;
+justify-content:center;
+gap:6px;
+margin-top:6px;
+}
+
+.dotSlide{
+width:6px;
+height:6px;
+border-radius:50%;
+background:#555;
+}
+
+.dotSlide.ativo{
+background:#ffd700;
+}
+
 /* CENTRO */
 
 .center{
@@ -138,26 +146,21 @@ width:90%;
 max-width:420px;
 }
 
-/* TITULO */
-
 .titulo-central{
 text-align:center;
 font-weight:700;
 font-size:1.3rem;
 margin-bottom:30px;
-color:#ffffff;
 }
 
-/* CARD PREMIUM */
+/* CARD */
 
 .card{
 background:rgba(255,255,255,0.04);
 backdrop-filter:blur(16px);
 border-radius:22px;
 padding:22px;
-box-shadow:
-0 10px 30px rgba(0,0,0,0.8),
-inset 0 0 0 1px rgba(255,255,255,0.03);
+box-shadow:0 10px 30px rgba(0,0,0,.8);
 border:1px solid rgba(255,215,0,0.12);
 position:relative;
 }
@@ -170,7 +173,6 @@ left:0;
 width:60px;
 height:3px;
 background:linear-gradient(90deg,#ffd700,#ffb800);
-border-bottom-right-radius:6px;
 }
 
 /* CAMPOS */
@@ -182,17 +184,17 @@ justify-content:space-between;
 padding:16px 0;
 border-bottom:1px solid rgba(255,255,255,.08);
 cursor:pointer;
+transition:.2s;
 }
 
-.campo:last-child{
-border-bottom:none;
+.campo:hover{
+transform:translateX(4px);
 }
 
 .campo-left{
 display:flex;
 align-items:center;
 gap:12px;
-font-weight:500;
 }
 
 .dot{
@@ -237,14 +239,7 @@ border-radius:35px;
 background:linear-gradient(135deg,#ffd700,#ffb800);
 color:#000;
 font-weight:900;
-font-size:1rem;
 cursor:pointer;
-box-shadow:0 6px 20px rgba(255,200,0,.35);
-}
-
-button:disabled{
-background:#333;
-color:#777;
 }
 
 /* MODAL */
@@ -252,7 +247,7 @@ color:#777;
 .modal{
 position:fixed;
 inset:0;
-background:rgba(0,0,0,.8);
+background:rgba(0,0,0,.85);
 display:none;
 align-items:center;
 justify-content:center;
@@ -302,26 +297,14 @@ background:#2a2a2a;
 
 <body>
 
-<div class="menu-overlay" id="menuOverlay" onclick="fecharMenu()"></div>
-
-<div class="menu" id="menu">
-<h3>Menu</h3>
-<div class="menu-item" onclick="irPara('termos.html')">Regras do Grupo RF</div>
-<div class="menu-item" onclick="irPara('configuracoes.html')">Configurações</div>
-</div>
-
 <div class="top-white">
-
 <div class="logo-area">
 <img src="icons/icon-192.png" class="logo-img">
 <span class="logo-text-dark">Tabela de Preços MOTORISTA RF</span>
 </div>
-
-<div class="menu-btn-dark" onclick="abrirMenu()">☰</div>
-
 </div>
 
-<!-- SLIDES -->
+<!-- SLIDER -->
 
 <div class="slider">
 <div class="slides" id="slides">
@@ -333,6 +316,14 @@ background:#2a2a2a;
 <div class="slide" style="background-image:url('slides/slide5.jpg')"></div>
 
 </div>
+</div>
+
+<div class="indicadores">
+<div class="dotSlide ativo"></div>
+<div class="dotSlide"></div>
+<div class="dotSlide"></div>
+<div class="dotSlide"></div>
+<div class="dotSlide"></div>
 </div>
 
 <div class="center">
@@ -388,31 +379,32 @@ Para onde vamos hoje?
 </div>
 
 <div class="modal" id="modal">
-
 <div class="modal-content">
-
 <input type="text" id="busca" placeholder="Buscar local...">
-
 <div class="lista" id="lista"></div>
-
 </div>
-
 </div>
 
 <script>
 
-/* SLIDES AUTOMÁTICOS */
+/* SLIDER */
 
 let slideIndex=0;
 const slides=document.getElementById("slides");
+const dots=document.querySelectorAll(".dotSlide");
 
 setInterval(()=>{
 slideIndex++;
 if(slideIndex>=5) slideIndex=0;
+
 slides.style.transform=`translateX(-${slideIndex*100}%)`;
+
+dots.forEach(d=>d.classList.remove("ativo"));
+dots[slideIndex].classList.add("ativo");
+
 },4000);
 
-/* TODO O RESTO DO JS PERMANECE EXATAMENTE IGUAL */
+/* SISTEMA ORIGINAL */
 
 let origem=null, parada=null, destino=null, modo=null;
 
@@ -422,26 +414,145 @@ const busca=document.getElementById("busca");
 const confirmarBtn=document.getElementById("confirmar");
 const tipoCarroSelect=document.getElementById("tipoCarro");
 
-function abrirMenu(){
-document.getElementById("menu").classList.add("ativo");
-document.getElementById("menuOverlay").style.display="block";
-}
-
-function fecharMenu(){
-document.getElementById("menu").classList.remove("ativo");
-document.getElementById("menuOverlay").style.display="none";
-}
-
-function irPara(pagina){
-window.location.href=pagina;
-}
-
 async function init(){
 await DataManager.carregar();
 }
 init();
 
-/* RESTANTE DO SEU JS ORIGINAL CONTINUA IGUAL */
+function abrirModal(tipo){
+
+if(tipo!=="origem" && !origem){
+alert("Selecione a origem primeiro.");
+return;
+}
+
+modo=tipo;
+busca.value="";
+modal.style.display="flex";
+
+let dados=[];
+
+if(tipo==="origem") dados=DataManager.listarOrigens();
+
+if(tipo==="parada") dados=DataManager.listarDestinos(origem)
+.filter(p=>DataManager.listarDestinos(p).length>0);
+
+if(tipo==="destino"){
+dados=parada
+?DataManager.listarDestinos(parada)
+:DataManager.listarDestinos(origem);
+}
+
+renderLista(dados);
+
+}
+
+function renderLista(arr){
+
+lista.innerHTML="";
+
+arr.forEach(item=>{
+
+const div=document.createElement("div");
+div.innerText=item;
+
+div.onclick=()=>{
+selecionar(item);
+modal.style.display="none";
+};
+
+lista.appendChild(div);
+
+});
+
+}
+
+busca.addEventListener("input",()=>{
+
+const termo=busca.value.toLowerCase();
+
+Array.from(lista.children).forEach(div=>{
+div.style.display=div.innerText.toLowerCase().includes(termo)
+? "block"
+: "none";
+});
+
+});
+
+function selecionar(valor){
+
+if(modo==="origem"){
+origem=valor;
+parada=null;
+destino=null;
+
+origemTexto.innerText=valor;
+paradaTexto.innerText="Selecionar parada";
+destinoTexto.innerText="Selecionar destino";
+paradaBtn.style.display="none";
+}
+
+if(modo==="parada"){
+parada=valor;
+destino=null;
+paradaTexto.innerText=valor;
+}
+
+if(modo==="destino"){
+destino=valor;
+destinoTexto.innerText=valor;
+}
+
+confirmarBtn.disabled=!(origem && destino);
+
+}
+
+origemBtn.onclick=()=>abrirModal("origem");
+paradaBtn.onclick=()=>abrirModal("parada");
+destinoBtn.onclick=()=>abrirModal("destino");
+
+addParada.onclick=(e)=>{
+
+e.stopPropagation();
+
+if(!origem){
+alert("Selecione a origem primeiro.");
+return;
+}
+
+paradaBtn.style.display="flex";
+
+};
+
+modal.onclick=e=>{
+if(e.target===modal) modal.style.display="none";
+};
+
+confirmarBtn.onclick=()=>{
+
+let valorTotal=0;
+
+if(!parada){
+valorTotal=DataManager.buscarValor(origem,destino)||0;
+}else{
+const p1=DataManager.buscarValor(origem,parada)||0;
+const p2=DataManager.buscarValor(parada,destino)||0;
+valorTotal=p1+p2;
+}
+
+const tipoCarro=parseFloat(tipoCarroSelect.value);
+
+localStorage.setItem("rf_corrida_temp",JSON.stringify({
+origem,
+parada,
+destino,
+valor:valorTotal,
+categoria:tipoCarro
+}));
+
+window.location.href="resumo.html";
+
+};
 
 </script>
 
