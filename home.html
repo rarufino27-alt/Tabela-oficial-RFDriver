@@ -307,6 +307,49 @@ cursor:pointer;
 background:#2a2a2a;
 }
 
+/* RF SELECT */
+
+.rf-select{
+background:#111;
+border:1px solid rgba(255,255,255,.1);
+border-radius:12px;
+padding:10px 14px;
+cursor:pointer;
+min-width:120px;
+text-align:right;
+}
+
+/* MODAL SELECT */
+
+.rf-modal{
+position:fixed;
+inset:0;
+background:rgba(0,0,0,.85);
+display:none;
+align-items:center;
+justify-content:center;
+z-index:300;
+}
+
+.rf-modal-content{
+background:#1c1c1c;
+border-radius:18px;
+width:90%;
+max-width:340px;
+overflow:hidden;
+}
+
+.rf-option{
+padding:16px;
+border-bottom:1px solid rgba(255,255,255,.08);
+cursor:pointer;
+text-align:center;
+}
+
+.rf-option:hover{
+background:#2a2a2a;
+}
+
 </style>
 </head>
 
@@ -546,6 +589,36 @@ div.style.display=div.innerText.toLowerCase().includes(termo)
 });
 
 });
+
+/* SELECT PREMIUM TIPO CARRO */
+
+const tipoCarroBtn = document.getElementById("tipoCarroBtn");
+const modalTipoCarro = document.getElementById("modalTipoCarro");
+const tipoCarroTexto = document.getElementById("tipoCarroTexto");
+const tipoCarroInput = document.getElementById("tipoCarro");
+
+tipoCarroBtn.onclick = () => {
+modalTipoCarro.style.display = "flex";
+};
+
+document.querySelectorAll("#modalTipoCarro .rf-option").forEach(opcao=>{
+opcao.onclick = () => {
+
+const valor = opcao.dataset.value;
+
+tipoCarroInput.value = valor;
+tipoCarroTexto.innerText = opcao.innerText;
+
+modalTipoCarro.style.display = "none";
+
+};
+});
+
+modalTipoCarro.onclick = (e)=>{
+if(e.target === modalTipoCarro){
+modalTipoCarro.style.display="none";
+}
+};
 
 function selecionar(valor){
 
