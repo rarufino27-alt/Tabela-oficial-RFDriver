@@ -20,8 +20,6 @@ color:#fff;
 min-height:100vh;
 }
 
-/* HEADER */
-
 .top-white{
 background:#fff;
 padding:20px 20px 28px 20px;
@@ -56,8 +54,6 @@ font-size:24px;
 cursor:pointer;
 color:#000;
 }
-
-/* MENU */
 
 .menu-overlay{
 position:fixed;
@@ -98,15 +94,11 @@ cursor:pointer;
 color:#facc15;
 }
 
-/* CONTAINER */
-
 .container{
 padding:30px 25px 140px;
 max-width:450px;
 margin:auto;
 }
-
-/* CARD */
 
 .card{
 background:#1c1c1c;
@@ -175,8 +167,6 @@ background:#ff3b30;
 margin-top:8px;
 }
 
-/* FOOTER */
-
 .footer{
 position:fixed;
 bottom:0;
@@ -224,14 +214,11 @@ cursor:pointer;
 </div>
 
 <div class="top-white">
-
 <div class="logo-area">
 <img src="icons/icon-192.png" class="logo-img">
 <span class="logo-text-dark">GRUPO RF</span>
 </div>
-
 <div class="menu-btn-dark" onclick="abrirMenu()">☰</div>
-
 </div>
 
 <div class="container">
@@ -282,12 +269,10 @@ cursor:pointer;
 
 <div class="card">
 <h3>Saída de Praia</h3>
-
 <select id="saidaPraia" class="select">
 <option value="0">Não</option>
 <option value="10">Sim (+ R$ 10,00)</option>
 </select>
-
 </div>
 
 <div class="card">
@@ -298,19 +283,12 @@ cursor:pointer;
 </div>
 
 <div class="footer">
-
 <div class="footer-inner">
-
 <div class="valor" id="valorFinal">R$ 0,00</div>
-
 <div class="cta-area">
-<button onclick="solicitar()">
-Enviar recibo via Whatsapp
-</button>
+<button onclick="solicitar()">Enviar recibo via Whatsapp</button>
 </div>
-
 </div>
-
 </div>
 
 <script>
@@ -333,6 +311,8 @@ const corrida = JSON.parse(localStorage.getItem("rf_corrida_temp"));
 if(!corrida) window.location.href="home.html";
 
 let { origem, parada, destino, valor, categoria = 1 } = corrida;
+
+let detalhamentoRecibo = "";
 
 function montarRota(){
 
@@ -372,8 +352,10 @@ function calcular(){
 let base=parseFloat(valor)||0;
 let taxas=0;
 let detalhe="";
+let recibo="";
 
 detalhe+=`<div class="linha"><span>Rota</span><span>R$ ${base.toFixed(2)}</span></div>`;
+recibo+=`Valor base: R$ ${base.toFixed(2)}\n`;
 
 const noturno=adicionalNoturno(base);
 
@@ -382,34 +364,45 @@ if(noturno>0){
 detalhe+=`<div class="linha"><span>Adicional Noturno</span><span>R$ ${noturno.toFixed(2)}</span></div>
 <div class="badge">Tarifa Noturna</div>`;
 
+recibo+=`Adicional Noturno: R$ ${noturno.toFixed(2)}\n`;
+
 base+=noturno;
 
 }
 
 const saidaPraia=parseFloat(document.getElementById("saidaPraia").value)||0;
+
 if(saidaPraia>0){
 detalhe+=`<div class="linha"><span>Saída de Praia</span><span>R$ ${saidaPraia.toFixed(2)}</span></div>`;
+recibo+=`Saída de Praia: R$ ${saidaPraia.toFixed(2)}\n`;
 taxas+=saidaPraia;
 }
 
 const feira=parseFloat(document.getElementById("feira").value)||0;
+
 if(feira>0){
 detalhe+=`<div class="linha"><span>Feira</span><span>R$ ${feira.toFixed(2)}</span></div>`;
+recibo+=`Taxa de Feira: R$ ${feira.toFixed(2)}\n`;
 taxas+=feira;
 }
 
 const animal=parseFloat(document.getElementById("animal").value)||0;
+
 if(animal>0){
 detalhe+=`<div class="linha"><span>Animal</span><span>R$ ${animal.toFixed(2)}</span></div>`;
+recibo+=`Transporte Animal: R$ ${animal.toFixed(2)}\n`;
 taxas+=animal;
 }
 
 const espera=parseFloat(document.getElementById("espera").value)||0;
+
 if(espera>5){
 
 const taxaEspera=3 + ((espera-5)*0.60);
 
 detalhe+=`<div class="linha"><span>Espera</span><span>R$ ${taxaEspera.toFixed(2)}</span></div>`;
+recibo+=`Tempo de Espera: R$ ${taxaEspera.toFixed(2)}\n`;
+
 taxas+=taxaEspera;
 
 }
@@ -421,6 +414,8 @@ if(categoria>1){
 const acrescimo=subtotal*(categoria-1);
 
 detalhe+=`<div class="linha"><span>Categoria 6 lugares</span><span>R$ ${acrescimo.toFixed(2)}</span></div>`;
+
+recibo+=`Acréscimo 6 lugares: R$ ${acrescimo.toFixed(2)}\n`;
 
 subtotal=subtotal*categoria;
 
@@ -445,6 +440,8 @@ detalhe+=`<div class="total">Total: R$ ${total.toFixed(2)}</div>`;
 
 document.getElementById("detalhe").innerHTML=detalhe;
 document.getElementById("valorFinal").innerText="R$ "+total.toFixed(2);
+
+detalhamentoRecibo = recibo;
 
 localStorage.setItem("rf_total_final",total.toFixed(2));
 
@@ -478,7 +475,9 @@ _____________________________
 *Detalhamento da viagem*
 
 Categoria: ${categoriaTexto}
-Valor base ajustado: R$ ${parseFloat(valor).toFixed(2)}
+
+${detalhamentoRecibo}
+
 Subtotal: R$ ${parseFloat(valor).toFixed(2)}
 Total Geral: R$ ${parseFloat(total).toFixed(2)}
 
@@ -502,8 +501,6 @@ const url = `https://wa.me/?text=${encodeURIComponent(msg)}`;
 window.location.href = url;
 
 }
-
-/* EXECUTA AO ABRIR */
 
 montarRota();
 calcular();
