@@ -466,6 +466,25 @@ if(categoria > 1){
 categoriaTexto = "Driver 6 Lugares";
 }
 
+/* ITINERÁRIO DINÂMICO */
+
+let itinerario = `📍 Origem:
+${origem}
+
+`;
+
+if(parada){
+itinerario += `🛑 Parada:
+${parada}
+
+`;
+}
+
+itinerario += `🏁 Destino:
+${destino}`;
+
+/* MENSAGEM */
+
 const msg =
 `*RECIBO DE VIAGEM RF*
 ${data}
@@ -484,11 +503,7 @@ Total Geral: R$ ${parseFloat(total).toFixed(2)}
 _____________________________
 *ITINERÁRIO*
 
-📍 Origem:
-${origem}
-
-🏁 Destino:
-${destino}
+${itinerario}
 
 _____________________________
 💰 *Total: R$ ${parseFloat(total).toFixed(2)}*
