@@ -394,10 +394,11 @@ Para onde vamos hoje?
 <div>Tipo de veículo</div>
 </div>
 
-<select id="tipoCarro" class="select">
-<option value="1">4 lugares</option>
-<option value="1.5">6 lugares (+50%)</option>
-</select>
+<div class="rf-select" id="tipoCarroBtn">
+<span id="tipoCarroTexto">4 lugares</span>
+</div>
+
+<input type="hidden" id="tipoCarro" value="1">
 
 </div>
 
@@ -416,6 +417,22 @@ Para onde vamos hoje?
 </div>
 </div>
 
+  <div class="rf-modal" id="modalTipoCarro">
+
+<div class="rf-modal-content">
+
+<div class="rf-option" data-value="1">
+4 lugares
+</div>
+
+<div class="rf-option" data-value="1.5">
+6 lugares (+50%)
+</div>
+
+</div>
+
+</div>
+  
 <script>
 
 /* SLIDER */
