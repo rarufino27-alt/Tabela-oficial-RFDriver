@@ -288,10 +288,6 @@ cursor:pointer;
 <option value="10">Sim (+ R$ 10,00)</option>
 </select>
 
-<p style="font-size:12px;opacity:.7;margin-top:8px">
-Taxa válida para saídas de praia aos sábados, domingos e feriados.
-</p>
-
 </div>
 
 <div class="card">
@@ -308,9 +304,9 @@ Taxa válida para saídas de praia aos sábados, domingos e feriados.
 <div class="valor" id="valorFinal">R$ 0,00</div>
 
 <div class="cta-area">
-  <button class="cta-primary" onclick="solicitar()">
-    Enviar recibo via Whatsapp
-  </button>
+<button onclick="solicitar()">
+Enviar recibo via Whatsapp
+</button>
 </div>
 
 </div>
@@ -373,7 +369,7 @@ return 0;
 
 function calcular(){
 
-let base=parseFloat(valor);
+let base=parseFloat(valor)||0;
 let taxas=0;
 let detalhe="";
 
@@ -390,29 +386,25 @@ base+=noturno;
 
 }
 
-const saidaPraia=parseFloat(document.getElementById("saidaPraia").value);
-
+const saidaPraia=parseFloat(document.getElementById("saidaPraia").value)||0;
 if(saidaPraia>0){
 detalhe+=`<div class="linha"><span>Saída de Praia</span><span>R$ ${saidaPraia.toFixed(2)}</span></div>`;
 taxas+=saidaPraia;
 }
 
-const feira=parseFloat(document.getElementById("feira").value);
-
+const feira=parseFloat(document.getElementById("feira").value)||0;
 if(feira>0){
 detalhe+=`<div class="linha"><span>Feira</span><span>R$ ${feira.toFixed(2)}</span></div>`;
 taxas+=feira;
 }
 
-const animal=parseFloat(document.getElementById("animal").value);
-
+const animal=parseFloat(document.getElementById("animal").value)||0;
 if(animal>0){
 detalhe+=`<div class="linha"><span>Animal</span><span>R$ ${animal.toFixed(2)}</span></div>`;
 taxas+=animal;
 }
 
-const espera=parseFloat(document.getElementById("espera").value);
-
+const espera=parseFloat(document.getElementById("espera").value)||0;
 if(espera>5){
 
 const taxaEspera=3 + ((espera-5)*0.60);
@@ -510,6 +502,11 @@ const url = `https://wa.me/?text=${encodeURIComponent(msg)}`;
 window.location.href = url;
 
 }
+
+/* EXECUTA AO ABRIR */
+
+montarRota();
+calcular();
 
 </script>
 
