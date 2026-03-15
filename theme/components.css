@@ -1,3 +1,5 @@
+/* CARD */
+
 .card{
 background:rgba(255,255,255,0.04);
 backdrop-filter:blur(16px);
@@ -18,6 +20,51 @@ height:3px;
 background:linear-gradient(90deg,#ffd700,#ffb800);
 }
 
+/* CAMPOS */
+
+.campo{
+display:flex;
+align-items:center;
+justify-content:space-between;
+padding:16px 0;
+border-bottom:1px solid rgba(255,255,255,.08);
+cursor:pointer;
+transition:.2s;
+}
+
+.campo-left{
+display:flex;
+align-items:center;
+gap:12px;
+}
+
+.dot{
+width:10px;
+height:10px;
+border-radius:50%;
+}
+
+.origem{background:#22c55e;}
+.parada{background:#ffd700;}
+.destino{background:#ef4444;}
+
+.plus{
+font-size:20px;
+color:#ffd700;
+}
+
+/* SELECT */
+
+.select{
+background:#111;
+color:#fff;
+border-radius:10px;
+padding:6px;
+border:1px solid rgba(255,255,255,.1);
+}
+
+/* BOTÃO */
+
 button{
 width:100%;
 padding:18px;
@@ -29,6 +76,63 @@ font-weight:900;
 cursor:pointer;
 }
 
+button:disabled{
+background:#333;
+color:#777;
+}
+
+/* MODAL */
+
+.modal{
+position:fixed;
+inset:0;
+background:rgba(0,0,0,.85);
+display:none;
+align-items:center;
+justify-content:center;
+padding:20px;
+z-index:200;
+}
+
+.modal-content{
+background:#1c1c1c;
+width:100%;
+max-width:420px;
+border-radius:20px;
+padding:20px;
+max-height:80vh;
+display:flex;
+flex-direction:column;
+border:1px solid rgba(255,255,255,.08);
+}
+
+.modal-content input{
+width:100%;
+padding:14px;
+border-radius:12px;
+border:1px solid rgba(255,255,255,.1);
+background:#111;
+color:#fff;
+margin-bottom:14px;
+}
+
+.lista{
+overflow-y:auto;
+flex:1;
+}
+
+.lista div{
+padding:12px;
+border-radius:10px;
+cursor:pointer;
+}
+
+.lista div:hover{
+background:#2a2a2a;
+}
+
+/* SELECT CARRO */
+
 .rf-select{
 background:#111;
 border:1px solid rgba(255,255,255,.1);
@@ -39,13 +143,33 @@ min-width:120px;
 text-align:right;
 }
 
-.modal-content{
-background:#1c1c1c;
-border-radius:20px;
-padding:20px;
+/* MODAL VEICULO */
+
+.rf-modal{
+position:fixed;
+inset:0;
+background:rgba(0,0,0,.85);
+display:none;
+align-items:center;
+justify-content:center;
+z-index:300;
 }
 
 .rf-modal-content{
 background:#1c1c1c;
 border-radius:18px;
+width:90%;
+max-width:340px;
+overflow:hidden;
+}
+
+.rf-option{
+padding:16px;
+border-bottom:1px solid rgba(255,255,255,.08);
+cursor:pointer;
+text-align:center;
+}
+
+.rf-option:hover{
+background:#2a2a2a;
 }
