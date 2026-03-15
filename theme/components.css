@@ -29,7 +29,16 @@ justify-content:space-between;
 padding:16px 0;
 border-bottom:1px solid rgba(255,255,255,.08);
 cursor:pointer;
-transition:.2s;
+transition:transform .15s ease, opacity .15s ease;
+}
+
+.campo:hover{
+transform:translateX(4px);
+}
+
+.campo:active{
+transform:scale(.98);
+opacity:.8;
 }
 
 .campo-left{
