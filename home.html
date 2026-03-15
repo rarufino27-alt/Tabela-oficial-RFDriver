@@ -417,6 +417,15 @@ animation:radarSweep 10s linear infinite;
 100%{opacity:0.2;}
 }
 
+body[data-theme="light"]{
+background:#f3f3f3;
+color:#000;
+}
+
+body[data-theme="light"] .card{
+background:#fff;
+}
+
 </style>
 </head>
 
@@ -784,6 +793,14 @@ categoria:tipoCarro
 window.location.href="resumo.html";
 
 };
+
+(function(){
+
+const temaSalvo = localStorage.getItem("rf_theme") || "dark";
+
+document.body.setAttribute("data-theme", temaSalvo);
+
+})();
 
 </script>
 
