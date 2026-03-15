@@ -1,4 +1,6 @@
-/* CARD */
+/* =========================
+CARD
+========================= */
 
 .card{
 background:rgba(255,255,255,0.04);
@@ -8,6 +10,7 @@ padding:22px;
 box-shadow:0 10px 30px rgba(0,0,0,.8);
 border:1px solid rgba(255,215,0,0.12);
 position:relative;
+transition:transform .25s ease, box-shadow .25s ease;
 }
 
 .card::before{
@@ -20,7 +23,14 @@ height:3px;
 background:linear-gradient(90deg,#ffd700,#ffb800);
 }
 
-/* CAMPOS */
+.card:hover{
+transform:translateY(-3px);
+box-shadow:0 14px 34px rgba(0,0,0,.9);
+}
+
+/* =========================
+CAMPOS
+========================= */
 
 .campo{
 display:flex;
@@ -62,7 +72,9 @@ font-size:20px;
 color:#ffd700;
 }
 
-/* SELECT */
+/* =========================
+SELECT
+========================= */
 
 .select{
 background:#111;
@@ -72,7 +84,9 @@ padding:6px;
 border:1px solid rgba(255,255,255,.1);
 }
 
-/* BOTÃO */
+/* =========================
+BOTÃO
+========================= */
 
 button{
 width:100%;
@@ -97,7 +111,9 @@ button:active{
 transform:scale(.97);
 }
 
-/* MODAL */
+/* =========================
+MODAL
+========================= */
 
 .modal{
 position:fixed;
@@ -155,7 +171,9 @@ cursor:pointer;
 background:#2a2a2a;
 }
 
-/* SELECT CARRO */
+/* =========================
+SELECT VEÍCULO
+========================= */
 
 .rf-select{
 background:#111;
@@ -168,7 +186,7 @@ text-align:right;
 color:#fff;
 }
 
-/* versão clara */
+/* tema claro */
 
 body[data-theme="light"] .rf-select{
 background:#f2f2f2;
@@ -176,7 +194,9 @@ color:#000;
 border:1px solid rgba(0,0,0,.12);
 }
 
-/* MODAL VEICULO */
+/* =========================
+MODAL VEÍCULO
+========================= */
 
 .rf-modal{
 position:fixed;
@@ -207,16 +227,9 @@ text-align:center;
 background:#2a2a2a;
 }
 
-.card{
-transition:transform .25s ease, box-shadow .25s ease;
-}
-
-.card:hover{
-transform:translateY(-3px);
-box-shadow:0 14px 34px rgba(0,0,0,.9);
-}
-
-/* SLIDER */
+/* =========================
+SLIDER
+========================= */
 
 .slider{
 width:90%;
@@ -240,7 +253,9 @@ background-size:cover;
 background-position:center;
 }
 
-/* INDICADORES */
+/* =========================
+INDICADORES
+========================= */
 
 .indicadores{
 display:flex;
@@ -260,70 +275,15 @@ background:#555;
 background:#ffd700;
 }
 
-.titulo-central{
-text-align:center;
-font-weight:800;
-font-size:26px;
-margin:28px 0 22px;
-position:relative;
-letter-spacing:.3px;
-}
-
-.titulo-central::after{
-content:"";
-width:60px;
-height:4px;
-background:#facc15;
-display:block;
-margin:10px auto 0;
-border-radius:4px;
-}
-
-body[data-theme="light"] .titulo-central{
-color:#111;
-}
-
-body[data-theme="dark"] .titulo-central{
-color:#fff;
-}
-
-.loading{
-position:fixed;
-inset:0;
-background:rgba(255,255,255,.9);
-display:flex;
-align-items:center;
-justify-content:center;
-z-index:999;
-flex-direction:column;
-}
-
-.loading span{
-margin-top:12px;
-font-size:14px;
-opacity:.7;
-}
-
-.loader{
-width:40px;
-height:40px;
-border-radius:50%;
-border:4px solid #eee;
-border-top:4px solid #facc15;
-animation:spin 1s linear infinite;
-}
-
-@keyframes spin{
-to{
-transform:rotate(360deg);
-}
-}
+/* =========================
+TÍTULO
+========================= */
 
 .titulo-box{
 width:90%;
 max-width:420px;
-margin:20px auto 10px auto;
-padding:14px 18px;
+margin:18px auto 10px auto;
+padding:12px 18px;
 background:rgba(255,255,255,0.75);
 border-radius:14px;
 backdrop-filter:blur(6px);
@@ -333,10 +293,11 @@ animation:fadeTitle .6s ease;
 }
 
 .titulo-central{
-font-size:20px;
-font-weight:700;
+font-size:22px;
+font-weight:800;
 letter-spacing:.3px;
 color:#111;
+text-align:center;
 }
 
 .titulo-central span{
@@ -352,5 +313,45 @@ transform:translateY(-6px);
 to{
 opacity:1;
 transform:translateY(0);
+}
+}
+
+/* =========================
+LOADING
+========================= */
+
+.loading{
+position:fixed;
+inset:0;
+background:rgba(255,255,255,.92);
+display:flex;
+align-items:center;
+justify-content:center;
+z-index:999;
+flex-direction:column;
+}
+
+body[data-theme="dark"] .loading{
+background:rgba(0,0,0,.9);
+}
+
+.loading span{
+margin-top:12px;
+font-size:14px;
+opacity:.7;
+}
+
+.loader{
+width:38px;
+height:38px;
+border-radius:50%;
+border:3px solid rgba(0,0,0,.08);
+border-top:3px solid #facc15;
+animation:spin .9s linear infinite;
+}
+
+@keyframes spin{
+to{
+transform:rotate(360deg);
 }
 }
