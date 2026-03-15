@@ -278,20 +278,18 @@ TÍTULO
 ========================= */
 
 .titulo-box{
-width:90%;
-max-width:420px;
-margin:18px auto 10px auto;
-padding:12px 18px;
-background:rgba(255,255,255,0.75);
-border-radius:14px;
-backdrop-filter:blur(6px);
-box-shadow:0 6px 18px rgba(0,0,0,0.15);
+width:85%;
+max-width:360px;
+margin:10px auto 12px auto;
+padding:10px 16px;
+background:rgba(255,255,255,0.9);
+border-radius:12px;
+box-shadow:0 4px 14px rgba(0,0,0,.12);
 text-align:center;
-animation:fadeTitle .6s ease;
 }
 
 .titulo-central{
-font-size:22px;
+font-size:20px;
 font-weight:800;
 letter-spacing:.3px;
 color:#111;
