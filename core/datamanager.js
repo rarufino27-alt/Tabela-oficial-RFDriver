@@ -3,7 +3,7 @@ const DataManager = {
   rotas: [],
 
   arquivos: [
-    
+
     "./data/condominio-porto-do-cabo.json",
     "./data/gaibu.json",
     "./data/shopping-costinha.json",
@@ -25,30 +25,40 @@ const DataManager = {
     "./data/longas-locais.json",
     "./data/praias.json",
     "./data/bairro-baixo.json"
+
   ],
 
   async carregar() {
-    try {
 
-      const respostas = await Promise.all(
-        this.arquivos.map(a =>
-          fetch(a).then(r => {
-            if (!r.ok) throw new Error("Falha ao carregar " + a);
-            return r.json();
-          })
-        )
-      );
+    this.rotas = [];
 
-      this.rotas = respostas.flat();
+    for (const arquivo of this.arquivos) {
 
-      console.log("✅ Rotas carregadas:", this.rotas.length);
+      try {
 
-    } catch (e) {
+        const r = await fetch(arquivo);
 
-      console.error("❌ Erro ao carregar rotas", e);
-      throw e;
+        if (!r.ok) {
+          console.warn("Arquivo não encontrado:", arquivo);
+          continue;
+        }
+
+        const dados = await r.json();
+
+        if (Array.isArray(dados)) {
+          this.rotas.push(...dados);
+        }
+
+      } catch (e) {
+
+        console.warn("Erro ao carregar:", arquivo, e);
+
+      }
 
     }
+
+    console.log("✅ Total de rotas carregadas:", this.rotas.length);
+
   },
 
   listarOrigens() {
