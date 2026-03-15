@@ -277,3 +277,35 @@ color:#111;
 body[data-theme="dark"] .titulo-central{
 color:#fff;
 }
+
+.loading{
+position:fixed;
+inset:0;
+background:rgba(255,255,255,.9);
+display:flex;
+align-items:center;
+justify-content:center;
+z-index:999;
+flex-direction:column;
+}
+
+.loading span{
+margin-top:12px;
+font-size:14px;
+opacity:.7;
+}
+
+.loader{
+width:40px;
+height:40px;
+border-radius:50%;
+border:4px solid #eee;
+border-top:4px solid #facc15;
+animation:spin 1s linear infinite;
+}
+
+@keyframes spin{
+to{
+transform:rotate(360deg);
+}
+}
