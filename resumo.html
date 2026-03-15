@@ -13,21 +13,44 @@
 
 <body>
 
+<!-- MENU OVERLAY -->
+
 <div class="menu-overlay" id="menuOverlay" onclick="fecharMenu()"></div>
 
+<!-- MENU LATERAL PREMIUM -->
+
 <div class="menu" id="menu">
+
 <h3>Menu</h3>
-<div class="menu-item" onclick="irPara('home.html')">Nova viagem</div>
-<div class="menu-item" onclick="irPara('termos.html')">Regras do grupo</div>
+
+<div class="menu-item" onclick="irPara('home.html')">
+🚗 Nova viagem
 </div>
 
+<div class="menu-item" onclick="irPara('termos.html')">
+📜 Regras do grupo
+</div>
+
+<div class="menu-item" onclick="irPara('configuracoes.html')">
+⚙️ Configurações
+</div>
+
+</div>
+
+<!-- HEADER PREMIUM -->
+
 <div class="top-white">
+
 <div class="logo-area">
-<img src="icons/icon-192.png" class="logo-img">
-<span class="logo-text-dark">MOTORISTA RF</span>
+<img src="icons/icon-512.png" class="logo-img">
+<span class="logo-text-dark">RF MOTORISTA</span>
 </div>
+
 <div class="menu-btn-dark" onclick="abrirMenu()">☰</div>
+
 </div>
+
+<!-- CONTEÚDO -->
 
 <div class="container">
 
@@ -90,6 +113,8 @@
 
 </div>
 
+<!-- FOOTER FIXO -->
+
 <div class="footer">
 <div class="footer-inner">
 <div class="valor" id="valorFinal">R$ 0,00</div>
@@ -100,6 +125,7 @@
 </div>
 
 <script>
+
 (function(){
 
 const temaSalvo = localStorage.getItem("rf_theme") || "dark";
@@ -107,6 +133,8 @@ const temaSalvo = localStorage.getItem("rf_theme") || "dark";
 document.body.setAttribute("data-theme", temaSalvo);
 
 })();
+
+/* MENU */
 
 function abrirMenu(){
 document.getElementById("menu").classList.add("ativo");
@@ -122,12 +150,16 @@ function irPara(p){
 window.location.href=p;
 }
 
+/* CORRIDA */
+
 const corrida = JSON.parse(localStorage.getItem("rf_corrida_temp"));
 if(!corrida) window.location.href="home.html";
 
 let { origem, parada, destino, valor, categoria = 1 } = corrida;
 
 let detalhamentoRecibo = "";
+
+/* MONTA ROTA */
 
 function montarRota(){
 
@@ -142,6 +174,8 @@ html+=`<div class="rota-item"><span>Destino:</span> ${destino}</div>`;
 document.getElementById("rota").innerHTML=html;
 
 }
+
+/* ADICIONAL NOTURNO */
 
 function adicionalNoturno(base){
 
@@ -161,6 +195,8 @@ return base*0.35;
 return 0;
 
 }
+
+/* CALCULAR */
 
 function calcular(){
 
@@ -265,6 +301,8 @@ localStorage.setItem("rf_total_final",total.toFixed(2));
 document.querySelectorAll("select,input").forEach(e=>{
 e.addEventListener("change",calcular);
 });
+
+/* SOLICITAR */
 
 function solicitar(){
 
