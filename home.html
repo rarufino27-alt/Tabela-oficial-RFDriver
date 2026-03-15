@@ -5,464 +5,15 @@
 <title>RF – Viagem</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
+<link rel="stylesheet" href="theme/theme.css">
+<link rel="stylesheet" href="theme/layout.css">
+<link rel="stylesheet" href="theme/components.css">
+
 <script src="core/datamanager.js"></script>
 
-<style>
-
-*{
-margin:0;
-padding:0;
-box-sizing:border-box;
-font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;
-}
-
-body{
-background:radial-gradient(circle at top,#1f1f1f 0%,#0a0a0a 55%,#000 100%);
-color:#fff;
-height:100vh;
-overflow:hidden;
-}
-
-/* HEADER */
-
-.top-white{
-background:#fff;
-padding:20px 20px 28px 20px;
-display:flex;
-justify-content:space-between;
-align-items:center;
-border-bottom-left-radius:32px;
-border-bottom-right-radius:32px;
-box-shadow:0 10px 30px rgba(0,0,0,.25);
-}
-
-.logo-area{
-display:flex;
-align-items:center;
-gap:14px;
-}
-
-.logo-img{
-height:60px;
-border-radius:16px;
-}
-
-.logo-text-dark{
-font-weight:900;
-letter-spacing:1px;
-color:#000;
-font-size:1.1rem;
-}
-
-.menu-btn-dark{
-font-size:24px;
-cursor:pointer;
-color:#000;
-}
-
-/* MENU LATERAL */
-
-.menu-overlay{
-position:fixed;
-inset:0;
-background:rgba(0,0,0,.6);
-display:none;
-z-index:99;
-}
-
-.menu{
-position:fixed;
-top:0;
-left:-260px;
-width:260px;
-height:100%;
-background:#1a1a1a;
-transition:left .3s ease;
-z-index:100;
-padding:20px;
-}
-
-.menu.ativo{
-left:0;
-}
-
-.menu h3{
-margin-bottom:20px;
-color:#ffd700;
-}
-
-.menu-item{
-padding:14px 0;
-border-bottom:1px solid rgba(255,255,255,.08);
-cursor:pointer;
-}
-
-.menu-item:hover{
-color:#ffd700;
-}
-
-/* SLIDER */
-
-.slider{
-width:90%;
-max-width:420px;
-margin:20px auto;
-overflow:hidden;
-border-radius:18px;
-border:1px solid rgba(255,215,0,0.2);
-box-shadow:0 10px 25px rgba(0,0,0,.6);
-}
-
-.slides{
-display:flex;
-transition:transform .6s ease;
-}
-
-.slide{
-min-width:100%;
-height:110px;
-background-size:cover;
-background-position:center;
-}
-
-/* INDICADORES */
-
-.indicadores{
-display:flex;
-justify-content:center;
-gap:6px;
-margin-top:6px;
-}
-
-.dotSlide{
-width:6px;
-height:6px;
-border-radius:50%;
-background:#555;
-}
-
-.dotSlide.ativo{
-background:#ffd700;
-}
-
-/* CENTRO */
-
-.center{
-position:absolute;
-top:55%;
-left:50%;
-transform:translate(-50%,-50%);
-width:90%;
-max-width:420px;
-}
-
-.titulo-central{
-text-align:center;
-font-weight:700;
-font-size:1.3rem;
-margin-bottom:30px;
-}
-
-/* CARD */
-
-.card{
-background:rgba(255,255,255,0.04);
-backdrop-filter:blur(16px);
-border-radius:22px;
-padding:22px;
-box-shadow:0 10px 30px rgba(0,0,0,.8);
-border:1px solid rgba(255,215,0,0.12);
-position:relative;
-}
-
-.card::before{
-content:"";
-position:absolute;
-top:0;
-left:0;
-width:60px;
-height:3px;
-background:linear-gradient(90deg,#ffd700,#ffb800);
-}
-
-/* CAMPOS */
-
-.campo{
-display:flex;
-align-items:center;
-justify-content:space-between;
-padding:16px 0;
-border-bottom:1px solid rgba(255,255,255,.08);
-cursor:pointer;
-transition:.2s;
-}
-
-.campo:hover{
-transform:translateX(4px);
-}
-
-.campo-left{
-display:flex;
-align-items:center;
-gap:12px;
-}
-
-.dot{
-width:10px;
-height:10px;
-border-radius:50%;
-}
-
-.origem{background:#22c55e;}
-.parada{background:#ffd700;}
-.destino{background:#ef4444;}
-
-.plus{
-font-size:20px;
-color:#ffd700;
-}
-
-/* SELECT */
-
-.select{
-background:#111;
-color:#fff;
-border-radius:10px;
-padding:6px;
-border:1px solid rgba(255,255,255,.1);
-}
-
-/* BOTÃO */
-
-.bottom{
-position:absolute;
-bottom:30px;
-left:20px;
-right:20px;
-}
-
-button{
-width:100%;
-padding:18px;
-border:none;
-border-radius:35px;
-background:linear-gradient(135deg,#ffd700,#ffb800);
-color:#000;
-font-weight:900;
-cursor:pointer;
-}
-
-button:disabled{
-background:#333;
-color:#777;
-}
-
-/* MODAL */
-
-.modal{
-position:fixed;
-inset:0;
-background:rgba(0,0,0,.85);
-display:none;
-align-items:center;
-justify-content:center;
-padding:20px;
-z-index:200;
-}
-
-.modal-content{
-background:#1c1c1c;
-width:100%;
-max-width:420px;
-border-radius:20px;
-padding:20px;
-max-height:80vh;
-display:flex;
-flex-direction:column;
-border:1px solid rgba(255,255,255,.08);
-}
-
-.modal-content input{
-width:100%;
-padding:14px;
-border-radius:12px;
-border:1px solid rgba(255,255,255,.1);
-background:#111;
-color:#fff;
-margin-bottom:14px;
-}
-
-.lista{
-overflow-y:auto;
-flex:1;
-}
-
-.lista div{
-padding:12px;
-border-radius:10px;
-cursor:pointer;
-}
-
-.lista div:hover{
-background:#2a2a2a;
-}
-
-/* RF SELECT */
-
-.rf-select{
-background:#111;
-border:1px solid rgba(255,255,255,.1);
-border-radius:12px;
-padding:10px 14px;
-cursor:pointer;
-min-width:120px;
-text-align:right;
-}
-
-/* MODAL SELECT */
-
-.rf-modal{
-position:fixed;
-inset:0;
-background:rgba(0,0,0,.85);
-display:none;
-align-items:center;
-justify-content:center;
-z-index:300;
-}
-
-.rf-modal-content{
-background:#1c1c1c;
-border-radius:18px;
-width:90%;
-max-width:340px;
-overflow:hidden;
-}
-
-.rf-option{
-padding:16px;
-border-bottom:1px solid rgba(255,255,255,.08);
-cursor:pointer;
-text-align:center;
-}
-
-.rf-option:hover{
-background:#2a2a2a;
-}
-
-/* RADAR FUNDO */
-
-.radar-bg{
-position:fixed;
-top:0;
-left:0;
-width:100%;
-height:100%;
-pointer-events:none;
-opacity:0.05;
-z-index:-1;
-display:flex;
-align-items:center;
-justify-content:center;
-}
-
-.radar-circle{
-position:absolute;
-border:1px solid rgba(255,215,0,0.25);
-border-radius:50%;
-animation:radarPulse 6s infinite;
-}
-
-.radar-circle:nth-child(1){width:120px;height:120px;}
-.radar-circle:nth-child(2){width:260px;height:260px;}
-.radar-circle:nth-child(3){width:420px;height:420px;}
-.radar-circle:nth-child(4){width:600px;height:600px;}
-
-.radar-line{
-position:absolute;
-width:300px;
-height:2px;
-background:linear-gradient(90deg,transparent,#ffd700);
-transform-origin:left center;
-animation:radarSweep 10s linear infinite;
-}
-
-@keyframes radarSweep{
-0%{ transform:rotate(0deg); }
-100%{ transform:rotate(360deg); }
-}
-
-@keyframes radarPulse{
-0%{opacity:0.2;}
-50%{opacity:0.6;}
-100%{opacity:0.2;}
-}
-
-/* ========================= */
-/* TEMA CLARO */
-/* ========================= */
-
-body[data-theme="light"]{
-background:#f3f3f3;
-color:#000;
-}
-
-body[data-theme="light"] .card{
-background:#ffffff;
-}
-
-body[data-theme="light"] .menu{
-background:#ffffff;
-color:#000;
-}
-
-body[data-theme="light"] .menu-item{
-border-bottom:1px solid rgba(0,0,0,.08);
-}
-
-body[data-theme="light"] .modal{
-background:rgba(0,0,0,.35);
-}
-
-body[data-theme="light"] .modal-content{
-background:#ffffff;
-color:#000;
-border:1px solid rgba(0,0,0,.1);
-}
-
-body[data-theme="light"] .modal-content input{
-background:#f2f2f2;
-color:#000;
-border:1px solid rgba(0,0,0,.1);
-}
-
-body[data-theme="light"] .lista div:hover{
-background:#f2f2f2;
-}
-
-body[data-theme="light"] .rf-modal{
-background:rgba(0,0,0,.35);
-}
-
-body[data-theme="light"] .rf-modal-content{
-background:#ffffff;
-color:#000;
-}
-
-body[data-theme="light"] .rf-option{
-border-bottom:1px solid rgba(0,0,0,.08);
-}
-
-body[data-theme="light"] .rf-option:hover{
-background:#f2f2f2;
-}
-
-</style>
 </head>
 
 <body>
-
-<!-- MENU LATERAL -->
 
 <div class="menu-overlay" id="menuOverlay" onclick="fecharMenu()"></div>
 
@@ -471,8 +22,6 @@ background:#f2f2f2;
 <div class="menu-item" onclick="irPara('termos.html')">Regras do Grupo RF</div>
 <div class="menu-item" onclick="irPara('configuracoes.html')">Configurações</div>
 </div>
-
-<!-- HEADER -->
 
 <div class="top-white">
 
@@ -484,8 +33,6 @@ background:#f2f2f2;
 <div class="menu-btn-dark" onclick="abrirMenu()">☰</div>
 
 </div>
-
-<!-- SLIDER -->
 
 <div class="slider">
 <div class="slides" id="slides">
@@ -567,7 +114,7 @@ Para onde vamos hoje?
 </div>
 </div>
 
-  <div class="rf-modal" id="modalTipoCarro">
+<div class="rf-modal" id="modalTipoCarro">
 
 <div class="rf-modal-content">
 
@@ -582,7 +129,7 @@ Para onde vamos hoje?
 </div>
 
 </div>
-  
+
 <div class="radar-bg">
 
 <div class="radar-circle"></div>
@@ -593,6 +140,7 @@ Para onde vamos hoje?
 <div class="radar-line"></div>
 
 </div>
+
 <script>
 
 /* SLIDER */
@@ -706,8 +254,6 @@ div.style.display=div.innerText.toLowerCase().includes(termo)
 });
 
 });
-
-/* SELECT PREMIUM TIPO CARRO */
 
 const tipoCarroBtn = document.getElementById("tipoCarroBtn");
 const modalTipoCarro = document.getElementById("modalTipoCarro");
@@ -828,7 +374,6 @@ window.location.href="resumo.html";
 (function(){
 
 const temaSalvo = localStorage.getItem("rf_theme") || "dark";
-
 document.body.setAttribute("data-theme", temaSalvo);
 
 })();
