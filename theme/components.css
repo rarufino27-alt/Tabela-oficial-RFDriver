@@ -92,14 +92,11 @@ button{
 width:100%;
 padding:18px;
 border:none;
-border-radius:35px;
+border-radius:40px;
 background:linear-gradient(135deg,#ffd700,#ffb800);
 color:#000;
 font-weight:900;
-cursor:pointer;
-position:relative;
-overflow:hidden;
-transition:transform .15s ease, box-shadow .15s ease;
+letter-spacing:.5px;
 }
 
 button:hover{
@@ -347,6 +344,71 @@ animation:spin .9s linear infinite;
 }
 
 @keyframes spin{
+to{
+transform:rotate(360deg);
+}
+}
+
+/* RADAR BACKGROUND */
+
+.radar-bg{
+position:fixed;
+top:50%;
+left:50%;
+transform:translate(-50%,-50%);
+width:320px;
+height:320px;
+pointer-events:none;
+z-index:-1;
+}
+
+.radar-circle{
+position:absolute;
+border:2px solid rgba(250,204,21,0.25);
+border-radius:50%;
+width:100%;
+height:100%;
+animation:radarPulse 4s infinite;
+}
+
+.radar-circle:nth-child(2){
+animation-delay:1s;
+}
+
+.radar-circle:nth-child(3){
+animation-delay:2s;
+}
+
+.radar-circle:nth-child(4){
+animation-delay:3s;
+}
+
+.radar-line{
+position:absolute;
+width:50%;
+height:2px;
+background:linear-gradient(90deg,#facc15,transparent);
+top:50%;
+left:50%;
+transform-origin:left;
+animation:radarSweep 4s linear infinite;
+}
+
+@keyframes radarPulse{
+0%{
+transform:scale(0.2);
+opacity:0.6;
+}
+100%{
+transform:scale(1.6);
+opacity:0;
+}
+}
+
+@keyframes radarSweep{
+from{
+transform:rotate(0deg);
+}
 to{
 transform:rotate(360deg);
 }
