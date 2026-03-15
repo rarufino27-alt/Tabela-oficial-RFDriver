@@ -158,25 +158,18 @@ async function init(){
 
 const loading = document.getElementById("loading");
 
-let terminou = false;
-
-/* timeout de segurança */
-setTimeout(()=>{
-if(!terminou){
-loading.style.display="none";
-}
-},3000);
-
 try{
 
-await DataManager.carregar();
+await Promise.race([
+DataManager.carregar(),
+new Promise(resolve => setTimeout(resolve, 3000))
+]);
 
 }catch(e){
-console.warn("Erro ao carregar rotas", e);
+console.warn("Erro ao carregar tabela:", e);
 }
 
-terminou = true;
-loading.style.display="none";
+loading.style.display = "none";
 
 }
 
