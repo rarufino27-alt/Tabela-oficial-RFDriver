@@ -156,6 +156,15 @@ padding:10px 14px;
 cursor:pointer;
 min-width:120px;
 text-align:right;
+color:#fff;
+}
+
+/* versão clara */
+
+body[data-theme="light"] .rf-select{
+background:#f2f2f2;
+color:#000;
+border:1px solid rgba(0,0,0,.12);
 }
 
 /* MODAL VEICULO */
