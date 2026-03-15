@@ -15,6 +15,11 @@
 
 <body>
 
+<div id="loading" class="loading">
+<div class="loader"></div>
+<span>Carregando rotas...</span>
+</div>
+
 <!-- MENU LATERAL -->
 
 <div class="menu-overlay" id="menuOverlay" onclick="fecharMenu()"></div>
@@ -148,6 +153,11 @@ Para onde vamos hoje?
 </div>
 
 <script>
+
+async function init(){
+await DataManager.carregar();
+document.getElementById("loading").style.display="none";
+}
 
 /* SLIDER */
 
