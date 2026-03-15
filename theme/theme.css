@@ -1,31 +1,20 @@
-/* =========================
-TEMA GLOBAL RF DRIVER
-========================= */
-
 body{
-background:#0a0a0a;
-color:#ffffff;
-transition:background .25s,color .25s;
+background:radial-gradient(circle at top,#1f1f1f 0%,#0a0a0a 55%,#000 100%);
+color:#fff;
+height:100vh;
+overflow:hidden;
 }
 
-/* =========================
-TEMA CLARO
-========================= */
+/* TEMA CLARO */
 
 body[data-theme="light"]{
 background:#f3f3f3;
 color:#000;
 }
 
-/* CARDS */
-
 body[data-theme="light"] .card{
 background:#ffffff;
-color:#000;
-border:1px solid rgba(0,0,0,.08);
 }
-
-/* MENU */
 
 body[data-theme="light"] .menu{
 background:#ffffff;
@@ -35,8 +24,6 @@ color:#000;
 body[data-theme="light"] .menu-item{
 border-bottom:1px solid rgba(0,0,0,.08);
 }
-
-/* MODAIS */
 
 body[data-theme="light"] .modal{
 background:rgba(0,0,0,.35);
@@ -48,6 +35,16 @@ color:#000;
 border:1px solid rgba(0,0,0,.1);
 }
 
+body[data-theme="light"] .modal-content input{
+background:#f2f2f2;
+color:#000;
+border:1px solid rgba(0,0,0,.1);
+}
+
+body[data-theme="light"] .lista div:hover{
+background:#f2f2f2;
+}
+
 body[data-theme="light"] .rf-modal{
 background:rgba(0,0,0,.35);
 }
@@ -57,16 +54,10 @@ background:#ffffff;
 color:#000;
 }
 
-/* INPUTS */
-
-body[data-theme="light"] .modal-content input{
-background:#f2f2f2;
-color:#000;
-border:1px solid rgba(0,0,0,.1);
+body[data-theme="light"] .rf-option{
+border-bottom:1px solid rgba(0,0,0,.08);
 }
 
-/* LISTA */
-
-body[data-theme="light"] .lista div:hover{
+body[data-theme="light"] .rf-option:hover{
 background:#f2f2f2;
 }
