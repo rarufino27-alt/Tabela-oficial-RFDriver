@@ -13,11 +13,7 @@
 
 <body>
 
-<!-- MENU OVERLAY -->
-
 <div class="menu-overlay" id="menuOverlay" onclick="fecharMenu()"></div>
-
-<!-- MENU LATERAL PREMIUM -->
 
 <div class="menu" id="menu">
 
@@ -37,8 +33,6 @@
 
 </div>
 
-<!-- HEADER PREMIUM -->
-
 <div class="top-white">
 
 <div class="logo-area">
@@ -50,9 +44,27 @@
 
 </div>
 
-<!-- CONTEÚDO -->
-
 <div class="container">
+
+<div class="card">
+<h3>Resumo da viagem</h3>
+<div id="rota"></div>
+</div>
+
+<div class="card">
+<h3>Observação ao motorista</h3>
+<textarea id="obs" placeholder="Alguma observação para o motorista?"></textarea>
+</div>
+
+<div class="card">
+<h3>Forma de pagamento</h3>
+<select id="pagamento" class="select">
+<option value="dinheiro">Dinheiro</option>
+<option value="pix">Pix</option>
+<option value="debito">Cartão Débito</option>
+<option value="credito">Cartão Crédito</option>
+</select>
+</div>
 
 <div class="card">
 
@@ -84,7 +96,12 @@
 
 </div>
 
-<!-- FOOTER FIXO -->
+<div class="card">
+<h3>Resumo de valores</h3>
+<div id="detalhe"></div>
+</div>
+
+</div>
 
 <div class="footer">
 <div class="footer-inner">
@@ -105,8 +122,6 @@ document.body.setAttribute("data-theme", temaSalvo);
 
 })();
 
-/* MENU */
-
 function abrirMenu(){
 document.getElementById("menu").classList.add("ativo");
 document.getElementById("menuOverlay").style.display="block";
@@ -121,16 +136,12 @@ function irPara(p){
 window.location.href=p;
 }
 
-/* CORRIDA */
-
 const corrida = JSON.parse(localStorage.getItem("rf_corrida_temp"));
 if(!corrida) window.location.href="home.html";
 
 let { origem, parada, destino, valor, categoria = 1 } = corrida;
 
 let detalhamentoRecibo = "";
-
-/* MONTA ROTA */
 
 function montarRota(){
 
@@ -145,8 +156,6 @@ html+=`<div class="rota-item"><span>Destino:</span> ${destino}</div>`;
 document.getElementById("rota").innerHTML=html;
 
 }
-
-/* ADICIONAL NOTURNO */
 
 function adicionalNoturno(base){
 
@@ -166,8 +175,6 @@ return base*0.35;
 return 0;
 
 }
-
-/* CALCULAR */
 
 function calcular(){
 
@@ -272,8 +279,6 @@ localStorage.setItem("rf_total_final",total.toFixed(2));
 document.querySelectorAll("select,input").forEach(e=>{
 e.addEventListener("change",calcular);
 });
-
-/* SOLICITAR */
 
 function solicitar(){
 
