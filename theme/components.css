@@ -28,6 +28,13 @@ transform:translateY(-3px);
 box-shadow:0 14px 34px rgba(0,0,0,.9);
 }
 
+.card label{
+display:block;
+margin-top:12px;
+font-size:13px;
+opacity:.75;
+}
+
 /* =========================
 CAMPOS
 ========================= */
