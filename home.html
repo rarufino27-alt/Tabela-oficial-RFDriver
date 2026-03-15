@@ -5,15 +5,17 @@
 <title>RF – Viagem</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
+<script src="core/datamanager.js"></script>
+
 <link rel="stylesheet" href="theme/theme.css">
 <link rel="stylesheet" href="theme/layout.css">
 <link rel="stylesheet" href="theme/components.css">
 
-<script src="core/datamanager.js"></script>
-
 </head>
 
 <body>
+
+<!-- MENU LATERAL -->
 
 <div class="menu-overlay" id="menuOverlay" onclick="fecharMenu()"></div>
 
@@ -22,6 +24,8 @@
 <div class="menu-item" onclick="irPara('termos.html')">Regras do Grupo RF</div>
 <div class="menu-item" onclick="irPara('configuracoes.html')">Configurações</div>
 </div>
+
+<!-- HEADER -->
 
 <div class="top-white">
 
@@ -33,6 +37,8 @@
 <div class="menu-btn-dark" onclick="abrirMenu()">☰</div>
 
 </div>
+
+<!-- SLIDER -->
 
 <div class="slider">
 <div class="slides" id="slides">
@@ -255,6 +261,8 @@ div.style.display=div.innerText.toLowerCase().includes(termo)
 
 });
 
+/* SELECT PREMIUM TIPO CARRO */
+
 const tipoCarroBtn = document.getElementById("tipoCarroBtn");
 const modalTipoCarro = document.getElementById("modalTipoCarro");
 const tipoCarroTexto = document.getElementById("tipoCarroTexto");
@@ -374,6 +382,7 @@ window.location.href="resumo.html";
 (function(){
 
 const temaSalvo = localStorage.getItem("rf_theme") || "dark";
+
 document.body.setAttribute("data-theme", temaSalvo);
 
 })();
