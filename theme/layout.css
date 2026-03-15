@@ -49,9 +49,10 @@ gap:14px;
 }
 
 .logo-img{
-height:46px;
-width:46px;
-border-radius:12px;
+height:40px;
+width:40px;
+border-radius:10px;
+object-fit:cover;
 }
 
 .logo-text-dark{
@@ -155,4 +156,24 @@ margin-top:10px;
 width:90%;
 max-width:420px;
 margin:20px auto 40px auto;
+}
+
+/* DARK MODE */
+
+body[data-theme="dark"]{
+background:#0f0f0f;
+color:#fff;
+}
+
+body[data-theme="dark"] .top-white{
+background:#1c1c1c;
+color:#fff;
+}
+
+body[data-theme="dark"] .logo-text-dark{
+color:#fff;
+}
+
+body[data-theme="dark"] .menu-btn-dark{
+color:#fff;
 }
