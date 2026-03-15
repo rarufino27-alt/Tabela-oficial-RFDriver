@@ -2,6 +2,11 @@ const DataManager = {
 
   rotas: [],
 
+  CACHE_KEY: "rf_rotas_cache",
+  CACHE_TIME_KEY: "rf_rotas_cache_time",
+
+  CACHE_VALIDITY: 24 * 60 * 60 * 1000, // 24h
+
   arquivos: [
 
     "./data/condominio-porto-do-cabo.json",
@@ -30,34 +35,49 @@ const DataManager = {
 
   async carregar() {
 
-    this.rotas = [];
+    try {
 
-    for (const arquivo of this.arquivos) {
+      const cache = localStorage.getItem(this.CACHE_KEY);
+      const cacheTime = localStorage.getItem(this.CACHE_TIME_KEY);
 
-      try {
+      const agora = Date.now();
 
-        const r = await fetch(arquivo);
+      if (cache && cacheTime && (agora - cacheTime) < this.CACHE_VALIDITY) {
 
-        if (!r.ok) {
-          console.warn("Arquivo não encontrado:", arquivo);
-          continue;
-        }
+        this.rotas = JSON.parse(cache);
 
-        const dados = await r.json();
+        console.log("⚡ Rotas carregadas do CACHE:", this.rotas.length);
 
-        if (Array.isArray(dados)) {
-          this.rotas.push(...dados);
-        }
-
-      } catch (e) {
-
-        console.warn("Erro ao carregar:", arquivo, e);
+        return;
 
       }
 
-    }
+      console.log("⬇ Baixando rotas do servidor...");
 
-    console.log("✅ Total de rotas carregadas:", this.rotas.length);
+      const respostas = await Promise.all(
+
+        this.arquivos.map(a =>
+          fetch(a).then(r => {
+            if (!r.ok) throw new Error("Falha ao carregar " + a);
+            return r.json();
+          })
+        )
+
+      );
+
+      this.rotas = respostas.flat();
+
+      localStorage.setItem(this.CACHE_KEY, JSON.stringify(this.rotas));
+      localStorage.setItem(this.CACHE_TIME_KEY, Date.now());
+
+      console.log("✅ Rotas carregadas e salvas no cache:", this.rotas.length);
+
+    } catch (e) {
+
+      console.error("❌ Erro ao carregar rotas:", e);
+      throw e;
+
+    }
 
   },
 
@@ -66,8 +86,10 @@ const DataManager = {
     const locais = new Set();
 
     this.rotas.forEach(r => {
+
       locais.add(r.origem);
       locais.add(r.destino);
+
     });
 
     return [...locais].sort();
@@ -101,9 +123,11 @@ const DataManager = {
     );
 
     if (!rota) {
+
       rota = this.rotas.find(
         r => r.origem === destino && r.destino === origem
       );
+
     }
 
     return rota ? Number(rota.valor) : null;
@@ -115,7 +139,9 @@ const DataManager = {
     if (!origem || !destino) return null;
 
     if (!parada) {
+
       return this.buscarValor(origem, destino);
+
     }
 
     const trecho1 = this.buscarValor(origem, parada);
