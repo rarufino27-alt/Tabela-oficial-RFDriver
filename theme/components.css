@@ -1,211 +1,51 @@
-/* ===============================
-   COMPONENTS – RF DRIVER
-   Versão Atualizada 2.0
-   =============================== */
-
-/* ===== BASE ===== */
-
-label{
-  display:block;
-  margin:8px 0 6px;
-  font-size:14px;
-  color:var(--text-muted);
-}
-
-/* ===== INPUTS ===== */
-
-input,
-select,
-textarea{
-  width:100%;
-  padding:14px 16px;
-  background:var(--card);
-  border:1px solid var(--border);
-  border-radius:14px;
-  color:var(--text);
-  font-size:15px;
-  outline:none;
-  transition:.2s ease;
-}
-
-input::placeholder,
-textarea::placeholder{
-  color:#777;
-}
-
-input:focus,
-select:focus,
-textarea:focus{
-  border-color:var(--primary);
-  box-shadow:0 0 0 2px rgba(250,204,21,.25);
-}
-
-/* Checkbox / Radio */
-input[type="checkbox"],
-input[type="radio"]{
-  accent-color:var(--primary);
-}
-
-/* ===============================
-   BOTÕES
-   =============================== */
-
-button,
-.btn{
-  width:100%;
-  padding:16px;
-  border-radius:28px;
-  border:none;
-  font-size:15px;
-  font-weight:700;
-  cursor:pointer;
-  transition:all .25s ease;
-}
-
-/* Botão principal */
-.btn-primary{
-  background:var(--primary);
-  color:#000;
-  box-shadow:0 6px 18px rgba(250,204,21,.25);
-}
-
-.btn-primary:hover{
-  transform:translateY(-2px);
-  box-shadow:0 8px 22px rgba(250,204,21,.35);
-}
-
-/* Botão outline */
-.btn-outline{
-  background:transparent;
-  color:var(--primary);
-  border:1px solid var(--primary);
-}
-
-.btn-outline:hover{
-  background:rgba(250,204,21,.12);
-}
-
-/* Botão neutro */
-.btn-muted{
-  background:var(--card-soft);
-  color:var(--text);
-}
-
-/* WhatsApp */
-.btn-whatsapp{
-  background:#25D366;
-  color:#fff;
-  text-align:center;
-  text-decoration:none;
-  display:block;
-  box-shadow:0 4px 12px rgba(37,211,102,.35);
-}
-
-.btn-whatsapp:hover{
-  filter:brightness(1.1);
-}
-
-/* ===============================
-   CARDS
-   =============================== */
-
 .card{
-  background:var(--card);
-  border-radius:22px;
-  padding:18px;
-  border:1px solid var(--border);
-  box-shadow:0 12px 28px rgba(0,0,0,.45);
-  transition:.2s ease;
+background:rgba(255,255,255,0.04);
+backdrop-filter:blur(16px);
+border-radius:22px;
+padding:22px;
+box-shadow:0 10px 30px rgba(0,0,0,.8);
+border:1px solid rgba(255,215,0,0.12);
+position:relative;
 }
 
-.card:hover{
-  transform:translateY(-2px);
+.card::before{
+content:"";
+position:absolute;
+top:0;
+left:0;
+width:60px;
+height:3px;
+background:linear-gradient(90deg,#ffd700,#ffb800);
 }
 
-.card-title{
-  font-size:13px;
-  color:var(--text-muted);
-  margin-bottom:6px;
-  letter-spacing:.5px;
+button{
+width:100%;
+padding:18px;
+border:none;
+border-radius:35px;
+background:linear-gradient(135deg,#ffd700,#ffb800);
+color:#000;
+font-weight:900;
+cursor:pointer;
 }
 
-.card-value{
-  font-size:24px;
-  font-weight:800;
-  color:var(--primary);
+.rf-select{
+background:#111;
+border:1px solid rgba(255,255,255,.1);
+border-radius:12px;
+padding:10px 14px;
+cursor:pointer;
+min-width:120px;
+text-align:right;
 }
 
-/* ===============================
-   FEEDBACK VISUAL
-   =============================== */
-
-.success{
-  color:var(--success);
+.modal-content{
+background:#1c1c1c;
+border-radius:20px;
+padding:20px;
 }
 
-.error{
-  color:var(--danger);
-}
-
-/* ===============================
-   TAXAS / SELEÇÃO PREMIUM
-   =============================== */
-
-.taxas-grid{
-  display:flex;
-  flex-direction:column;
-  gap:12px;
-}
-
-.taxa-card{
-  border:1px solid var(--border);
-  border-radius:16px;
-  padding:16px;
-  transition:all .25s ease;
-  background:var(--card);
-}
-
-.taxa-card label{
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-  gap:12px;
-  cursor:pointer;
-}
-
-.taxa-icon{
-  font-size:1.2rem;
-}
-
-.taxa-text{
-  flex:1;
-  font-size:.95rem;
-}
-
-.taxa-card input{
-  transform:scale(1.15);
-}
-
-/* ATIVO */
-
-.taxa-card.active{
-  border-color:var(--primary);
-  background:linear-gradient(
-    180deg,
-    rgba(250,204,21,.15),
-    var(--card)
-  );
-  box-shadow:0 8px 22px rgba(250,204,21,.25);
-}
-
-/* ANIMAÇÃO SUAVE */
-
-@keyframes pulsePrimary{
-  0%{box-shadow:0 0 0 rgba(250,204,21,0)}
-  50%{box-shadow:0 0 22px rgba(250,204,21,.4)}
-  100%{box-shadow:0 0 0 rgba(250,204,21,0)}
-}
-
-.taxa-card.pulse{
-  animation:pulsePrimary .35s ease;
+.rf-modal-content{
+background:#1c1c1c;
+border-radius:18px;
 }
