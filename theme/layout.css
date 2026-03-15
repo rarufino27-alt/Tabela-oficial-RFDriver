@@ -1,105 +1,67 @@
-/* ===============================
-   LAYOUT – RF DRIVER 2.0
-   Estrutura visual moderna
-   =============================== */
-
-
-/* ===============================
-   CARDS
-   =============================== */
-
-.card{
-  background:var(--card);
-  border:1px solid var(--border);
-  border-radius:22px;
-  padding:18px;
-  margin-bottom:18px;
-  box-shadow:0 14px 32px rgba(0,0,0,.45);
-  transition:.25s ease;
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;
 }
 
-.card:hover{
-  transform:translateY(-3px);
+.top-white{
+background:#fff;
+padding:20px 20px 28px;
+display:flex;
+justify-content:space-between;
+align-items:center;
+border-bottom-left-radius:32px;
+border-bottom-right-radius:32px;
+box-shadow:0 10px 30px rgba(0,0,0,.25);
 }
 
-/* Card destaque */
-
-.card.highlight{
-  border:1px solid var(--primary);
-  background:
-    linear-gradient(
-      180deg,
-      rgba(250,204,21,.12),
-      var(--card)
-    );
-  box-shadow:0 16px 38px rgba(250,204,21,.22);
+.logo-area{
+display:flex;
+align-items:center;
+gap:14px;
 }
 
-
-/* ===============================
-   GRID
-   =============================== */
-
-.grid{
-  display:grid;
-  grid-template-columns:repeat(auto-fit, minmax(240px, 1fr));
-  gap:16px;
+.logo-img{
+height:60px;
+border-radius:16px;
 }
 
-
-/* ===============================
-   TÍTULOS
-   =============================== */
-
-h2, h3{
-  margin:10px 0 8px;
-  font-weight:700;
-  color:var(--primary);
-  letter-spacing:.4px;
+.logo-text-dark{
+font-weight:900;
+letter-spacing:1px;
+color:#000;
+font-size:1.1rem;
 }
 
-h2{
-  font-size:1.15rem;
+.menu-btn-dark{
+font-size:24px;
+cursor:pointer;
+color:#000;
 }
 
-h3{
-  font-size:1rem;
+/* MENU */
+
+.menu-overlay{
+position:fixed;
+inset:0;
+background:rgba(0,0,0,.6);
+display:none;
+z-index:99;
 }
 
-
-/* ===============================
-   TEXTOS AUXILIARES
-   =============================== */
-
-.muted{
-  color:var(--text-muted);
-  font-size:13px;
-  line-height:1.5;
+.menu{
+position:fixed;
+top:0;
+left:-260px;
+width:260px;
+height:100%;
+background:#1a1a1a;
+transition:left .3s ease;
+z-index:100;
+padding:20px;
 }
 
-
-/* ===============================
-   VALORES / TOTAIS
-   =============================== */
-
-.total{
-  font-size:30px;
-  font-weight:800;
-  text-align:center;
-  color:var(--primary);
-  margin-top:10px;
-  letter-spacing:.6px;
-}
-
-
-/* ===============================
-   CONTAINERS PADRÃO
-   =============================== */
-
-.container{
-  padding:20px;
-}
-
-.section{
-  margin-bottom:24px;
+.menu.ativo{
+left:0;
 }
