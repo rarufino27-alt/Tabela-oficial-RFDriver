@@ -24,11 +24,6 @@ const DataManager = {
     "./data/empresas.json",
     "./data/engenhos.json",
     "./data/interurbanas.json",
-    "./data/interestaduais.json",
-    "./data/lazer-festa.json",
-    "./data/locais.json",
-    "./data/longas-locais.json",
-    "./data/praias.json",
     "./data/bairro-baixo.json"
 
   ],
