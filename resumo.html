@@ -108,6 +108,9 @@
 <div class="valor" id="valorFinal">R$ 0,00</div>
 <div class="cta-area">
 <button onclick="solicitar()">Enviar recibo via Whatsapp</button>
+
+<button onclick="gerarPDF()">Baixar recibo em PDF</button>
+
 </div>
 </div>
 </div>
@@ -280,6 +283,41 @@ document.querySelectorAll("select,input").forEach(e=>{
 e.addEventListener("change",calcular);
 });
 
+function gerarPDF(){
+
+const agora = new Date();
+
+const data = agora.toLocaleDateString("pt-BR");
+const hora = agora.toLocaleTimeString("pt-BR",{hour:"2-digit",minute:"2-digit"});
+
+const total = localStorage.getItem("rf_total_final");
+
+let html = `
+<h2>RECIBO DE VIAGEM RF</h2>
+
+<p>Data: ${data}</p>
+<p>Hora: ${hora}</p>
+
+<h3>Itinerário</h3>
+
+<p><b>Origem:</b> ${origem}</p>
+${parada ? `<p><b>Parada:</b> ${parada}</p>` : ""}
+<p><b>Destino:</b> ${destino}</p>
+
+<h3>Total</h3>
+
+<p><b>R$ ${total}</b></p>
+
+<p>Grupo RF</p>
+<p>CNPJ 58.615.336/0001-49</p>
+`;
+
+document.getElementById("reciboPDF").innerHTML = html;
+
+html2pdf().from(document.getElementById("reciboPDF")).save("recibo-rf.pdf");
+
+}
+
 function solicitar(){
 
 const agora = new Date();
@@ -399,6 +437,11 @@ montarRota();
 calcular();
 
 </script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js">
+</script>
+
+<div id="reciboPDF" style="display:none"></div>
 
 </body>
 </html>
