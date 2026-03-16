@@ -292,47 +292,46 @@ const total = localStorage.getItem("rf_total_final") || "0.00";
 
 const html = `
 <div style="font-family:Arial;padding:20px">
-  <h2 style="text-align:center">RECIBO DE VIAGEM RF</h2>
 
-  <p><b>Data:</b> ${data}</p>
-  <p><b>Hora:</b> ${hora}</p>
+<h2 style="text-align:center">RECIBO DE VIAGEM RF</h2>
 
-  <hr>
+<p><b>Data:</b> ${data}</p>
+<p><b>Hora:</b> ${hora}</p>
 
-  <h3>Itinerário</h3>
-  <p><b>Origem:</b> ${origem}</p>
-  ${parada ? `<p><b>Parada:</b> ${parada}</p>` : ""}
-  <p><b>Destino:</b> ${destino}</p>
+<hr>
 
-  <hr>
+<h3>Itinerário</h3>
 
-  <h3>Total da viagem</h3>
-  <p style="font-size:22px"><b>R$ ${total}</b></p>
+<p><b>Origem:</b> ${origem}</p>
+${parada ? `<p><b>Parada:</b> ${parada}</p>` : ""}
+<p><b>Destino:</b> ${destino}</p>
 
-  <hr>
+<hr>
 
-  <p>Grupo RF</p>
-  <p>CNPJ 58.615.336/0001-49</p>
+<h3>Total da viagem</h3>
+
+<p style="font-size:24px"><b>R$ ${total}</b></p>
+
+<hr>
+
+<p>Grupo RF</p>
+<p>CNPJ 58.615.336/0001-49</p>
+
 </div>
 `;
 
-const container = document.createElement("div");
-container.innerHTML = html;
+const elemento = document.createElement("div");
+elemento.innerHTML = html;
 
-const pdfBlob = await html2pdf()
+html2pdf()
 .set({
-  margin:10,
-  html2canvas:{scale:2},
-  jsPDF:{unit:"mm",format:"a4",orientation:"portrait"}
+margin:10,
+filename:"recibo-rf.pdf",
+html2canvas:{scale:2},
+jsPDF:{unit:"mm",format:"a4",orientation:"portrait"}
 })
-.from(container)
-.outputPdf("blob");
-
-/* cria URL do PDF */
-const url = URL.createObjectURL(pdfBlob);
-
-/* abre no visualizador de PDF do Android */
-window.open(url, "_blank");
+.from(elemento)
+.save();
 
 }
 
