@@ -133,24 +133,17 @@
 Enviar recibo via Whatsapp
 </button>
 
-<button onclick="gerarPDF()">
-Gerar recibo em PDF
-</button>
-
 </div>
 
 </div>
 
 </div>
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
-  
 <script>
 
 (function(){
 
 const temaSalvo = localStorage.getItem("rf_theme") || "dark";
-
 document.body.setAttribute("data-theme", temaSalvo);
 
 })();
@@ -327,72 +320,6 @@ document.querySelectorAll("select,input").forEach(e=>{
 e.addEventListener("change",calcular);
 });
 
-function gerarPDF(){
-
-const { jsPDF } = window.jspdf;
-
-const doc = new jsPDF();
-
-const agora = new Date();
-const data = agora.toLocaleDateString("pt-BR");
-const hora = agora.toLocaleTimeString("pt-BR",{hour:"2-digit",minute:"2-digit"});
-const total = localStorage.getItem("rf_total_final") || "0.00";
-
-let y = 20;
-
-doc.setFont("helvetica");
-
-doc.setFontSize(18);
-doc.text("RECIBO DE VIAGEM RF",105,y,{align:"center"});
-
-y+=15;
-
-doc.setFontSize(12);
-doc.text(`Data: ${data}`,20,y);
-
-y+=8;
-
-doc.text(`Hora: ${hora}`,20,y);
-
-y+=12;
-
-doc.setFontSize(14);
-doc.text("ITINERÁRIO",20,y);
-
-y+=10;
-
-doc.setFontSize(12);
-doc.text(`Origem: ${origem}`,20,y);
-
-y+=8;
-
-if(parada){
-doc.text(`Parada: ${parada}`,20,y);
-y+=8;
-}
-
-doc.text(`Destino: ${destino}`,20,y);
-
-y+=15;
-
-doc.setFontSize(14);
-doc.text(`Total da viagem: R$ ${total}`,20,y);
-
-y+=20;
-
-doc.setFontSize(10);
-doc.text("Grupo RF",20,y);
-
-y+=6;
-
-doc.text("CNPJ 58.615.336/0001-49",20,y);
-
-/* SALVAR PDF */
-
-doc.save("recibo-rf.pdf");
-
-}
-  
 function solicitar(){
 
 const agora = new Date();
