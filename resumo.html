@@ -283,7 +283,7 @@ document.querySelectorAll("select,input").forEach(e=>{
 e.addEventListener("change",calcular);
 });
 
-function gerarPDF(){
+async function gerarPDF(){
 
 const agora = new Date();
 
@@ -312,9 +312,34 @@ ${parada ? `<p><b>Parada:</b> ${parada}</p>` : ""}
 <p>CNPJ 58.615.336/0001-49</p>
 `;
 
-document.getElementById("reciboPDF").innerHTML = html;
+const elemento = document.createElement("div");
+elemento.innerHTML = html;
 
-html2pdf().from(document.getElementById("reciboPDF")).save("recibo-rf.pdf");
+const pdf = await html2pdf()
+.set({
+margin:10,
+filename:"recibo-rf.pdf",
+html2canvas:{scale:2},
+jsPDF:{unit:"mm",format:"a4",orientation:"portrait"}
+})
+.from(elemento)
+.outputPdf("blob");
+
+const file = new File([pdf], "recibo-rf.pdf", { type: "application/pdf" });
+
+if (navigator.share) {
+
+await navigator.share({
+title: "Recibo RF",
+files: [file]
+});
+
+} else {
+
+const url = URL.createObjectURL(file);
+window.open(url);
+
+}
 
 }
 
