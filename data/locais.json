@@ -1037,6 +1037,8 @@
 { "origem": "Garapú Campo de Aranha", "destino": "Barbalho 1 e 2", "valor": 23, "regiao": "Cabo" },
 { "origem": "Garapú Campo de Aranha", "destino": "Barbalho em frente a lagoa", "valor": 23, "regiao": "Cabo" },
 { "origem": "Garapú Campo de Aranha", "destino": "Vila do SESI", "valor": 19, "regiao": "Cabo" },
+{ "origem": "Pirapama parte Baixa", "destino": "Hospital Mendo Sampaio (Mista)", "valor": 15, "regiao": "Cabo" },
+{ "origem": "Pirapama parte Alta", "destino": "Hospital Mendo Sampaio (Mista)", "valor": 18, "regiao": "Cabo" },
 
 { "origem": "Garapú Após o Flamenguinho", "destino": "Centro do Cabo", "valor": 20, "regiao": "Cabo" },
 { "origem": "Garapú Após o Flamenguinho", "destino": "Praça Theo Silva (Centro)", "valor": 23, "regiao": "Cabo" },
