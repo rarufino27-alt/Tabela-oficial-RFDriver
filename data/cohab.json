@@ -227,6 +227,18 @@
 { "origem": "Cohab", "destino": "Barra de Sirinhaém", "valor": 119.99, "regiao": "Cabo" },
 { "origem": "Cohab", "destino": "Rio Formoso", "valor": 129.99, "regiao": "Cabo" },
 { "origem": "Cohab", "destino": "Barreiros", "valor": 174.99, "regiao": "Cabo" },
-{ "origem": "Cohab", "destino": "São José da Coroa Grande", "valor": 199.99, "regiao": "Cabo" }
+{ "origem": "Cohab", "destino": "São José da Coroa Grande", "valor": 199.99, "regiao": "Cabo" },
 
+{ "origem": "Cohab", "destino": "Curcurana", "valor": 34.99, "regiao": "Cabo" },
+{ "origem": "Cohab", "destino": "Barra de Jangada", "valor": 39.99, "regiao": "Cabo" },
+{ "origem": "Cohab", "destino": "Barra de Jangada-Mercado Leve Mais", "valor": 39.99, "regiao": "Cabo" },
+{ "origem": "Cohab", "destino": "Barra de Jangada-UPA24h", "valor": 39.99, "regiao": "Cabo" },
+{ "origem": "Cohab", "destino": "Barra de Jangada-Terminal de Ônibus", "valor": 39.99, "regiao": "Cabo" },
+{ "origem": "Cohab", "destino": "Barra de Jangada-Marinas", "valor": 39.99, "regiao": "Cabo" },
+{ "origem": "Cohab", "destino": "Sotave", "valor": 34.99, "regiao": "Cabo" },
+{ "origem": "Cohab", "destino": "Comportas", "valor": 34.99, "regiao": "Cabo" },
+{ "origem": "Cohab", "destino": "Vitarella", "valor": 36.99, "regiao": "Cabo" },
+{ "origem": "Cohab", "destino": "cajueiro Seco", "valor": 39.99, "regiao": "Cabo" },
+{ "origem": "Cohab", "destino": "Cajueiro Seco-T.i", "valor": 39.99, "regiao": "Cabo" }
+  
 ]
