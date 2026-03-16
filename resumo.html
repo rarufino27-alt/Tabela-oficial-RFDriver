@@ -286,17 +286,16 @@ e.addEventListener("change",calcular);
 async function gerarPDF(){
 
 const agora = new Date();
-
 const data = agora.toLocaleDateString("pt-BR");
 const hora = agora.toLocaleTimeString("pt-BR",{hour:"2-digit",minute:"2-digit"});
+const total = localStorage.getItem("rf_total_final") || "0.00";
 
-const total = localStorage.getItem("rf_total_final");
-
-let html = `
+const html = `
+<div style="font-family:Arial;padding:20px">
 <h2>RECIBO DE VIAGEM RF</h2>
 
-<p>Data: ${data}</p>
-<p>Hora: ${hora}</p>
+<p><b>Data:</b> ${data}</p>
+<p><b>Hora:</b> ${hora}</p>
 
 <h3>Itinerário</h3>
 
@@ -306,16 +305,19 @@ ${parada ? `<p><b>Parada:</b> ${parada}</p>` : ""}
 
 <h3>Total</h3>
 
-<p><b>R$ ${total}</b></p>
+<p style="font-size:22px"><b>R$ ${total}</b></p>
+
+<hr>
 
 <p>Grupo RF</p>
 <p>CNPJ 58.615.336/0001-49</p>
+</div>
 `;
 
 const elemento = document.createElement("div");
 elemento.innerHTML = html;
 
-const pdf = await html2pdf()
+const blob = await html2pdf()
 .set({
 margin:10,
 filename:"recibo-rf.pdf",
@@ -325,19 +327,32 @@ jsPDF:{unit:"mm",format:"a4",orientation:"portrait"}
 .from(elemento)
 .outputPdf("blob");
 
-const file = new File([pdf], "recibo-rf.pdf", { type: "application/pdf" });
+const file = new File([blob],"recibo-rf.pdf",{type:"application/pdf"});
 
-if (navigator.share) {
+try{
+
+if(navigator.canShare && navigator.canShare({files:[file]})){
 
 await navigator.share({
-title: "Recibo RF",
-files: [file]
+title:"Recibo RF",
+files:[file]
 });
 
-} else {
+}else{
 
-const url = URL.createObjectURL(file);
-window.open(url);
+const link = document.createElement("a");
+link.href = URL.createObjectURL(blob);
+link.download = "recibo-rf.pdf";
+link.click();
+
+}
+
+}catch(err){
+
+const link = document.createElement("a");
+link.href = URL.createObjectURL(blob);
+link.download = "recibo-rf.pdf";
+link.click();
 
 }
 
