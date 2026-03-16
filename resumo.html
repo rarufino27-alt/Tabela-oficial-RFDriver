@@ -363,11 +363,8 @@ doc.text(`Origem: ${origem}`,20,y);
 y+=8;
 
 if(parada){
-
 doc.text(`Parada: ${parada}`,20,y);
-
 y+=8;
-
 }
 
 doc.text(`Destino: ${destino}`,20,y);
@@ -386,7 +383,11 @@ y+=6;
 
 doc.text("CNPJ 58.615.336/0001-49",20,y);
 
-doc.save("recibo-rf.pdf");
+const blob = doc.output("blob");
+
+const url = URL.createObjectURL(blob);
+
+window.open(url);
 
 }
 
