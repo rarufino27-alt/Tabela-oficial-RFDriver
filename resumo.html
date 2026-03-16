@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-
 <meta charset="UTF-8">
 <title>RF – Resumo</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -59,16 +58,12 @@
 
 <div class="card">
 <h3>Forma de pagamento</h3>
-
 <select id="pagamento" class="select">
-
 <option value="dinheiro">Dinheiro</option>
 <option value="pix">Pix</option>
 <option value="debito">Cartão Débito</option>
 <option value="credito">Cartão Crédito</option>
-
 </select>
-
 </div>
 
 <div class="card">
@@ -76,67 +71,45 @@
 <h3>Adicionais da corrida</h3>
 
 <label>Taxa de Feira</label>
-
 <select id="feira" class="select">
-
 <option value="0">Sem feira</option>
 <option value="5">1 carrinho (R$ 5.00)</option>
 <option value="7.99">2 carrinhos ou mais (R$ 7.99)</option>
-
 </select>
 
 <label>Transporte Animal</label>
-
 <select id="animal" class="select">
-
 <option value="0">Nenhum</option>
 <option value="4.99">Pequeno (R$ 4.99)</option>
 <option value="7.99">Médio (R$ 7.99)</option>
 <option value="11.99">Grande (R$ 11.99)</option>
-
 </select>
 
 <label>Tempo de espera embarque (min)</label>
-
 <input type="number" id="espera" class="select" value="0">
 
 <label>Saída de Praia</label>
-
 <select id="saidaPraia" class="select">
-
 <option value="0">Não</option>
 <option value="10">Sim (+ R$ 10,00)</option>
-
 </select>
 
 </div>
 
 <div class="card">
-
 <h3>Resumo de valores</h3>
-
 <div id="detalhe"></div>
-
 </div>
 
 </div>
 
 <div class="footer">
-
 <div class="footer-inner">
-
 <div class="valor" id="valorFinal">R$ 0,00</div>
-
 <div class="cta-area">
-
-<button onclick="solicitar()">
-Enviar recibo via Whatsapp
-</button>
-
+<button onclick="solicitar()">Enviar recibo via Whatsapp</button>
 </div>
-
 </div>
-
 </div>
 
 <script>
@@ -144,32 +117,26 @@ Enviar recibo via Whatsapp
 (function(){
 
 const temaSalvo = localStorage.getItem("rf_theme") || "dark";
+
 document.body.setAttribute("data-theme", temaSalvo);
 
 })();
 
 function abrirMenu(){
-
 document.getElementById("menu").classList.add("ativo");
 document.getElementById("menuOverlay").style.display="block";
-
 }
 
 function fecharMenu(){
-
 document.getElementById("menu").classList.remove("ativo");
 document.getElementById("menuOverlay").style.display="none";
-
 }
 
 function irPara(p){
-
 window.location.href=p;
-
 }
 
 const corrida = JSON.parse(localStorage.getItem("rf_corrida_temp"));
-
 if(!corrida) window.location.href="home.html";
 
 let { origem, parada, destino, valor, categoria = 1 } = corrida;
@@ -181,9 +148,7 @@ function montarRota(){
 let html=`<div class="rota-item"><span>Origem:</span> ${origem}</div>`;
 
 if(parada){
-
 html+=`<div class="rota-item"><span>Parada:</span> ${parada}</div>`;
-
 }
 
 html+=`<div class="rota-item"><span>Destino:</span> ${destino}</div>`;
@@ -200,9 +165,7 @@ const hora=agora.getHours()+agora.getMinutes()/60;
 if(hora>=22.5 || hora<=5){
 
 if(base<=24.99){
-
 return 4.99;
-
 }
 
 return base*0.35;
@@ -239,34 +202,25 @@ base+=noturno;
 const saidaPraia=parseFloat(document.getElementById("saidaPraia").value)||0;
 
 if(saidaPraia>0){
-
 detalhe+=`<div class="linha"><span>Saída de Praia</span><span>R$ ${saidaPraia.toFixed(2)}</span></div>`;
 recibo+=`Saída de Praia: R$ ${saidaPraia.toFixed(2)}\n`;
-
 taxas+=saidaPraia;
-
 }
 
 const feira=parseFloat(document.getElementById("feira").value)||0;
 
 if(feira>0){
-
 detalhe+=`<div class="linha"><span>Feira</span><span>R$ ${feira.toFixed(2)}</span></div>`;
 recibo+=`Taxa de Feira: R$ ${feira.toFixed(2)}\n`;
-
 taxas+=feira;
-
 }
 
 const animal=parseFloat(document.getElementById("animal").value)||0;
 
 if(animal>0){
-
 detalhe+=`<div class="linha"><span>Animal</span><span>R$ ${animal.toFixed(2)}</span></div>`;
 recibo+=`Transporte Animal: R$ ${animal.toFixed(2)}\n`;
-
 taxas+=animal;
-
 }
 
 const espera=parseFloat(document.getElementById("espera").value)||0;
@@ -289,6 +243,7 @@ if(categoria>1){
 const acrescimo=subtotal*(categoria-1);
 
 detalhe+=`<div class="linha"><span>Categoria 6 lugares</span><span>R$ ${acrescimo.toFixed(2)}</span></div>`;
+
 recibo+=`Acréscimo 6 lugares: R$ ${acrescimo.toFixed(2)}\n`;
 
 subtotal=subtotal*categoria;
@@ -298,13 +253,18 @@ subtotal=subtotal*categoria;
 detalhe+=`<div class="linha"><span>Subtotal</span><span>R$ ${subtotal.toFixed(2)}</span></div>`;
 
 let pagamento=document.getElementById("pagamento").value;
-
 let total=subtotal;
 
-if(pagamento==="debito") total=subtotal/0.98;
-if(pagamento==="credito") total=subtotal/0.95;
+if(pagamento==="debito"){
+total=subtotal/0.98;
+}
+
+if(pagamento==="credito"){
+total=subtotal/0.95;
+}
 
 detalhe+=`<div class="linha"><span>Pagamento</span><span>${pagamento}</span></div>`;
+
 detalhe+=`<div class="total">Total: R$ ${total.toFixed(2)}</div>`;
 
 document.getElementById("detalhe").innerHTML=detalhe;
@@ -329,38 +289,109 @@ const hora = agora.toLocaleTimeString("pt-BR",{hour:"2-digit",minute:"2-digit"})
 
 const total = parseFloat(localStorage.getItem("rf_total_final")) || 0;
 
+const pagamento = document.getElementById("pagamento").value;
+
+let categoriaTexto = "Driver 4 Lugares";
+
+if(categoria > 1){
+categoriaTexto = "Driver 6 Lugares";
+}
+
+let base = parseFloat(valor) || 0;
+let taxas = 0;
+
+const saidaPraia = parseFloat(document.getElementById("saidaPraia").value)||0;
+taxas += saidaPraia;
+
+const feira = parseFloat(document.getElementById("feira").value)||0;
+taxas += feira;
+
+const animal = parseFloat(document.getElementById("animal").value)||0;
+taxas += animal;
+
+const espera = parseFloat(document.getElementById("espera").value)||0;
+
+if(espera > 5){
+taxas += 3 + ((espera-5)*0.60);
+}
+
+const noturno = adicionalNoturno(base);
+base += noturno;
+
+let subtotal = base + taxas;
+
+if(categoria > 1){
+subtotal = subtotal * categoria;
+}
+
+let taxaCartao = 0;
+let blocoPagamento = "";
+
+if(pagamento === "debito"){
+taxaCartao = total - subtotal;
+
+blocoPagamento = `
+Acréscimo cartão: R$ ${taxaCartao.toFixed(2)}
+Forma de pagamento: Débito
+`;
+}
+
+if(pagamento === "credito"){
+taxaCartao = total - subtotal;
+
+blocoPagamento = `
+Acréscimo cartão: R$ ${taxaCartao.toFixed(2)}
+Forma de pagamento: Crédito
+`;
+}
+
 let itinerario = `📍 Origem:
 ${origem}
 
 `;
 
 if(parada){
-
-itinerario+=`🛑 Parada:
+itinerario += `🛑 Parada:
 ${parada}
 
 `;
-
 }
 
-itinerario+=`🏁 Destino:
+itinerario += `🏁 Destino:
 ${destino}`;
 
-const msg=
+const msg =
 `*RECIBO DE VIAGEM RF*
 ${data}
 ${hora}
 
+_____________________________
+*Detalhamento da viagem*
+
+Categoria: ${categoriaTexto}
+
+${detalhamentoRecibo}
+
+Subtotal: R$ ${subtotal.toFixed(2)}
+
+${blocoPagamento}
+
+Total Geral: R$ ${total.toFixed(2)}
+
+_____________________________
+*ITINERÁRIO*
+
 ${itinerario}
 
-💰 Total: R$ ${total.toFixed(2)}
+_____________________________
+💰 *Total: R$ ${total.toFixed(2)}*
 
-GRUPO RF
+_GRUPO RF_
 58.615.336/0001-49`;
 
-const url=`https://wa.me/?text=${encodeURIComponent(msg)}`;
+const url = `https://wa.me/?text=${encodeURIComponent(msg)}`;
 
-window.location.href=url;
+window.location.href = url;
 
 }
 
