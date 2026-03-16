@@ -21,7 +21,6 @@ const DataManager = {
     "./data/cohab.json",
     "./data/centro-do-cabo.json",
     "./data/aguia-american-club-br-101.json",
-    "./data/empresas.json",
     "./data/engenhos.json",
     "./data/interurbanas.json",
     "./data/bairro-baixo.json"
