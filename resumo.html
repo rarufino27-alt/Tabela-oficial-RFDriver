@@ -109,7 +109,7 @@
 <div class="cta-area">
 <button onclick="solicitar()">Enviar recibo via Whatsapp</button>
 
-<button onclick="gerarPDF()">Baixar recibo em PDF</button>
+<button onclick="gerarPDF()">Gerar recibo em PDF</button>
 
 </div>
 </div>
@@ -292,10 +292,13 @@ const total = localStorage.getItem("rf_total_final") || "0.00";
 
 const html = `
 <div style="font-family:Arial;padding:20px">
-<h2>RECIBO DE VIAGEM RF</h2>
+
+<h2 style="text-align:center">RECIBO DE VIAGEM RF</h2>
 
 <p><b>Data:</b> ${data}</p>
 <p><b>Hora:</b> ${hora}</p>
+
+<hr>
 
 <h3>Itinerário</h3>
 
@@ -303,7 +306,9 @@ const html = `
 ${parada ? `<p><b>Parada:</b> ${parada}</p>` : ""}
 <p><b>Destino:</b> ${destino}</p>
 
-<h3>Total</h3>
+<hr>
+
+<h3>Total da viagem</h3>
 
 <p style="font-size:22px"><b>R$ ${total}</b></p>
 
@@ -311,25 +316,23 @@ ${parada ? `<p><b>Parada:</b> ${parada}</p>` : ""}
 
 <p>Grupo RF</p>
 <p>CNPJ 58.615.336/0001-49</p>
+
 </div>
 `;
 
-const elemento = document.createElement("div");
-elemento.innerHTML = html;
+const container = document.createElement("div");
+container.innerHTML = html;
 
-const blob = await html2pdf()
+const pdfBlob = await html2pdf()
 .set({
 margin:10,
-filename:"recibo-rf.pdf",
 html2canvas:{scale:2},
 jsPDF:{unit:"mm",format:"a4",orientation:"portrait"}
 })
-.from(elemento)
+.from(container)
 .outputPdf("blob");
 
-const file = new File([blob],"recibo-rf.pdf",{type:"application/pdf"});
-
-try{
+const file = new File([pdfBlob], "recibo-rf.pdf", {type:"application/pdf"});
 
 if(navigator.canShare && navigator.canShare({files:[file]})){
 
@@ -340,19 +343,14 @@ files:[file]
 
 }else{
 
-const link = document.createElement("a");
-link.href = URL.createObjectURL(blob);
-link.download = "recibo-rf.pdf";
-link.click();
+const url = URL.createObjectURL(pdfBlob);
 
-}
+const a = document.createElement("a");
+a.href = url;
+a.download = "recibo-rf.pdf";
+a.click();
 
-}catch(err){
-
-const link = document.createElement("a");
-link.href = URL.createObjectURL(blob);
-link.download = "recibo-rf.pdf";
-link.click();
+URL.revokeObjectURL(url);
 
 }
 
