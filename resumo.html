@@ -283,55 +283,63 @@ document.querySelectorAll("select,input").forEach(e=>{
 e.addEventListener("change",calcular);
 });
 
-async function gerarPDF(){
+function gerarPDF(){
+
+const { jsPDF } = window.jspdf;
+
+const doc = new jsPDF();
 
 const agora = new Date();
 const data = agora.toLocaleDateString("pt-BR");
 const hora = agora.toLocaleTimeString("pt-BR",{hour:"2-digit",minute:"2-digit"});
 const total = localStorage.getItem("rf_total_final") || "0.00";
 
-const html = `
-<div style="font-family:Arial;padding:40px">
+let y = 20;
 
-<h1 style="text-align:center">RECIBO DE VIAGEM RF</h1>
+doc.setFontSize(18);
+doc.text("RECIBO DE VIAGEM RF", 105, y, { align: "center" });
 
-<p><b>Data:</b> ${data}</p>
-<p><b>Hora:</b> ${hora}</p>
+y += 15;
 
-<hr>
+doc.setFontSize(12);
+doc.text(`Data: ${data}`, 20, y);
 
-<h2>Itinerário</h2>
+y += 8;
 
-<p><b>Origem:</b> ${origem}</p>
-${parada ? `<p><b>Parada:</b> ${parada}</p>` : ""}
-<p><b>Destino:</b> ${destino}</p>
+doc.text(`Hora: ${hora}`, 20, y);
 
-<hr>
+y += 12;
 
-<h2>Total da viagem</h2>
+doc.text("ITINERÁRIO", 20, y);
 
-<p style="font-size:28px"><b>R$ ${total}</b></p>
+y += 10;
 
-<hr>
+doc.text(`Origem: ${origem}`, 20, y);
 
-<p>Grupo RF</p>
-<p>CNPJ 58.615.336/0001-49</p>
+y += 8;
 
-</div>
-`;
+if(parada){
+doc.text(`Parada: ${parada}`, 20, y);
+y += 8;
+}
 
-const container = document.getElementById("pdfContainer");
-container.innerHTML = html;
+doc.text(`Destino: ${destino}`, 20, y);
 
-await html2pdf()
-.set({
-margin:10,
-filename:"recibo-rf.pdf",
-html2canvas:{scale:2},
-jsPDF:{unit:"mm",format:"a4",orientation:"portrait"}
-})
-.from(container)
-.save();
+y += 15;
+
+doc.setFontSize(14);
+doc.text(`Total da viagem: R$ ${total}`, 20, y);
+
+y += 20;
+
+doc.setFontSize(10);
+doc.text("Grupo RF", 20, y);
+
+y += 6;
+
+doc.text("CNPJ 58.615.336/0001-49", 20, y);
+
+doc.save("recibo-rf.pdf");
 
 }
 
@@ -453,6 +461,9 @@ window.location.href = url;
 montarRota();
 calcular();
 
+</script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js">
 </script>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js">
