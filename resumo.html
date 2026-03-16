@@ -383,11 +383,9 @@ y+=6;
 
 doc.text("CNPJ 58.615.336/0001-49",20,y);
 
-const blob = doc.output("blob");
+const pdfData = doc.output("datauristring");
 
-const url = URL.createObjectURL(blob);
-
-window.open(url);
+window.open(pdfData);
 
 }
 
