@@ -231,7 +231,18 @@
 { "origem": "Shopping Costa Dourada", "destino": "Barra de Sirinhaém", "valor": 119.99, "regiao": "Cabo" },
 { "origem": "Shopping Costa Dourada", "destino": "Rio Formoso", "valor": 129.99, "regiao": "Cabo" },
 { "origem": "Shopping Costa Dourada", "destino": "Barreiros", "valor": 174.99, "regiao": "Cabo" },
-{ "origem": "Shopping Costa Dourada", "destino": "São José da Coroa Grande", "valor": 199.99, "regiao": "Cabo" }
+{ "origem": "Shopping Costa Dourada", "destino": "São José da Coroa Grande", "valor": 199.99, "regiao": "Cabo" },
 
+{ "origem": "Shopping Costa Dourada", "destino": "Curcurana", "valor": 39.99, "regiao": "Cabo" },
+{ "origem": "Shopping Costa Dourada", "destino": "Barra de Jangada", "valor": 44.99, "regiao": "Cabo" },
+{ "origem": "Shopping Costa Dourada", "destino": "Barra de Jangada-Mercado Leve Mais", "valor": 44.99, "regiao": "Cabo" },
+{ "origem": "Shopping Costa Dourada", "destino": "Barra de Jangada-UPA24h", "valor": 44.99, "regiao": "Cabo" },
+{ "origem": "Shopping Costa Dourada", "destino": "Barra de Jangada-Terminal de Ônibus", "valor": 44.99, "regiao": "Cabo" },
+{ "origem": "Shopping Costa Dourada", "destino": "Barra de Jangada-Marinas", "valor": 44.99, "regiao": "Cabo" },
+{ "origem": "Shopping Costa Dourada", "destino": "Sotave", "valor": 39.99, "regiao": "Cabo" },
+{ "origem": "Shopping Costa Dourada", "destino": "Comportas", "valor": 39.99, "regiao": "Cabo" },
+{ "origem": "Shopping Costa Dourada", "destino": "Vitarella", "valor": 41.99, "regiao": "Cabo" },
+{ "origem": "Shopping Costa Dourada", "destino": "cajueiro Seco", "valor": 44.99, "regiao": "Cabo" },
+{ "origem": "Shopping Costa Dourada", "destino": "Cajueiro Seco-T.i", "valor": 44.99, "regiao": "Cabo" }
   
 ]
