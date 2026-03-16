@@ -330,7 +330,6 @@ e.addEventListener("change",calcular);
 function gerarPDF(){
 
 const { jsPDF } = window.jspdf;
-
 const doc = new jsPDF();
 
 const agora = new Date();
@@ -387,18 +386,12 @@ y+=6;
 
 doc.text("CNPJ 58.615.336/0001-49",20,y);
 
-/* SOLUÇÃO PARA ANDROID WEBVIEW */
+/* ABRIR PDF DIRETO */
 
-const pdfBase64 = doc.output('dataurlstring');
-
-const win = window.open();
-
-win.document.write(`
-<iframe width="100%" height="100%" src="${pdfBase64}"></iframe>
-`);
+doc.output("dataurlnewwindow");
 
 }
-
+  
 function solicitar(){
 
 const agora = new Date();
