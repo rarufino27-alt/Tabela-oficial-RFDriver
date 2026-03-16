@@ -292,31 +292,27 @@ const total = localStorage.getItem("rf_total_final") || "0.00";
 
 const html = `
 <div style="font-family:Arial;padding:20px">
+  <h2 style="text-align:center">RECIBO DE VIAGEM RF</h2>
 
-<h2 style="text-align:center">RECIBO DE VIAGEM RF</h2>
+  <p><b>Data:</b> ${data}</p>
+  <p><b>Hora:</b> ${hora}</p>
 
-<p><b>Data:</b> ${data}</p>
-<p><b>Hora:</b> ${hora}</p>
+  <hr>
 
-<hr>
+  <h3>Itinerário</h3>
+  <p><b>Origem:</b> ${origem}</p>
+  ${parada ? `<p><b>Parada:</b> ${parada}</p>` : ""}
+  <p><b>Destino:</b> ${destino}</p>
 
-<h3>Itinerário</h3>
+  <hr>
 
-<p><b>Origem:</b> ${origem}</p>
-${parada ? `<p><b>Parada:</b> ${parada}</p>` : ""}
-<p><b>Destino:</b> ${destino}</p>
+  <h3>Total da viagem</h3>
+  <p style="font-size:22px"><b>R$ ${total}</b></p>
 
-<hr>
+  <hr>
 
-<h3>Total da viagem</h3>
-
-<p style="font-size:22px"><b>R$ ${total}</b></p>
-
-<hr>
-
-<p>Grupo RF</p>
-<p>CNPJ 58.615.336/0001-49</p>
-
+  <p>Grupo RF</p>
+  <p>CNPJ 58.615.336/0001-49</p>
 </div>
 `;
 
@@ -325,34 +321,18 @@ container.innerHTML = html;
 
 const pdfBlob = await html2pdf()
 .set({
-margin:10,
-html2canvas:{scale:2},
-jsPDF:{unit:"mm",format:"a4",orientation:"portrait"}
+  margin:10,
+  html2canvas:{scale:2},
+  jsPDF:{unit:"mm",format:"a4",orientation:"portrait"}
 })
 .from(container)
 .outputPdf("blob");
 
-const file = new File([pdfBlob], "recibo-rf.pdf", {type:"application/pdf"});
-
-if(navigator.canShare && navigator.canShare({files:[file]})){
-
-await navigator.share({
-title:"Recibo RF",
-files:[file]
-});
-
-}else{
-
+/* cria URL do PDF */
 const url = URL.createObjectURL(pdfBlob);
 
-const a = document.createElement("a");
-a.href = url;
-a.download = "recibo-rf.pdf";
-a.click();
-
-URL.revokeObjectURL(url);
-
-}
+/* abre no visualizador de PDF do Android */
+window.open(url, "_blank");
 
 }
 
