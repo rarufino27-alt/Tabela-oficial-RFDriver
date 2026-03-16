@@ -291,16 +291,16 @@ const hora = agora.toLocaleTimeString("pt-BR",{hour:"2-digit",minute:"2-digit"})
 const total = localStorage.getItem("rf_total_final") || "0.00";
 
 const html = `
-<div style="font-family:Arial;padding:20px">
+<div style="font-family:Arial;padding:40px">
 
-<h2 style="text-align:center">RECIBO DE VIAGEM RF</h2>
+<h1 style="text-align:center">RECIBO DE VIAGEM RF</h1>
 
 <p><b>Data:</b> ${data}</p>
 <p><b>Hora:</b> ${hora}</p>
 
 <hr>
 
-<h3>Itinerário</h3>
+<h2>Itinerário</h2>
 
 <p><b>Origem:</b> ${origem}</p>
 ${parada ? `<p><b>Parada:</b> ${parada}</p>` : ""}
@@ -308,9 +308,9 @@ ${parada ? `<p><b>Parada:</b> ${parada}</p>` : ""}
 
 <hr>
 
-<h3>Total da viagem</h3>
+<h2>Total da viagem</h2>
 
-<p style="font-size:24px"><b>R$ ${total}</b></p>
+<p style="font-size:28px"><b>R$ ${total}</b></p>
 
 <hr>
 
@@ -320,17 +320,17 @@ ${parada ? `<p><b>Parada:</b> ${parada}</p>` : ""}
 </div>
 `;
 
-const elemento = document.createElement("div");
-elemento.innerHTML = html;
+const container = document.getElementById("pdfContainer");
+container.innerHTML = html;
 
-html2pdf()
+await html2pdf()
 .set({
 margin:10,
 filename:"recibo-rf.pdf",
 html2canvas:{scale:2},
 jsPDF:{unit:"mm",format:"a4",orientation:"portrait"}
 })
-.from(elemento)
+.from(container)
 .save();
 
 }
@@ -459,6 +459,8 @@ calcular();
 </script>
 
 <div id="reciboPDF" style="display:none"></div>
+
+<div id="pdfContainer" style="position:fixed;left:-9999px;top:0;"></div>
 
 </body>
 </html>
