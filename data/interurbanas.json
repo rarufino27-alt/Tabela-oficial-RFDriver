@@ -1,5 +1,6 @@
 [
 
+{ "origem": "Charneca Parte Baixa", "destino": "Hospital Oswaldo Cruz", "valor": 99.99, "regiao": "Cabo" },
 { "origem": "Centro do Cabo", "destino": "Prazeres", "valor": 44.99, "regiao": "Cabo" },
 { "origem": "Centro do Cabo", "destino": "Prazeres-Hospital Memorial guararapes", "valor": 39.99, "regiao": "Cabo" },
 { "origem": "Centro do Cabo", "destino": "Prazeres-Coca-Cola", "valor": 39.99, "regiao": "Cabo" },
