@@ -4,18 +4,28 @@ const DataManager = {
 
   arquivos: [
 
-    "./dados/cohab.json",
-    "./dados/gaibu.json",
-    "./dados/engenhos.json",
-    "./dados/itapuama.json",
-    "./dados/calhetas.json",
-    "./dados/centro-do-cabo.json",
-    "./dados/bairro-baixo.json",
-    "./dados/xareu.json",
-    "./dados/interurbanas.json",
-    "./dados/setor-4.json"
+    arquivos: [
 
-  ],
+"./dados/cohab.json",
+"./dados/gaibu.json",
+"./dados/engenhos.json",
+"./dados/itapuama.json",
+"./dados/calhetas.json",
+"./dados/centro-do-cabo.json",
+"./dados/bairro-baixo.json",
+"./dados/xareu.json",
+"./dados/interurbanas.json",
+"./dados/setor-4.json",
+
+"./dados/Padaria-de-Gilberto-Cruzeiro.json",
+"./dados/aguia-american-dub-br-101.json",
+"./dados/condominio-porto-do-cabo.json",
+"./dados/dharma-ville.json",
+"./dados/enseadas.json",
+"./dados/lote-garapu2-lote-dona-amara.json",
+"./dados/shopping-costinha.json"
+
+],
 
   async carregar(){
 
