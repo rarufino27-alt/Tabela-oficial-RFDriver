@@ -4,27 +4,25 @@ const DataManager = {
 
   arquivos: [
 
-    arquivos: [
+    "./dados/Padaria-de-Gilberto-Cruzeiro.json",
+    "./dados/aguia-american-dub-br-101.json",
+    "./dados/bairro-baixo.json",
+    "./dados/calhetas.json",
+    "./dados/centro-do-cabo.json",
+    "./dados/cohab.json",
+    "./dados/condominio-porto-do-cabo.json",
+    "./dados/dharma-ville.json",
+    "./dados/engenhos.json",
+    "./dados/enseadas.json",
+    "./dados/gaibu.json",
+    "./dados/interurbanas.json",
+    "./dados/itapuama.json",
+    "./dados/lote-garapu2-lote-dona-amara.json",
+    "./dados/setor-4.json",
+    "./dados/shopping-costinha.json",
+    "./dados/xareu.json"
 
-"./dados/cohab.json",
-"./dados/gaibu.json",
-"./dados/engenhos.json",
-"./dados/itapuama.json",
-"./dados/calhetas.json",
-"./dados/centro-do-cabo.json",
-"./dados/bairro-baixo.json",
-"./dados/xareu.json",
-"./dados/interurbanas.json",
-"./dados/setor-4.json",
-"./dados/Padaria-de-Gilberto-Cruzeiro.json",
-"./dados/aguia-american-dub-br-101.json",
-"./dados/condominio-porto-do-cabo.json",
-"./dados/dharma-ville.json",
-"./dados/enseadas.json",
-"./dados/lote-garapu2-lote-dona-amara.json",
-"./dados/shopping-costinha.json"
-
-],
+  ],
 
   async carregar(){
 
@@ -34,7 +32,15 @@ const DataManager = {
 
         this.arquivos.map(a =>
           fetch(a + "?v=" + Date.now())
-          .then(r => r.json())
+          .then(r => {
+
+            if(!r.ok){
+              throw new Error("Falha ao carregar " + a)
+            }
+
+            return r.json()
+
+          })
         )
 
       )
@@ -47,7 +53,7 @@ const DataManager = {
 
     }catch(e){
 
-      console.error("Erro ao carregar rotas:",e)
+      console.error("Erro ao carregar rotas:", e)
 
     }
 
@@ -62,16 +68,16 @@ const DataManager = {
     this.rotas.forEach(r=>{
 
       if(!this.indice[r.origem]){
-        this.indice[r.origem]={}
+        this.indice[r.origem] = {}
       }
 
-      this.indice[r.origem][r.destino]=Number(r.valor)
+      this.indice[r.origem][r.destino] = Number(r.valor)
 
       if(!this.indice[r.destino]){
-        this.indice[r.destino]={}
+        this.indice[r.destino] = {}
       }
 
-      this.indice[r.destino][r.origem]=Number(r.valor)
+      this.indice[r.destino][r.origem] = Number(r.valor)
 
     })
 
