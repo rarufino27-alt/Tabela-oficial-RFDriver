@@ -16,7 +16,6 @@ const DataManager = {
 "./dados/xareu.json",
 "./dados/interurbanas.json",
 "./dados/setor-4.json",
-
 "./dados/Padaria-de-Gilberto-Cruzeiro.json",
 "./dados/aguia-american-dub-br-101.json",
 "./dados/condominio-porto-do-cabo.json",
