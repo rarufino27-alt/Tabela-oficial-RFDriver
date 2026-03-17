@@ -7,6 +7,7 @@ const DataManager = {
     "./data/Padaria-de-Gilberto-Cruzeiro.json",
     "./data/aguia-american-club-br-101.json",
     "./data/bairro-baixo.json",
+    "./data/bairro-alto.json",
     "./data/calhetas.json",
     "./data/centro-do-cabo.json",
     "./data/cohab.json",
