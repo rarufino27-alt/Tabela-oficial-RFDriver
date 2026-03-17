@@ -76,9 +76,6 @@
 { "origem": "Cohab", "destino": "Garapú Em frente Ao Shopping", "valor": 14.99, "regiao": "Cabo" },
 { "origem": "Cohab", "destino": "Garapú VILA DA CONEST", "valor": 14.99, "regiao": "Cabo" },
   
-{ "origem": "Cohab", "destino": "Lote Garapú 2 (Lote Dona Amara)", "valor": 12.99, "regiao": "Cabo" },
-{ "origem": "Cohab", "destino": "Condomínio Porto do Cabo", "valor": 11.99, "regiao": "Cabo" },
-{ "origem": "Cohab", "destino": "Loteamento DHARMA VILLE", "valor": 13.99, "regiao": "Cabo" },
 { "origem": "Cohab", "destino": "Comunidade Madri Iva (Subida do Shopping)", "valor": 9.99, "regiao": "Cabo" },
 { "origem": "Cohab", "destino": "Rosário", "valor": 14.99, "regiao": "Cabo" },
 { "origem": "Cohab", "destino": "SEST-SENAT (Rosário)", "valor": 14.99, "regiao": "Cabo" },
@@ -126,7 +123,7 @@
 { "origem": "Cohab", "destino": "Vila do SESI", "valor": 14.99, "regiao": "Cabo" },
 { "origem": "Cohab", "destino": "Rosa do Vento Chacara SHEKINÁ", "valor": 19.99, "regiao": "Cabo" },
   
-{ "origem": "Cohab", "destino": "CONE antes do Armazena", "valor": 14.99, "regiao": "Cabo" },
+{ "origem": "Cohab", "destino": "CONE antes do Armazena", "valor": 16.99, "regiao": "Cabo" },
 { "origem": "Cohab", "destino": "Hospital Dom Helder Câmara", "valor": 19.99, "regiao": "Cabo" },
 { "origem": "Cohab", "destino": "Armazena Em frente ao Dom Helder", "valor": 19.99, "regiao": "Cabo" },
 { "origem": "Cohab", "destino": "Loginvest (TUPAN) BR-101", "valor": 24.99, "regiao": "Cabo" },
