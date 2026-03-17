@@ -5,7 +5,7 @@ const DataManager = {
   arquivos: [
 
     "./data/Padaria-de-Gilberto-Cruzeiro.json",
-    "./data/aguia-american-dub-br-101.json",
+    "./data/aguia-american-club-br-101.json",
     "./data/bairro-baixo.json",
     "./data/calhetas.json",
     "./data/centro-do-cabo.json",
