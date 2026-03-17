@@ -4,16 +4,16 @@ const DataManager = {
 
   arquivos: [
 
-    "./dados/rotas/cohab.json",
-    "./dados/rotas/gaibu.json",
-    "./dados/rotas/engenhos.json",
-    "./dados/rotas/itapuama.json",
-    "./dados/rotas/calhetas.json",
-    "./dados/rotas/centro-do-cabo.json",
-    "./dados/rotas/bairro-baixo.json",
-    "./dados/rotas/xareu.json",
-    "./dados/rotas/interurbanas.json",
-    "./dados/rotas/setor-4.json"
+    "./dados/cohab.json",
+    "./dados/gaibu.json",
+    "./dados/engenhos.json",
+    "./dados/itapuama.json",
+    "./dados/calhetas.json",
+    "./dados/centro-do-cabo.json",
+    "./dados/bairro-baixo.json",
+    "./dados/xareu.json",
+    "./dados/interurbanas.json",
+    "./dados/setor-4.json"
 
   ],
 
