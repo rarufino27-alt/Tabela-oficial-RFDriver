@@ -1,5 +1,7 @@
 [
 
+{ "origem": "Bela Vista/Cruzeiro", "destino": "Destilaria", "valor": 12.99, "regiao": "Cabo" },
+
 { "origem": "Padaria de Gilberto cruzeiro", "destino": "T.I Centro do Cabo", "valor": 9.99, "regiao": "Cabo" },
 { "origem": "Padaria de Gilberto cruzeiro", "destino": "Praça Theo Silva Centro do Cabo", "valor": 9.99, "regiao": "Cabo" },
 { "origem": "Padaria de Gilberto cruzeiro", "destino": "Rua São joão Centro do Cabo", "valor": 11.99, "regiao": "Cabo" },
