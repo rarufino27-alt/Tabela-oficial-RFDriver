@@ -4,125 +4,92 @@ const DataManager = {
 
   arquivos: [
 
-    "./data/condominio-porto-do-cabo.json",
-    "./data/gaibu.json",
-    "./data/shopping-costinha.json",
-    "./data/enseadas.json",
-    "./data/setor-4.json",
-    "./data/xareu.json",
-    "./data/itapuama.json",
-    "./data/calhetas.json",
-    "./data/lote-garapu2-lote-dona-amara.json",
-    "./data/cohab.json",
-    "./data/centro-do-cabo.json",
-    "./data/aguia-american-club-br-101.json",
-    "./data/engenhos.json",
-    "./data/interurbanas.json",
-    "./data/bairro-baixo.json"
+    "./dados/rotas/cohab.json",
+    "./dados/rotas/gaibu.json",
+    "./dados/rotas/engenhos.json",
+    "./dados/rotas/itapuama.json",
+    "./dados/rotas/calhetas.json",
+    "./dados/rotas/centro-do-cabo.json",
+    "./dados/rotas/bairro-baixo.json",
+    "./dados/rotas/xareu.json",
+    "./dados/rotas/interurbanas.json",
+    "./dados/rotas/setor-4.json"
 
   ],
 
-  async carregar() {
+  async carregar(){
 
-    try {
-
-      console.log("⬇ Carregando rotas do servidor...");
+    try{
 
       const respostas = await Promise.all(
 
         this.arquivos.map(a =>
-          fetch(a + "?v=" + Date.now(), { cache: "no-store" })
-          .then(r => {
-            if (!r.ok) throw new Error("Falha ao carregar " + a);
-            return r.json();
-          })
+          fetch(a + "?v=" + Date.now())
+          .then(r => r.json())
         )
 
-      );
+      )
 
-      this.rotas = respostas.flat();
+      this.rotas = respostas.flat()
 
-      console.log("✅ Rotas carregadas:", this.rotas.length);
+      this.criarIndice()
 
-    } catch (e) {
+      console.log("Rotas carregadas:", this.rotas.length)
 
-      console.error("❌ Erro ao carregar rotas:", e);
-      throw e;
+    }catch(e){
+
+      console.error("Erro ao carregar rotas:",e)
 
     }
 
   },
 
-  listarOrigens() {
+  indice:{},
 
-    const locais = new Set();
+  criarIndice(){
 
-    this.rotas.forEach(r => {
+    this.indice = {}
 
-      locais.add(r.origem);
-      locais.add(r.destino);
+    this.rotas.forEach(r=>{
 
-    });
-
-    return [...locais].sort();
-
-  },
-
-  listarDestinos(local) {
-
-    const destinos = new Set();
-
-    this.rotas.forEach(r => {
-
-      if (r.origem === local) {
-        destinos.add(r.destino);
+      if(!this.indice[r.origem]){
+        this.indice[r.origem]={}
       }
 
-      if (r.destino === local) {
-        destinos.add(r.origem);
+      this.indice[r.origem][r.destino]=Number(r.valor)
+
+      if(!this.indice[r.destino]){
+        this.indice[r.destino]={}
       }
 
-    });
+      this.indice[r.destino][r.origem]=Number(r.valor)
 
-    return [...destinos].sort();
-
-  },
-
-  buscarValor(origem, destino) {
-
-    let rota = this.rotas.find(
-      r => r.origem === origem && r.destino === destino
-    );
-
-    if (!rota) {
-
-      rota = this.rotas.find(
-        r => r.origem === destino && r.destino === origem
-      );
-
-    }
-
-    return rota ? Number(rota.valor) : null;
+    })
 
   },
 
-  calcularValorCompleto(origem, parada, destino) {
+  listarOrigens(){
 
-    if (!origem || !destino) return null;
+    return Object.keys(this.indice).sort()
 
-    if (!parada) {
+  },
 
-      return this.buscarValor(origem, destino);
+  listarDestinos(origem){
 
+    if(!this.indice[origem]) return []
+
+    return Object.keys(this.indice[origem]).sort()
+
+  },
+
+  buscarValor(origem,destino){
+
+    if(this.indice[origem] && this.indice[origem][destino]){
+      return this.indice[origem][destino]
     }
 
-    const trecho1 = this.buscarValor(origem, parada);
-    const trecho2 = this.buscarValor(parada, destino);
-
-    if (trecho1 === null || trecho2 === null) return null;
-
-    return trecho1 + trecho2;
+    return null
 
   }
 
-};
+}
