@@ -2,11 +2,6 @@ const DataManager = {
 
   rotas: [],
 
-  CACHE_KEY: "rf_rotas_cache",
-  CACHE_TIME_KEY: "rf_rotas_cache_time",
-
-  CACHE_VALIDITY: 24 * 60 * 60 * 1000, // 24h
-
   arquivos: [
 
     "./data/condominio-porto-do-cabo.json",
@@ -31,27 +26,13 @@ const DataManager = {
 
     try {
 
-      const cache = localStorage.getItem(this.CACHE_KEY);
-      const cacheTime = localStorage.getItem(this.CACHE_TIME_KEY);
-
-      const agora = Date.now();
-
-      if (cache && cacheTime && (agora - cacheTime) < this.CACHE_VALIDITY) {
-
-        this.rotas = JSON.parse(cache);
-
-        console.log("⚡ Rotas carregadas do CACHE:", this.rotas.length);
-
-        return;
-
-      }
-
-      console.log("⬇ Baixando rotas do servidor...");
+      console.log("⬇ Carregando rotas do servidor...");
 
       const respostas = await Promise.all(
 
         this.arquivos.map(a =>
-          fetch(a).then(r => {
+          fetch(a + "?v=" + Date.now(), { cache: "no-store" })
+          .then(r => {
             if (!r.ok) throw new Error("Falha ao carregar " + a);
             return r.json();
           })
@@ -61,10 +42,7 @@ const DataManager = {
 
       this.rotas = respostas.flat();
 
-      localStorage.setItem(this.CACHE_KEY, JSON.stringify(this.rotas));
-      localStorage.setItem(this.CACHE_TIME_KEY, Date.now());
-
-      console.log("✅ Rotas carregadas e salvas no cache:", this.rotas.length);
+      console.log("✅ Rotas carregadas:", this.rotas.length);
 
     } catch (e) {
 
