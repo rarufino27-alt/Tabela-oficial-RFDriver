@@ -13,7 +13,6 @@ const DataManager = {
     "./data/cohab.json",
     "./data/condominio-porto-do-cabo.json",
     "./data/dharma-ville.json",
-    "./data/engenhos.json",
     "./data/enseadas.json",
     "./data/gaibu.json",
     "./data/interurbanas.json",
