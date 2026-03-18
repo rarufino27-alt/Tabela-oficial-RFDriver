@@ -32,7 +32,7 @@
 { "origem": "Calhetas", "destino": "Bela Vista Baixa", "valor": 49.99, "regiao": "Cabo" },
 { "origem": "Calhetas", "destino": "Cruzeiro", "valor": 52.99, "regiao": "Cabo" },
 { "origem": "Calhetas", "destino": "Toca", "valor": 49.99, "regiao": "Cabo" },
-{ "origem": "Calhetas", "destino": "Rua 25 da Bela Vista", "valor": 49.99, "regiao": "Cabo" }
+{ "origem": "Calhetas", "destino": "Rua 25 da Bela Vista", "valor": 49.99, "regiao": "Cabo" },
 
 { "origem": "Calhetas", "destino": "Charnequinha Baixa", "valor": 54.99, "regiao": "Cabo" },
 { "origem": "Calhetas", "destino": "Charnequinha Alta", "valor": 54.99, "regiao": "Cabo" },
