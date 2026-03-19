@@ -11,6 +11,41 @@
 <link rel="stylesheet" href="theme/layout.css">
 <link rel="stylesheet" href="theme/components.css">
 
+<style>
+.slide-text{
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  text-align:center;
+  padding:20px;
+  background: linear-gradient(135deg,#111,#1f2937);
+  color:#fff;
+}
+
+.slide-content{
+  max-width:300px;
+  opacity:0;
+  transform:translateY(30px);
+  transition:all .6s ease;
+}
+
+.slide.ativo .slide-content{
+  opacity:1;
+  transform:translateY(0);
+}
+
+.slide-content h2{
+  font-size:22px;
+  margin-bottom:8px;
+  font-weight:700;
+}
+
+.slide-content p{
+  font-size:14px;
+  opacity:0.8;
+}
+</style>
+
 </head>
 
 <body>
@@ -58,11 +93,40 @@ RF MOTORISTA
 <div class="slider">
 <div class="slides" id="slides">
 
-<div class="slide" style="background-image:url('slides/slide1.jpg')"></div>
-<div class="slide" style="background-image:url('slides/slide2.jpg')"></div>
-<div class="slide" style="background-image:url('slides/slide3.jpg')"></div>
-<div class="slide" style="background-image:url('slides/slide4.jpg')"></div>
-<div class="slide" style="background-image:url('slides/slide5.jpg')"></div>
+<div class="slide slide-text ativo">
+  <div class="slide-content">
+    <h2>Ganhe mais todos os dias</h2>
+    <p>Corridas organizadas e com valor justo</p>
+  </div>
+</div>
+
+<div class="slide slide-text">
+  <div class="slide-content">
+    <h2>Sem disputa por corrida</h2>
+    <p>Aqui o motorista tem prioridade</p>
+  </div>
+</div>
+
+<div class="slide slide-text">
+  <div class="slide-content">
+    <h2>Tarifas tabeladas</h2>
+    <p>Você já sabe quanto vai ganhar antes</p>
+  </div>
+</div>
+
+<div class="slide slide-text">
+  <div class="slide-content">
+    <h2>Mais controle do seu tempo</h2>
+    <p>Escolha quando rodar e quando parar</p>
+  </div>
+</div>
+
+<div class="slide slide-text">
+  <div class="slide-content">
+    <h2>Grupo forte, motoristas unidos</h2>
+    <p>Menos concorrência, mais resultado</p>
+  </div>
+</div>
 
 </div>
 </div>
@@ -188,22 +252,32 @@ loading.style.display = "none";
 
 init();
 
-/* SLIDER */
+/* SLIDER NOVO */
 
-let slideIndex=0;
-const slides=document.getElementById("slides");
-const dots=document.querySelectorAll(".dotSlide");
+let slideIndex = 0;
+const slides = document.querySelectorAll(".slide");
+const dots = document.querySelectorAll(".dotSlide");
+
+function atualizarSlider(){
+
+  slides.forEach(s => s.classList.remove("ativo"));
+  dots.forEach(d => d.classList.remove("ativo"));
+
+  slides[slideIndex].classList.add("ativo");
+  dots[slideIndex].classList.add("ativo");
+
+}
 
 setInterval(()=>{
-slideIndex++;
-if(slideIndex>=5) slideIndex=0;
 
-slides.style.transform=`translateX(-${slideIndex*100}%)`;
+  slideIndex++;
+  if(slideIndex >= slides.length) slideIndex = 0;
 
-dots.forEach(d=>d.classList.remove("ativo"));
-dots[slideIndex].classList.add("ativo");
+  atualizarSlider();
 
 },4000);
+
+atualizarSlider();
 
 /* MENU */
 
