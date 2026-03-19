@@ -13,11 +13,11 @@
 
 <style>
 
-/* SLIDER BASE */
+/* SLIDER CORRIGIDO */
 .slider{
   height:180px;
   overflow:hidden;
-  padding:0 10px; /* AQUI resolve o espaço lateral corretamente */
+  padding:0 10px;
 }
 
 .slides{
@@ -33,21 +33,7 @@
   justify-content:center;
 }
 
-/* DARK MODE */
-[data-theme="dark"] .slide-box{
-  background: linear-gradient(135deg,#020617,#0f172a);
-  border:1px solid rgba(255,204,0,0.25);
-  box-shadow: 0 0 15px rgba(255,204,0,0.08);
-}
-
-/* LIGHT MODE */
-[data-theme="light"] .slide-box{
-  background: linear-gradient(135deg,#1e3a8a,#0f172a);
-  border:1px solid rgba(255,204,0,0.2);
-  box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-}
-
-/* BOX INTERNO (AGORA CORRETO) */
+/* BOX */
 .slide-box{
   width:100%;
   height:100%;
@@ -61,21 +47,24 @@
   position:relative;
 }
 
-/* brilho sutil */
-.slide-box::after{
-  content:'';
-  position:absolute;
-  inset:0;
-  background: radial-gradient(circle at center, rgba(255,204,0,0.08), transparent);
+/* DARK */
+[data-theme="dark"] .slide-box{
+  background: linear-gradient(135deg,#020617,#0f172a);
+  border:1px solid rgba(255,204,0,0.25);
+}
+
+/* LIGHT */
+[data-theme="light"] .slide-box{
+  background: linear-gradient(135deg,#1e3a8a,#0f172a);
+  border:1px solid rgba(255,204,0,0.2);
 }
 
 /* TEXTO */
 .slide-content{
   max-width:90%;
   opacity:0;
-  transform:translateY(15px);
-  transition:all .4s ease;
-  z-index:2;
+  transform:translateY(10px);
+  transition:.4s;
 }
 
 .slide.ativo .slide-content{
@@ -83,26 +72,8 @@
   transform:translateY(0);
 }
 
-.slide-content h2{
-  font-size:18px;
-  font-weight:700;
-  margin-bottom:6px;
-}
-
-.slide-content p{
-  font-size:13px;
-  opacity:0.85;
-}
-
-/* DESTAQUE */
 .destaque{
   color:#ffcc00;
-}
-
-/* RESPONSIVO */
-@media(min-width:768px){
-  .slider{ height:220px; }
-  .slide-content h2{ font-size:22px; }
 }
 
 </style>
@@ -120,15 +91,8 @@
 
 <div class="menu" id="menu">
 <h3>Menu</h3>
-
-<div class="menu-item" onclick="irPara('termos.html')">
-📜 Regras do Grupo RF
-</div>
-
-<div class="menu-item" onclick="irPara('configuracoes.html')">
-⚙️ Configurações
-</div>
-
+<div class="menu-item" onclick="irPara('termos.html')">📜 Regras do Grupo RF</div>
+<div class="menu-item" onclick="irPara('configuracoes.html')">⚙️ Configurações</div>
 </div>
 
 <div class="top-white">
@@ -145,48 +109,48 @@
 <div class="slides" id="slides">
 
 <div class="slide ativo">
-  <div class="slide-box">
-    <div class="slide-content">
-      <h2>Tabela <span class="destaque">Oficial</span> RF Motorista</h2>
-      <p>Preço Fixo e justo para todos!</p>
-    </div>
-  </div>
+<div class="slide-box">
+<div class="slide-content">
+<h2>Tabela <span class="destaque">Oficial</span> RF Motorista</h2>
+<p>Preço Fixo e justo para todos!</p>
+</div>
+</div>
 </div>
 
 <div class="slide">
-  <div class="slide-box">
-    <div class="slide-content">
-      <h2>Benefícios <span class="destaque">em R$ Semanalmente</span></h2>
-      <p>R$ 50 para quem mais pegar Viagens</p>
-    </div>
-  </div>
+<div class="slide-box">
+<div class="slide-content">
+<h2>Benefícios <span class="destaque">em R$ Semanalmente</span></h2>
+<p>R$ 50 para quem mais pegar Viagens</p>
+</div>
+</div>
 </div>
 
 <div class="slide">
-  <div class="slide-box">
-    <div class="slide-content">
-      <h2>A Sua Lâmpada <span class="destaque">Queimou?</span></h2>
-      <p>O Grupo RF Tem disponível pra você</p>
-    </div>
-  </div>
+<div class="slide-box">
+<div class="slide-content">
+<h2>A Sua Lâmpada <span class="destaque">Queimou?</span></h2>
+<p>O Grupo RF Tem disponível pra você</p>
+</div>
+</div>
 </div>
 
 <div class="slide">
-  <div class="slide-box">
-    <div class="slide-content">
-      <h2>Chegou no Passageiro e ele Cancelou?</h2>
-      <p>O Grupo RF Garante seu deslocamento</p>
-    </div>
-  </div>
+<div class="slide-box">
+<div class="slide-content">
+<h2>Chegou no Passageiro e ele Cancelou?</h2>
+<p>O Grupo RF Garante seu deslocamento</p>
+</div>
+</div>
 </div>
 
 <div class="slide">
-  <div class="slide-box">
-    <div class="slide-content">
-      <h2>Fez a Viagem e <span class="destaque">NÃO RECEBEU?</span></h2>
-      <p>O Grupo RF Resolve isso Pra Você!</p>
-    </div>
-  </div>
+<div class="slide-box">
+<div class="slide-content">
+<h2>Fez a Viagem e <span class="destaque">NÃO RECEBEU?</span></h2>
+<p>O Grupo RF Resolve isso Pra Você!</p>
+</div>
+</div>
 </div>
 
 </div>
@@ -200,9 +164,89 @@
 <div class="dotSlide"></div>
 </div>
 
-<!-- RESTANTE DO HTML PERMANECE IGUAL (SEM ALTERAÇÃO) -->
+<!-- RESTANTE ORIGINAL (INTOCADO) -->
+
+<div class="center">
+<div class="titulo-box">
+<div class="titulo-central">
+Para onde <span>vamos</span> hoje?
+</div>
+</div>
+
+<div class="card">
+
+<div class="campo" id="origemBtn">
+<div class="campo-left">
+<div class="dot origem"></div>
+<div id="origemTexto">Selecionar origem</div>
+</div>
+</div>
+
+<div class="campo" id="paradaBtn" style="display:none;">
+<div class="campo-left">
+<div class="dot parada"></div>
+<div id="paradaTexto">Selecionar parada</div>
+</div>
+</div>
+
+<div class="campo" id="destinoBtn">
+<div class="campo-left">
+<div class="dot destino"></div>
+<div id="destinoTexto">Selecionar destino</div>
+</div>
+<div class="plus" id="addParada">＋</div>
+</div>
+
+<div class="campo">
+<div class="campo-left">
+<div class="dot" style="background:#3b82f6;"></div>
+<div>Tipo de veículo</div>
+</div>
+
+<div class="rf-select" id="tipoCarroBtn">
+<span id="tipoCarroTexto">4 lugares</span>
+</div>
+
+<input type="hidden" id="tipoCarro" value="1">
+</div>
+
+</div>
+</div>
+
+<div class="bottom">
+<button id="confirmar" disabled>Confirmar rota</button>
+</div>
+
+<div class="modal" id="modal">
+<div class="modal-content">
+<input type="text" id="busca" placeholder="Buscar local...">
+<div class="lista" id="lista"></div>
+</div>
+</div>
+
+<div class="rf-modal" id="modalTipoCarro">
+<div class="rf-modal-content">
+<div class="rf-option" data-value="1">4 lugares</div>
+<div class="rf-option" data-value="1.5">6 lugares (+50%)</div>
+</div>
+</div>
 
 <script>
+
+/* LOADER */
+async function init(){
+const loading = document.getElementById("loading");
+loading.style.display = "flex";
+
+try{
+await DataManager.carregar();
+}catch(e){
+console.warn(e);
+}
+
+loading.style.display = "none";
+}
+init();
 
 /* SLIDER */
 let slideIndex = 0;
@@ -210,25 +254,30 @@ const slidesContainer = document.getElementById("slides");
 const slides = document.querySelectorAll(".slide");
 const dots = document.querySelectorAll(".dotSlide");
 
-function atualizarSlider(){
+setInterval(()=>{
+slideIndex++;
+if(slideIndex >= slides.length) slideIndex = 0;
 
-slides.forEach(s => s.classList.remove("ativo"));
-dots.forEach(d => d.classList.remove("ativo"));
+slides.forEach(s=>s.classList.remove("ativo"));
+dots.forEach(d=>d.classList.remove("ativo"));
 
 slides[slideIndex].classList.add("ativo");
 dots[slideIndex].classList.add("ativo");
 
 slidesContainer.style.transform = `translateX(-${slideIndex * 100}%)`;
 
-}
-
-setInterval(()=>{
-slideIndex++;
-if(slideIndex >= slides.length) slideIndex = 0;
-atualizarSlider();
 },4000);
 
-atualizarSlider();
+/* MENU */
+function abrirMenu(){
+menu.classList.add("ativo");
+menuOverlay.style.display="block";
+}
+function fecharMenu(){
+menu.classList.remove("ativo");
+menuOverlay.style.display="none";
+}
+function irPara(p){ window.location.href=p; }
 
 </script>
 
