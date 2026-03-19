@@ -250,6 +250,55 @@ dots[slideIndex].classList.add("ativo");
 
 },4000);
 
+  let startX = 0;
+let endX = 0;
+
+slides.addEventListener("touchstart", (e)=>{
+  startX = e.touches[0].clientX;
+});
+
+slides.addEventListener("touchend", (e)=>{
+  endX = e.changedTouches[0].clientX;
+  handleSwipe();
+});
+
+/* DESKTOP (mouse) */
+let isDragging = false;
+
+slides.addEventListener("mousedown", (e)=>{
+  isDragging = true;
+  startX = e.clientX;
+});
+
+slides.addEventListener("mouseup", (e)=>{
+  if(!isDragging) return;
+  endX = e.clientX;
+  isDragging = false;
+  handleSwipe();
+});
+
+function handleSwipe(){
+
+  const diff = startX - endX;
+
+  if(Math.abs(diff) < 50) return; // sensibilidade
+
+  if(diff > 0){
+    // próximo
+    slideIndex++;
+    if(slideIndex >= 5) slideIndex = 4;
+  }else{
+    // anterior
+    slideIndex--;
+    if(slideIndex < 0) slideIndex = 0;
+  }
+
+  slides.style.transform = `translateX(-${slideIndex*100}%)`;
+
+  dots.forEach(d=>d.classList.remove("ativo"));
+  dots[slideIndex].classList.add("ativo");
+}
+  
 /* BOTÃO → AÇÃO */
 
 document.querySelectorAll(".slide-btn").forEach(btn=>{
