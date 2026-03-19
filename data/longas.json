@@ -1,5 +1,4 @@
-[
-  
+{  
 "Prazeres": {"origens": ["Centro do Cabo","Cohab","Bairro São Francisco Alto","Bairro São Francisco Baixo","Padaria de Gilberto cruzeiro","Shopping Costa Dourada"],"valor": 44.99},
 "Prazeres-Hospital Memorial guararapes": {"origens": ["Centro do Cabo","Cohab","Bairro São Francisco Alto","Bairro São Francisco Baixo","Padaria de Gilberto cruzeiro","Shopping Costa Dourada"],"valor": 39.99},
 "Prazeres-Coca-Cola": {"origens": ["Centro do Cabo","Cohab","Bairro São Francisco Alto","Bairro São Francisco Baixo","Padaria de Gilberto cruzeiro","Shopping Costa Dourada"],"valor": 39.99},
@@ -202,4 +201,4 @@
   "Salvador BA": { "origens": ["Centro do Cabo","Cohab","Bairro São Francisco Alto","Bairro São Francisco Baixo","Padaria de Gilberto cruzeiro","Shopping Costa Dourada"], "valor": 1799.99 },
   "Aracajú SE": { "origens": ["Centro do Cabo","Cohab","Bairro São Francisco Alto","Bairro São Francisco Baixo","Padaria de Gilberto cruzeiro","Shopping Costa Dourada"], "valor": 1299.99 }
 
-  ]
+}
