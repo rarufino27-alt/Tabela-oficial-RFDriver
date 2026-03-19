@@ -1,252 +1,76 @@
 [
-  "Prazeres": {
-    "origens": ["Centro do Cabo", "Cohab", "Bairro São Francisco Alto", "Bairro São Francisco Baixo", "Padaria de Gilberto cruzeiro", "Shopping Costa Dourada"],
-    "valor": 44.99
-  },
-  "Prazeres-Hospital Memorial guararapes": {
-    "origens": ["Centro do Cabo", "Cohab", "Bairro São Francisco Alto", "Bairro São Francisco Baixo", "Padaria de Gilberto cruzeiro", "Shopping Costa Dourada"],
-    "valor": 39.99
-  },
-  "Prazeres-Coca-Cola": {
-    "origens": ["Centro do Cabo", "Cohab", "Bairro São Francisco Alto", "Bairro São Francisco Baixo", "Padaria de Gilberto cruzeiro", "Shopping Costa Dourada"],
-    "valor": 39.99
-  },
-  "Prazeres-Logistica Armazena 1": {
-    "origens": ["Centro do Cabo", "Cohab", "Bairro São Francisco Alto", "Bairro São Francisco Baixo", "Padaria de Gilberto cruzeiro", "Shopping Costa Dourada"],
-    "valor": 39.99
-  },
-  "Prazeres-Churrascaria Ponto gaúcho": {
-    "origens": ["Centro do Cabo", "Cohab", "Bairro São Francisco Alto", "Bairro São Francisco Baixo", "Padaria de Gilberto cruzeiro", "Shopping Costa Dourada"],
-    "valor": 44.99
-  },
-  "Prazeres-Estação do Metrô": {
-    "origens": ["Centro do Cabo", "Cohab", "Bairro São Francisco Alto", "Bairro São Francisco Baixo", "Padaria de Gilberto cruzeiro", "Shopping Costa Dourada"],
-    "valor": 44.99
-  },
-  "Prazeres-INIFG": {
-    "origens": ["Centro do Cabo", "Cohab", "Bairro São Francisco Alto", "Bairro São Francisco Baixo", "Padaria de Gilberto cruzeiro", "Shopping Costa Dourada"],
-    "valor": 44.99
-  },
-  "Prazeres-ATACADÃO": {
-    "origens": ["Centro do Cabo", "Cohab", "Bairro São Francisco Alto", "Bairro São Francisco Baixo", "Padaria de Gilberto cruzeiro", "Shopping Costa Dourada"],
-    "valor": 44.99
-  },
-  "Prazeres-ASSAI": {
-    "origens": ["Centro do Cabo", "Cohab", "Bairro São Francisco Alto", "Bairro São Francisco Baixo", "Padaria de Gilberto cruzeiro", "Shopping Costa Dourada"],
-    "valor": 44.99
-  },
-  "Prazeres-Radio Maranata": {
-    "origens": ["Centro do Cabo", "Cohab", "Bairro São Francisco Alto", "Bairro São Francisco Baixo", "Padaria de Gilberto cruzeiro", "Shopping Costa Dourada"],
-    "valor": 44.99
-  },
-  "Shopping Guararapes": {
-    "origens": ["Centro do Cabo", "Cohab", "Bairro São Francisco Alto", "Bairro São Francisco Baixo", "Padaria de Gilberto cruzeiro", "Shopping Costa Dourada"],
-    "valor": 44.99
-  },
-  "Muribeca": {
-    "origens": ["Centro do Cabo", "Cohab", "Bairro São Francisco Alto", "Bairro São Francisco Baixo", "Padaria de Gilberto cruzeiro", "Shopping Costa Dourada"],
-    "valor": 59.99
-  },
-  "Muribeca-Salão das Testemunhas de Jeová": {
-    "origens": ["Centro do Cabo", "Cohab", "Bairro São Francisco Alto", "Bairro São Francisco Baixo", "Padaria de Gilberto cruzeiro", "Shopping Costa Dourada"],
-    "valor": 59.99
-  },
-  "Muribeca-Integração": {
-    "origens": ["Centro do Cabo", "Cohab", "Bairro São Francisco Alto", "Bairro São Francisco Baixo", "Padaria de Gilberto cruzeiro", "Shopping Costa Dourada"],
-    "valor": 64.99
-  },
-  "Muribeca-Loteamento Nova Prazeres": {
-    "origens": ["Centro do Cabo", "Cohab", "Bairro São Francisco Alto", "Bairro São Francisco Baixo", "Padaria de Gilberto cruzeiro", "Shopping Costa Dourada"],
-    "valor": 59.99
-  },
-  "Muribeca-Dos Guararapes": {
-    "origens": ["Centro do Cabo", "Cohab", "Bairro São Francisco Alto", "Bairro São Francisco Baixo", "Padaria de Gilberto cruzeiro", "Shopping Costa Dourada"],
-    "valor": 69.99
-  },
-  "Muribeca-Muribequinha": {
-    "origens": ["Centro do Cabo", "Cohab", "Bairro São Francisco Alto", "Bairro São Francisco Baixo", "Padaria de Gilberto cruzeiro", "Shopping Costa Dourada"],
-    "valor": 79.99
-  },
-  "Marcos Freire": {
-    "origens": ["Centro do Cabo", "Cohab", "Bairro São Francisco Alto", "Bairro São Francisco Baixo", "Padaria de Gilberto cruzeiro", "Shopping Costa Dourada"],
-    "valor": 64.99
-  },
-  "Zumbi do Pacheco": {
-    "origens": ["Centro do Cabo", "Cohab", "Bairro São Francisco Alto", "Bairro São Francisco Baixo", "Padaria de Gilberto cruzeiro", "Shopping Costa Dourada"],
-    "valor": 64.99
-  },
-  "IBURA DE BAIXO": {
-    "origens": ["Centro do Cabo", "Cohab", "Bairro São Francisco Alto", "Bairro São Francisco Baixo", "Padaria de Gilberto cruzeiro", "Shopping Costa Dourada"],
-    "valor": 64.99
-  },
-  "IBURA-UR-11": {
-    "origens": ["Centro do Cabo", "Cohab", "Bairro São Francisco Alto", "Bairro São Francisco Baixo", "Padaria de Gilberto cruzeiro", "Shopping Costa Dourada"],
-    "valor": 64.99
-  },
-  "Dois Carneiros": {
-    "origens": ["Centro do Cabo", "Cohab", "Bairro São Francisco Alto", "Bairro São Francisco Baixo", "Padaria de Gilberto cruzeiro", "Shopping Costa Dourada"],
-    "valor": 67.99
-  },
-  "Pacheco": {
-    "origens": ["Centro do Cabo", "Cohab", "Bairro São Francisco Alto", "Bairro São Francisco Baixo", "Padaria de Gilberto cruzeiro", "Shopping Costa Dourada"],
-    "valor": 75.99
-  },
-  "Jaboatão-Centro": {
-    "origens": ["Centro do Cabo", "Cohab", "Bairro São Francisco Alto", "Bairro São Francisco Baixo", "Padaria de Gilberto cruzeiro", "Shopping Costa Dourada"],
-    "valor": 84.99
-  },
-  "Jaboatão-Socorro": {
-    "origens": ["Centro do Cabo", "Cohab", "Bairro São Francisco Alto", "Bairro São Francisco Baixo", "Padaria de Gilberto cruzeiro", "Shopping Costa Dourada"],
-    "valor": 79.99
-  },
-  "Jaboatão-Sucupira": {
-    "origens": ["Centro do Cabo", "Cohab", "Bairro São Francisco Alto", "Bairro São Francisco Baixo", "Padaria de Gilberto cruzeiro", "Shopping Costa Dourada"],
-    "valor": 79.99
-  },
-  "Jaboatão-Cavaleiro": {
-    "origens": ["Centro do Cabo", "Cohab", "Bairro São Francisco Alto", "Bairro São Francisco Baixo", "Padaria de Gilberto cruzeiro", "Shopping Costa Dourada"],
-    "valor": 79.99
-  },
-  "Jaboatão-Vila Rica": {
-    "origens": ["Centro do Cabo", "Cohab", "Bairro São Francisco Alto", "Bairro São Francisco Baixo", "Padaria de Gilberto cruzeiro", "Shopping Costa Dourada"],
-    "valor": 89.99
-  },
-  "Jaboatão-Santo Aleixo": {
-    "origens": ["Centro do Cabo", "Cohab", "Bairro São Francisco Alto", "Bairro São Francisco Baixo", "Padaria de Gilberto cruzeiro", "Shopping Costa Dourada"],
-    "valor": 89.99
-  },
-  "Jaboatão-Hospital Memorial Jaboatão": {
-    "origens": ["Centro do Cabo", "Cohab", "Bairro São Francisco Alto", "Bairro São Francisco Baixo", "Padaria de Gilberto cruzeiro", "Shopping Costa Dourada"],
-    "valor": 84.99
-  },
-  "Jaboatão-Manassu": {
-    "origens": ["Centro do Cabo", "Cohab", "Bairro São Francisco Alto", "Bairro São Francisco Baixo", "Padaria de Gilberto cruzeiro", "Shopping Costa Dourada"],
-    "valor": 99.99
-  },
-  "Barro": {
-    "origens": ["Centro do Cabo", "Cohab", "Bairro São Francisco Alto", "Bairro São Francisco Baixo", "Padaria de Gilberto cruzeiro", "Shopping Costa Dourada"],
-    "valor": 64.99
-  },
   
-  "Candeias": {
-    "origens": ["Centro do Cabo", "Cohab", "Bairro São Francisco Alto", "Bairro São Francisco Baixo", "Padaria de Gilberto cruzeiro", "Shopping Costa Dourada"],
-    "valor": 44.99
-  },
-  "Candeias-Dom Helder": {
-    "origens": ["Centro do Cabo", "Cohab", "Bairro São Francisco Alto", "Bairro São Francisco Baixo", "Padaria de Gilberto cruzeiro", "Shopping Costa Dourada"],
-    "valor": 49.99
-  },
-  "Candeias-Condominio Candeias Ville": {
-    "origens": ["Centro do Cabo", "Cohab", "Bairro São Francisco Alto", "Bairro São Francisco Baixo", "Padaria de Gilberto cruzeiro", "Shopping Costa Dourada"],
-    "valor": 49.99
-  },
-  "Candeias-Condominio Ecovila Praia": {
-    "origens": ["Centro do Cabo", "Cohab", "Bairro São Francisco Alto", "Bairro São Francisco Baixo", "Padaria de Gilberto cruzeiro", "Shopping Costa Dourada"],
-    "valor": 49.99
-  },
-  "Candeias-Churrascaria Boi Brasa": {
-    "origens": ["Centro do Cabo", "Cohab", "Bairro São Francisco Alto", "Bairro São Francisco Baixo", "Padaria de Gilberto cruzeiro", "Shopping Costa Dourada"],
-    "valor": 47.99
-  },
-  "Candeias-Betos Bar": {
-    "origens": ["Centro do Cabo", "Cohab", "Bairro São Francisco Alto", "Bairro São Francisco Baixo", "Padaria de Gilberto cruzeiro", "Shopping Costa Dourada"],
-    "valor": 44.99
-  },
-  "Candeias-Bar da Galinha": {
-    "origens": ["Centro do Cabo", "Cohab", "Bairro São Francisco Alto", "Bairro São Francisco Baixo", "Padaria de Gilberto cruzeiro", "Shopping Costa Dourada"],
-    "valor": 44.99
-  },
+"Prazeres": {"origens": ["Centro do Cabo","Cohab","Bairro São Francisco Alto","Bairro São Francisco Baixo","Padaria de Gilberto cruzeiro","Shopping Costa Dourada"],"valor": 44.99},
+"Prazeres-Hospital Memorial guararapes": {"origens": ["Centro do Cabo","Cohab","Bairro São Francisco Alto","Bairro São Francisco Baixo","Padaria de Gilberto cruzeiro","Shopping Costa Dourada"],"valor": 39.99},
+"Prazeres-Coca-Cola": {"origens": ["Centro do Cabo","Cohab","Bairro São Francisco Alto","Bairro São Francisco Baixo","Padaria de Gilberto cruzeiro","Shopping Costa Dourada"],"valor": 39.99},
+"Prazeres-Logistica Armazena 1": {"origens": ["Centro do Cabo","Cohab","Bairro São Francisco Alto","Bairro São Francisco Baixo","Padaria de Gilberto cruzeiro","Shopping Costa Dourada"],"valor": 39.99},
+"Prazeres-Churrascaria Ponto gaúcho": {"origens": ["Centro do Cabo","Cohab","Bairro São Francisco Alto","Bairro São Francisco Baixo","Padaria de Gilberto cruzeiro","Shopping Costa Dourada"],"valor": 44.99},
+"Prazeres-Estação do Metrô": {"origens": ["Centro do Cabo","Cohab","Bairro São Francisco Alto","Bairro São Francisco Baixo","Padaria de Gilberto cruzeiro","Shopping Costa Dourada"],"valor": 44.99},
+"Prazeres-INIFG": {"origens": ["Centro do Cabo","Cohab","Bairro São Francisco Alto","Bairro São Francisco Baixo","Padaria de Gilberto cruzeiro","Shopping Costa Dourada"],"valor": 44.99},
+"Prazeres-ATACADÃO": {"origens": ["Centro do Cabo","Cohab","Bairro São Francisco Alto","Bairro São Francisco Baixo","Padaria de Gilberto cruzeiro","Shopping Costa Dourada"],"valor": 44.99},
+"Prazeres-ASSAI": {"origens": ["Centro do Cabo","Cohab","Bairro São Francisco Alto","Bairro São Francisco Baixo","Padaria de Gilberto cruzeiro","Shopping Costa Dourada"],"valor": 44.99},
+"Prazeres-Radio Maranata": {"origens": ["Centro do Cabo","Cohab","Bairro São Francisco Alto","Bairro São Francisco Baixo","Padaria de Gilberto cruzeiro","Shopping Costa Dourada"],"valor": 44.99},
+"Shopping Guararapes": {"origens": ["Centro do Cabo","Cohab","Bairro São Francisco Alto","Bairro São Francisco Baixo","Padaria de Gilberto cruzeiro","Shopping Costa Dourada"],"valor": 44.99},
 
-  "Piedade": {
-    "origens": ["Centro do Cabo", "Cohab", "Bairro São Francisco Alto", "Bairro São Francisco Baixo", "Padaria de Gilberto cruzeiro", "Shopping Costa Dourada"],
-    "valor": 49.99
-  },
-  "Piedade-Laça Burguer": {
-    "origens": ["Centro do Cabo", "Cohab", "Bairro São Francisco Alto", "Bairro São Francisco Baixo", "Padaria de Gilberto cruzeiro", "Shopping Costa Dourada"],
-    "valor": 49.99
-  },
-  "Piedade-Pão de Açucar": {
-    "origens": ["Centro do Cabo", "Cohab", "Bairro São Francisco Alto", "Bairro São Francisco Baixo", "Padaria de Gilberto cruzeiro", "Shopping Costa Dourada"],
-    "valor": 49.99
-  },
-  "Piedade-LOUGE": {
-    "origens": ["Centro do Cabo", "Cohab", "Bairro São Francisco Alto", "Bairro São Francisco Baixo", "Padaria de Gilberto cruzeiro", "Shopping Costa Dourada"],
-    "valor": 49.99
-  },
+"Muribeca": {"origens": ["Centro do Cabo","Cohab","Bairro São Francisco Alto","Bairro São Francisco Baixo","Padaria de Gilberto cruzeiro","Shopping Costa Dourada"],"valor": 59.99},
+"Muribeca-Salão das Testemunhas de Jeová": {"origens": ["Centro do Cabo","Cohab","Bairro São Francisco Alto","Bairro São Francisco Baixo","Padaria de Gilberto cruzeiro","Shopping Costa Dourada"],"valor": 59.99},
+"Muribeca-Integração": {"origens": ["Centro do Cabo","Cohab","Bairro São Francisco Alto","Bairro São Francisco Baixo","Padaria de Gilberto cruzeiro","Shopping Costa Dourada"],"valor": 64.99},
+"Muribeca-Loteamento Nova Prazeres": {"origens": ["Centro do Cabo","Cohab","Bairro São Francisco Alto","Bairro São Francisco Baixo","Padaria de Gilberto cruzeiro","Shopping Costa Dourada"],"valor": 59.99},
+"Muribeca-Dos Guararapes": {"origens": ["Centro do Cabo","Cohab","Bairro São Francisco Alto","Bairro São Francisco Baixo","Padaria de Gilberto cruzeiro","Shopping Costa Dourada"],"valor": 69.99},
+"Muribeca-Muribequinha": {"origens": ["Centro do Cabo","Cohab","Bairro São Francisco Alto","Bairro São Francisco Baixo","Padaria de Gilberto cruzeiro","Shopping Costa Dourada"],"valor": 79.99},
+"Marcos Freire": {"origens": ["Centro do Cabo","Cohab","Bairro São Francisco Alto","Bairro São Francisco Baixo","Padaria de Gilberto cruzeiro","Shopping Costa Dourada"],"valor": 64.99},
+"Zumbi do Pacheco": {"origens": ["Centro do Cabo","Cohab","Bairro São Francisco Alto","Bairro São Francisco Baixo","Padaria de Gilberto cruzeiro","Shopping Costa Dourada"],"valor": 64.99},
+"IBURA DE BAIXO": {"origens": ["Centro do Cabo","Cohab","Bairro São Francisco Alto","Bairro São Francisco Baixo","Padaria de Gilberto cruzeiro","Shopping Costa Dourada"],"valor": 64.99},
+"IBURA-UR-11": {"origens": ["Centro do Cabo","Cohab","Bairro São Francisco Alto","Bairro São Francisco Baixo","Padaria de Gilberto cruzeiro","Shopping Costa Dourada"],"valor": 64.99},
+"Dois Carneiros": {"origens": ["Centro do Cabo","Cohab","Bairro São Francisco Alto","Bairro São Francisco Baixo","Padaria de Gilberto cruzeiro","Shopping Costa Dourada"],"valor": 67.99},
+"Pacheco": {"origens": ["Centro do Cabo","Cohab","Bairro São Francisco Alto","Bairro São Francisco Baixo","Padaria de Gilberto cruzeiro","Shopping Costa Dourada"],"valor": 75.99},
 
-  "Porta Larga": {
-    "origens": ["Centro do Cabo", "Cohab", "Bairro São Francisco Alto", "Bairro São Francisco Baixo", "Padaria de Gilberto cruzeiro", "Shopping Costa Dourada"],
-    "valor": 49.99
-  },
+"Jaboatão-Centro": {"origens": ["Centro do Cabo","Cohab","Bairro São Francisco Alto","Bairro São Francisco Baixo","Padaria de Gilberto cruzeiro","Shopping Costa Dourada"],"valor": 84.99},
+"Jaboatão-Socorro": {"origens": ["Centro do Cabo","Cohab","Bairro São Francisco Alto","Bairro São Francisco Baixo","Padaria de Gilberto cruzeiro","Shopping Costa Dourada"],"valor": 79.99},
+"Jaboatão-Sucupira": {"origens": ["Centro do Cabo","Cohab","Bairro São Francisco Alto","Bairro São Francisco Baixo","Padaria de Gilberto cruzeiro","Shopping Costa Dourada"],"valor": 79.99},
+"Jaboatão-Cavaleiro": {"origens": ["Centro do Cabo","Cohab","Bairro São Francisco Alto","Bairro São Francisco Baixo","Padaria de Gilberto cruzeiro","Shopping Costa Dourada"],"valor": 79.99},
+"Jaboatão-Vila Rica": {"origens": ["Centro do Cabo","Cohab","Bairro São Francisco Alto","Bairro São Francisco Baixo","Padaria de Gilberto cruzeiro","Shopping Costa Dourada"],"valor": 89.99},
+"Jaboatão-Santo Aleixo": {"origens": ["Centro do Cabo","Cohab","Bairro São Francisco Alto","Bairro São Francisco Baixo","Padaria de Gilberto cruzeiro","Shopping Costa Dourada"],"valor": 89.99},
+"Jaboatão-Hospital Memorial Jaboatão": {"origens": ["Centro do Cabo","Cohab","Bairro São Francisco Alto","Bairro São Francisco Baixo","Padaria de Gilberto cruzeiro","Shopping Costa Dourada"],"valor": 84.99},
+"Jaboatão-Manassu": {"origens": ["Centro do Cabo","Cohab","Bairro São Francisco Alto","Bairro São Francisco Baixo","Padaria de Gilberto cruzeiro","Shopping Costa Dourada"],"valor": 99.99},
 
-  "Hospital da Aeronáutica Recife": {
-    "origens": ["Centro do Cabo", "Cohab", "Bairro São Francisco Alto", "Bairro São Francisco Baixo", "Padaria de Gilberto cruzeiro", "Shopping Costa Dourada"],
-    "valor": 59.99
-  },
+"Barro": {"origens": ["Centro do Cabo","Cohab","Bairro São Francisco Alto","Bairro São Francisco Baixo","Padaria de Gilberto cruzeiro","Shopping Costa Dourada"],"valor": 64.99},
+  
+  "Candeias": {"origens": ["Centro do Cabo","Cohab","Bairro São Francisco Alto","Bairro São Francisco Baixo","Padaria de Gilberto cruzeiro","Shopping Costa Dourada"],"valor": 44.99},
+"Candeias-Dom Helder": {"origens": ["Centro do Cabo","Cohab","Bairro São Francisco Alto","Bairro São Francisco Baixo","Padaria de Gilberto cruzeiro","Shopping Costa Dourada"],"valor": 49.99},
+"Candeias-Condominio Candeias Ville": {"origens": ["Centro do Cabo","Cohab","Bairro São Francisco Alto","Bairro São Francisco Baixo","Padaria de Gilberto cruzeiro","Shopping Costa Dourada"],"valor": 49.99},
+"Candeias-Condominio Ecovila Praia": {"origens": ["Centro do Cabo","Cohab","Bairro São Francisco Alto","Bairro São Francisco Baixo","Padaria de Gilberto cruzeiro","Shopping Costa Dourada"],"valor": 49.99},
+"Candeias-Churrascaria Boi Brasa": {"origens": ["Centro do Cabo","Cohab","Bairro São Francisco Alto","Bairro São Francisco Baixo","Padaria de Gilberto cruzeiro","Shopping Costa Dourada"],"valor": 47.99},
+"Candeias-Betos Bar": {"origens": ["Centro do Cabo","Cohab","Bairro São Francisco Alto","Bairro São Francisco Baixo","Padaria de Gilberto cruzeiro","Shopping Costa Dourada"],"valor": 44.99},
+"Candeias-Bar da Galinha": {"origens": ["Centro do Cabo","Cohab","Bairro São Francisco Alto","Bairro São Francisco Baixo","Padaria de Gilberto cruzeiro","Shopping Costa Dourada"],"valor": 44.99},
 
-  "Boa Viagem Pracinha": {
-    "origens": ["Centro do Cabo", "Cohab", "Bairro São Francisco Alto", "Bairro São Francisco Baixo", "Padaria de Gilberto cruzeiro", "Shopping Costa Dourada"],
-    "valor": 59.99
-  },
-  "Boa Viagem Parque Dona Lindú": {
-    "origens": ["Centro do Cabo", "Cohab", "Bairro São Francisco Alto", "Bairro São Francisco Baixo", "Padaria de Gilberto cruzeiro", "Shopping Costa Dourada"],
-    "valor": 59.99
-  },
-  "Boa Viagem Entre Amigos Restaurante": {
-    "origens": ["Centro do Cabo", "Cohab", "Bairro São Francisco Alto", "Bairro São Francisco Baixo", "Padaria de Gilberto cruzeiro", "Shopping Costa Dourada"],
-    "valor": 59.99
-  },
-  "Boa Viagem Pizzaria Capitão Gancho": {
-    "origens": ["Centro do Cabo", "Cohab", "Bairro São Francisco Alto", "Bairro São Francisco Baixo", "Padaria de Gilberto cruzeiro", "Shopping Costa Dourada"],
-    "valor": 59.99
-  },
-  "Boa Viagem Hospital Alfa": {
-    "origens": ["Centro do Cabo", "Cohab", "Bairro São Francisco Alto", "Bairro São Francisco Baixo", "Padaria de Gilberto cruzeiro", "Shopping Costa Dourada"],
-    "valor": 59.99
-  },
-  "Boa Viagem Carrefur": {
-    "origens": ["Centro do Cabo", "Cohab", "Bairro São Francisco Alto", "Bairro São Francisco Baixo", "Padaria de Gilberto cruzeiro", "Shopping Costa Dourada"],
-    "valor": 59.99
-  },
+"Piedade": {"origens": ["Centro do Cabo","Cohab","Bairro São Francisco Alto","Bairro São Francisco Baixo","Padaria de Gilberto cruzeiro","Shopping Costa Dourada"],"valor": 49.99},
+"Piedade-Laça Burguer": {"origens": ["Centro do Cabo","Cohab","Bairro São Francisco Alto","Bairro São Francisco Baixo","Padaria de Gilberto cruzeiro","Shopping Costa Dourada"],"valor": 49.99},
+"Piedade-Pão de Açucar": {"origens": ["Centro do Cabo","Cohab","Bairro São Francisco Alto","Bairro São Francisco Baixo","Padaria de Gilberto cruzeiro","Shopping Costa Dourada"],"valor": 49.99},
+"Piedade-LOUGE": {"origens": ["Centro do Cabo","Cohab","Bairro São Francisco Alto","Bairro São Francisco Baixo","Padaria de Gilberto cruzeiro","Shopping Costa Dourada"],"valor": 49.99},
 
-  "Shopping Recife": {
-    "origens": ["Centro do Cabo", "Cohab", "Bairro São Francisco Alto", "Bairro São Francisco Baixo", "Padaria de Gilberto cruzeiro", "Shopping Costa Dourada"],
-    "valor": 69.99
-  },
-  "Boa Viagem-Segundo Jardim": {
-    "origens": ["Centro do Cabo", "Cohab", "Bairro São Francisco Alto", "Bairro São Francisco Baixo", "Padaria de Gilberto cruzeiro", "Shopping Costa Dourada"],
-    "valor": 69.99
-  },
-  "Boa Viagem-Hospital Português": {
-    "origens": ["Centro do Cabo", "Cohab", "Bairro São Francisco Alto", "Bairro São Francisco Baixo", "Padaria de Gilberto cruzeiro", "Shopping Costa Dourada"],
-    "valor": 69.99
-  },
+"Porta Larga": {"origens": ["Centro do Cabo","Cohab","Bairro São Francisco Alto","Bairro São Francisco Baixo","Padaria de Gilberto cruzeiro","Shopping Costa Dourada"],"valor": 49.99},
 
-  "Aeroporto do Recife": {
-    "origens": ["Centro do Cabo", "Cohab", "Bairro São Francisco Alto", "Bairro São Francisco Baixo", "Padaria de Gilberto cruzeiro", "Shopping Costa Dourada"],
-    "valor": 64.99
-  },
+"Hospital da Aeronáutica Recife": {"origens": ["Centro do Cabo","Cohab","Bairro São Francisco Alto","Bairro São Francisco Baixo","Padaria de Gilberto cruzeiro","Shopping Costa Dourada"],"valor": 59.99},
 
-  "Recife-Avenida Recife": {
-    "origens": ["Centro do Cabo", "Cohab", "Bairro São Francisco Alto", "Bairro São Francisco Baixo", "Padaria de Gilberto cruzeiro", "Shopping Costa Dourada"],
-    "valor": 69.99
-  },
-  "Recife-Avenida Recife Restaurante Sal e brasa": {
-    "origens": ["Centro do Cabo", "Cohab", "Bairro São Francisco Alto", "Bairro São Francisco Baixo", "Padaria de Gilberto cruzeiro", "Shopping Costa Dourada"],
-    "valor": 69.99
-  },
-  "Recife-IPSEP": {
-    "origens": ["Centro do Cabo", "Cohab", "Bairro São Francisco Alto", "Bairro São Francisco Baixo", "Padaria de Gilberto cruzeiro", "Shopping Costa Dourada"],
-    "valor": 69.99
-  },
-  "Recife-Areias": {
-    "origens": ["Centro do Cabo", "Cohab", "Bairro São Francisco Alto", "Bairro São Francisco Baixo", "Padaria de Gilberto cruzeiro", "Shopping Costa Dourada"],
-    "valor": 69.99
-  },
-  "Recife-Jardim São Paulo": {
-    "origens": ["Centro do Cabo", "Cohab", "Bairro São Francisco Alto", "Bairro São Francisco Baixo", "Padaria de Gilberto cruzeiro", "Shopping Costa Dourada"],
-    "valor": 74.99
-  },
+"Boa Viagem Pracinha": {"origens": ["Centro do Cabo","Cohab","Bairro São Francisco Alto","Bairro São Francisco Baixo","Padaria de Gilberto cruzeiro","Shopping Costa Dourada"],"valor": 59.99},
+"Boa Viagem Parque Dona Lindú": {"origens": ["Centro do Cabo","Cohab","Bairro São Francisco Alto","Bairro São Francisco Baixo","Padaria de Gilberto cruzeiro","Shopping Costa Dourada"],"valor": 59.99},
+"Boa Viagem Entre Amigos Restaurante": {"origens": ["Centro do Cabo","Cohab","Bairro São Francisco Alto","Bairro São Francisco Baixo","Padaria de Gilberto cruzeiro","Shopping Costa Dourada"],"valor": 59.99},
+"Boa Viagem Pizzaria Capitão Gancho": {"origens": ["Centro do Cabo","Cohab","Bairro São Francisco Alto","Bairro São Francisco Baixo","Padaria de Gilberto cruzeiro","Shopping Costa Dourada"],"valor": 59.99},
+"Boa Viagem Hospital Alfa": {"origens": ["Centro do Cabo","Cohab","Bairro São Francisco Alto","Bairro São Francisco Baixo","Padaria de Gilberto cruzeiro","Shopping Costa Dourada"],"valor": 59.99},
+"Boa Viagem Carrefur": {"origens": ["Centro do Cabo","Cohab","Bairro São Francisco Alto","Bairro São Francisco Baixo","Padaria de Gilberto cruzeiro","Shopping Costa Dourada"],"valor": 59.99},
+
+"Shopping Recife": {"origens": ["Centro do Cabo","Cohab","Bairro São Francisco Alto","Bairro São Francisco Baixo","Padaria de Gilberto cruzeiro","Shopping Costa Dourada"],"valor": 69.99},
+"Boa Viagem-Segundo Jardim": {"origens": ["Centro do Cabo","Cohab","Bairro São Francisco Alto","Bairro São Francisco Baixo","Padaria de Gilberto cruzeiro","Shopping Costa Dourada"],"valor": 69.99},
+"Boa Viagem-Hospital Português": {"origens": ["Centro do Cabo","Cohab","Bairro São Francisco Alto","Bairro São Francisco Baixo","Padaria de Gilberto cruzeiro","Shopping Costa Dourada"],"valor": 69.99},
+
+"Aeroporto do Recife": {"origens": ["Centro do Cabo","Cohab","Bairro São Francisco Alto","Bairro São Francisco Baixo","Padaria de Gilberto cruzeiro","Shopping Costa Dourada"],"valor": 64.99},
+
+"Recife-Avenida Recife": {"origens": ["Centro do Cabo","Cohab","Bairro São Francisco Alto","Bairro São Francisco Baixo","Padaria de Gilberto cruzeiro","Shopping Costa Dourada"],"valor": 69.99},
+"Recife-Avenida Recife Restaurante Sal e brasa": {"origens": ["Centro do Cabo","Cohab","Bairro São Francisco Alto","Bairro São Francisco Baixo","Padaria de Gilberto cruzeiro","Shopping Costa Dourada"],"valor": 69.99},
+"Recife-IPSEP": {"origens": ["Centro do Cabo","Cohab","Bairro São Francisco Alto","Bairro São Francisco Baixo","Padaria de Gilberto cruzeiro","Shopping Costa Dourada"],"valor": 69.99},
+"Recife-Areias": {"origens": ["Centro do Cabo","Cohab","Bairro São Francisco Alto","Bairro São Francisco Baixo","Padaria de Gilberto cruzeiro","Shopping Costa Dourada"],"valor": 69.99},
+"Recife-Jardim São Paulo": {"origens": ["Centro do Cabo","Cohab","Bairro São Francisco Alto","Bairro São Francisco Baixo","Padaria de Gilberto cruzeiro","Shopping Costa Dourada"],"valor": 74.99},
 
   "PINA": {"origens": ["Centro do Cabo","Cohab","Bairro São Francisco Alto","Bairro São Francisco Baixo","Padaria de Gilberto cruzeiro","Shopping Costa Dourada"],"valor": 79.99},
   "PINA-INSS": { "origens": ["Centro do Cabo","Cohab","Bairro São Francisco Alto","Bairro São Francisco Baixo","Padaria de Gilberto cruzeiro","Shopping Costa Dourada"], "valor": 79.99 },
