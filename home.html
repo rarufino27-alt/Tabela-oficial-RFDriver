@@ -12,38 +12,90 @@
 <link rel="stylesheet" href="theme/components.css">
 
 <style>
+
+/* SLIDER BASE CORRIGIDO */
+.slider{
+  height:180px;
+  overflow:hidden;
+}
+
+.slides{
+  display:flex;
+  height:100%;
+  transition:transform .6s ease;
+}
+
+.slide{
+  min-width:100%;
+  height:100%;
+}
+
+/* VISUAL PROFISSIONAL */
 .slide-text{
   display:flex;
   align-items:center;
   justify-content:center;
   text-align:center;
   padding:20px;
-  background: linear-gradient(135deg,#111,#1f2937);
+  background: linear-gradient(135deg,#0f172a,#1e293b,#020617);
   color:#fff;
+  position:relative;
+  overflow:hidden;
 }
 
+/* efeito glow */
+.slide-text::after{
+  content:'';
+  position:absolute;
+  width:200%;
+  height:200%;
+  background: radial-gradient(circle,rgba(59,130,246,0.15),transparent);
+  animation: glow 6s linear infinite;
+}
+
+@keyframes glow{
+  0%{transform:translate(-25%,-25%)}
+  50%{transform:translate(25%,25%)}
+  100%{transform:translate(-25%,-25%)}
+}
+
+/* TEXTO */
 .slide-content{
-  max-width:300px;
+  max-width:90%;
   opacity:0;
-  transform:translateY(30px);
+  transform:translateY(20px) scale(.95);
   transition:all .6s ease;
+  z-index:2;
 }
 
 .slide.ativo .slide-content{
   opacity:1;
-  transform:translateY(0);
+  transform:translateY(0) scale(1);
 }
 
 .slide-content h2{
-  font-size:22px;
-  margin-bottom:8px;
+  font-size:18px;
   font-weight:700;
+  margin-bottom:6px;
 }
 
 .slide-content p{
-  font-size:14px;
+  font-size:13px;
   opacity:0.8;
 }
+
+/* destaque estilo uber */
+.destaque{
+  color:#3b82f6;
+}
+
+/* RESPONSIVO */
+@media(min-width:768px){
+  .slider{ height:220px; }
+  .slide-content h2{ font-size:22px; }
+  .slide-content p{ font-size:14px; }
+}
+
 </style>
 
 </head>
@@ -55,12 +107,9 @@
 <span>Carregando rotas...</span>
 </div>
 
-<!-- MENU LATERAL -->
-
 <div class="menu-overlay" id="menuOverlay" onclick="fecharMenu()"></div>
 
 <div class="menu" id="menu">
-
 <h3>Menu</h3>
 
 <div class="menu-item" onclick="irPara('termos.html')">
@@ -73,19 +122,12 @@
 
 </div>
 
-<!-- HEADER -->
-
 <div class="top-white">
-
 <div class="logo-area">
 <img src="icons/icon-512.png" class="logo-img">
-<span class="logo-text-dark">
-RF MOTORISTA
-</span>
+<span class="logo-text-dark">RF MOTORISTA</span>
 </div>
-
 <div class="menu-btn-dark" onclick="abrirMenu()">☰</div>
-
 </div>
 
 <!-- SLIDER -->
@@ -95,36 +137,36 @@ RF MOTORISTA
 
 <div class="slide slide-text ativo">
   <div class="slide-content">
-    <h2>Ganhe mais todos os dias</h2>
-    <p>Corridas organizadas e com valor justo</p>
+    <h2>Ganhe <span class="destaque">mais</span> todos os dias</h2>
+    <p>Corridas organizadas e sem bagunça</p>
   </div>
 </div>
 
 <div class="slide slide-text">
   <div class="slide-content">
-    <h2>Sem disputa por corrida</h2>
-    <p>Aqui o motorista tem prioridade</p>
+    <h2>Sem <span class="destaque">disputa</span></h2>
+    <p>Aqui quem trabalha ganha</p>
   </div>
 </div>
 
 <div class="slide slide-text">
   <div class="slide-content">
-    <h2>Tarifas tabeladas</h2>
-    <p>Você já sabe quanto vai ganhar antes</p>
+    <h2>Valor <span class="destaque">definido</span></h2>
+    <p>Você já sai sabendo quanto vai receber</p>
   </div>
 </div>
 
 <div class="slide slide-text">
   <div class="slide-content">
-    <h2>Mais controle do seu tempo</h2>
-    <p>Escolha quando rodar e quando parar</p>
+    <h2>Controle total</h2>
+    <p>Trabalhe no seu ritmo</p>
   </div>
 </div>
 
 <div class="slide slide-text">
   <div class="slide-content">
-    <h2>Grupo forte, motoristas unidos</h2>
-    <p>Menos concorrência, mais resultado</p>
+    <h2>Grupo <span class="destaque">forte</span></h2>
+    <p>Mais corridas, menos concorrência</p>
   </div>
 </div>
 
@@ -172,7 +214,6 @@ Para onde <span>vamos</span> hoje?
 </div>
 
 <div class="campo">
-
 <div class="campo-left">
 <div class="dot" style="background:#3b82f6;"></div>
 <div>Tipo de veículo</div>
@@ -183,11 +224,9 @@ Para onde <span>vamos</span> hoje?
 </div>
 
 <input type="hidden" id="tipoCarro" value="1">
-
 </div>
 
 </div>
-
 </div>
 
 <div class="bottom">
@@ -202,19 +241,10 @@ Para onde <span>vamos</span> hoje?
 </div>
 
 <div class="rf-modal" id="modalTipoCarro">
-
 <div class="rf-modal-content">
-
-<div class="rf-option" data-value="1">
-4 lugares
+<div class="rf-option" data-value="1">4 lugares</div>
+<div class="rf-option" data-value="1.5">6 lugares (+50%)</div>
 </div>
-
-<div class="rf-option" data-value="1.5">
-6 lugares (+50%)
-</div>
-
-</div>
-
 </div>
 
 <div class="radar-bg">
@@ -227,76 +257,66 @@ Para onde <span>vamos</span> hoje?
 
 <script>
 
-/* LOADER CONTROLADO */
-
+/* LOADER */
 async function init(){
-
 const loading = document.getElementById("loading");
-
 loading.style.display = "flex";
 
 try{
-
 await Promise.all([
 DataManager.carregar(),
-new Promise(resolve => setTimeout(resolve, 1000))
+new Promise(r => setTimeout(r, 1000))
 ]);
-
 }catch(e){
 console.warn("Erro ao carregar tabela:", e);
 }
 
 loading.style.display = "none";
-
 }
-
 init();
 
-/* SLIDER NOVO */
-
+/* SLIDER PROFISSIONAL */
 let slideIndex = 0;
+const slidesContainer = document.getElementById("slides");
 const slides = document.querySelectorAll(".slide");
 const dots = document.querySelectorAll(".dotSlide");
 
 function atualizarSlider(){
 
-  slides.forEach(s => s.classList.remove("ativo"));
-  dots.forEach(d => d.classList.remove("ativo"));
+slides.forEach(s => s.classList.remove("ativo"));
+dots.forEach(d => d.classList.remove("ativo"));
 
-  slides[slideIndex].classList.add("ativo");
-  dots[slideIndex].classList.add("ativo");
+slides[slideIndex].classList.add("ativo");
+dots[slideIndex].classList.add("ativo");
+
+slidesContainer.style.transform = `translateX(-${slideIndex * 100}%)`;
 
 }
 
 setInterval(()=>{
-
-  slideIndex++;
-  if(slideIndex >= slides.length) slideIndex = 0;
-
-  atualizarSlider();
-
+slideIndex++;
+if(slideIndex >= slides.length) slideIndex = 0;
+atualizarSlider();
 },4000);
 
 atualizarSlider();
 
 /* MENU */
-
 function abrirMenu(){
-document.getElementById("menu").classList.add("ativo");
-document.getElementById("menuOverlay").style.display="block";
+menu.classList.add("ativo");
+menuOverlay.style.display="block";
 }
 
 function fecharMenu(){
-document.getElementById("menu").classList.remove("ativo");
-document.getElementById("menuOverlay").style.display="none";
+menu.classList.remove("ativo");
+menuOverlay.style.display="none";
 }
 
-function irPara(pagina){
-window.location.href=pagina;
+function irPara(p){
+window.location.href=p;
 }
 
-/* SISTEMA */
-
+/* RESTANTE IGUAL */
 let origem=null, parada=null, destino=null, modo=null;
 
 const modal=document.getElementById("modal");
@@ -304,8 +324,6 @@ const lista=document.getElementById("lista");
 const busca=document.getElementById("busca");
 const confirmarBtn=document.getElementById("confirmar");
 const tipoCarroSelect=document.getElementById("tipoCarro");
-
-/* ABRIR MODAL */
 
 function abrirModal(tipo){
 
@@ -334,111 +352,68 @@ dados=parada
 }
 
 renderLista(dados);
-
 }
 
-/* RENDER LISTA */
-
 function renderLista(arr){
-
 lista.innerHTML="";
-
 arr.forEach(item=>{
-
 const div=document.createElement("div");
 div.innerText=item;
-
 div.onclick=()=>{
 selecionar(item);
 modal.style.display="none";
 };
-
 lista.appendChild(div);
-
 });
-
 }
 
-/* BUSCA */
-
 busca.addEventListener("input",()=>{
-
 const termo=busca.value.toLowerCase();
-
 Array.from(lista.children).forEach(div=>{
-
-div.style.display=div.innerText.toLowerCase().includes(termo)
-? "block"
-: "none";
-
+div.style.display=div.innerText.toLowerCase().includes(termo)?"block":"none";
 });
-
 });
-
-/* SELECT TIPO CARRO */
 
 const tipoCarroBtn = document.getElementById("tipoCarroBtn");
 const modalTipoCarro = document.getElementById("modalTipoCarro");
 const tipoCarroTexto = document.getElementById("tipoCarroTexto");
 const tipoCarroInput = document.getElementById("tipoCarro");
 
-tipoCarroBtn.onclick = () => {
-modalTipoCarro.style.display = "flex";
-};
+tipoCarroBtn.onclick = () => modalTipoCarro.style.display = "flex";
 
 document.querySelectorAll("#modalTipoCarro .rf-option").forEach(opcao=>{
-opcao.onclick = () => {
-
-const valor = opcao.dataset.value;
-
-tipoCarroInput.value = valor;
+opcao.onclick = ()=>{
+tipoCarroInput.value = opcao.dataset.value;
 tipoCarroTexto.innerText = opcao.innerText;
-
 modalTipoCarro.style.display = "none";
-
 };
 });
 
-modalTipoCarro.onclick = (e)=>{
-if(e.target === modalTipoCarro){
-modalTipoCarro.style.display="none";
-}
+modalTipoCarro.onclick = e=>{
+if(e.target === modalTipoCarro) modalTipoCarro.style.display="none";
 };
-
-/* SELEÇÃO */
 
 function selecionar(valor){
 
 if(modo==="origem"){
-
-origem=valor;
-parada=null;
-destino=null;
-
+origem=valor; parada=null; destino=null;
 origemTexto.innerText=valor;
 paradaTexto.innerText="Selecionar parada";
 destinoTexto.innerText="Selecionar destino";
 paradaBtn.style.display="none";
-
 }
 
 if(modo==="parada"){
-
-parada=valor;
-destino=null;
+parada=valor; destino=null;
 paradaTexto.innerText=valor;
-
 }
 
 if(modo==="destino"){
-
 destino=valor;
 destinoTexto.innerText=valor;
-
 }
 
 confirmarBtn.disabled=!(origem && destino);
-
 }
 
 origemBtn.onclick=()=>abrirModal("origem");
@@ -446,65 +421,40 @@ paradaBtn.onclick=()=>abrirModal("parada");
 destinoBtn.onclick=()=>abrirModal("destino");
 
 addParada.onclick=(e)=>{
-
 e.stopPropagation();
-
-if(!origem){
-alert("Selecione a origem primeiro.");
-return;
-}
-
+if(!origem){ alert("Selecione a origem primeiro."); return; }
 paradaBtn.style.display="flex";
-
 };
 
 modal.onclick=e=>{
 if(e.target===modal) modal.style.display="none";
 };
 
-/* CONFIRMAR */
-
 confirmarBtn.onclick=()=>{
 
 let valorTotal=0;
 
 if(!parada){
-
 valorTotal=DataManager.buscarValor(origem,destino)||0;
-
 }else{
-
-const p1=DataManager.buscarValor(origem,parada)||0;
-const p2=DataManager.buscarValor(parada,destino)||0;
-
-valorTotal=p1+p2;
-
+valorTotal=(DataManager.buscarValor(origem,parada)||0)
++(DataManager.buscarValor(parada,destino)||0);
 }
 
 const tipoCarro=parseFloat(tipoCarroSelect.value);
 
 localStorage.setItem("rf_corrida_temp",JSON.stringify({
-
-origem,
-parada,
-destino,
+origem, parada, destino,
 valor:valorTotal,
 categoria:tipoCarro
-
 }));
 
 window.location.href="resumo.html";
-
 };
 
-/* TEMA */
-
 (function(){
-
 const temaSalvo = localStorage.getItem("rf_theme") || "dark";
-
 document.body.setAttribute("data-theme", temaSalvo);
-
 })();
 
 </script>
