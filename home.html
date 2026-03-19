@@ -21,12 +21,9 @@
 <span>Carregando rotas...</span>
 </div>
 
-<!-- MENU -->
-
 <div class="menu-overlay" id="menuOverlay" onclick="fecharMenu()"></div>
 
 <div class="menu" id="menu">
-
 <h3>Menu</h3>
 
 <div class="menu-item" onclick="irPara('termos.html')">
@@ -39,19 +36,14 @@
 
 </div>
 
-<!-- HEADER -->
-
 <div class="top-white">
-
 <div class="logo-area">
 <img src="icons/icon-512.png" class="logo-img">
 <span class="logo-text-dark">
 RF MOTORISTA
 </span>
 </div>
-
 <div class="menu-btn-dark" onclick="abrirMenu()">☰</div>
-
 </div>
 
 <!-- SLIDER -->
@@ -102,7 +94,6 @@ RF MOTORISTA
 </div>
 </div>
 
-<!-- INDICADORES -->
 <div class="indicadores">
 <div class="dotSlide ativo"></div>
 <div class="dotSlide"></div>
@@ -174,19 +165,10 @@ Para onde <span>vamos</span> hoje?
 </div>
 
 <div class="rf-modal" id="modalTipoCarro">
-
 <div class="rf-modal-content">
-
-<div class="rf-option" data-value="1">
-4 lugares
+<div class="rf-option" data-value="1">4 lugares</div>
+<div class="rf-option" data-value="1.5">6 lugares (+50%)</div>
 </div>
-
-<div class="rf-option" data-value="1.5">
-6 lugares (+50%)
-</div>
-
-</div>
-
 </div>
 
 <div class="radar-bg">
@@ -199,433 +181,227 @@ Para onde <span>vamos</span> hoje?
 
 <script>
 
-/* =========================
-   INICIALIZAÇÃO SEGURA
-========================= */
-
+/* INIT */
 async function init(){
-
 const loading = document.getElementById("loading");
-
 loading.style.display="flex";
-
 try{
-
 await DataManager.carregar();
-
-console.log("Rotas carregadas:", DataManager.rotas.length);
-
 }catch(e){
-
-alert("Erro ao carregar rotas. Reinicie o aplicativo.");
-
-console.error(e);
-
+alert("Erro ao carregar rotas.");
 }
-
 loading.style.display="none";
-
 }
-
 init();
 
-/* =========================
-   SLIDER
-========================= */
-
+/* SLIDER */
 let slideIndex=0;
 const slides=document.getElementById("slides");
 const dots=document.querySelectorAll(".dotSlide");
 
 setInterval(()=>{
-
 slideIndex++;
-
-if(slideIndex>=5) slideIndex=0;
-
+if(slideIndex >= dots.length) slideIndex = 0;
 slides.style.transform=`translateX(-${slideIndex*100}%)`;
-
 dots.forEach(d=>d.classList.remove("ativo"));
 dots[slideIndex].classList.add("ativo");
-
 },4000);
 
-  let startX = 0;
-let endX = 0;
+/* SWIPE */
+let startX=0,endX=0,isDragging=false;
 
-slides.addEventListener("touchstart", (e)=>{
-  startX = e.touches[0].clientX;
+slides.addEventListener("touchstart",e=>startX=e.touches[0].clientX);
+slides.addEventListener("touchend",e=>{
+endX=e.changedTouches[0].clientX;
+handleSwipe();
 });
 
-slides.addEventListener("touchend", (e)=>{
-  endX = e.changedTouches[0].clientX;
-  handleSwipe();
+slides.addEventListener("mousedown",e=>{
+isDragging=true;
+startX=e.clientX;
 });
-
-/* DESKTOP (mouse) */
-let isDragging = false;
-
-slides.addEventListener("mousedown", (e)=>{
-  isDragging = true;
-  startX = e.clientX;
-});
-
-slides.addEventListener("mouseup", (e)=>{
-  if(!isDragging) return;
-  endX = e.clientX;
-  isDragging = false;
-  handleSwipe();
+slides.addEventListener("mouseup",e=>{
+if(!isDragging) return;
+endX=e.clientX;
+isDragging=false;
+handleSwipe();
 });
 
 function handleSwipe(){
+const diff=startX-endX;
+if(Math.abs(diff)<50) return;
 
-  const diff = startX - endX;
-
-  if(Math.abs(diff) < 50) return; // sensibilidade
-
-  if(diff > 0){
-    // próximo
-    slideIndex++;
-    if(slideIndex >= 5) slideIndex = 4;
-  }else{
-    // anterior
-    slideIndex--;
-    if(slideIndex < 0) slideIndex = 0;
-  }
-
-  slides.style.transform = `translateX(-${slideIndex*100}%)`;
-
-  dots.forEach(d=>d.classList.remove("ativo"));
-  dots[slideIndex].classList.add("ativo");
+if(diff>0){
+slideIndex++;
+if(slideIndex >= dots.length) slideIndex = dots.length - 1;
+}else{
+slideIndex--;
+if(slideIndex < 0) slideIndex = 0;
 }
-  
-/* BOTÃO → AÇÃO */
 
+slides.style.transform=`translateX(-${slideIndex*100}%)`;
+dots.forEach(d=>d.classList.remove("ativo"));
+dots[slideIndex].classList.add("ativo");
+}
+
+/* BOTÕES */
 document.querySelectorAll(".slide-btn").forEach(btn=>{
-  btn.onclick=()=>{
-    document.getElementById("origemBtn").click();
-  };
+btn.onclick=()=>{
+const acao=btn.dataset.acao;
+
+if(acao==="origem"){
+document.getElementById("origemBtn").click();
+}
+
+if(acao==="bonus"){
+window.location.href="bonus.html";
+}
+
+if(acao==="cancelamento"){
+window.location.href="cancelamento.html";
+}
+
+if(acao==="naoRecebeu"){
+window.location.href="nao-recebeu.html";
+}
+
+if(acao==="whatsapp"){
+const msg=encodeURIComponent("Olá! Preciso de suporte no grupo RF.");
+window.open(`https://wa.me/5581989823239?text=${msg}`,"_blank");
+}
+};
 });
 
-/* =========================
-   MENU
-========================= */
-
+/* MENU */
 function abrirMenu(){
-
-document.getElementById("menu").classList.add("ativo");
-
-document.getElementById("menuOverlay").style.display="block";
-
+menu.classList.add("ativo");
+menuOverlay.style.display="block";
 }
-
 function fecharMenu(){
-
-document.getElementById("menu").classList.remove("ativo");
-
-document.getElementById("menuOverlay").style.display="none";
-
+menu.classList.remove("ativo");
+menuOverlay.style.display="none";
 }
-
 function irPara(p){
-
 window.location.href=p;
-
 }
 
-/* =========================
-   SISTEMA
-========================= */
-
-let origem=null;
-let parada=null;
-let destino=null;
-let modo=null;
-
+/* SISTEMA */
+// (mantido igual)
+let origem=null,parada=null,destino=null,modo=null;
 const modal=document.getElementById("modal");
 const lista=document.getElementById("lista");
 const busca=document.getElementById("busca");
 const confirmarBtn=document.getElementById("confirmar");
 
-/* ABRIR MODAL */
-
 function abrirModal(tipo){
-
-if(tipo!=="origem" && !origem){
-
-alert("Selecione a origem primeiro.");
-
-return;
-
-}
-
+if(tipo!=="origem"&&!origem){alert("Selecione a origem primeiro.");return;}
 modo=tipo;
-
 busca.value="";
-
 modal.style.display="flex";
-
 let dados=[];
-
 if(tipo==="origem") dados=DataManager.listarOrigens();
-
 if(tipo==="parada"){
-
 dados=DataManager.listarDestinos(origem)
 .filter(p=>DataManager.listarDestinos(p).length>0);
-
 }
-
 if(tipo==="destino"){
-
-dados=parada
-?DataManager.listarDestinos(parada)
-:DataManager.listarDestinos(origem);
-
+dados=parada?DataManager.listarDestinos(parada):DataManager.listarDestinos(origem);
 }
-
 renderLista(dados);
-
 }
-
-/* LISTA */
 
 function renderLista(arr){
-
 lista.innerHTML="";
-
 arr.forEach(item=>{
-
 const div=document.createElement("div");
-
 div.innerText=item;
-
 div.onclick=()=>{
-
 selecionar(item);
-
 modal.style.display="none";
-
 };
-
 lista.appendChild(div);
-
 });
-
 }
 
-/* BUSCA */
-
 busca.addEventListener("input",()=>{
-
 const termo=busca.value.toLowerCase();
-
 Array.from(lista.children).forEach(div=>{
-
-div.style.display=div.innerText.toLowerCase().includes(termo)
-? "block"
-: "none";
-
+div.style.display=div.innerText.toLowerCase().includes(termo)?"block":"none";
 });
-
 });
-
-/* TIPO CARRO */
 
 const tipoCarroBtn=document.getElementById("tipoCarroBtn");
 const modalTipoCarro=document.getElementById("modalTipoCarro");
 const tipoCarroTexto=document.getElementById("tipoCarroTexto");
 const tipoCarroInput=document.getElementById("tipoCarro");
 
-tipoCarroBtn.onclick=()=>{
-
-modalTipoCarro.style.display="flex";
-
-};
+tipoCarroBtn.onclick=()=>modalTipoCarro.style.display="flex";
 
 document.querySelectorAll("#modalTipoCarro .rf-option").forEach(opcao=>{
-
 opcao.onclick=()=>{
-
-const valor=opcao.dataset.value;
-
-tipoCarroInput.value=valor;
-
+tipoCarroInput.value=opcao.dataset.value;
 tipoCarroTexto.innerText=opcao.innerText;
-
 modalTipoCarro.style.display="none";
-
 };
-
 });
 
-modalTipoCarro.onclick=(e)=>{
-
-if(e.target===modalTipoCarro){
-
-modalTipoCarro.style.display="none";
-
-}
-
+modalTipoCarro.onclick=e=>{
+if(e.target===modalTipoCarro) modalTipoCarro.style.display="none";
 };
 
-/* SELEÇÃO */
-
 function selecionar(valor){
-
 if(modo==="origem"){
-
-origem=valor;
-
-parada=null;
-
-destino=null;
-
+origem=valor;parada=null;destino=null;
 origemTexto.innerText=valor;
-
 paradaTexto.innerText="Selecionar parada";
-
 destinoTexto.innerText="Selecionar destino";
-
 paradaBtn.style.display="none";
-
 }
-
 if(modo==="parada"){
-
-parada=valor;
-
-destino=null;
-
+parada=valor;destino=null;
 paradaTexto.innerText=valor;
-
 }
-
 if(modo==="destino"){
-
 destino=valor;
-
 destinoTexto.innerText=valor;
-
 }
-
-confirmarBtn.disabled=!(origem && destino);
-
+confirmarBtn.disabled=!(origem&&destino);
 }
 
 origemBtn.onclick=()=>abrirModal("origem");
-
 paradaBtn.onclick=()=>abrirModal("parada");
-
 destinoBtn.onclick=()=>abrirModal("destino");
 
-addParada.onclick=(e)=>{
-
+addParada.onclick=e=>{
 e.stopPropagation();
-
-if(!origem){
-
-alert("Selecione a origem primeiro.");
-
-return;
-
-}
-
+if(!origem){alert("Selecione a origem primeiro.");return;}
 paradaBtn.style.display="flex";
-
 };
 
 modal.onclick=e=>{
-
-if(e.target===modal){
-
-modal.style.display="none";
-
-}
-
+if(e.target===modal) modal.style.display="none";
 };
-
-/* CONFIRMAR */
 
 confirmarBtn.onclick=()=>{
-
 let valorTotal=0;
-
 if(!parada){
-
 valorTotal=DataManager.buscarValor(origem,destino)||0;
-
 }else{
-
-const p1=DataManager.buscarValor(origem,parada)||0;
-const p2=DataManager.buscarValor(parada,destino)||0;
-
-valorTotal=p1+p2;
-
+valorTotal=(DataManager.buscarValor(origem,parada)||0)
++(DataManager.buscarValor(parada,destino)||0);
 }
-
 const tipoCarro=parseFloat(tipoCarroInput.value);
-
 localStorage.setItem("rf_corrida_temp",JSON.stringify({
-
-origem,
-parada,
-destino,
-valor:valorTotal,
-categoria:tipoCarro
-
+origem,parada,destino,valor:valorTotal,categoria:tipoCarro
 }));
-
 window.location.href="resumo.html";
-
 };
 
-/* TEMA */
-
 (function(){
-
 const temaSalvo=localStorage.getItem("rf_theme")||"dark";
-
 document.body.setAttribute("data-theme",temaSalvo);
-
 })();
 
-  document.querySelectorAll(".slide-btn").forEach(btn=>{
-
-  btn.onclick=()=>{
-
-    const acao = btn.dataset.acao;
-
-    if(acao === "origem"){
-      document.getElementById("origemBtn").click();
-    }
-
-    if(acao === "bonus"){
-      window.location.href = "bonus.html";
-    }
-    
-    if(acao === "cancelamento"){
-      window.location.href = "cancelamento.html";
-    }
-
-
-    if(acao === "naoRecebeu"){
-       window.location.href = "nao-recebeu.html";
-     }
-    
-    if(acao === "whatsapp"){
-
-      const msg = encodeURIComponent(
-        "Olá! Preciso de suporte no grupo RF."
-      );
-
-      window.location.href = `https://wa.me/5581989823239?text=${msg}`;
-    }
-
-  };
-
-});
-  
 </script>
 
 </body>
