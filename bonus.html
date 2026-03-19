@@ -1,1 +1,121 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
 
+<meta charset="UTF-8">
+<title>Bônus Semanal RF</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<link rel="stylesheet" href="theme/theme.css">
+<link rel="stylesheet" href="theme/layout.css">
+<link rel="stylesheet" href="theme/components.css">
+
+<style>
+
+.container{
+  width:92%;
+  max-width:420px;
+  margin:20px auto;
+}
+
+.titulo{
+  text-align:center;
+  font-size:22px;
+  font-weight:800;
+  margin-bottom:16px;
+}
+
+.titulo span{
+  color:#ffd700;
+}
+
+.card-info{
+  background:rgba(0,0,0,0.65);
+  backdrop-filter:blur(10px);
+  border-radius:18px;
+  padding:18px;
+  border:1px solid rgba(255,215,0,0.15);
+  margin-bottom:14px;
+}
+
+.card-info h3{
+  font-size:15px;
+  margin-bottom:8px;
+}
+
+.card-info p{
+  font-size:13px;
+  opacity:.8;
+}
+
+.destaque{
+  color:#ffd700;
+  font-weight:700;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="container">
+
+<div class="titulo">
+Bônus <span>Semanal</span>
+</div>
+
+<div class="card-info">
+<h3>Como funciona?</h3>
+<p>
+O bônus é destinado ao motorista que realizar a <span class="destaque">maior quantidade de viagens</span> durante a semana.
+</p>
+</div>
+
+<div class="card-info">
+<h3>Período</h3>
+<p>
+De <span class="destaque">segunda a domingo</span>, sendo o domingo <span class="destaque">obrigatório</span> para participar.
+</p>
+</div>
+
+<div class="card-info">
+<h3>Critério principal</h3>
+<p>
+Quem fizer <span class="destaque">mais corridas na semana</span> leva o bônus.
+</p>
+</div>
+
+<div class="card-info">
+<h3>Desempate</h3>
+<p>
+1. Prioridade para quem trabalhou <span class="destaque">em horário de pico no domingo</span>.
+<br><br>
+2. Persistindo empate, será analisado o desempenho durante a semana.
+</p>
+</div>
+
+<div class="card-info">
+<h3>Empate final</h3>
+<p>
+Se ainda houver empate:
+<br><br>
+O bônus será dividido entre os dois:
+<br>
+<span class="destaque">50% em uma semana</span>  
+<br>
+<span class="destaque">50% na semana seguinte</span>
+</p>
+</div>
+
+</div>
+
+<script>
+(function(){
+const tema = localStorage.getItem("rf_theme") || "dark";
+document.body.setAttribute("data-theme", tema);
+})();
+</script>
+
+</body>
+</html>
