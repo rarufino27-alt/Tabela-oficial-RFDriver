@@ -95,7 +95,7 @@ RF MOTORISTA
   <div class="slide-content">
     <h2>Não <span class="destaque">recebeu?</span></h2>
     <p>O grupo resolve pra você</p>
-    <button class="slide-btn" data-acao="whatsapp">Resolver</button>
+    <button class="slide-btn" data-acao="naoRecebeu">Resolver</button>
   </div>
 </div>
 
@@ -556,8 +556,13 @@ document.body.setAttribute("data-theme",temaSalvo);
     }
     
     if(acao === "cancelamento"){
-  window.location.href = "cancelamento.html";
+      window.location.href = "cancelamento.html";
     }
+
+
+    if(acao === "naoRecebeu"){
+       window.location.href = "nao-recebeu.html";
+     }
     
     if(acao === "whatsapp"){
 
