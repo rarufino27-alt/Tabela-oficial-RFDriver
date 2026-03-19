@@ -13,7 +13,7 @@
 
 <style>
 
-/* SLIDER BASE CORRIGIDO */
+/* SLIDER BASE */
 .slider{
   height:180px;
   overflow:hidden;
@@ -30,47 +30,53 @@
   height:100%;
 }
 
-/* VISUAL PROFISSIONAL */
+/* DARK MODE */
+[data-theme="dark"] .slide-text{
+  background: linear-gradient(135deg,#020617,#0f172a);
+  border:1px solid rgba(255,204,0,0.25);
+  box-shadow: 0 0 15px rgba(255,204,0,0.08);
+}
+
+/* LIGHT MODE */
+[data-theme="light"] .slide-text{
+  background: linear-gradient(135deg,#1e3a8a,#0f172a);
+  border:1px solid rgba(255,204,0,0.2);
+  box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+}
+
+/* BASE */
 .slide-text{
   display:flex;
   align-items:center;
   justify-content:center;
   text-align:center;
   padding:20px;
-  background: linear-gradient(135deg,#0f172a,#1e293b,#020617);
   color:#fff;
+  border-radius:18px;
+  margin:0 10px;
   position:relative;
-  overflow:hidden;
 }
 
-/* efeito glow */
+/* leve brilho (bem sutil agora) */
 .slide-text::after{
   content:'';
   position:absolute;
-  width:200%;
-  height:200%;
-  background: radial-gradient(circle,rgba(59,130,246,0.15),transparent);
-  animation: glow 6s linear infinite;
-}
-
-@keyframes glow{
-  0%{transform:translate(-25%,-25%)}
-  50%{transform:translate(25%,25%)}
-  100%{transform:translate(-25%,-25%)}
+  inset:0;
+  background: radial-gradient(circle at center, rgba(255,204,0,0.08), transparent);
+  pointer-events:none;
 }
 
 /* TEXTO */
 .slide-content{
   max-width:90%;
   opacity:0;
-  transform:translateY(20px) scale(.95);
-  transition:all .6s ease;
-  z-index:2;
+  transform:translateY(15px);
+  transition:all .5s ease;
 }
 
 .slide.ativo .slide-content{
   opacity:1;
-  transform:translateY(0) scale(1);
+  transform:translateY(0);
 }
 
 .slide-content h2{
@@ -81,19 +87,18 @@
 
 .slide-content p{
   font-size:13px;
-  opacity:0.8;
+  opacity:0.85;
 }
 
-/* destaque estilo uber */
+/* IDENTIDADE DO APP */
 .destaque{
-  color:#3b82f6;
+  color:#ffcc00;
 }
 
 /* RESPONSIVO */
 @media(min-width:768px){
   .slider{ height:220px; }
   .slide-content h2{ font-size:22px; }
-  .slide-content p{ font-size:14px; }
 }
 
 </style>
@@ -165,8 +170,8 @@
 
 <div class="slide slide-text">
   <div class="slide-content">
-    <h2>Grupo <span class="destaque">forte</span></h2>
-    <p>Mais corridas, menos concorrência</p>
+    <h2>Mais <span class="destaque">corridas</span></h2>
+    <p>Menos concorrência no grupo</p>
   </div>
 </div>
 
@@ -275,14 +280,13 @@ loading.style.display = "none";
 }
 init();
 
-/* SLIDER PROFISSIONAL */
+/* SLIDER */
 let slideIndex = 0;
 const slidesContainer = document.getElementById("slides");
 const slides = document.querySelectorAll(".slide");
 const dots = document.querySelectorAll(".dotSlide");
 
 function atualizarSlider(){
-
 slides.forEach(s => s.classList.remove("ativo"));
 dots.forEach(d => d.classList.remove("ativo"));
 
@@ -290,7 +294,6 @@ slides[slideIndex].classList.add("ativo");
 dots[slideIndex].classList.add("ativo");
 
 slidesContainer.style.transform = `translateX(-${slideIndex * 100}%)`;
-
 }
 
 setInterval(()=>{
