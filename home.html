@@ -87,7 +87,7 @@ RF MOTORISTA
   <div class="slide-content">
     <h2>Corrida cancelada?</h2>
     <p>Garantimos seu deslocamento</p>
-    <button class="slide-btn" data-acao="whatsapp">Resolver</button>
+    <button class="slide-btn" data-acao="cancelamento">Resolver</button>
   </div>
 </div>
 
@@ -554,7 +554,11 @@ document.body.setAttribute("data-theme",temaSalvo);
     if(acao === "bonus"){
       window.location.href = "bonus.html";
     }
-
+    
+    if(acao === "cancelamento"){
+  window.location.href = "cancelamento.html";
+    }
+    
     if(acao === "whatsapp"){
 
       const msg = encodeURIComponent(
