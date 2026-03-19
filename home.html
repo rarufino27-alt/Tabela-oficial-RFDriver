@@ -390,7 +390,7 @@ valorTotal=DataManager.buscarValor(origem,destino)||0;
 valorTotal=(DataManager.buscarValor(origem,parada)||0)
 +(DataManager.buscarValor(parada,destino)||0);
 }
-const tipoCarro=parseFloat(tipoCarro.value);
+const tipoCarro=parseFloat(tipoCarroInput.value);
 localStorage.setItem("rf_corrida_temp",JSON.stringify({
 origem,parada,destino,valor:valorTotal,categoria:tipoCarro
 }));
