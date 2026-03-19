@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
+
 <meta charset="UTF-8">
 <title>RF – Viagem</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -11,73 +12,6 @@
 <link rel="stylesheet" href="theme/layout.css">
 <link rel="stylesheet" href="theme/components.css">
 
-<style>
-
-/* SLIDER CORRIGIDO */
-.slider{
-  height:180px;
-  overflow:hidden;
-  padding:0 10px;
-}
-
-.slides{
-  display:flex;
-  height:100%;
-  transition:transform .5s ease;
-}
-
-.slide{
-  min-width:100%;
-  height:100%;
-  display:flex;
-  justify-content:center;
-}
-
-/* BOX */
-.slide-box{
-  width:100%;
-  height:100%;
-  border-radius:18px;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  text-align:center;
-  padding:20px;
-  color:#fff;
-  position:relative;
-}
-
-/* DARK */
-[data-theme="dark"] .slide-box{
-  background: linear-gradient(135deg,#020617,#0f172a);
-  border:1px solid rgba(255,204,0,0.25);
-}
-
-/* LIGHT */
-[data-theme="light"] .slide-box{
-  background: linear-gradient(135deg,#1e3a8a,#0f172a);
-  border:1px solid rgba(255,204,0,0.2);
-}
-
-/* TEXTO */
-.slide-content{
-  max-width:90%;
-  opacity:0;
-  transform:translateY(10px);
-  transition:.4s;
-}
-
-.slide.ativo .slide-content{
-  opacity:1;
-  transform:translateY(0);
-}
-
-.destaque{
-  color:#ffcc00;
-}
-
-</style>
-
 </head>
 
 <body>
@@ -87,20 +21,37 @@
 <span>Carregando rotas...</span>
 </div>
 
+<!-- MENU -->
+
 <div class="menu-overlay" id="menuOverlay" onclick="fecharMenu()"></div>
 
 <div class="menu" id="menu">
+
 <h3>Menu</h3>
-<div class="menu-item" onclick="irPara('termos.html')">📜 Regras do Grupo RF</div>
-<div class="menu-item" onclick="irPara('configuracoes.html')">⚙️ Configurações</div>
+
+<div class="menu-item" onclick="irPara('termos.html')">
+📜 Regras do Grupo RF
 </div>
 
+<div class="menu-item" onclick="irPara('configuracoes.html')">
+⚙️ Configurações
+</div>
+
+</div>
+
+<!-- HEADER -->
+
 <div class="top-white">
+
 <div class="logo-area">
 <img src="icons/icon-512.png" class="logo-img">
-<span class="logo-text-dark">RF MOTORISTA</span>
+<span class="logo-text-dark">
+RF MOTORISTA
+</span>
 </div>
+
 <div class="menu-btn-dark" onclick="abrirMenu()">☰</div>
+
 </div>
 
 <!-- SLIDER -->
@@ -108,50 +59,11 @@
 <div class="slider">
 <div class="slides" id="slides">
 
-<div class="slide ativo">
-<div class="slide-box">
-<div class="slide-content">
-<h2>Tabela <span class="destaque">Oficial</span> RF Motorista</h2>
-<p>Preço Fixo e justo para todos!</p>
-</div>
-</div>
-</div>
-
-<div class="slide">
-<div class="slide-box">
-<div class="slide-content">
-<h2>Benefícios <span class="destaque">em R$ Semanalmente</span></h2>
-<p>R$ 50 para quem mais pegar Viagens</p>
-</div>
-</div>
-</div>
-
-<div class="slide">
-<div class="slide-box">
-<div class="slide-content">
-<h2>A Sua Lâmpada <span class="destaque">Queimou?</span></h2>
-<p>O Grupo RF Tem disponível pra você</p>
-</div>
-</div>
-</div>
-
-<div class="slide">
-<div class="slide-box">
-<div class="slide-content">
-<h2>Chegou no Passageiro e ele Cancelou?</h2>
-<p>O Grupo RF Garante seu deslocamento</p>
-</div>
-</div>
-</div>
-
-<div class="slide">
-<div class="slide-box">
-<div class="slide-content">
-<h2>Fez a Viagem e <span class="destaque">NÃO RECEBEU?</span></h2>
-<p>O Grupo RF Resolve isso Pra Você!</p>
-</div>
-</div>
-</div>
+<div class="slide" style="background-image:url('slides/slide1.jpg')"></div>
+<div class="slide" style="background-image:url('slides/slide2.jpg')"></div>
+<div class="slide" style="background-image:url('slides/slide3.jpg')"></div>
+<div class="slide" style="background-image:url('slides/slide4.jpg')"></div>
+<div class="slide" style="background-image:url('slides/slide5.jpg')"></div>
 
 </div>
 </div>
@@ -164,9 +76,8 @@
 <div class="dotSlide"></div>
 </div>
 
-<!-- RESTANTE ORIGINAL (INTOCADO) -->
-
 <div class="center">
+
 <div class="titulo-box">
 <div class="titulo-central">
 Para onde <span>vamos</span> hoje?
@@ -198,6 +109,7 @@ Para onde <span>vamos</span> hoje?
 </div>
 
 <div class="campo">
+
 <div class="campo-left">
 <div class="dot" style="background:#3b82f6;"></div>
 <div>Tipo de veículo</div>
@@ -208,9 +120,11 @@ Para onde <span>vamos</span> hoje?
 </div>
 
 <input type="hidden" id="tipoCarro" value="1">
+
 </div>
 
 </div>
+
 </div>
 
 <div class="bottom">
@@ -225,59 +139,365 @@ Para onde <span>vamos</span> hoje?
 </div>
 
 <div class="rf-modal" id="modalTipoCarro">
+
 <div class="rf-modal-content">
-<div class="rf-option" data-value="1">4 lugares</div>
-<div class="rf-option" data-value="1.5">6 lugares (+50%)</div>
+
+<div class="rf-option" data-value="1">
+4 lugares
 </div>
+
+<div class="rf-option" data-value="1.5">
+6 lugares (+50%)
+</div>
+
+</div>
+
+</div>
+
+<div class="radar-bg">
+<div class="radar-circle"></div>
+<div class="radar-circle"></div>
+<div class="radar-circle"></div>
+<div class="radar-circle"></div>
+<div class="radar-line"></div>
 </div>
 
 <script>
 
-/* LOADER */
+/* =========================
+   INICIALIZAÇÃO SEGURA
+========================= */
+
 async function init(){
+
 const loading = document.getElementById("loading");
-loading.style.display = "flex";
+
+loading.style.display="flex";
 
 try{
+
 await DataManager.carregar();
+
+console.log("Rotas carregadas:", DataManager.rotas.length);
+
 }catch(e){
-console.warn(e);
+
+alert("Erro ao carregar rotas. Reinicie o aplicativo.");
+
+console.error(e);
+
 }
 
-loading.style.display = "none";
+loading.style.display="none";
+
 }
+
 init();
 
-/* SLIDER */
-let slideIndex = 0;
-const slidesContainer = document.getElementById("slides");
-const slides = document.querySelectorAll(".slide");
-const dots = document.querySelectorAll(".dotSlide");
+/* =========================
+   SLIDER
+========================= */
+
+let slideIndex=0;
+const slides=document.getElementById("slides");
+const dots=document.querySelectorAll(".dotSlide");
 
 setInterval(()=>{
-slideIndex++;
-if(slideIndex >= slides.length) slideIndex = 0;
 
-slides.forEach(s=>s.classList.remove("ativo"));
+slideIndex++;
+
+if(slideIndex>=5) slideIndex=0;
+
+slides.style.transform=`translateX(-${slideIndex*100}%)`;
+
 dots.forEach(d=>d.classList.remove("ativo"));
 
-slides[slideIndex].classList.add("ativo");
 dots[slideIndex].classList.add("ativo");
-
-slidesContainer.style.transform = `translateX(-${slideIndex * 100}%)`;
 
 },4000);
 
-/* MENU */
+/* =========================
+   MENU
+========================= */
+
 function abrirMenu(){
-menu.classList.add("ativo");
-menuOverlay.style.display="block";
+
+document.getElementById("menu").classList.add("ativo");
+
+document.getElementById("menuOverlay").style.display="block";
+
 }
+
 function fecharMenu(){
-menu.classList.remove("ativo");
-menuOverlay.style.display="none";
+
+document.getElementById("menu").classList.remove("ativo");
+
+document.getElementById("menuOverlay").style.display="none";
+
 }
-function irPara(p){ window.location.href=p; }
+
+function irPara(p){
+
+window.location.href=p;
+
+}
+
+/* =========================
+   SISTEMA
+========================= */
+
+let origem=null;
+let parada=null;
+let destino=null;
+let modo=null;
+
+const modal=document.getElementById("modal");
+const lista=document.getElementById("lista");
+const busca=document.getElementById("busca");
+const confirmarBtn=document.getElementById("confirmar");
+
+/* ABRIR MODAL */
+
+function abrirModal(tipo){
+
+if(tipo!=="origem" && !origem){
+
+alert("Selecione a origem primeiro.");
+
+return;
+
+}
+
+modo=tipo;
+
+busca.value="";
+
+modal.style.display="flex";
+
+let dados=[];
+
+if(tipo==="origem") dados=DataManager.listarOrigens();
+
+if(tipo==="parada"){
+
+dados=DataManager.listarDestinos(origem)
+.filter(p=>DataManager.listarDestinos(p).length>0);
+
+}
+
+if(tipo==="destino"){
+
+dados=parada
+?DataManager.listarDestinos(parada)
+:DataManager.listarDestinos(origem);
+
+}
+
+renderLista(dados);
+
+}
+
+/* LISTA */
+
+function renderLista(arr){
+
+lista.innerHTML="";
+
+arr.forEach(item=>{
+
+const div=document.createElement("div");
+
+div.innerText=item;
+
+div.onclick=()=>{
+
+selecionar(item);
+
+modal.style.display="none";
+
+};
+
+lista.appendChild(div);
+
+});
+
+}
+
+/* BUSCA */
+
+busca.addEventListener("input",()=>{
+
+const termo=busca.value.toLowerCase();
+
+Array.from(lista.children).forEach(div=>{
+
+div.style.display=div.innerText.toLowerCase().includes(termo)
+? "block"
+: "none";
+
+});
+
+});
+
+/* TIPO CARRO */
+
+const tipoCarroBtn=document.getElementById("tipoCarroBtn");
+const modalTipoCarro=document.getElementById("modalTipoCarro");
+const tipoCarroTexto=document.getElementById("tipoCarroTexto");
+const tipoCarroInput=document.getElementById("tipoCarro");
+
+tipoCarroBtn.onclick=()=>{
+
+modalTipoCarro.style.display="flex";
+
+};
+
+document.querySelectorAll("#modalTipoCarro .rf-option").forEach(opcao=>{
+
+opcao.onclick=()=>{
+
+const valor=opcao.dataset.value;
+
+tipoCarroInput.value=valor;
+
+tipoCarroTexto.innerText=opcao.innerText;
+
+modalTipoCarro.style.display="none";
+
+};
+
+});
+
+modalTipoCarro.onclick=(e)=>{
+
+if(e.target===modalTipoCarro){
+
+modalTipoCarro.style.display="none";
+
+}
+
+};
+
+/* SELEÇÃO */
+
+function selecionar(valor){
+
+if(modo==="origem"){
+
+origem=valor;
+
+parada=null;
+
+destino=null;
+
+origemTexto.innerText=valor;
+
+paradaTexto.innerText="Selecionar parada";
+
+destinoTexto.innerText="Selecionar destino";
+
+paradaBtn.style.display="none";
+
+}
+
+if(modo==="parada"){
+
+parada=valor;
+
+destino=null;
+
+paradaTexto.innerText=valor;
+
+}
+
+if(modo==="destino"){
+
+destino=valor;
+
+destinoTexto.innerText=valor;
+
+}
+
+confirmarBtn.disabled=!(origem && destino);
+
+}
+
+origemBtn.onclick=()=>abrirModal("origem");
+
+paradaBtn.onclick=()=>abrirModal("parada");
+
+destinoBtn.onclick=()=>abrirModal("destino");
+
+addParada.onclick=(e)=>{
+
+e.stopPropagation();
+
+if(!origem){
+
+alert("Selecione a origem primeiro.");
+
+return;
+
+}
+
+paradaBtn.style.display="flex";
+
+};
+
+modal.onclick=e=>{
+
+if(e.target===modal){
+
+modal.style.display="none";
+
+}
+
+};
+
+/* CONFIRMAR */
+
+confirmarBtn.onclick=()=>{
+
+let valorTotal=0;
+
+if(!parada){
+
+valorTotal=DataManager.buscarValor(origem,destino)||0;
+
+}else{
+
+const p1=DataManager.buscarValor(origem,parada)||0;
+const p2=DataManager.buscarValor(parada,destino)||0;
+
+valorTotal=p1+p2;
+
+}
+
+const tipoCarro=parseFloat(tipoCarroInput.value);
+
+localStorage.setItem("rf_corrida_temp",JSON.stringify({
+
+origem,
+parada,
+destino,
+valor:valorTotal,
+categoria:tipoCarro
+
+}));
+
+window.location.href="resumo.html";
+
+};
+
+/* TEMA */
+
+(function(){
+
+const temaSalvo=localStorage.getItem("rf_theme")||"dark";
+
+document.body.setAttribute("data-theme",temaSalvo);
+
+})();
 
 </script>
 
