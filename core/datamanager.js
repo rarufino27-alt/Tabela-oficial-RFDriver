@@ -45,9 +45,58 @@ const DataManager = {
 
       )
 
-      let dados = respostas.flat()
+      let dados = []
 
-      // 🔥 VALIDAÇÃO + LIMPEZA
+      // 🔥 SUPORTE AOS 3 FORMATOS
+      respostas.forEach(bloco => {
+
+        // 🥇 FORMATO 1: ARRAY NORMAL
+        if(Array.isArray(bloco)){
+          dados.push(...bloco)
+        }
+
+        // 🥈 e 🥉 OBJETOS
+        else{
+
+          for(const chave in bloco){
+
+            const valor = bloco[chave]
+
+            // 🥉 FORMATO 3: DESTINO COM GRUPO DE ORIGENS
+            if(valor && Array.isArray(valor.origens)){
+
+              valor.origens.forEach(origem => {
+                dados.push({
+                  origem: origem,
+                  destino: chave,
+                  valor: Number(valor.valor),
+                  regiao: "Cabo"
+                })
+              })
+
+            }
+
+            // 🥈 FORMATO 2: POR ORIGEM
+            else if(Array.isArray(valor)){
+
+              valor.forEach(item => {
+                dados.push({
+                  origem: chave,
+                  destino: item.destino,
+                  valor: Number(item.valor),
+                  regiao: item.regiao || "Cabo"
+                })
+              })
+
+            }
+
+          }
+
+        }
+
+      })
+
+      // 🔥 VALIDAÇÃO
       dados = this.validarESanitizar(dados)
 
       this.rotas = dados
@@ -74,7 +123,6 @@ const DataManager = {
 
     lista.forEach((item, index)=>{
 
-      // 1. Estrutura obrigatória
       if(
         !item ||
         typeof item.origem !== "string" ||
@@ -86,18 +134,15 @@ const DataManager = {
         return
       }
 
-      // 2. Sanitização
       const origem = item.origem.trim()
       const destino = item.destino.trim()
       const valor = Number(item.valor)
 
-      // 3. Valor inválido
       if(isNaN(valor)){
         erros.push(`Valor inválido em ${origem} -> ${destino}`)
         return
       }
 
-      // 4. Chave única (evita duplicado)
       const chave = origem.toLowerCase() + "|" + destino.toLowerCase()
 
       if(vistos.has(chave)){
@@ -107,12 +152,10 @@ const DataManager = {
 
       vistos.add(chave)
 
-      // 5. Auto relação (origem = destino)
       if(origem.toLowerCase() === destino.toLowerCase()){
         avisos.push(`Origem igual destino: ${origem}`)
       }
 
-      // 6. Valores suspeitos
       if(valor <= 0){
         avisos.push(`Valor suspeito (<=0): ${origem} -> ${destino}`)
       }
@@ -126,7 +169,6 @@ const DataManager = {
 
     })
 
-    // 🔥 LOG FINAL
     if(erros.length){
       console.error("❌ ERROS GRAVES NO JSON:")
       erros.forEach(e => console.error(e))
@@ -157,7 +199,6 @@ const DataManager = {
 
       this.indice[r.origem][r.destino] = r.valor
 
-      // 🔥 garante ida e volta
       if(!this.indice[r.destino]){
         this.indice[r.destino] = {}
       }
