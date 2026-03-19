@@ -3,14 +3,14 @@
 <head>
 
 <meta charset="UTF-8">
-<title>GFV – Viagem</title>
+<title>RF – Viagem</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <script src="core/datamanager.js"></script>
 
-<link rel="stylesheet" href="theme.css/theme.css">
-<link rel="stylesheet" href="theme.css/layout.css">
-<link rel="stylesheet" href="theme.css/components.css">
+<link rel="stylesheet" href="theme/theme.css">
+<link rel="stylesheet" href="theme/layout.css">
+<link rel="stylesheet" href="theme/components.css">
 
 </head>
 
@@ -27,7 +27,7 @@
 <h3>Menu</h3>
 
 <div class="menu-item" onclick="irPara('termos.html')">
-📜 Regras do Grupo GFV
+📜 Regras do Grupo RF
 </div>
 
 <div class="menu-item" onclick="irPara('configuracoes.html')">
@@ -38,16 +38,76 @@
 
 <div class="top-white">
 <div class="logo-area">
-<img src="icons/logo-1024.png" class="logo-img" onerror="this.src='icons/icon-512.png'">
-<span class="logo-text-dark">GFV MOTORISTA</span>
+<img src="icons/icon-512.png" class="logo-img">
+<span class="logo-text-dark">
+RF MOTORISTA
+</span>
 </div>
 <div class="menu-btn-dark" onclick="abrirMenu()">☰</div>
 </div>
 
+<!-- SLIDER -->
+
+<div class="slider">
+<div class="slides" id="slides">
+
+<div class="slide slide-text">
+  <div class="slide-content">
+    <h2>Tabela <span class="destaque">Oficial</span> RF Motorista</h2>
+    <p>Preço Fixo e justo para todos!</p>
+    <button class="slide-btn" data-acao="origem">Começar</button>
+  </div>
+</div>
+
+<div class="slide slide-text">
+  <div class="slide-content">
+    <h2>Ganhos <span class="destaque">semanais</span></h2>
+    <p>Veja como ganhar R$ 50 em bônus</p>
+    <button class="slide-btn" data-acao="bonus">Ver regras</button>
+  </div>
+</div>
+
+<div class="slide slide-text">
+  <div class="slide-content">
+    <h2>Lâmpada <span class="destaque">queimou?</span></h2>
+    <p>Suporte imediato</p>
+    <button class="slide-btn" data-acao="whatsapp">Falar agora</button>
+  </div>
+</div>
+
+<div class="slide slide-text">
+  <div class="slide-content">
+    <h2>Corrida cancelada?</h2>
+    <p>Garantimos seu deslocamento</p>
+    <button class="slide-btn" data-acao="cancelamento">Resolver</button>
+  </div>
+</div>
+
+<div class="slide slide-text">
+  <div class="slide-content">
+    <h2>Não <span class="destaque">recebeu?</span></h2>
+    <p>O grupo resolve pra você</p>
+    <button class="slide-btn" data-acao="naoRecebeu">Resolver</button>
+  </div>
+</div>
+
+</div>
+</div>
+
+<div class="indicadores">
+<div class="dotSlide ativo"></div>
+<div class="dotSlide"></div>
+<div class="dotSlide"></div>
+<div class="dotSlide"></div>
+<div class="dotSlide"></div>
+</div>
+
 <div class="center">
 
+<div class="titulo-box">
 <div class="titulo-central">
 Para onde <span>vamos</span> hoje?
+</div>
 </div>
 
 <div class="card">
@@ -75,6 +135,7 @@ Para onde <span>vamos</span> hoje?
 </div>
 
 <div class="campo">
+
 <div class="campo-left">
 <div class="dot" style="background:#3b82f6;"></div>
 <div>Tipo de veículo</div>
@@ -85,16 +146,17 @@ Para onde <span>vamos</span> hoje?
 </div>
 
 <input type="hidden" id="tipoCarro" value="1">
+
 </div>
 
 </div>
+
 </div>
 
 <div class="bottom">
 <button id="confirmar" disabled>Confirmar rota</button>
 </div>
 
-<!-- MODAL LISTA -->
 <div class="modal" id="modal">
 <div class="modal-content">
 <input type="text" id="busca" placeholder="Buscar local...">
@@ -102,33 +164,19 @@ Para onde <span>vamos</span> hoje?
 </div>
 </div>
 
-<!-- MODAL VEÍCULO CENTRALIZADO -->
-<div id="modalTipoCarro" style="
-position:fixed;
-top:0;
-left:0;
-width:100%;
-height:100%;
-background:rgba(0,0,0,.6);
-display:none;
-align-items:center;
-justify-content:center;
-z-index:999;
-">
-
-<div style="
-background:#1c1c1c;
-padding:20px;
-border-radius:16px;
-width:90%;
-max-width:300px;
-border:1px solid rgba(255,255,255,.1);
-">
-
+<div class="rf-modal" id="modalTipoCarro">
+<div class="rf-modal-content">
 <div class="rf-option" data-value="1">4 lugares</div>
 <div class="rf-option" data-value="1.5">6 lugares (+50%)</div>
-
 </div>
+</div>
+
+<div class="radar-bg">
+<div class="radar-circle"></div>
+<div class="radar-circle"></div>
+<div class="radar-circle"></div>
+<div class="radar-circle"></div>
+<div class="radar-line"></div>
 </div>
 
 <script>
@@ -146,6 +194,84 @@ loading.style.display="none";
 }
 init();
 
+/* SLIDER */
+let slideIndex=0;
+const slides=document.getElementById("slides");
+const dots=document.querySelectorAll(".dotSlide");
+
+setInterval(()=>{
+slideIndex++;
+if(slideIndex >= dots.length) slideIndex = 0;
+slides.style.transform=`translateX(-${slideIndex*100}%)`;
+dots.forEach(d=>d.classList.remove("ativo"));
+dots[slideIndex].classList.add("ativo");
+},4000);
+
+/* SWIPE */
+let startX=0,endX=0,isDragging=false;
+
+slides.addEventListener("touchstart",e=>startX=e.touches[0].clientX);
+slides.addEventListener("touchend",e=>{
+endX=e.changedTouches[0].clientX;
+handleSwipe();
+});
+
+slides.addEventListener("mousedown",e=>{
+isDragging=true;
+startX=e.clientX;
+});
+slides.addEventListener("mouseup",e=>{
+if(!isDragging) return;
+endX=e.clientX;
+isDragging=false;
+handleSwipe();
+});
+
+function handleSwipe(){
+const diff=startX-endX;
+if(Math.abs(diff)<50) return;
+
+if(diff>0){
+slideIndex++;
+if(slideIndex >= dots.length) slideIndex = dots.length - 1;
+}else{
+slideIndex--;
+if(slideIndex < 0) slideIndex = 0;
+}
+
+slides.style.transform=`translateX(-${slideIndex*100}%)`;
+dots.forEach(d=>d.classList.remove("ativo"));
+dots[slideIndex].classList.add("ativo");
+}
+
+/* BOTÕES */
+document.querySelectorAll(".slide-btn").forEach(btn=>{
+btn.onclick=()=>{
+const acao=btn.dataset.acao;
+
+if(acao==="origem"){
+document.getElementById("origemBtn").click();
+}
+
+if(acao==="bonus"){
+window.location.href="bonus.html";
+}
+
+if(acao==="cancelamento"){
+window.location.href="cancelamento.html";
+}
+
+if(acao==="naoRecebeu"){
+window.location.href="nao-recebeu.html";
+}
+
+if(acao==="whatsapp"){
+const msg=encodeURIComponent("Olá! Preciso de suporte no grupo RF.");
+window.open(`https://wa.me/5581989823239?text=${msg}`,"_blank");
+}
+};
+});
+
 /* MENU */
 function abrirMenu(){
 menu.classList.add("ativo");
@@ -159,41 +285,28 @@ function irPara(p){
 window.location.href=p;
 }
 
-/* SISTEMA COMPLETO (RF TRAZIDO PRO GFV) */
-
+/* SISTEMA */
+// (mantido igual)
 let origem=null,parada=null,destino=null,modo=null;
-
 const modal=document.getElementById("modal");
 const lista=document.getElementById("lista");
 const busca=document.getElementById("busca");
 const confirmarBtn=document.getElementById("confirmar");
 
 function abrirModal(tipo){
-if(tipo!=="origem"&&!origem){
-alert("Selecione a origem primeiro.");
-return;
-}
-
+if(tipo!=="origem"&&!origem){alert("Selecione a origem primeiro.");return;}
 modo=tipo;
 busca.value="";
 modal.style.display="flex";
-
 let dados=[];
-
-if(tipo==="origem"){
-dados=DataManager.listarOrigens();
-}
-
+if(tipo==="origem") dados=DataManager.listarOrigens();
 if(tipo==="parada"){
-dados=DataManager.listarDestinos(origem);
+dados=DataManager.listarDestinos(origem)
+.filter(p=>DataManager.listarDestinos(p).length>0);
 }
-
 if(tipo==="destino"){
-dados=parada
-? DataManager.listarDestinos(parada)
-: DataManager.listarDestinos(origem);
+dados=parada?DataManager.listarDestinos(parada):DataManager.listarDestinos(origem);
 }
-
 renderLista(dados);
 }
 
@@ -217,31 +330,41 @@ div.style.display=div.innerText.toLowerCase().includes(termo)?"block":"none";
 });
 });
 
+const tipoCarroBtn=document.getElementById("tipoCarroBtn");
+const modalTipoCarro=document.getElementById("modalTipoCarro");
+const tipoCarroTexto=document.getElementById("tipoCarroTexto");
+const tipoCarroInput=document.getElementById("tipoCarro");
+
+tipoCarroBtn.onclick=()=>modalTipoCarro.style.display="flex";
+
+document.querySelectorAll("#modalTipoCarro .rf-option").forEach(opcao=>{
+opcao.onclick=()=>{
+tipoCarroInput.value=opcao.dataset.value;
+tipoCarroTexto.innerText=opcao.innerText;
+modalTipoCarro.style.display="none";
+};
+});
+
+modalTipoCarro.onclick=e=>{
+if(e.target===modalTipoCarro) modalTipoCarro.style.display="none";
+};
+
 function selecionar(valor){
-
 if(modo==="origem"){
-origem=valor;
-parada=null;
-destino=null;
-
+origem=valor;parada=null;destino=null;
 origemTexto.innerText=valor;
 paradaTexto.innerText="Selecionar parada";
 destinoTexto.innerText="Selecionar destino";
-
 paradaBtn.style.display="none";
 }
-
 if(modo==="parada"){
-parada=valor;
-destino=null;
+parada=valor;destino=null;
 paradaTexto.innerText=valor;
 }
-
 if(modo==="destino"){
 destino=valor;
 destinoTexto.innerText=valor;
 }
-
 confirmarBtn.disabled=!(origem&&destino);
 }
 
@@ -251,56 +374,29 @@ destinoBtn.onclick=()=>abrirModal("destino");
 
 addParada.onclick=e=>{
 e.stopPropagation();
-if(!origem){
-alert("Selecione a origem primeiro.");
-return;
-}
+if(!origem){alert("Selecione a origem primeiro.");return;}
 paradaBtn.style.display="flex";
 };
 
-/* TIPO VEÍCULO */
-
-const modalTipo=document.getElementById("modalTipoCarro");
-
-tipoCarroBtn.onclick=()=>modalTipo.style.display="flex";
-
-modalTipo.onclick=e=>{
-if(e.target===modalTipo) modalTipo.style.display="none";
+modal.onclick=e=>{
+if(e.target===modal) modal.style.display="none";
 };
-
-document.querySelectorAll(".rf-option").forEach(op=>{
-op.onclick=()=>{
-tipoCarro.value=op.dataset.value;
-tipoCarroTexto.innerText=op.innerText;
-modalTipo.style.display="none";
-};
-});
-
-/* CONFIRMAR */
 
 confirmarBtn.onclick=()=>{
-
 let valorTotal=0;
-
 if(!parada){
 valorTotal=DataManager.buscarValor(origem,destino)||0;
 }else{
-valorTotal=
-(DataManager.buscarValor(origem,parada)||0)
-+
-(DataManager.buscarValor(parada,destino)||0);
+valorTotal=(DataManager.buscarValor(origem,parada)||0)
++(DataManager.buscarValor(parada,destino)||0);
 }
-
-const tipo=parseFloat(tipoCarro.value);
-
-localStorage.setItem("gfv_corrida_temp",JSON.stringify({
-origem,parada,destino,valor:valorTotal,categoria:tipo
+const tipoCarro=parseFloat(tipoCarro.value);
+localStorage.setItem("rf_corrida_temp",JSON.stringify({
+origem,parada,destino,valor:valorTotal,categoria:tipoCarro
 }));
-
 window.location.href="resumo.html";
 };
 
-/* TEMA */
 (function(){
 const temaSalvo=localStorage.getItem("rf_theme")||"dark";
 document.body.setAttribute("data-theme",temaSalvo);
