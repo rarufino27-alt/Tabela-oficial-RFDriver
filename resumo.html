@@ -107,7 +107,7 @@
 <div class="footer-inner">
 <div class="valor" id="valorFinal">R$ 0,00</div>
 <div class="cta-area">
-<button onclick="solicitar()">Enviar recibo via Whatsapp</button>
+<button onclick="solicitar()">Gerar Recibo</button>
 </div>
 </div>
 </div>
@@ -349,7 +349,7 @@ doc.text(`TOTAL: R$ ${total.toFixed(2)}`, 20, y);
 // ===== GERAR BLOB =====
 const blob = doc.output("blob");
 
-return new File([blob], "recibo.pdf", { type: "application/pdf" });
+return ([blob], "recibo.pdf", { type: "application/pdf" });
 
 }
   
@@ -357,22 +357,27 @@ async function solicitar(){
 
 try{
 
-const file = await gerarPDF();
+const blob = await gerarPDF();
 
-// Se o celular permitir compartilhar arquivo
-if(navigator.canShare && navigator.canShare({ files: [file] })){
+const url = URL.createObjectURL(blob);
+
+// tenta compartilhamento (modo simples)
+if(navigator.share){
 
 await navigator.share({
 title: "Recibo de Viagem",
-text: "Segue seu recibo",
-files: [file]
+text: "Segue seu recibo"
 });
+
+// abre o PDF depois
+setTimeout(()=>{
+window.open(url, "_blank");
+}, 500);
 
 }else{
 
-// fallback (abre PDF)
-const url = URL.createObjectURL(file);
-window.open(url);
+// fallback padrão
+window.open(url, "_blank");
 
 }
 
