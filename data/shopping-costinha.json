@@ -5,6 +5,7 @@
 { "origem": "Shopping Costa Dourada", "destino": "Praça Theo Silva Centro do Cabo", "valor": 14.99, "regiao": "Cabo" },
 { "origem": "Shopping Costa Dourada", "destino": "Rua São joão Centro do Cabo", "valor": 17.99, "regiao": "Cabo" },
 { "origem": "Shopping Costa Dourada", "destino": "Hospital Mendo Sampaio (Mista)", "valor": 17.99, "regiao": "Cabo" },
+{ "origem": "Shopping Costa Dourada", "destino": "Clínica Amor & Saúde", "valor": 15.99, "regiao": "Cabo" },  
 { "origem": "Shopping Costa Dourada", "destino": "Hospital Infantil Centro do Cabo", "valor": 15.99, "regiao": "Cabo" },
 { "origem": "Shopping Costa Dourada", "destino": "Hospital InfantoJuvenil Centro do Cabo", "valor": 15.99, "regiao": "Cabo" },
 { "origem": "Shopping Costa Dourada", "destino": "Câmara dos vereadores do Centro do Cabo", "valor": 14.99, "regiao": "Cabo" },
