@@ -34,6 +34,11 @@
 ⚙️ Configurações
 </div>
 
+<!-- NOVO -->
+<div class="menu-item" onclick="irPara('premiacao.html')">
+🏆 Ranking / Premiação
+</div>
+
 </div>
 
 <div class="top-white">
@@ -63,7 +68,7 @@ RF MOTORISTA
   <div class="slide-content">
     <h2>Ganhos <span class="destaque">semanais</span></h2>
     <p>Veja como ganhar R$ 50 em bônus</p>
-    <button class="slide-btn" data-acao="bonus">Ver regras</button>
+    <button class="slide-btn" data-acao="premiacao">Ver ranking</button>
   </div>
 </div>
 
@@ -71,7 +76,7 @@ RF MOTORISTA
   <div class="slide-content">
     <h2>Ganhadores <span class="destaque">desta semana</span></h2>
     <p>Parcial =1° Marcos (23) e 2° Genilson (21)</p>
-    <button class="slide-btn" data-acao="bonus">Ver regras</button>
+    <button class="slide-btn" data-acao="premiacao">Ver ranking</button>
   </div>
 </div>
 
@@ -265,6 +270,10 @@ if(acao==="bonus"){
 window.location.href="bonus.html";
 }
 
+if(acao==="premiacao"){
+window.location.href="premiacao.html";
+}
+
 if(acao==="cancelamento"){
 window.location.href="cancelamento.html";
 }
@@ -294,7 +303,6 @@ window.location.href=p;
 }
 
 /* SISTEMA */
-// (mantido igual)
 let origem=null,parada=null,destino=null,modo=null;
 const modal=document.getElementById("modal");
 const lista=document.getElementById("lista");
