@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Histórico de Viagens</title>
+
+<link rel="stylesheet" href="theme/theme.css">
+<link rel="stylesheet" href="theme/layout.css">
+<link rel="stylesheet" href="theme/components.css">
+
+<style>
+body{
+background:var(--bg);
+color:var(--text);
+font-family:system-ui;
+margin:0;
+}
+
+.page{
+padding:15px;
+}
+
+.card{
+background:var(--card);
+padding:15px;
+border-radius:16px;
+margin-bottom:15px;
+}
+
+.motorista{
+padding:12px;
+border-bottom:1px solid rgba(255,255,255,0.05);
+cursor:pointer;
+}
+
+.total{
+font-size:13px;
+opacity:0.7;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="page">
+
+<h2>📊 Histórico Geral</h2>
+
+<div id="lista"></div>
+
+<div class="card" id="detalhe"></div>
+
+</div>
+
+<script>
+
+(function(){
+const tema = localStorage.getItem("rf_theme") || "dark";
+document.body.setAttribute("data-theme", tema);
+})();
+
+let DB = JSON.parse(localStorage.getItem("premiacao")) || {motoristas:[]};
+
+function semanaAtual(){
+const hoje=new Date();
+const dia=hoje.getDay()||7;
+
+const inicio=new Date(hoje);
+inicio.setDate(hoje.getDate()-(dia-1));
+
+const fim=new Date(inicio);
+fim.setDate(inicio.getDate()+6);
+
+return{inicio,fim};
+}
+
+function totalSemana(m){
+const s=semanaAtual();
+return m.registros.filter(r=>{
+const d=new Date(r.data);
+return d>=s.inicio && d<=s.fim;
+}).reduce((t,r)=>t+r.viagens,0);
+}
+
+function totalMes(m){
+const hoje=new Date();
+return m.registros.filter(r=>{
+const d=new Date(r.data);
+return d.getMonth()===hoje.getMonth();
+}).reduce((t,r)=>t+r.viagens,0);
+}
+
+function totalAno(m){
+const hoje=new Date();
+return m.registros.filter(r=>{
+const d=new Date(r.data);
+return d.getFullYear()===hoje.getFullYear();
+}).reduce((t,r)=>t+r.viagens,0);
+}
+
+function render(){
+const lista=document.getElementById("lista");
+lista.innerHTML="";
+
+DB.motoristas.forEach(m=>{
+const div=document.createElement("div");
+div.className="card motorista";
+
+div.innerHTML=`
+<strong>${m.nome}</strong>
+<div class="total">
+Semana: ${totalSemana(m)} |
+Mês: ${totalMes(m)} |
+Ano: ${totalAno(m)}
+</div>
+`;
+
+div.onclick=()=>detalhe(m);
+
+lista.appendChild(div);
+});
+}
+
+function detalhe(m){
+let html=`<h3>${m.nome}</h3>`;
+
+m.registros.forEach(r=>{
+html+=`<p>${r.data} → ${r.viagens}</p>`;
+});
+
+document.getElementById("detalhe").innerHTML=html;
+}
+
+render();
+
+</script>
+
+</body>
+</html>
