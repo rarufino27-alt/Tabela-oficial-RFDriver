@@ -1,0 +1,50 @@
+[
+  
+{ "origem": "Suape", "destino": "T.I Centro do Cabo", "valor": 39.98, "regiao": "Cabo" },
+{ "origem": "Suape", "destino": "Praça Theo Silva Centro do Cabo", "valor": 39.98, "regiao": "Cabo" },
+{ "origem": "Suape", "destino": "Rua São joão Centro do Cabo", "valor": 42.98, "regiao": "Cabo" },
+{ "origem": "Suape", "destino": "Hospital Mendo Sampaio (Mista)", "valor": 39.98, "regiao": "Cabo" },
+{ "origem": "Suape", "destino": "Clínica Amor & Saúde", "valor": 39.98, "regiao": "Cabo" },
+{ "origem": "Suape", "destino": "Hospital Infantil Centro do Cabo", "valor": 39.98, "regiao": "Cabo" },
+{ "origem": "Suape", "destino": "Hospital InfantoJuvenil Centro do Cabo", "valor": 39.98, "regiao": "Cabo" },
+{ "origem": "Suape", "destino": "Câmara dos vereadores do Centro do Cabo", "valor": 39.98, "regiao": "Cabo" },
+{ "origem": "Suape", "destino": "Mauriti", "valor": 39.98, "regiao": "Cabo" },
+{ "origem": "Suape", "destino": "Torrinha Baixa", "valor": 39.98, "regiao": "Cabo" },
+{ "origem": "Suape", "destino": "Torrinha Alta", "valor": 39.98, "regiao": "Cabo" },
+
+{ "origem": "Suape", "destino": "Malaquias Baixo (inclui R. 5,9)", "valor": 36.98, "regiao": "Cabo" },
+{ "origem": "Suape", "destino": "Malaquias Alto Área da IEADPE", "valor": 39.98, "regiao": "Cabo" },
+{ "origem": "Suape", "destino": "Malaquias Alto (R. 4,7,10...)", "valor": 39.98, "regiao": "Cabo" },
+
+{ "origem": "Suape", "destino": "Terminal de Ônibus da Cohab", "valor": 34.98, "regiao": "Cabo" },
+{ "origem": "Suape", "destino": "Posto de Saúde na Cohab", "valor": 34.98, "regiao": "Cabo" },
+{ "origem": "Suape", "destino": "UPA24h na Cohab", "valor": 34.98, "regiao": "Cabo" },
+{ "origem": "Suape", "destino": "Rua Do Açude Cohab", "valor": 34.98, "regiao": "Cabo" },
+{ "origem": "Suape", "destino": "Rua Cristo Rei Cohab", "valor": 34.98, "regiao": "Cabo" },
+
+{ "origem": "Suape", "destino": "Bairro São Francisco PRAÇA", "valor": 34.98, "regiao": "Cabo" },
+{ "origem": "Suape", "destino": "Bairro São Francisco Alto dos Mirandas", "valor": 39.98, "regiao": "Cabo" },
+{ "origem": "Suape", "destino": "Bairro São Francisco Caixa D'água", "valor": 39.98, "regiao": "Cabo" },
+{ "origem": "Suape", "destino": "Bairro São Francisco Rua do Bicudo", "valor": 39.98, "regiao": "Cabo" },
+{ "origem": "Suape", "destino": "Bairro São Francisco Rua 53", "valor": 39.98, "regiao": "Cabo" },
+{ "origem": "Suape", "destino": "Bairro São Francisco Rua da Aurora", "valor": 39.98, "regiao": "Cabo" },
+
+{ "origem": "Suape", "destino": "Bela Vista Alta", "valor": 39.98, "regiao": "Cabo" },
+{ "origem": "Suape", "destino": "Bela Vista Baixa", "valor": 39.98, "regiao": "Cabo" },
+{ "origem": "Suape", "destino": "Cruzeiro", "valor": 39.98, "regiao": "Cabo" },
+{ "origem": "Suape", "destino": "Toca", "valor": 36.98, "regiao": "Cabo" },
+{ "origem": "Suape", "destino": "Rua 25 da Bela Vista", "valor": 39.98, "regiao": "Cabo" },
+
+{ "origem": "Suape", "destino": "Charnequinha Baixa", "valor": 39.98, "regiao": "Cabo" },
+{ "origem": "Suape", "destino": "Charnequinha Alta", "valor": 39.98, "regiao": "Cabo" },
+{ "origem": "Suape", "destino": "Charnequinha (Área da quadra e aredores)", "valor": 39.98, "regiao": "Cabo" },
+{ "origem": "Suape", "destino": "Charnequinha (R. 2 após área da quadra)", "valor": 42.98, "regiao": "Cabo" },
+{ "origem": "Suape", "destino": "Sapucaia", "valor": 40.98, "regiao": "Cabo" },
+
+{ "origem": "Suape", "destino": "Destilaria", "valor": 37.98, "regiao": "Cabo" },
+{ "origem": "Suape", "destino": "Comunidade da Destilaria", "valor": 39.98, "regiao": "Cabo" },
+{ "origem": "Suape", "destino": "Clube da Destilaria", "valor": 37.98, "regiao": "Cabo" },
+{ "origem": "Suape", "destino": "Vila Social", "valor": 37.98, "regiao": "Cabo" },
+{ "origem": "Suape", "destino": "Rua do Dique (Vila Social)", "valor": 37.98, "regiao": "Cabo" }
+  
+]
