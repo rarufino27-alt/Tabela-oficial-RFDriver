@@ -4,6 +4,7 @@
 { "origem": "Bairro São Francisco Baixo", "destino": "Praça Theo Silva Centro do Cabo", "valor": 9.99, "regiao": "Cabo" },
 { "origem": "Bairro São Francisco Baixo", "destino": "Rua São joão Centro do Cabo", "valor": 12.99, "regiao": "Cabo" },
 { "origem": "Bairro São Francisco Baixo", "destino": "Hospital Mendo Sampaio (Mista)", "valor": 14.99, "regiao": "Cabo" },
+{ "origem": "Bairro São Francisco Baixo", "destino": "Clínica Amor & Saúde", "valor": 11.99, "regiao": "Cabo" },  
 { "origem": "Bairro São Francisco Baixo", "destino": "Hospital Infantil Centro do Cabo", "valor": 11.99, "regiao": "Cabo" },
 { "origem": "Bairro São Francisco Baixo", "destino": "Hospital InfantoJuvenil Centro do Cabo", "valor": 11.99, "regiao": "Cabo" },
 { "origem": "Bairro São Francisco Baixo", "destino": "Câmara dos vereadores do Centro do Cabo", "valor": 11.99, "regiao": "Cabo" },
