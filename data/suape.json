@@ -16,11 +16,11 @@
 { "origem": "Suape", "destino": "Malaquias Alto Área da IEADPE", "valor": 39.98, "regiao": "Cabo" },
 { "origem": "Suape", "destino": "Malaquias Alto (R. 4,7,10...)", "valor": 39.98, "regiao": "Cabo" },
 
-{ "origem": "Suape", "destino": "Terminal de Ônibus da Cohab", "valor": 37.98, "regiao": "Cabo" },
-{ "origem": "Suape", "destino": "Posto de Saúde na Cohab", "valor": 37.98, "regiao": "Cabo" },
-{ "origem": "Suape", "destino": "UPA24h na Cohab", "valor": 37.98, "regiao": "Cabo" },
-{ "origem": "Suape", "destino": "Rua Do Açude Cohab", "valor": 37.98, "regiao": "Cabo" },
-{ "origem": "Suape", "destino": "Rua Cristo Rei Cohab", "valor": 37.98, "regiao": "Cabo" },
+{ "origem": "Suape", "destino": "Terminal de Ônibus da Cohab", "valor": 39.98, "regiao": "Cabo" },
+{ "origem": "Suape", "destino": "Posto de Saúde na Cohab", "valor": 39.98, "regiao": "Cabo" },
+{ "origem": "Suape", "destino": "UPA24h na Cohab", "valor": 39.98, "regiao": "Cabo" },
+{ "origem": "Suape", "destino": "Rua Do Açude Cohab", "valor": 39.98, "regiao": "Cabo" },
+{ "origem": "Suape", "destino": "Rua Cristo Rei Cohab", "valor": 39.98, "regiao": "Cabo" },
 
 { "origem": "Suape", "destino": "Bairro São Francisco PRAÇA", "valor": 39.98, "regiao": "Cabo" },
 { "origem": "Suape", "destino": "Bairro São Francisco Alto dos Mirandas", "valor": 39.98, "regiao": "Cabo" },
@@ -32,7 +32,7 @@
 { "origem": "Suape", "destino": "Bela Vista Alta", "valor": 39.98, "regiao": "Cabo" },
 { "origem": "Suape", "destino": "Bela Vista Baixa", "valor": 39.98, "regiao": "Cabo" },
 { "origem": "Suape", "destino": "Cruzeiro", "valor": 39.98, "regiao": "Cabo" },
-{ "origem": "Suape", "destino": "Toca", "valor": 37.98, "regiao": "Cabo" },
+{ "origem": "Suape", "destino": "Toca", "valor": 39.98, "regiao": "Cabo" },
 { "origem": "Suape", "destino": "Rua 25 da Bela Vista", "valor": 39.98, "regiao": "Cabo" },
 
 { "origem": "Suape", "destino": "Charnequinha Baixa", "valor": 39.98, "regiao": "Cabo" },
@@ -47,14 +47,14 @@
 { "origem": "Suape", "destino": "Vila Social", "valor": 39.98, "regiao": "Cabo" },
 { "origem": "Suape", "destino": "Rua do Dique (Vila Social)", "valor": 39.98, "regiao": "Cabo" },
 
-{ "origem": "Suape", "destino": "Motel Intense Prime", "valor": 37.98, "regiao": "Cabo" },
-{ "origem": "Suape", "destino": "Condomínio em frente ao Intense", "valor": 37.98, "regiao": "Cabo" },
-{ "origem": "Suape", "destino": "SAFPE PE-60", "valor": 36.98, "regiao": "Cabo" },
-{ "origem": "Suape", "destino": "ATACADÃO PE-60", "valor": 36.98, "regiao": "Cabo" },
-{ "origem": "Suape", "destino": "ASSAÍ PE-60", "valor": 36.98, "regiao": "Cabo" },
-{ "origem": "Suape", "destino": "AD Seara PE-60", "valor": 36.98, "regiao": "Cabo" },
-{ "origem": "Suape", "destino": "Igreja do Amor PE-60", "valor": 36.98, "regiao": "Cabo" },
-{ "origem": "Suape", "destino": "Universal PE-60", "valor": 36.98, "regiao": "Cabo" },
+{ "origem": "Suape", "destino": "Motel Intense Prime", "valor": 39.98, "regiao": "Cabo" },
+{ "origem": "Suape", "destino": "Condomínio em frente ao Intense", "valor": 39.98, "regiao": "Cabo" },
+{ "origem": "Suape", "destino": "SAFPE PE-60", "valor": 39.98, "regiao": "Cabo" },
+{ "origem": "Suape", "destino": "ATACADÃO PE-60", "valor": 39.98, "regiao": "Cabo" },
+{ "origem": "Suape", "destino": "ASSAÍ PE-60", "valor": 39.98, "regiao": "Cabo" },
+{ "origem": "Suape", "destino": "AD Seara PE-60", "valor": 39.98, "regiao": "Cabo" },
+{ "origem": "Suape", "destino": "Igreja do Amor PE-60", "valor": 39.98, "regiao": "Cabo" },
+{ "origem": "Suape", "destino": "Universal PE-60", "valor": 39.98, "regiao": "Cabo" },
 
 { "origem": "Suape", "destino": "Santo Inácio", "valor": 39.98, "regiao": "Cabo" },
 { "origem": "Suape", "destino": "Pentecostal Filhos de Sião Santo Inácio", "valor": 39.98, "regiao": "Cabo" },
@@ -73,9 +73,9 @@
 { "origem": "Suape", "destino": "Garapú Em frente Ao Shopping", "valor": 42.98, "regiao": "Cabo" },
 { "origem": "Suape", "destino": "Garapú VILA DA CONEST", "valor": 44.98, "regiao": "Cabo" },
 
-{ "origem": "Suape", "destino": "Comunidade Madri Iva (Subida do Shopping)", "valor": 37.98, "regiao": "Cabo" },
-{ "origem": "Suape", "destino": "Rosário", "valor": 37.98, "regiao": "Cabo" },
-{ "origem": "Suape", "destino": "SEST-SENAT (Rosário)", "valor": 37.98, "regiao": "Cabo" },
+{ "origem": "Suape", "destino": "Comunidade Madri Iva (Subida do Shopping)", "valor": 39.98, "regiao": "Cabo" },
+{ "origem": "Suape", "destino": "Rosário", "valor": 39.98, "regiao": "Cabo" },
+{ "origem": "Suape", "destino": "SEST-SENAT (Rosário)", "valor": 39.98, "regiao": "Cabo" },
 
 { "origem": "Suape", "destino": "Agodoais Sentido Ipojuca", "valor": 54.98, "regiao": "Cabo" },
 { "origem": "Suape", "destino": "Agodoais Sentido Praia", "valor": 54.98, "regiao": "Cabo" },
@@ -120,8 +120,8 @@
 
 { "origem": "Suape", "destino": "Granja Pajeú", "valor": 59.98, "regiao": "Cabo" },
 { "origem": "Suape", "destino": "Castelo Recepções", "valor": 61.98, "regiao": "Cabo" },
-{ "origem": "Suape", "destino": "SESI Cabo", "valor": 39.98, "regiao": "Cabo" },
-{ "origem": "Suape", "destino": "Vila do SESI", "valor": 39.98, "regiao": "Cabo" },
+{ "origem": "Suape", "destino": "SESI Cabo", "valor": 42.98, "regiao": "Cabo" },
+{ "origem": "Suape", "destino": "Vila do SESI", "valor": 42.98, "regiao": "Cabo" },
 { "origem": "Suape", "destino": "Rosa do Vento Chacara SHEKINÁ", "valor": 51.98, "regiao": "Cabo" },
 
 { "origem": "Suape", "destino": "CONE antes do Armazena", "valor": 51.98, "regiao": "Cabo" },
