@@ -4,6 +4,7 @@
 { "origem": "Bairro São Francisco Alto", "destino": "Praça Theo Silva Centro do Cabo", "valor": 12.99, "regiao": "Cabo" },
 { "origem": "Bairro São Francisco Alto", "destino": "Rua São joão Centro do Cabo", "valor": 14.99, "regiao": "Cabo" },
 { "origem": "Bairro São Francisco Alto", "destino": "Hospital Mendo Sampaio (Mista)", "valor": 17.99, "regiao": "Cabo" },
+{ "origem": "Bairro São Francisco Alto", "destino": "Clínica Amor & Saúde", "valor": 14.99, "regiao": "Cabo" },  
 { "origem": "Bairro São Francisco Alto", "destino": "Hospital Infantil Centro do Cabo", "valor": 14.99, "regiao": "Cabo" },
 { "origem": "Bairro São Francisco Alto", "destino": "Hospital InfantoJuvenil Centro do Cabo", "valor": 14.99, "regiao": "Cabo" },
 { "origem": "Bairro São Francisco Alto", "destino": "Câmara dos vereadores do Centro do Cabo", "valor": 14.99, "regiao": "Cabo" },
