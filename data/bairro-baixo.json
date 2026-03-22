@@ -141,6 +141,7 @@
 { "origem": "Bairro São Francisco Baixo", "destino": "Ponte dos Carvalhos Maternidade", "valor": 24.99, "regiao": "Cabo" },
 { "origem": "Bairro São Francisco Baixo", "destino": "Pontezinha", "valor": 29.99, "regiao": "Cabo" },
 
+{ "origem": "Bairro São Francisco Baixo", "destino": "granja beija-flor", "valor": 31.99, "regiao": "Cabo" },
 { "origem": "Bairro São Francisco Baixo", "destino": "Mercês", "valor": 31.99, "regiao": "Cabo" },
 { "origem": "Bairro São Francisco Baixo", "destino": "Mercês Rua do Ferreiro", "valor": 31.99, "regiao": "Cabo" },
 { "origem": "Bairro São Francisco Baixo", "destino": "Mercês Poços", "valor": 36.99, "regiao": "Cabo" },
