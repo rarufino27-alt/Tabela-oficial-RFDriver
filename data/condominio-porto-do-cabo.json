@@ -5,6 +5,7 @@
 { "origem": "Condomínio Porto do Cabo", "destino": "Praça Theo Silva Centro do Cabo", "valor": 14.99, "regiao": "Cabo" },
 { "origem": "Condomínio Porto do Cabo", "destino": "Rua São joão Centro do Cabo", "valor": 17.99, "regiao": "Cabo" },
 { "origem": "Condomínio Porto do Cabo", "destino": "Hospital Mendo Sampaio (Mista)", "valor": 17.99, "regiao": "Cabo" },
+{ "origem": "Condomínio Porto do Cabo", "destino": "Clínica Amor & Saúde", "valor": 15.99, "regiao": "Cabo" },  
 { "origem": "Condomínio Porto do Cabo", "destino": "Hospital Infantil Centro do Cabo", "valor": 15.99, "regiao": "Cabo" },
 { "origem": "Condomínio Porto do Cabo", "destino": "Hospital InfantoJuvenil Centro do Cabo", "valor": 15.99, "regiao": "Cabo" },
 { "origem": "Condomínio Porto do Cabo", "destino": "Câmara dos vereadores do Centro do Cabo", "valor": 14.99, "regiao": "Cabo" },
