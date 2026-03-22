@@ -4,6 +4,7 @@
 { "origem": "Calhetas", "destino": "Praça Theo Silva Centro do Cabo", "valor": 49.99, "regiao": "Cabo" },
 { "origem": "Calhetas", "destino": "Rua São joão Centro do Cabo", "valor": 49.99, "regiao": "Cabo" },
 { "origem": "Calhetas", "destino": "Hospital Mendo Sampaio (Mista)", "valor": 52.99, "regiao": "Cabo" },
+{ "origem": "Calhetas", "destino": "Clínica Amor & Saúde", "valor": 49.99, "regiao": "Cabo" },  
 { "origem": "Calhetas", "destino": "Hospital Infantil Centro do Cabo", "valor": 49.99, "regiao": "Cabo" },
 { "origem": "Calhetas", "destino": "Hospital InfantoJuvenil Centro do Cabo", "valor": 49.99, "regiao": "Cabo" },
 { "origem": "Calhetas", "destino": "Câmara dos vereadores do Centro do Cabo", "valor": 49.99, "regiao": "Cabo" },
