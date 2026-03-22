@@ -11,6 +11,8 @@ const DataManager = {
     "./data/calhetas.json",
     "./data/centro-do-cabo.json",
     "./data/cohab.json",
+    "./data/santo-inacio.json",
+    "./data/roca.json",
     "./data/condominio-porto-do-cabo.json",
     "./data/dharma-ville.json",
     "./data/enseadas.json",
