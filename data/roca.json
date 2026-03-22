@@ -1,0 +1,51 @@
+[
+  
+{ "origem": "Vila Roca", "destino": "T.I Centro do Cabo", "valor": 9.99, "regiao": "Cabo" },
+{ "origem": "Vila Roca", "destino": "Praça Theo Silva Centro do Cabo", "valor": 11.99, "regiao": "Cabo" },
+{ "origem": "Vila Roca", "destino": "Rua São joão Centro do Cabo", "valor": 12.99, "regiao": "Cabo" },
+{ "origem": "Vila Roca", "destino": "Hospital Mendo Sampaio (Mista)", "valor": 12.99, "regiao": "Cabo" },
+{ "origem": "Vila Roca", "destino": "Clínica Amor & Saúde", "valor": 9.99, "regiao": "Cabo" },
+{ "origem": "Vila Roca", "destino": "Hospital Infantil Centro do Cabo", "valor": 9.99, "regiao": "Cabo" },
+{ "origem": "Vila Roca", "destino": "Hospital InfantoJuvenil Centro do Cabo", "valor": 9.99, "regiao": "Cabo" },
+{ "origem": "Vila Roca", "destino": "Câmara dos vereadores do Centro do Cabo", "valor": 9.99, "regiao": "Cabo" },
+{ "origem": "Vila Roca", "destino": "Mauriti", "valor": 11.99, "regiao": "Cabo" },
+{ "origem": "Vila Roca", "destino": "Torrinha Baixa", "valor": 9.99, "regiao": "Cabo" },
+{ "origem": "Vila Roca", "destino": "Torrinha Alta", "valor": 11.99, "regiao": "Cabo" },
+
+{ "origem": "Vila Roca", "destino": "Malaquias Baixo (inclui R. 5,9)", "valor": 9.99, "regiao": "Cabo" },
+{ "origem": "Vila Roca", "destino": "Malaquias Alto Área da IEADPE", "valor": 12.99, "regiao": "Cabo" },
+{ "origem": "Vila Roca", "destino": "Malaquias Alto (R. 4,7,10...)", "valor": 12.99, "regiao": "Cabo" },
+
+{ "origem": "Vila Roca", "destino": "Terminal de Ônibus da Cohab", "valor": 9.99, "regiao": "Cabo" },
+{ "origem": "Vila Roca", "destino": "Posto de Saúde na Cohab", "valor": 9.99, "regiao": "Cabo" },
+{ "origem": "Vila Roca", "destino": "UPA24h na Cohab", "valor": 9.99, "regiao": "Cabo" },
+{ "origem": "Vila Roca", "destino": "Rua do Açude Cohab", "valor": 9.99, "regiao": "Cabo" },
+{ "origem": "Vila Roca", "destino": "Rua Cristo Rei Cohab", "valor": 9.99, "regiao": "Cabo" },
+
+{ "origem": "Vila Roca", "destino": "Bairro São Francisco PRAÇA", "valor": 12.99, "regiao": "Cabo" },
+{ "origem": "Vila Roca", "destino": "Bairro São Francisco Alto dos Mirandas", "valor": 14.99, "regiao": "Cabo" },
+{ "origem": "Vila Roca", "destino": "Bairro São Francisco Caixa D'água", "valor": 14.99, "regiao": "Cabo" },
+{ "origem": "Vila Roca", "destino": "Bairro São Francisco Rua do Bicudo", "valor": 14.99, "regiao": "Cabo" },
+{ "origem": "Vila Roca", "destino": "Bairro São Francisco Rua 53", "valor": 12.99, "regiao": "Cabo" },
+{ "origem": "Vila Roca", "destino": "Bairro São Francisco Rua da Aurora", "valor": 14.99, "regiao": "Cabo" },
+
+{ "origem": "Vila Roca", "destino": "Bela Vista Alta", "valor": 12.99, "regiao": "Cabo" },
+{ "origem": "Vila Roca", "destino": "Bela Vista Baixa", "valor": 9.99, "regiao": "Cabo" },
+{ "origem": "Vila Roca", "destino": "Cruzeiro", "valor": 12.99, "regiao": "Cabo" },
+{ "origem": "Vila Roca", "destino": "Padaria de Gilberto cruzeiro", "valor": 11.99, "regiao": "Cabo" },
+{ "origem": "Vila Roca", "destino": "Toca", "valor": 9.99, "regiao": "Cabo" },
+{ "origem": "Vila Roca", "destino": "Rua 25 da Bela Vista", "valor": 12.99, "regiao": "Cabo" },
+
+{ "origem": "Vila Roca", "destino": "Charnequinha Baixa", "valor": 14.99, "regiao": "Cabo" },
+{ "origem": "Vila Roca", "destino": "Charnequinha Alta", "valor": 14.99, "regiao": "Cabo" },
+{ "origem": "Vila Roca", "destino": "Charnequinha (Área da quadra e aredores)", "valor": 14.99, "regiao": "Cabo" },
+{ "origem": "Vila Roca", "destino": "Charnequinha (R. 2 após área da quadra)", "valor": 16.99, "regiao": "Cabo" },
+{ "origem": "Vila Roca", "destino": "Sapucaia", "valor": 11.99, "regiao": "Cabo" },
+
+{ "origem": "Vila Roca", "destino": "Destilaria", "valor": 9.99, "regiao": "Cabo" },
+{ "origem": "Vila Roca", "destino": "Comunidade da Destilaria", "valor": 9.99, "regiao": "Cabo" },
+{ "origem": "Vila Roca", "destino": "Clube da Destilaria", "valor": 9.99, "regiao": "Cabo" },
+{ "origem": "Vila Roca", "destino": "Vila Social", "valor": 9.99, "regiao": "Cabo" },
+{ "origem": "Vila Roca", "destino": "Rua do Dique (Vila Social)", "valor": 9.99, "regiao": "Cabo" }
+  
+]
