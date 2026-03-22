@@ -17,6 +17,7 @@ const DataManager = {
     "./data/dharma-ville.json",
     "./data/enseadas.json",
     "./data/gaibu.json",
+    "./data/suape.json",
     "./data/longas.json",
     "./data/itapuama.json",
     "./data/lote-garapu2-lote-dona-amara.json",
