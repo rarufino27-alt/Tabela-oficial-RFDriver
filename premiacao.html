@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <title>Premiação</title>
+
+  <link rel="stylesheet" href="theme/theme.css">
+  <link rel="stylesheet" href="theme/layout.css">
+  <link rel="stylesheet" href="theme/components.css">
+
+  <style>
+    .card {
+      background: var(--card);
+      padding: 15px;
+      border-radius: 12px;
+      margin-bottom: 15px;
+    }
+
+    .motorista {
+      display: flex;
+      justify-content: space-between;
+      padding: 10px;
+      border-bottom: 1px solid #333;
+      cursor: pointer;
+    }
+
+    .top1 { color: gold; }
+    .top2 { color: silver; }
+    .top3 { color: #cd7f32; }
+
+    .form {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    input, select, button {
+      padding: 10px;
+      border-radius: 8px;
+      border: none;
+    }
+
+    button {
+      background: #ffd700;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+
+<div class="container">
+
+  <h2>🏆 Ranking Semanal</h2>
+  <div id="ranking-semana" class="card"></div>
+
+  <h2>📅 Ranking Mensal</h2>
+  <div id="ranking-mes" class="card"></div>
+
+  <h2>➕ Adicionar Viagem</h2>
+  <div class="card form">
+    <select id="motorista"></select>
+    <input type="date" id="data">
+    <input type="number" id="viagens" placeholder="Quantidade de viagens">
+    <button onclick="salvar()">Salvar</button>
+  </div>
+
+  <h2>👤 Detalhe</h2>
+  <div id="detalhe" class="card"></div>
+
+</div>
+
+<script src="js/premiacao.js"></script>
+</body>
+</html>
