@@ -25,6 +25,7 @@
 { "origem": "Itapuama", "destino": "Bairro São Francisco PRAÇA", "valor": 34.98, "regiao": "Cabo" },
 { "origem": "Itapuama", "destino": "Bairro São Francisco Alto dos Mirandas", "valor": 35.98, "regiao": "Cabo" },
 { "origem": "Itapuama", "destino": "Bairro São Francisco Caixa D'água", "valor": 34.98, "regiao": "Cabo" },
+{ "origem": "Itapuama", "destino": "Bairro São Francisco Ruas 28 e 52", "valor": 34.98, "regiao": "Cabo" },  
 { "origem": "Itapuama", "destino": "Bairro São Francisco Rua do Bicudo", "valor": 37.98, "regiao": "Cabo" },
 { "origem": "Itapuama", "destino": "Bairro São Francisco Rua 53", "valor": 37.98, "regiao": "Cabo" },
 { "origem": "Itapuama", "destino": "Bairro São Francisco Rua da Aurora", "valor": 37.98, "regiao": "Cabo" },
