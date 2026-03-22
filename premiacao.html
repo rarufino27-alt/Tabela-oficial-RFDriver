@@ -1,74 +1,296 @@
 <!DOCTYPE html>
-<html lang="pt-br">
+<html lang="pt-BR">
 <head>
-  <meta charset="UTF-8">
-  <title>Premiação</title>
 
-  <link rel="stylesheet" href="theme/theme.css">
-  <link rel="stylesheet" href="theme/layout.css">
-  <link rel="stylesheet" href="theme/components.css">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <style>
-    .card {
-      background: var(--card);
-      padding: 15px;
-      border-radius: 12px;
-      margin-bottom: 15px;
-    }
+<title>Premiação RF</title>
 
-    .motorista {
-      display: flex;
-      justify-content: space-between;
-      padding: 10px;
-      border-bottom: 1px solid #333;
-      cursor: pointer;
-    }
+<link rel="stylesheet" href="theme/theme.css">
+<link rel="stylesheet" href="theme/layout.css">
+<link rel="stylesheet" href="theme/components.css">
 
-    .top1 { color: gold; }
-    .top2 { color: silver; }
-    .top3 { color: #cd7f32; }
+<style>
 
-    .form {
-      display: flex;
-      flex-direction: column;
-      gap: 10px;
-    }
+/* === ESTRUTURA BASE === */
+body{
+margin:0;
+padding:0;
+background:var(--bg);
+color:var(--text);
+font-family:system-ui;
+}
 
-    input, select, button {
-      padding: 10px;
-      border-radius: 8px;
-      border: none;
-    }
+/* === CONTAINER FULL === */
+.page{
+padding:15px;
+padding-bottom:90px;
+}
 
-    button {
-      background: #ffd700;
-      font-weight: bold;
-    }
-  </style>
+/* === TÍTULO === */
+.header{
+font-size:22px;
+font-weight:700;
+margin-bottom:15px;
+}
+
+/* === CARD PADRÃO === */
+.card{
+background:var(--card);
+border-radius:16px;
+padding:15px;
+margin-bottom:15px;
+box-shadow:0 4px 12px rgba(0,0,0,0.15);
+}
+
+/* === RANKING === */
+.motorista{
+display:flex;
+justify-content:space-between;
+align-items:center;
+padding:12px;
+border-bottom:1px solid rgba(255,255,255,0.05);
+font-size:15px;
+}
+
+.motorista:last-child{
+border:none;
+}
+
+.pos{
+font-weight:700;
+margin-right:10px;
+}
+
+/* TOPS */
+.top1{color:#FFD700;font-weight:700;}
+.top2{color:#C0C0C0;}
+.top3{color:#CD7F32;}
+
+/* === FORM === */
+.form{
+display:flex;
+flex-direction:column;
+gap:10px;
+}
+
+select,input{
+padding:12px;
+border-radius:10px;
+border:none;
+font-size:15px;
+background:var(--input);
+color:var(--text);
+}
+
+button{
+padding:14px;
+border:none;
+border-radius:12px;
+font-weight:700;
+font-size:16px;
+background:#FFD700;
+}
+
+/* === DETALHE === */
+.detalhe p{
+margin:5px 0;
+font-size:14px;
+}
+
+/* === RESPONSIVO === */
+@media(min-width:600px){
+.page{
+max-width:500px;
+margin:auto;
+}
+}
+
+</style>
+
 </head>
+
 <body>
 
-<div class="container">
+<div class="page">
 
-  <h2>🏆 Ranking Semanal</h2>
-  <div id="ranking-semana" class="card"></div>
+<div class="header">🏆 Ranking de Motoristas</div>
 
-  <h2>📅 Ranking Mensal</h2>
-  <div id="ranking-mes" class="card"></div>
+<div class="card">
+<h3>Semana</h3>
+<div id="ranking-semana"></div>
+</div>
 
-  <h2>➕ Adicionar Viagem</h2>
-  <div class="card form">
-    <select id="motorista"></select>
-    <input type="date" id="data">
-    <input type="number" id="viagens" placeholder="Quantidade de viagens">
-    <button onclick="salvar()">Salvar</button>
-  </div>
+<div class="card">
+<h3>Mês</h3>
+<div id="ranking-mes"></div>
+</div>
 
-  <h2>👤 Detalhe</h2>
-  <div id="detalhe" class="card"></div>
+<div class="card form">
+<h3>Adicionar Viagem</h3>
+
+<select id="motorista"></select>
+<input type="date" id="data">
+<input type="number" id="viagens" placeholder="Quantidade de viagens">
+
+<button onclick="salvar()">Salvar</button>
 
 </div>
 
-<script src="js/premiacao.js"></script>
+<div class="card detalhe" id="detalhe">
+<h3>Detalhes</h3>
+</div>
+
+</div>
+
+<script>
+
+/* === TEMA GLOBAL === */
+(function(){
+const tema = localStorage.getItem("rf_theme") || "dark";
+document.body.setAttribute("data-theme", tema);
+})();
+
+/* === BANCO LOCAL === */
+let DB = JSON.parse(localStorage.getItem("premiacao")) || {
+motoristas:[
+{nome:"João",registros:[]},
+{nome:"Carlos",registros:[]},
+{nome:"Pedro",registros:[]}
+]
+};
+
+function salvarDB(){
+localStorage.setItem("premiacao",JSON.stringify(DB));
+}
+
+/* === CARREGAR SELECT === */
+function carregarMotoristas(){
+const select=document.getElementById("motorista");
+select.innerHTML="";
+
+DB.motoristas.forEach((m,i)=>{
+const opt=document.createElement("option");
+opt.value=i;
+opt.innerText=m.nome;
+select.appendChild(opt);
+});
+}
+
+/* === SALVAR VIAGEM === */
+function salvar(){
+const i=document.getElementById("motorista").value;
+const data=document.getElementById("data").value;
+const viagens=parseInt(document.getElementById("viagens").value);
+
+if(!data || !viagens){
+alert("Preencha tudo");
+return;
+}
+
+DB.motoristas[i].registros.push({data,viagens});
+
+salvarDB();
+atualizar();
+}
+
+/* === SEMANA (SEG → DOM) */
+function getSemanaAtual(){
+const hoje=new Date();
+const dia=hoje.getDay()||7;
+
+const inicio=new Date(hoje);
+inicio.setDate(hoje.getDate()-(dia-1));
+
+const fim=new Date(inicio);
+fim.setDate(inicio.getDate()+6);
+
+return{inicio,fim};
+}
+
+/* === CALCULOS === */
+function totalSemana(m){
+const s=getSemanaAtual();
+
+return m.registros.filter(r=>{
+const d=new Date(r.data);
+return d>=s.inicio && d<=s.fim;
+}).reduce((t,r)=>t+r.viagens,0);
+}
+
+function totalMes(m){
+const hoje=new Date();
+
+return m.registros.filter(r=>{
+const d=new Date(r.data);
+return d.getMonth()===hoje.getMonth() &&
+d.getFullYear()===hoje.getFullYear();
+}).reduce((t,r)=>t+r.viagens,0);
+}
+
+/* === ATUALIZAR === */
+function atualizar(){
+
+const semana=DB.motoristas.map(m=>({
+nome:m.nome,
+total:totalSemana(m)
+})).sort((a,b)=>b.total-a.total);
+
+const mes=DB.motoristas.map(m=>({
+nome:m.nome,
+total:totalMes(m)
+})).sort((a,b)=>b.total-a.total);
+
+render("ranking-semana",semana);
+render("ranking-mes",mes);
+}
+
+/* === RENDER === */
+function render(id,lista){
+const el=document.getElementById(id);
+el.innerHTML="";
+
+lista.forEach((m,i)=>{
+const div=document.createElement("div");
+
+let classe="";
+if(i===0) classe="top1";
+if(i===1) classe="top2";
+if(i===2) classe="top3";
+
+div.className="motorista "+classe;
+
+div.innerHTML=`
+<span class="pos">${i+1}º</span>
+<span>${m.nome}</span>
+<strong>${m.total}</strong>
+`;
+
+div.onclick=()=>detalhe(m.nome);
+
+el.appendChild(div);
+});
+}
+
+/* === DETALHE === */
+function detalhe(nome){
+const m=DB.motoristas.find(x=>x.nome===nome);
+
+let html=`<h3>${nome}</h3>`;
+
+m.registros.forEach(r=>{
+html+=`<p>${r.data} → ${r.viagens} viagens</p>`;
+});
+
+document.getElementById("detalhe").innerHTML=html;
+}
+
+/* INIT */
+carregarMotoristas();
+atualizar();
+
+</script>
+
 </body>
 </html>
