@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Admin Histórico</title>
+
+<link rel="stylesheet" href="theme/theme.css">
+
+<style>
+body{background:var(--bg);color:var(--text);font-family:system-ui;margin:0;}
+.page{padding:15px;}
+
+.card{
+background:var(--card);
+padding:15px;
+border-radius:12px;
+margin-bottom:10px;
+}
+
+.item{
+display:flex;
+justify-content:space-between;
+align-items:center;
+margin-top:8px;
+}
+
+button{
+padding:6px 10px;
+border:none;
+border-radius:6px;
+background:#FFD700;
+}
+</style>
+
+</head>
+
+<body>
+
+<div class="page">
+
+<h2>🛠 Histórico (Admin)</h2>
+
+<div id="lista"></div>
+
+</div>
+
+<script>
+
+let DB = JSON.parse(localStorage.getItem("rf_db")) || {motoristas:[]};
+
+function salvar(){
+localStorage.setItem("rf_db",JSON.stringify(DB));
+}
+
+/* RENDER */
+function render(){
+const lista=document.getElementById("lista");
+lista.innerHTML="";
+
+DB.motoristas.forEach((m,i)=>{
+
+const card=document.createElement("div");
+card.className="card";
+
+let html=`<strong>${m.nome}</strong>`;
+
+if(!m.registros || m.registros.length===0){
+html += "<p>Nenhum registro</p>";
+}else{
+
+m.registros.forEach((r,j)=>{
+html += `
+<div class="item">
+<span>${r.data} → ${r.viagens}</span>
+<div>
+<button onclick="editar(${i},${j})">✏️</button>
+<button onclick="excluir(${i},${j})">🗑️</button>
+</div>
+</div>
+`;
+});
+
+}
+
+card.innerHTML=html;
+lista.appendChild(card);
+
+});
+
+}
+
+/* EXCLUIR */
+function excluir(i,j){
+if(!confirm("Excluir registro?")) return;
+
+DB.motoristas[i].registros.splice(j,1);
+
+salvar();
+render();
+}
+
+/* EDITAR */
+function editar(i,j){
+let atual=DB.motoristas[i].registros[j];
+
+let novaQtd=prompt("Nova quantidade:", atual.viagens);
+
+if(novaQtd===null) return;
+
+DB.motoristas[i].registros[j].viagens=parseInt(novaQtd);
+
+salvar();
+render();
+}
+
+render();
+
+</script>
+
+</body>
+</html>
