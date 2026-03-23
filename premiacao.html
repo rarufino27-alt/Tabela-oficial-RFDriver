@@ -117,83 +117,172 @@ Os dados são atualizados automaticamente pelo sistema.
 
 <script>
 
-/* 🎉 CONFETE */
-function soltarConfete(){
+/* === CONFIG === */
+const META_SEMANAL = 50;
 
-const canvas = document.getElementById("confeteCanvas");
-const ctx = canvas.getContext("2d");
+/* === TEMA === */
+(function(){
+const tema = localStorage.getItem("rf_theme") || "dark";
+document.body.setAttribute("data-theme", tema);
+})();
 
-canvas.width = window.innerWidth;
-canvas.height = window.innerHeight;
-
-let confetes = [];
-
-for(let i=0;i<120;i++){
-confetes.push({
-x: Math.random()*canvas.width,
-y: Math.random()*canvas.height - canvas.height,
-r: Math.random()*6+4,
-d: Math.random()*50,
-color: `hsl(${Math.random()*360},100%,50%)`,
-tilt: Math.random()*10-5
-});
-}
-
-let angle = 0;
-
-function draw(){
-ctx.clearRect(0,0,canvas.width,canvas.height);
-
-confetes.forEach(c=>{
-ctx.beginPath();
-ctx.fillStyle=c.color;
-ctx.fillRect(c.x, c.y, c.r, c.r);
-});
-
-update();
-}
-
-function update(){
-angle += 0.01;
-
-confetes.forEach(c=>{
-c.y += Math.cos(angle + c.d) + 2;
-c.x += Math.sin(angle);
-
-if(c.y > canvas.height){
-c.y = -10;
-c.x = Math.random()*canvas.width;
-}
-});
-}
-
-let anim = setInterval(draw, 20);
-
-/* para automaticamente */
-setTimeout(()=>{
-clearInterval(anim);
-ctx.clearRect(0,0,canvas.width,canvas.height);
-}, 4000);
-
-}
-
-/* DISPARO AUTOMÁTICO */
-function confeteSeTemLider(){
-
+/* === BANCO === */
 let DB = JSON.parse(localStorage.getItem("rf_db")) || {motoristas:[]};
+if(!DB.motoristas) DB.motoristas = [];
 
-if(!DB.motoristas || DB.motoristas.length === 0) return;
+/* === SEMANA === */
+function getSemanaAtual(){
+const hoje=new Date();
+const dia=hoje.getDay()||7;
 
-let temDados = DB.motoristas.some(m => (m.registros||[]).length > 0);
+const inicio=new Date(hoje);
+inicio.setDate(hoje.getDate()-(dia-1));
 
-if(temDados){
-setTimeout(soltarConfete, 500);
+const fim=new Date(inicio);
+fim.setDate(inicio.getDate()+6);
+
+return{inicio,fim};
 }
 
+/* === CALCULOS === */
+function totalSemana(m){
+const s=getSemanaAtual();
+return (m.registros||[]).filter(r=>{
+const d=new Date(r.data);
+return d>=s.inicio && d<=s.fim;
+}).reduce((t,r)=>t+r.viagens,0);
+}
+
+function totalMes(m){
+const hoje=new Date();
+return (m.registros||[]).filter(r=>{
+const d=new Date(r.data);
+return d.getMonth()===hoje.getMonth() &&
+d.getFullYear()===hoje.getFullYear();
+}).reduce((t,r)=>t+r.viagens,0);
+}
+
+/* === ATUALIZAR === */
+function atualizar(){
+
+if(DB.motoristas.length === 0){
+document.getElementById("ranking-semana").innerHTML = "<p>Nenhum dado</p>";
+document.getElementById("ranking-mes").innerHTML = "<p>Nenhum dado</p>";
+return;
+}
+
+const semana=DB.motoristas.map(m=>({
+nome:m.nome,
+total:totalSemana(m)
+})).sort((a,b)=>b.total-a.total);
+
+const mes=DB.motoristas.map(m=>({
+nome:m.nome,
+total:totalMes(m)
+})).sort((a,b)=>b.total-a.total);
+
+renderSemana(semana);
+renderMes(mes);
+}
+
+/* === RENDER SEMANA TURBINADO === */
+function renderSemana(lista){
+
+const el=document.getElementById("ranking-semana");
+el.innerHTML="";
+
+const lider = lista[0]?.total || 1;
+
+/* 🥇 CARD DO LIDER */
+if(lista[0]){
+const liderDiv=document.createElement("div");
+
+liderDiv.style.padding="15px";
+liderDiv.style.borderRadius="12px";
+liderDiv.style.background="#FFD700";
+liderDiv.style.color="#000";
+liderDiv.style.marginBottom="10px";
+
+liderDiv.innerHTML=`
+<h3>🥇 ${lista[0].nome}</h3>
+<strong>${lista[0].total} corridas</strong><br>
+💰 Ganhando R$50
+`;
+
+el.appendChild(liderDiv);
+}
+
+/* RESTANTE */
+lista.slice(1).forEach((m,i)=>{
+
+const pos=i+2;
+const falta = lider - m.total;
+
+const progresso = Math.min((m.total / lider)*100,100);
+
+let status = "🔴";
+if(falta <= 3) status="🟢";
+else if(falta <= 10) status="🟡";
+
+const div=document.createElement("div");
+
+div.className="motorista";
+
+div.innerHTML=`
+<div style="width:100%">
+<span>${pos}º - ${m.nome}</span>
+
+<div style="font-size:12px">${status} Faltam ${falta}</div>
+
+<div style="height:6px;background:#333;border-radius:10px;margin-top:5px;">
+<div style="width:${progresso}%;height:6px;background:#22c55e;border-radius:10px;"></div>
+</div>
+
+</div>
+
+<strong>${m.total}</strong>
+`;
+
+el.appendChild(div);
+});
+}
+
+/* === RENDER MÊS === */
+function renderMes(lista){
+
+const el=document.getElementById("ranking-mes");
+el.innerHTML="";
+
+const lider = lista[0]?.total || 1;
+
+lista.forEach((m,i)=>{
+
+const falta = lider - m.total;
+
+let extra = "";
+
+if(i===0){
+extra = "💰 R$100";
+}else{
+extra = `Faltam ${falta}`;
+}
+
+const div=document.createElement("div");
+
+div.className="motorista";
+
+div.innerHTML=`
+<span>${i+1}º - ${m.nome}</span>
+<div style="font-size:12px">${extra}</div>
+<strong>${m.total}</strong>
+`;
+
+el.appendChild(div);
+});
 }
 
 /* INIT */
-confeteSeTemLider();
+atualizar();
 
 </script>
 
