@@ -21,6 +21,7 @@ margin:0;
 
 .page{
 padding:15px;
+padding-bottom:90px;
 }
 
 .card{
@@ -28,6 +29,7 @@ background:var(--card);
 padding:15px;
 border-radius:16px;
 margin-bottom:15px;
+box-shadow:0 4px 12px rgba(0,0,0,0.15);
 }
 
 .motorista{
@@ -36,9 +38,14 @@ border-bottom:1px solid rgba(255,255,255,0.05);
 cursor:pointer;
 }
 
+.motorista:last-child{
+border:none;
+}
+
 .total{
 font-size:13px;
 opacity:0.7;
+margin-top:5px;
 }
 
 </style>
@@ -53,19 +60,28 @@ opacity:0.7;
 
 <div id="lista"></div>
 
-<div class="card" id="detalhe"></div>
+<div class="card" id="detalhe">
+<h3>Detalhes</h3>
+</div>
 
 </div>
 
 <script>
 
+/* === TEMA GLOBAL === */
 (function(){
 const tema = localStorage.getItem("rf_theme") || "dark";
 document.body.setAttribute("data-theme", tema);
 })();
 
-let DB = JSON.parse(localStorage.getItem("premiacao")) || {motoristas:[]};
+/* === BANCO CENTRAL === */
+let DB = JSON.parse(localStorage.getItem("rf_db")) || {
+motoristas:[]
+};
 
+if(!DB.motoristas) DB.motoristas = [];
+
+/* === SEMANA (SEG → DOM) */
 function semanaAtual(){
 const hoje=new Date();
 const dia=hoje.getDay()||7;
@@ -79,9 +95,11 @@ fim.setDate(inicio.getDate()+6);
 return{inicio,fim};
 }
 
+/* === CALCULOS === */
 function totalSemana(m){
 const s=semanaAtual();
-return m.registros.filter(r=>{
+
+return (m.registros||[]).filter(r=>{
 const d=new Date(r.data);
 return d>=s.inicio && d<=s.fim;
 }).reduce((t,r)=>t+r.viagens,0);
@@ -89,25 +107,36 @@ return d>=s.inicio && d<=s.fim;
 
 function totalMes(m){
 const hoje=new Date();
-return m.registros.filter(r=>{
+
+return (m.registros||[]).filter(r=>{
 const d=new Date(r.data);
-return d.getMonth()===hoje.getMonth();
+return d.getMonth()===hoje.getMonth() &&
+d.getFullYear()===hoje.getFullYear();
 }).reduce((t,r)=>t+r.viagens,0);
 }
 
 function totalAno(m){
 const hoje=new Date();
-return m.registros.filter(r=>{
+
+return (m.registros||[]).filter(r=>{
 const d=new Date(r.data);
 return d.getFullYear()===hoje.getFullYear();
 }).reduce((t,r)=>t+r.viagens,0);
 }
 
+/* === RENDER LISTA === */
 function render(){
+
 const lista=document.getElementById("lista");
 lista.innerHTML="";
 
+if(DB.motoristas.length === 0){
+lista.innerHTML = "<p>Nenhum dado disponível</p>";
+return;
+}
+
 DB.motoristas.forEach(m=>{
+
 const div=document.createElement("div");
 div.className="card motorista";
 
@@ -123,19 +152,27 @@ Ano: ${totalAno(m)}
 div.onclick=()=>detalhe(m);
 
 lista.appendChild(div);
+
 });
 }
 
+/* === DETALHE === */
 function detalhe(m){
+
 let html=`<h3>${m.nome}</h3>`;
 
+if(!m.registros || m.registros.length === 0){
+html += "<p>Nenhuma viagem registrada</p>";
+}else{
 m.registros.forEach(r=>{
-html+=`<p>${r.data} → ${r.viagens}</p>`;
+html+=`<p>${r.data} → ${r.viagens} viagens</p>`;
 });
+}
 
 document.getElementById("detalhe").innerHTML=html;
 }
 
+/* INIT */
 render();
 
 </script>
