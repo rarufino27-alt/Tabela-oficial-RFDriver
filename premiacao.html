@@ -117,15 +117,17 @@ Os dados são atualizados automaticamente pelo sistema.
 
 <script>
 
-/* === TEMA GLOBAL === */
+/* === CONFIG === */
+const META_SEMANAL = 50;
+
+/* === TEMA === */
 (function(){
 const tema = localStorage.getItem("rf_theme") || "dark";
 document.body.setAttribute("data-theme", tema);
 })();
 
-/* === BANCO CENTRAL === */
+/* === BANCO === */
 let DB = JSON.parse(localStorage.getItem("rf_db")) || {motoristas:[]};
-
 if(!DB.motoristas) DB.motoristas = [];
 
 /* === SEMANA === */
@@ -179,87 +181,104 @@ nome:m.nome,
 total:totalMes(m)
 })).sort((a,b)=>b.total-a.total);
 
-render("ranking-semana",semana,"semana");
-render("ranking-mes",mes,"mes");
+renderSemana(semana);
+renderMes(mes);
 }
 
-/* === RENDER INTELIGENTE === */
-function render(id,lista,tipo){
+/* === RENDER SEMANA TURBINADO === */
+function renderSemana(lista){
 
-const el=document.getElementById(id);
+const el=document.getElementById("ranking-semana");
 el.innerHTML="";
 
-const lider = lista[0]?.total || 0;
+const lider = lista[0]?.total || 1;
 
-lista.forEach((m,i)=>{
+/* 🥇 CARD DO LIDER */
+if(lista[0]){
+const liderDiv=document.createElement("div");
+
+liderDiv.style.padding="15px";
+liderDiv.style.borderRadius="12px";
+liderDiv.style.background="#FFD700";
+liderDiv.style.color="#000";
+liderDiv.style.marginBottom="10px";
+
+liderDiv.innerHTML=`
+<h3>🥇 ${lista[0].nome}</h3>
+<strong>${lista[0].total} corridas</strong><br>
+💰 Ganhando R$50
+`;
+
+el.appendChild(liderDiv);
+}
+
+/* RESTANTE */
+lista.slice(1).forEach((m,i)=>{
+
+const pos=i+2;
+const falta = lider - m.total;
+
+const progresso = Math.min((m.total / lider)*100,100);
+
+let status = "🔴";
+if(falta <= 3) status="🟢";
+else if(falta <= 10) status="🟡";
 
 const div=document.createElement("div");
 
-let classe="";
-if(i===0) classe="top1";
-if(i===1) classe="top2";
-if(i===2) classe="top3";
-
-let extra = "";
-
-/* 🥇 LIDER */
-if(i===0){
-extra += `<div style="font-size:12px;">🥇 Líder</div>`;
-
-if(tipo==="semana"){
-extra += `<div style="font-size:12px;color:#22c55e;">💰 Ganhando R$50</div>`;
-}
-
-if(tipo==="mes"){
-extra += `<div style="font-size:12px;color:#22c55e;">💰 Ganhando R$100</div>`;
-}
-}
-
-/* ⚠️ FALTA PRA LIDERAR */
-else{
-let falta = lider - m.total;
-
-if(falta > 0){
-extra += `<div style="font-size:12px;color:#facc15;">
-⚠️ Faltam ${falta} corrida(s) para liderar
-</div>`;
-}
-}
-
-div.className="motorista "+classe;
+div.className="motorista";
 
 div.innerHTML=`
-<div>
-<span class="pos">${i+1}º</span>
-<strong>${m.nome}</strong>
-${extra}
+<div style="width:100%">
+<span>${pos}º - ${m.nome}</span>
+
+<div style="font-size:12px">${status} Faltam ${falta}</div>
+
+<div style="height:6px;background:#333;border-radius:10px;margin-top:5px;">
+<div style="width:${progresso}%;height:6px;background:#22c55e;border-radius:10px;"></div>
 </div>
+
+</div>
+
 <strong>${m.total}</strong>
 `;
-
-div.onclick=()=>detalhe(m.nome);
 
 el.appendChild(div);
 });
 }
 
-/* === DETALHE === */
-function detalhe(nome){
-const m=DB.motoristas.find(x=>x.nome===nome);
+/* === RENDER MÊS === */
+function renderMes(lista){
 
-if(!m) return;
+const el=document.getElementById("ranking-mes");
+el.innerHTML="";
 
-let html=`<h3>${nome}</h3>`;
+const lider = lista[0]?.total || 1;
 
-if(!m.registros || m.registros.length === 0){
-html += "<p>Nenhuma viagem registrada</p>";
+lista.forEach((m,i)=>{
+
+const falta = lider - m.total;
+
+let extra = "";
+
+if(i===0){
+extra = "💰 R$100";
 }else{
-m.registros.forEach(r=>{
-html+=`<p>${r.data} → ${r.viagens} viagens</p>`;
-});
+extra = `Faltam ${falta}`;
 }
 
-document.getElementById("detalhe").innerHTML=html;
+const div=document.createElement("div");
+
+div.className="motorista";
+
+div.innerHTML=`
+<span>${i+1}º - ${m.nome}</span>
+<div style="font-size:12px">${extra}</div>
+<strong>${m.total}</strong>
+`;
+
+el.appendChild(div);
+});
 }
 
 /* INIT */
