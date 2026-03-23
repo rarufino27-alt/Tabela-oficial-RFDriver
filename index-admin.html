@@ -5,7 +5,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Painel Admin RF</title>
+<title>Admin RF</title>
 
 <link rel="stylesheet" href="theme/theme.css">
 <link rel="stylesheet" href="theme/layout.css">
@@ -20,41 +20,18 @@ font-family:system-ui;
 }
 
 .page{
-padding:15px;
+padding:20px;
 }
 
 .card{
 background:var(--card);
-padding:15px;
+padding:20px;
 border-radius:16px;
 margin-bottom:15px;
+cursor:pointer;
+text-align:center;
+font-weight:600;
 }
-
-button{
-padding:12px;
-border:none;
-border-radius:10px;
-font-weight:bold;
-background:#FFD700;
-}
-
-input,select{
-padding:12px;
-border-radius:10px;
-border:none;
-width:100%;
-margin-bottom:10px;
-background:var(--input);
-color:var(--text);
-}
-
-.motorista{
-padding:12px;
-border-bottom:1px solid rgba(255,255,255,0.1);
-display:flex;
-justify-content:space-between;
-}
-
 </style>
 
 </head>
@@ -63,141 +40,32 @@ justify-content:space-between;
 
 <div class="page">
 
-<h2>👨‍💻 Painel Admin</h2>
+<h2>👨‍💻 Painel Administrativo</h2>
 
-<!-- CADASTRAR MOTORISTA -->
-<div class="card">
-<h3>Novo Motorista</h3>
-<input id="nomeMotorista" placeholder="Nome">
-<button onclick="addMotorista()">Cadastrar</button>
+<div class="card" onclick="ir('admin-motorista.html')">
+👤 Gerenciar Motoristas
 </div>
 
-<!-- LISTA -->
-<div class="card">
-<h3>Motoristas</h3>
-<div id="listaMotoristas"></div>
+<div class="card" onclick="ir('admin-corridas.html')">
+🚗 Gerenciar Corridas
 </div>
 
-<!-- REGISTRAR CORRIDA -->
-<div class="card">
-<h3>Registrar Corrida</h3>
-
-<select id="motoristaSelect"></select>
-<input type="date" id="data">
-<input type="number" id="viagens" placeholder="Quantidade">
-
-<button onclick="addCorrida()">Salvar</button>
-
+<div class="card" onclick="ir('admin-detalhe.html')">
+📊 Desempenho Individual
 </div>
-
-<!-- DETALHE -->
-<div class="card" id="detalhe"></div>
 
 </div>
 
 <script>
 
-/* TEMA */
 (function(){
 const tema = localStorage.getItem("rf_theme") || "dark";
 document.body.setAttribute("data-theme", tema);
 })();
 
-/* BANCO */
-let DB = JSON.parse(localStorage.getItem("rf_db")) || {motoristas:[]};
-
-function salvarDB(){
-localStorage.setItem("rf_db",JSON.stringify(DB));
+function ir(p){
+window.location.href = p;
 }
-
-/* MOTORISTA */
-function addMotorista(){
-const nome=document.getElementById("nomeMotorista").value.trim();
-
-if(!nome) return alert("Digite o nome");
-
-DB.motoristas.push({
-id:"m"+Date.now(),
-nome,
-ativo:true,
-registros:[]
-});
-
-salvarDB();
-render();
-}
-
-/* LISTA */
-function render(){
-
-const lista=document.getElementById("listaMotoristas");
-const select=document.getElementById("motoristaSelect");
-
-lista.innerHTML="";
-select.innerHTML="";
-
-DB.motoristas.forEach((m,i)=>{
-
-const div=document.createElement("div");
-div.className="motorista";
-
-div.innerHTML=`
-<span>${m.nome}</span>
-<div>
-<button onclick="ver(${i})">Ver</button>
-<button onclick="remover(${i})">X</button>
-</div>
-`;
-
-lista.appendChild(div);
-
-/* select */
-const opt=document.createElement("option");
-opt.value=i;
-opt.innerText=m.nome;
-select.appendChild(opt);
-
-});
-
-}
-
-/* REMOVER */
-function remover(i){
-if(!confirm("Excluir motorista?")) return;
-
-DB.motoristas.splice(i,1);
-salvarDB();
-render();
-}
-
-/* CORRIDA */
-function addCorrida(){
-const i=document.getElementById("motoristaSelect").value;
-const data=document.getElementById("data").value;
-const viagens=parseInt(document.getElementById("viagens").value);
-
-if(!data || !viagens) return alert("Preencha");
-
-DB.motoristas[i].registros.push({data,viagens});
-
-salvarDB();
-render();
-}
-
-/* DETALHE */
-function ver(i){
-const m=DB.motoristas[i];
-
-let html=`<h3>${m.nome}</h3>`;
-
-m.registros.forEach(r=>{
-html+=`<p>${r.data} → ${r.viagens}</p>`;
-});
-
-document.getElementById("detalhe").innerHTML=html;
-}
-
-render();
 
 </script>
 
