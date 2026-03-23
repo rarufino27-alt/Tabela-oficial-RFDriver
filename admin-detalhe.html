@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Desempenho</title>
+<link rel="stylesheet" href="theme/theme.css">
+
+<style>
+body{background:var(--bg);color:var(--text);font-family:system-ui;margin:0;}
+.page{padding:15px;}
+.card{background:var(--card);padding:15px;border-radius:12px;margin-bottom:10px;}
+</style>
+</head>
+
+<body>
+
+<div class="page">
+
+<h2>📊 Desempenho</h2>
+
+<div id="lista"></div>
+
+</div>
+
+<script>
+
+let DB = JSON.parse(localStorage.getItem("rf_db")) || {motoristas:[]};
+
+function total(m){
+return m.registros.reduce((t,r)=>t+r.viagens,0);
+}
+
+function render(){
+const lista=document.getElementById("lista");
+lista.innerHTML="";
+
+DB.motoristas.forEach(m=>{
+const div=document.createElement("div");
+div.className="card";
+div.innerHTML=`
+<strong>${m.nome}</strong><br>
+Total: ${total(m)}
+`;
+lista.appendChild(div);
+});
+}
+
+render();
+
+</script>
+
+</body>
+</html>
