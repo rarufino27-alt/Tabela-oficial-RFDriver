@@ -68,31 +68,6 @@ margin-right:10px;
 .top2{color:#C0C0C0;}
 .top3{color:#CD7F32;}
 
-/* === FORM === */
-.form{
-display:flex;
-flex-direction:column;
-gap:10px;
-}
-
-select,input{
-padding:12px;
-border-radius:10px;
-border:none;
-font-size:15px;
-background:var(--input);
-color:var(--text);
-}
-
-button{
-padding:14px;
-border:none;
-border-radius:12px;
-font-weight:700;
-font-size:16px;
-background:#FFD700;
-}
-
 /* === DETALHE === */
 .detalhe p{
 margin:5px 0;
@@ -127,15 +102,11 @@ margin:auto;
 <div id="ranking-mes"></div>
 </div>
 
-<div class="card form">
-<h3>Adicionar Viagem</h3>
-
-<select id="motorista"></select>
-<input type="date" id="data">
-<input type="number" id="viagens" placeholder="Quantidade de viagens">
-
-<button onclick="salvar()">Salvar</button>
-
+<!-- INFO -->
+<div class="card">
+<p style="font-size:14px;opacity:0.7;">
+Os dados são atualizados automaticamente pelo sistema.
+</p>
 </div>
 
 <div class="card detalhe" id="detalhe">
@@ -152,48 +123,13 @@ const tema = localStorage.getItem("rf_theme") || "dark";
 document.body.setAttribute("data-theme", tema);
 })();
 
-/* === BANCO LOCAL === */
-let DB = JSON.parse(localStorage.getItem("premiacao")) || {
-motoristas:[
-{nome:"João",registros:[]},
-{nome:"Carlos",registros:[]},
-{nome:"Pedro",registros:[]}
-]
+/* === BANCO CENTRAL === */
+let DB = JSON.parse(localStorage.getItem("rf_db")) || {
+motoristas:[]
 };
 
-function salvarDB(){
-localStorage.setItem("premiacao",JSON.stringify(DB));
-}
-
-/* === CARREGAR SELECT === */
-function carregarMotoristas(){
-const select=document.getElementById("motorista");
-select.innerHTML="";
-
-DB.motoristas.forEach((m,i)=>{
-const opt=document.createElement("option");
-opt.value=i;
-opt.innerText=m.nome;
-select.appendChild(opt);
-});
-}
-
-/* === SALVAR VIAGEM === */
-function salvar(){
-const i=document.getElementById("motorista").value;
-const data=document.getElementById("data").value;
-const viagens=parseInt(document.getElementById("viagens").value);
-
-if(!data || !viagens){
-alert("Preencha tudo");
-return;
-}
-
-DB.motoristas[i].registros.push({data,viagens});
-
-salvarDB();
-atualizar();
-}
+/* === SEGURANÇA === */
+if(!DB.motoristas) DB.motoristas = [];
 
 /* === SEMANA (SEG → DOM) */
 function getSemanaAtual(){
@@ -213,7 +149,7 @@ return{inicio,fim};
 function totalSemana(m){
 const s=getSemanaAtual();
 
-return m.registros.filter(r=>{
+return (m.registros||[]).filter(r=>{
 const d=new Date(r.data);
 return d>=s.inicio && d<=s.fim;
 }).reduce((t,r)=>t+r.viagens,0);
@@ -222,7 +158,7 @@ return d>=s.inicio && d<=s.fim;
 function totalMes(m){
 const hoje=new Date();
 
-return m.registros.filter(r=>{
+return (m.registros||[]).filter(r=>{
 const d=new Date(r.data);
 return d.getMonth()===hoje.getMonth() &&
 d.getFullYear()===hoje.getFullYear();
@@ -231,6 +167,12 @@ d.getFullYear()===hoje.getFullYear();
 
 /* === ATUALIZAR === */
 function atualizar(){
+
+if(DB.motoristas.length === 0){
+document.getElementById("ranking-semana").innerHTML = "<p>Nenhum dado disponível</p>";
+document.getElementById("ranking-mes").innerHTML = "<p>Nenhum dado disponível</p>";
+return;
+}
 
 const semana=DB.motoristas.map(m=>({
 nome:m.nome,
@@ -277,17 +219,22 @@ el.appendChild(div);
 function detalhe(nome){
 const m=DB.motoristas.find(x=>x.nome===nome);
 
+if(!m) return;
+
 let html=`<h3>${nome}</h3>`;
 
+if(!m.registros || m.registros.length === 0){
+html += "<p>Nenhuma viagem registrada</p>";
+}else{
 m.registros.forEach(r=>{
 html+=`<p>${r.data} → ${r.viagens} viagens</p>`;
 });
+}
 
 document.getElementById("detalhe").innerHTML=html;
 }
 
 /* INIT */
-carregarMotoristas();
 atualizar();
 
 </script>
