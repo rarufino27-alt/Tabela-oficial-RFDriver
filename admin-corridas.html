@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Corridas</title>
+<link rel="stylesheet" href="theme/theme.css">
+
+<style>
+body{background:var(--bg);color:var(--text);font-family:system-ui;margin:0;}
+.page{padding:15px;}
+.card{background:var(--card);padding:15px;border-radius:12px;margin-bottom:10px;}
+input,select{width:100%;padding:10px;margin-bottom:10px;border:none;border-radius:8px;}
+button{padding:10px;background:#FFD700;border:none;border-radius:8px;}
+</style>
+</head>
+
+<body>
+
+<div class="page">
+
+<h2>🚗 Corridas</h2>
+
+<select id="motorista"></select>
+<input type="date" id="data">
+<input type="number" id="qtd" placeholder="Quantidade">
+
+<button onclick="add()">Salvar</button>
+
+</div>
+
+<script>
+
+let DB = JSON.parse(localStorage.getItem("rf_db")) || {motoristas:[]};
+
+function salvar(){
+localStorage.setItem("rf_db",JSON.stringify(DB));
+}
+
+function carregar(){
+const sel=document.getElementById("motorista");
+sel.innerHTML="";
+
+DB.motoristas.forEach((m,i)=>{
+const op=document.createElement("option");
+op.value=i;
+op.innerText=m.nome;
+sel.appendChild(op);
+});
+}
+
+function add(){
+const i=document.getElementById("motorista").value;
+const data=document.getElementById("data").value;
+const qtd=parseInt(document.getElementById("qtd").value);
+
+if(!data || !qtd) return;
+
+DB.motoristas[i].registros.push({data,viagens:qtd});
+
+salvar();
+alert("Salvo");
+}
+
+carregar();
+
+</script>
+
+</body>
+</html>
