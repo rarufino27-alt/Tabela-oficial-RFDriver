@@ -8,93 +8,235 @@
 <title>Admin Histórico</title>
 
 <link rel="stylesheet" href="theme/theme.css">
+<link rel="stylesheet" href="theme/layout.css">
+<link rel="stylesheet" href="theme/components.css">
 
 <style>
-body{background:var(--bg);color:var(--text);font-family:system-ui;margin:0;}
-.page{padding:15px;}
+
+body{
+margin:0;
+background:var(--bg);
+color:var(--text);
+font-family:system-ui;
+}
+
+.top-white{
+display:flex;
+justify-content:space-between;
+padding:15px;
+background:var(--card);
+}
+
+.page{
+padding:15px;
+padding-bottom:100px;
+}
 
 .card{
 background:var(--card);
 padding:15px;
-border-radius:12px;
-margin-bottom:10px;
+border-radius:16px;
+margin-bottom:15px;
 }
 
 .item{
 display:flex;
 justify-content:space-between;
 align-items:center;
-margin-top:8px;
+margin-top:10px;
+padding:10px;
+background:rgba(255,255,255,0.03);
+border-radius:10px;
 }
 
-button{
+.btn{
 padding:6px 10px;
 border:none;
-border-radius:6px;
-background:#FFD700;
+border-radius:8px;
+font-size:12px;
 }
+
+.btn-edit{background:#3b82f6;color:#fff;}
+.btn-del{background:#ef4444;color:#fff;}
+
+select,button{
+padding:10px;
+border-radius:8px;
+border:none;
+margin-bottom:10px;
+width:100%;
+}
+
 </style>
 
 </head>
 
 <body>
 
+<div class="top-white">
+<strong>🛠 HISTÓRICO ADMIN</strong>
+</div>
+
 <div class="page">
 
-<h2>🛠 Histórico (Admin)</h2>
+<!-- FILTROS -->
+<div class="card">
 
+<select id="filtroMotorista"></select>
+
+<select id="filtroPeriodo">
+<option value="todos">Todos</option>
+<option value="hoje">Hoje</option>
+<option value="semana">Semana</option>
+<option value="mes">Mês</option>
+<option value="ano">Ano</option>
+</select>
+
+<button onclick="render()">Filtrar</button>
+
+</div>
+
+<!-- AÇÕES -->
+<div class="card">
+<button onclick="zerarSemana()">🧹 Zerar Semana</button>
+<button onclick="zerarMes()">🧹 Zerar Mês</button>
+</div>
+
+<!-- LISTA -->
 <div id="lista"></div>
 
 </div>
 
 <script>
 
+/* TEMA */
+(function(){
+const tema = localStorage.getItem("rf_theme") || "dark";
+document.body.setAttribute("data-theme", tema);
+})();
+
+/* BANCO */
 let DB = JSON.parse(localStorage.getItem("rf_db")) || {motoristas:[]};
 
 function salvar(){
 localStorage.setItem("rf_db",JSON.stringify(DB));
 }
 
+/* FILTROS */
+function carregarFiltros(){
+const select=document.getElementById("filtroMotorista");
+
+select.innerHTML="<option value='todos'>Todos</option>";
+
+DB.motoristas.forEach((m,i)=>{
+const op=document.createElement("option");
+op.value=i;
+op.innerText=m.nome;
+select.appendChild(op);
+});
+}
+
+/* DATA */
+function dentroPeriodo(data, tipo){
+const hoje=new Date();
+const d=new Date(data);
+
+if(tipo==="todos") return true;
+
+if(tipo==="hoje"){
+return d.toDateString()===hoje.toDateString();
+}
+
+if(tipo==="semana"){
+const inicio=new Date(hoje);
+inicio.setDate(hoje.getDate() - hoje.getDay());
+
+return d>=inicio;
+}
+
+if(tipo==="mes"){
+return d.getMonth()===hoje.getMonth();
+}
+
+if(tipo==="ano"){
+return d.getFullYear()===hoje.getFullYear();
+}
+
+return true;
+}
+
 /* RENDER */
 function render(){
+
 const lista=document.getElementById("lista");
 lista.innerHTML="";
 
+const fMotorista=document.getElementById("filtroMotorista").value;
+const fPeriodo=document.getElementById("filtroPeriodo").value;
+
 DB.motoristas.forEach((m,i)=>{
 
-const card=document.createElement("div");
-card.className="card";
+if(fMotorista !== "todos" && fMotorista != i) return;
 
-let html=`<strong>${m.nome}</strong>`;
+let total=0;
+let html="";
 
-if(!m.registros || m.registros.length===0){
-html += "<p>Nenhum registro</p>";
-}else{
+(m.registros||[]).forEach((r,j)=>{
 
-m.registros.forEach((r,j)=>{
+if(!dentroPeriodo(r.data, fPeriodo)) return;
+
+total += r.viagens;
+
 html += `
 <div class="item">
 <span>${r.data} → ${r.viagens}</span>
 <div>
-<button onclick="editar(${i},${j})">✏️</button>
-<button onclick="excluir(${i},${j})">🗑️</button>
+<button class="btn btn-edit" onclick="editar(${i},${j})">✏️</button>
+<button class="btn btn-del" onclick="excluir(${i},${j})">🗑️</button>
 </div>
 </div>
 `;
+
 });
 
-}
+if(html==="") return;
 
-card.innerHTML=html;
+const card=document.createElement("div");
+card.className="card";
+
+card.innerHTML=`
+<strong>${m.nome}</strong><br>
+<small>Total: ${total} viagens</small>
+${html}
+`;
+
 lista.appendChild(card);
 
 });
 
 }
 
+/* EDITAR */
+function editar(i,j){
+
+let r = DB.motoristas[i].registros[j];
+
+let novaData = prompt("Nova data:", r.data);
+if(novaData === null) return;
+
+let novaQtd = prompt("Nova quantidade:", r.viagens);
+if(novaQtd === null) return;
+
+r.data = novaData;
+r.viagens = parseInt(novaQtd);
+
+salvar();
+render();
+}
+
 /* EXCLUIR */
 function excluir(i,j){
-if(!confirm("Excluir registro?")) return;
+if(!confirm("Excluir?")) return;
 
 DB.motoristas[i].registros.splice(j,1);
 
@@ -102,20 +244,41 @@ salvar();
 render();
 }
 
-/* EDITAR */
-function editar(i,j){
-let atual=DB.motoristas[i].registros[j];
+/* ZERAR */
+function zerarSemana(){
+if(!confirm("Zerar semana?")) return;
 
-let novaQtd=prompt("Nova quantidade:", atual.viagens);
+const hoje=new Date();
 
-if(novaQtd===null) return;
-
-DB.motoristas[i].registros[j].viagens=parseInt(novaQtd);
+DB.motoristas.forEach(m=>{
+m.registros = m.registros.filter(r=>{
+const d=new Date(r.data);
+return d.getMonth() !== hoje.getMonth();
+});
+});
 
 salvar();
 render();
 }
 
+function zerarMes(){
+if(!confirm("Zerar mês?")) return;
+
+const hoje=new Date();
+
+DB.motoristas.forEach(m=>{
+m.registros = m.registros.filter(r=>{
+const d=new Date(r.data);
+return d.getMonth() !== hoje.getMonth();
+});
+});
+
+salvar();
+render();
+}
+
+/* INIT */
+carregarFiltros();
 render();
 
 </script>
