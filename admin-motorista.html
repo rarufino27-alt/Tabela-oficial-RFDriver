@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Motoristas</title>
+
+<link rel="stylesheet" href="theme/theme.css">
+
+<style>
+body{background:var(--bg);color:var(--text);font-family:system-ui;margin:0;}
+.page{padding:15px;}
+.card{background:var(--card);padding:15px;border-radius:12px;margin-bottom:10px;}
+button{padding:10px;border:none;border-radius:8px;background:#FFD700;}
+input{padding:10px;width:100%;margin-bottom:10px;border-radius:8px;border:none;}
+</style>
+
+</head>
+
+<body>
+
+<div class="page">
+
+<h2>👤 Motoristas</h2>
+
+<input id="nome" placeholder="Nome">
+<button onclick="add()">Adicionar</button>
+
+<div id="lista"></div>
+
+</div>
+
+<script>
+
+let DB = JSON.parse(localStorage.getItem("rf_db")) || {motoristas:[]};
+
+function salvar(){
+localStorage.setItem("rf_db",JSON.stringify(DB));
+}
+
+function add(){
+const nome=document.getElementById("nome").value.trim();
+if(!nome) return;
+
+DB.motoristas.push({
+id:"m"+Date.now(),
+nome,
+registros:[]
+});
+
+salvar();
+render();
+}
+
+function remover(i){
+DB.motoristas.splice(i,1);
+salvar();
+render();
+}
+
+function render(){
+const lista=document.getElementById("lista");
+lista.innerHTML="";
+
+DB.motoristas.forEach((m,i)=>{
+const div=document.createElement("div");
+div.className="card";
+div.innerHTML=`
+${m.nome}
+<button onclick="remover(${i})">Excluir</button>
+`;
+lista.appendChild(div);
+});
+}
+
+render();
+
+</script>
+
+</body>
+</html>
