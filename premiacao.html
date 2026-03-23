@@ -124,14 +124,11 @@ document.body.setAttribute("data-theme", tema);
 })();
 
 /* === BANCO CENTRAL === */
-let DB = JSON.parse(localStorage.getItem("rf_db")) || {
-motoristas:[]
-};
+let DB = JSON.parse(localStorage.getItem("rf_db")) || {motoristas:[]};
 
-/* === SEGURANÇA === */
 if(!DB.motoristas) DB.motoristas = [];
 
-/* === SEMANA (SEG → DOM) */
+/* === SEMANA === */
 function getSemanaAtual(){
 const hoje=new Date();
 const dia=hoje.getDay()||7;
@@ -148,7 +145,6 @@ return{inicio,fim};
 /* === CALCULOS === */
 function totalSemana(m){
 const s=getSemanaAtual();
-
 return (m.registros||[]).filter(r=>{
 const d=new Date(r.data);
 return d>=s.inicio && d<=s.fim;
@@ -157,7 +153,6 @@ return d>=s.inicio && d<=s.fim;
 
 function totalMes(m){
 const hoje=new Date();
-
 return (m.registros||[]).filter(r=>{
 const d=new Date(r.data);
 return d.getMonth()===hoje.getMonth() &&
@@ -169,8 +164,8 @@ d.getFullYear()===hoje.getFullYear();
 function atualizar(){
 
 if(DB.motoristas.length === 0){
-document.getElementById("ranking-semana").innerHTML = "<p>Nenhum dado disponível</p>";
-document.getElementById("ranking-mes").innerHTML = "<p>Nenhum dado disponível</p>";
+document.getElementById("ranking-semana").innerHTML = "<p>Nenhum dado</p>";
+document.getElementById("ranking-mes").innerHTML = "<p>Nenhum dado</p>";
 return;
 }
 
@@ -184,16 +179,20 @@ nome:m.nome,
 total:totalMes(m)
 })).sort((a,b)=>b.total-a.total);
 
-render("ranking-semana",semana);
-render("ranking-mes",mes);
+render("ranking-semana",semana,"semana");
+render("ranking-mes",mes,"mes");
 }
 
-/* === RENDER === */
-function render(id,lista){
+/* === RENDER INTELIGENTE === */
+function render(id,lista,tipo){
+
 const el=document.getElementById(id);
 el.innerHTML="";
 
+const lider = lista[0]?.total || 0;
+
 lista.forEach((m,i)=>{
+
 const div=document.createElement("div");
 
 let classe="";
@@ -201,11 +200,40 @@ if(i===0) classe="top1";
 if(i===1) classe="top2";
 if(i===2) classe="top3";
 
+let extra = "";
+
+/* 🥇 LIDER */
+if(i===0){
+extra += `<div style="font-size:12px;">🥇 Líder</div>`;
+
+if(tipo==="semana"){
+extra += `<div style="font-size:12px;color:#22c55e;">💰 Ganhando R$50</div>`;
+}
+
+if(tipo==="mes"){
+extra += `<div style="font-size:12px;color:#22c55e;">💰 Ganhando R$100</div>`;
+}
+}
+
+/* ⚠️ FALTA PRA LIDERAR */
+else{
+let falta = lider - m.total;
+
+if(falta > 0){
+extra += `<div style="font-size:12px;color:#facc15;">
+⚠️ Faltam ${falta} corrida(s) para liderar
+</div>`;
+}
+}
+
 div.className="motorista "+classe;
 
 div.innerHTML=`
+<div>
 <span class="pos">${i+1}º</span>
-<span>${m.nome}</span>
+<strong>${m.nome}</strong>
+${extra}
+</div>
 <strong>${m.total}</strong>
 `;
 
