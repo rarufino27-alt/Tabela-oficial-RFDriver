@@ -287,16 +287,17 @@ loading.style.display="none";
 init();
 
 /* SLIDER */
-let slideIndex=0;
-const slides=document.getElementById("slides");
-const dots=document.querySelectorAll(".dotSlide");
+const totalSlides = document.querySelectorAll(".slide").length;
 
 setInterval(()=>{
 slideIndex++;
-if(slideIndex >= dots.length) slideIndex = 0;
+if(slideIndex >= totalSlides) slideIndex = 0;
+
 slides.style.transform=`translateX(-${slideIndex*100}%)`;
+
 dots.forEach(d=>d.classList.remove("ativo"));
-dots[slideIndex].classList.add("ativo");
+if(dots[slideIndex]) dots[slideIndex].classList.add("ativo");
+
 },4000);
 
 /* SWIPE */
