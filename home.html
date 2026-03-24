@@ -14,9 +14,9 @@
 
 <style>
 
-/* ===== BONUS ===== */
+/* BONUS */
 .bonus-highlight{
-padding:10px 15px 10px;
+padding:10px 15px;
 }
 
 .bonus-content{
@@ -28,28 +28,10 @@ box-shadow:0 5px 15px rgba(0,0,0,0.3);
 text-align:center;
 }
 
-.bonus-top{
-font-size:16px;
-font-weight:700;
-margin-bottom:5px;
-}
-
-.bonus-top span{
-color:#FFD700;
-font-size:18px;
-}
-
-.bonus-sub{
-font-size:13px;
-opacity:0.8;
-margin-bottom:6px;
-}
-
-.bonus-info{
-font-size:12px;
-color:#facc15;
-margin-bottom:10px;
-}
+.bonus-top{font-size:16px;font-weight:700;margin-bottom:5px;}
+.bonus-top span{color:#FFD700;font-size:18px;}
+.bonus-sub{font-size:13px;opacity:.8;margin-bottom:6px;}
+.bonus-info{font-size:12px;color:#facc15;margin-bottom:10px;}
 
 .bonus-content button{
 background:#FFD700;
@@ -60,17 +42,16 @@ font-weight:700;
 width:100%;
 }
 
-/* ===== SLIDER ===== */
+/* SLIDER */
 .slider{
 width:100%;
 overflow:hidden;
 height:140px;
-position:relative;
 }
 
 .slides{
 display:flex;
-transition:transform 0.4s ease;
+transition:.4s;
 height:100%;
 }
 
@@ -79,7 +60,6 @@ min-width:100%;
 display:flex;
 align-items:center;
 justify-content:center;
-padding:10px;
 }
 
 </style>
@@ -97,13 +77,11 @@ padding:10px;
 
 <div class="menu" id="menu">
 <h3>Menu</h3>
-
 <div class="menu-item" onclick="irPara('termos.html')">📜 Regras do Grupo RF</div>
 <div class="menu-item" onclick="irPara('bonus.html')">📜 Regras dos Bônus</div>
 <div class="menu-item" onclick="irPara('premiacao.html')">🏆 Ranking / Premiação</div>
-<div class="menu-item" onclick="irPara('historico.html')">📊 Histórico de Viagens</div>
+<div class="menu-item" onclick="irPara('historico.html')">📊 Histórico</div>
 <div class="menu-item" onclick="irPara('configuracoes.html')">⚙️ Configurações</div>
-
 </div>
 
 <div class="top-white">
@@ -114,187 +92,95 @@ padding:10px;
 <div class="menu-btn-dark" onclick="abrirMenu()">☰</div>
 </div>
 
-<!-- ===== BANNER ===== -->
+<!-- BANNER -->
 <div class="bonus-highlight">
 <div class="bonus-content">
-
-<div class="bonus-top">
-🏆 Ganhe até <span>R$100</span> por semana
-</div>
-
-<div class="bonus-sub">
-Seg–Sáb: R$50 | Domingo: R$50
-</div>
-
-<div class="bonus-info">
-⚠️ Horário de pico aumenta suas chances!
-</div>
-
-<button onclick="irPara('premiacao.html')">
-Ver ranking
-</button>
-
+<div class="bonus-top">🏆 Ganhe até <span>R$100</span></div>
+<div class="bonus-sub">Seg–Sáb: R$50 | Domingo: R$50</div>
+<div class="bonus-info">⚠️ Horário de pico conta mais!</div>
+<button onclick="irPara('premiacao.html')">Ver ranking</button>
 </div>
 </div>
 
-<!-- ===== SLIDER ===== -->
+<!-- SLIDER -->
 <div class="slider">
 <div class="slides" id="slides">
 
-<div class="slide slide-text">
+<div class="slide">
 <div class="slide-content">
-<h2>Tabela <span class="destaque">Oficial</span></h2>
-<p>Preço fixo para todos</p>
+<h2>Tabela RF</h2>
 <button class="slide-btn" data-acao="origem">Começar</button>
 </div>
 </div>
 
-<div class="slide slide-text">
+<div class="slide">
 <div class="slide-content">
-<h2>Bônus <span class="destaque">Semanal</span></h2>
-<p>Ganhe até R$100</p>
+<h2>Bônus Semanal</h2>
 <button class="slide-btn" data-acao="premiacao">Ver ranking</button>
 </div>
 </div>
 
-<div class="slide slide-text">
-<div class="slide-content">
-<h2>Ranking <span class="destaque">Atual</span></h2>
-<p>Acompanhe os líderes</p>
-<button class="slide-btn" data-acao="premiacao">Ver ranking</button>
 </div>
 </div>
 
-<div class="slide slide-text">
-<div class="slide-content">
-<h2>Suporte <span class="destaque">Imediato</span></h2>
-<p>Fale com o grupo</p>
-<button class="slide-btn" data-acao="whatsapp">Abrir</button>
-</div>
-</div>
-
-</div>
-</div>
-
-<!-- INDICADORES -->
 <div class="indicadores">
 <div class="dotSlide ativo"></div>
 <div class="dotSlide"></div>
-<div class="dotSlide"></div>
-<div class="dotSlide"></div>
 </div>
 
-<!-- ===== CONTEÚDO ===== -->
+<!-- APP -->
 <div class="center">
-
-<div class="titulo-box">
-<div class="titulo-central">
-Para onde <span>vamos</span> hoje?
-</div>
-</div>
 
 <div class="card">
 
 <div class="campo" id="origemBtn">
-<div class="campo-left">
-<div class="dot origem"></div>
 <div id="origemTexto">Selecionar origem</div>
-</div>
-</div>
-
-<div class="campo" id="paradaBtn" style="display:none;">
-<div class="campo-left">
-<div class="dot parada"></div>
-<div id="paradaTexto">Selecionar parada</div>
-</div>
 </div>
 
 <div class="campo" id="destinoBtn">
-<div class="campo-left">
-<div class="dot destino"></div>
 <div id="destinoTexto">Selecionar destino</div>
-</div>
-<div class="plus" id="addParada">＋</div>
 </div>
 
 <div class="campo">
-<div class="campo-left">
-<div class="dot" style="background:#3b82f6;"></div>
-<div>Tipo de veículo</div>
-</div>
-
-<div class="rf-select" id="tipoCarroBtn">
-<span id="tipoCarroTexto">4 lugares</span>
-</div>
-
+<div id="tipoCarroBtn">4 lugares</div>
 <input type="hidden" id="tipoCarro" value="1">
 </div>
 
 </div>
+
 </div>
 
 <div class="bottom">
 <button id="confirmar" disabled>Confirmar rota</button>
 </div>
 
-<!-- ===== MODAIS ===== -->
+<!-- MODAL -->
 <div class="modal" id="modal">
 <div class="modal-content">
-<input type="text" id="busca" placeholder="Buscar local...">
-<div class="lista" id="lista"></div>
-</div>
-</div>
-
-<div class="rf-modal" id="modalTipoCarro">
-<div class="rf-modal-content">
-<div class="rf-option" data-value="1">4 lugares</div>
-<div class="rf-option" data-value="1.5">6 lugares (+50%)</div>
+<input type="text" id="busca">
+<div id="lista"></div>
 </div>
 </div>
 
 <script>
 
 /* INIT */
-(async function(){
-const loading = document.getElementById("loading");
-loading.style.display="flex";
-try{
+(async()=>{
 await DataManager.carregar();
-}catch(e){
-alert("Erro ao carregar rotas.");
-}
-loading.style.display="none";
 })();
 
 /* SLIDER */
-let slideIndex = 0;
-const slides = document.getElementById("slides");
-const dots = document.querySelectorAll(".dotSlide");
-const totalSlides = document.querySelectorAll(".slide").length;
+let slideIndex=0;
+const slides=document.getElementById("slides");
+const dots=document.querySelectorAll(".dotSlide");
 
 setInterval(()=>{
 slideIndex++;
-if(slideIndex >= totalSlides) slideIndex = 0;
-
-slides.style.transform = `translateX(-${slideIndex * 100}%)`;
-
+if(slideIndex>=dots.length) slideIndex=0;
+slides.style.transform=`translateX(-${slideIndex*100}%)`;
 dots.forEach(d=>d.classList.remove("ativo"));
-if(dots[slideIndex]) dots[slideIndex].classList.add("ativo");
-
+dots[slideIndex].classList.add("ativo");
 },4000);
-
-/* BOTÕES */
-document.querySelectorAll(".slide-btn").forEach(btn=>{
-btn.onclick=()=>{
-const acao=btn.dataset.acao;
-
-if(acao==="origem") origemBtn.click();
-if(acao==="premiacao") irPara('premiacao.html');
-if(acao==="whatsapp"){
-window.open(`https://wa.me/5581989823239`,"_blank");
-}
-};
-});
 
 /* MENU */
 function abrirMenu(){
@@ -305,15 +191,48 @@ function fecharMenu(){
 menu.classList.remove("ativo");
 menuOverlay.style.display="none";
 }
-function irPara(p){
-window.location.href=p;
+function irPara(p){window.location.href=p;}
+
+/* SISTEMA RESTAURADO */
+let origem=null,destino=null;
+
+origemBtn.onclick=()=>{
+const lista=DataManager.listarOrigens();
+renderLista(lista,"origem");
+};
+
+destinoBtn.onclick=()=>{
+if(!origem){alert("Selecione origem");return;}
+const lista=DataManager.listarDestinos(origem);
+renderLista(lista,"destino");
+};
+
+function renderLista(arr,tipo){
+modal.style.display="flex";
+lista.innerHTML="";
+arr.forEach(item=>{
+const div=document.createElement("div");
+div.innerText=item;
+div.onclick=()=>{
+if(tipo==="origem"){
+origem=item;
+origemTexto.innerText=item;
+}else{
+destino=item;
+destinoTexto.innerText=item;
+}
+modal.style.display="none";
+confirmar.disabled=!(origem&&destino);
+};
+lista.appendChild(div);
+});
 }
 
-/* TEMA */
-(function(){
-const tema = localStorage.getItem("rf_theme")||"dark";
-document.body.setAttribute("data-theme",tema);
-})();
+confirmar.onclick=()=>{
+const valor=DataManager.buscarValor(origem,destino);
+localStorage.setItem("rf_corrida_temp",JSON.stringify({origem,destino,valor}));
+window.location.href="resumo.html";
+};
 
 </script>
 
