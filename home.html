@@ -164,10 +164,27 @@ justify-content:center;
 
 <script>
 
-/* INIT */
-(async()=>{
+const lista = document.getElementById("lista");
+const modal = document.getElementById("modal");
+const confirmar = document.getElementById("confirmar");
+const origemTexto = document.getElementById("origemTexto");
+const destinoTexto = document.getElementById("destinoTexto");
+  
+/* INIT CORRIGIDO */
+async function init(){
+const loading = document.getElementById("loading");
+loading.style.display="flex";
+
+try{
 await DataManager.carregar();
-})();
+}catch(e){
+alert("Erro ao carregar rotas.");
+}
+
+loading.style.display="none";
+}
+
+init();
 
 /* SLIDER */
 let slideIndex=0;
