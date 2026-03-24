@@ -241,20 +241,114 @@ function irPara(p){
 }
 
 /* SISTEMA */
-let origem=null,parada=null,destino=null;
+let origem=null,parada=null,destino=null,modo=null;
 
+const modal=document.getElementById("modal");
+const lista=document.getElementById("lista");
+const busca=document.getElementById("busca");
 const confirmarBtn=document.getElementById("confirmar");
 
+function abrirModal(tipo){
+
+  if(tipo!=="origem"&&!origem){
+    alert("Selecione a origem primeiro.");
+    return;
+  }
+
+  modo=tipo;
+  busca.value="";
+  modal.style.display="flex";
+
+  let dados=[];
+
+  if(tipo==="origem") dados=DataManager.listarOrigens();
+
+  if(tipo==="parada"){
+    dados=DataManager.listarDestinos(origem)
+    .filter(p=>DataManager.listarDestinos(p).length>0);
+  }
+
+  if(tipo==="destino"){
+    dados=parada
+      ? DataManager.listarDestinos(parada)
+      : DataManager.listarDestinos(origem);
+  }
+
+  renderLista(dados);
+}
+
+function renderLista(arr){
+  lista.innerHTML="";
+
+  arr.forEach(item=>{
+    const div=document.createElement("div");
+    div.innerText=item;
+
+    div.onclick=()=>{
+      selecionar(item);
+      modal.style.display="none";
+    };
+
+    lista.appendChild(div);
+  });
+}
+
+busca.addEventListener("input",()=>{
+  const termo=busca.value.toLowerCase();
+
+  Array.from(lista.children).forEach(div=>{
+    div.style.display = div.innerText.toLowerCase().includes(termo)
+      ? "block"
+      : "none";
+  });
+});
+
 function selecionar(valor){
-  if(!origem){
+
+  if(modo==="origem"){
     origem=valor;
+    parada=null;
+    destino=null;
+
     origemTexto.innerText=valor;
-  }else if(!destino){
+    paradaTexto.innerText="Selecionar parada";
+    destinoTexto.innerText="Selecionar destino";
+
+    paradaBtn.style.display="none";
+  }
+
+  if(modo==="parada"){
+    parada=valor;
+    destino=null;
+    paradaTexto.innerText=valor;
+  }
+
+  if(modo==="destino"){
     destino=valor;
     destinoTexto.innerText=valor;
   }
+
   confirmarBtn.disabled=!(origem&&destino);
 }
+
+origemBtn.onclick=()=>abrirModal("origem");
+paradaBtn.onclick=()=>abrirModal("parada");
+destinoBtn.onclick=()=>abrirModal("destino");
+
+addParada.onclick=e=>{
+  e.stopPropagation();
+
+  if(!origem){
+    alert("Selecione a origem primeiro.");
+    return;
+  }
+
+  paradaBtn.style.display="flex";
+};
+
+modal.onclick=e=>{
+  if(e.target===modal) modal.style.display="none";
+};
 
 confirmarBtn.onclick=()=>{
 
