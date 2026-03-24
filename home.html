@@ -216,8 +216,10 @@ Garantir meu Bônus AGORA!
 
 <div class="rf-modal" id="modalTipoCarro">
   <div class="rf-modal-content">
-    <div class="rf-option" data-value="1">4 lugares</div>
-    <div class="rf-option" data-value="1.5">6 lugares (+50%)</div>
+<div class="rf-option" data-value="1">4 lugares</div>
+<div class="rf-option" data-value="1.5">4 lugares (excesso)</div>
+<div class="rf-option" data-value="1.5">6 lugares</div>
+<div class="rf-option" data-value="2">6 lugares (excesso)</div>
   </div>
 </div>
 
@@ -402,6 +404,34 @@ confirmarBtn.onclick=()=>{
   const temaSalvo = localStorage.getItem("rf_theme") || "dark";
   document.body.setAttribute("data-theme", temaSalvo);
 })();
+
+/* TIPO DE CARRO (CORREÇÃO) */
+
+const tipoCarroBtn = document.getElementById("tipoCarroBtn");
+const modalTipoCarro = document.getElementById("modalTipoCarro");
+const tipoCarroTexto = document.getElementById("tipoCarroTexto");
+const tipoCarroInput = document.getElementById("tipoCarro");
+
+// ABRIR MODAL
+tipoCarroBtn.onclick = () => {
+  modalTipoCarro.style.display = "flex";
+};
+
+// SELECIONAR OPÇÃO
+document.querySelectorAll("#modalTipoCarro .rf-option").forEach(opcao=>{
+  opcao.onclick = () => {
+    tipoCarroInput.value = opcao.dataset.value;
+    tipoCarroTexto.innerText = opcao.innerText;
+    modalTipoCarro.style.display = "none";
+  };
+});
+
+// FECHAR AO CLICAR FORA
+modalTipoCarro.onclick = (e) => {
+  if(e.target === modalTipoCarro){
+    modalTipoCarro.style.display = "none";
+  }
+};
   
 </script>
 
