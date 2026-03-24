@@ -286,14 +286,20 @@ loading.style.display="none";
 }
 init();
 
-/* SLIDER */
+/* SLIDER CORRIGIDO COMPLETO */
+let slideIndex = 0;
+
+const slides = document.getElementById("slides");
+const dots = document.querySelectorAll(".dotSlide");
 const totalSlides = document.querySelectorAll(".slide").length;
 
+/* AUTO SLIDE */
 setInterval(()=>{
 slideIndex++;
+
 if(slideIndex >= totalSlides) slideIndex = 0;
 
-slides.style.transform=`translateX(-${slideIndex*100}%)`;
+slides.style.transform = `translateX(-${slideIndex * 100}%)`;
 
 dots.forEach(d=>d.classList.remove("ativo"));
 if(dots[slideIndex]) dots[slideIndex].classList.add("ativo");
@@ -326,15 +332,17 @@ if(Math.abs(diff)<50) return;
 
 if(diff>0){
 slideIndex++;
-if(slideIndex >= dots.length) slideIndex = dots.length - 1;
 }else{
 slideIndex--;
-if(slideIndex < 0) slideIndex = 0;
 }
 
+if(slideIndex >= totalSlides) slideIndex = totalSlides - 1;
+if(slideIndex < 0) slideIndex = 0;
+
 slides.style.transform=`translateX(-${slideIndex*100}%)`;
+
 dots.forEach(d=>d.classList.remove("ativo"));
-dots[slideIndex].classList.add("ativo");
+if(dots[slideIndex]) dots[slideIndex].classList.add("ativo");
 }
 
 /* BOTÕES */
