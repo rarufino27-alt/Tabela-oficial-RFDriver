@@ -102,6 +102,7 @@
   <div class="dotSlide"></div>
   <div class="dotSlide"></div>
   <div class="dotSlide"></div>
+  <div class="dotSlide"></div>
 </div>
 
 <div class="center">
@@ -232,7 +233,7 @@ const dots=document.querySelectorAll(".dotSlide");
 
 setInterval(()=>{
   slideIndex++;
-  if(slideIndex >= dots.length) slideIndex = 0;
+  if(slideIndex >= slides.children.length) slideIndex = 0;
 
   slides.style.transform = `translateX(-${slideIndex*100}%)`;
 
