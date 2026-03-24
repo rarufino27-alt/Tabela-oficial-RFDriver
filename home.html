@@ -12,6 +12,52 @@
 <link rel="stylesheet" href="theme/layout.css">
 <link rel="stylesheet" href="theme/components.css">
 
+  <style>
+    .bonus-highlight{
+padding:15px;
+}
+
+.bonus-content{
+background:linear-gradient(135deg,#111,#1f2937);
+border-radius:16px;
+padding:15px;
+border:1px solid rgba(255,215,0,0.2);
+box-shadow:0 5px 15px rgba(0,0,0,0.3);
+text-align:center;
+}
+
+.bonus-top{
+font-size:16px;
+font-weight:700;
+margin-bottom:5px;
+}
+
+.bonus-top span{
+color:#FFD700;
+font-size:18px;
+}
+
+.bonus-sub{
+font-size:13px;
+opacity:0.8;
+margin-bottom:6px;
+}
+
+.bonus-info{
+font-size:12px;
+color:#facc15;
+margin-bottom:10px;
+}
+
+.bonus-content button{
+background:#FFD700;
+border:none;
+padding:10px;
+border-radius:10px;
+font-weight:700;
+width:100%;
+}
+  </style>
 </head>
 
 <body>
@@ -41,6 +87,30 @@
   <div class="menu-btn-dark" onclick="abrirMenu()">☰</div>
 </div>
 
+  <div class="bonus-highlight">
+
+<div class="bonus-content">
+
+<div class="bonus-top">
+🏆 Ganhe até <span>R$100</span> por semana
+</div>
+
+<div class="bonus-sub">
+Seg–Sáb: R$50 | Domingo: R$50
+</div>
+
+<div class="bonus-info">
+⚠️ Horário de pico aumenta suas chances!
+</div>
+
+<button onclick="irPara('premiacao.html')">
+Ver ranking
+</button>
+
+</div>
+
+</div>
+  
 <!-- SLIDER -->
 <div class="slider">
   <div class="slides" id="slides">
