@@ -553,3 +553,33 @@ padding-bottom:120px;
   font-weight: bold;
   font-size: 16px;
 }
+
+.cta-area-duplo{
+  display:flex;
+  gap:10px;
+}
+
+.cta-area-duplo button{
+  flex:1;
+  padding:14px;
+  border:none;
+  border-radius:12px;
+  font-weight:700;
+  font-size:14px;
+}
+
+.btn-secundario{
+  background:#2b2b2b;
+  color:#fff;
+}
+
+.btn-principal{
+  background:var(--primary-color);
+  color:#000;
+}
+
+/* TEMA CLARO */
+body[data-theme="light"] .btn-secundario{
+  background:#e5e5e5;
+  color:#000;
+}
