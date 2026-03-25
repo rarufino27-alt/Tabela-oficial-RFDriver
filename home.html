@@ -343,9 +343,12 @@ modalTipoCarro.onclick=e=>{
 
 function calcularPreview(){
 
+  const previewTotal = document.getElementById("previewTotal");
+
+  if(!previewTotal) return; // 🔥 evita quebrar
+
   if(!origem || !destino){
     previewTotal.innerText = "R$ 0,00";
-    resumoLabel.innerText = "Valor da viagem";
     return;
   }
 
@@ -380,13 +383,6 @@ function calcularPreview(){
   }
 
   previewTotal.innerText = "R$ " + total.toFixed(2);
-
-  // 👇 Aqui é o detalhe inteligente
-  if(taxas > 0){
-    resumoLabel.innerText = "Valor com adicionais";
-  } else {
-    resumoLabel.innerText = "Valor da viagem";
-  }
 }
   
 function selecionar(valor){
