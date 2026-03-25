@@ -520,6 +520,11 @@ function selecionar(valor){
     destinoTexto.innerText=valor;
   }
 
+  calcularPreview();
+}
+
+/* ===== EVENTOS CORRETOS (FORA DA FUNÇÃO) ===== */
+
 origemBtn.onclick=()=>abrirModal("origem");
 paradaBtn.onclick=()=>abrirModal("parada");
 destinoBtn.onclick=()=>abrirModal("destino");
@@ -539,7 +544,14 @@ modal.onclick=e=>{
   if(e.target===modal) modal.style.display="none";
 };
 
-confirmarBtn.onclick=()=>{
+/* ===== BOTÃO NOVO (CORRETO) ===== */
+
+document.getElementById("btnContinuar").onclick = () => {
+
+  if(!origem || !destino){
+    alert("Selecione origem e destino");
+    return;
+  }
 
   let valorTotal=0;
 
@@ -550,8 +562,7 @@ confirmarBtn.onclick=()=>{
       (DataManager.buscarValor(origem,parada)||0) +
       (DataManager.buscarValor(parada,destino)||0);
   }
-calcularPreview();
-  
+
   const tipoCarro=parseFloat(tipoCarroInput.value);
 
   localStorage.setItem("rf_corrida_temp",JSON.stringify({
@@ -570,9 +581,7 @@ calcularPreview();
     embarque: document.getElementById("embarque")?.value || "",
     desembarque: document.getElementById("desembarque")?.value || ""
   }));
-  
-calcularPreview();
-  
+
   window.location.href="resumo.html";
 };
 
