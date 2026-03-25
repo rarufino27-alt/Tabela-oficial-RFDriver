@@ -164,9 +164,44 @@
       <input type="hidden" id="tipoCarro" value="1">
     </div>
 
+    <div class="card">
+
+  <h3>Adicionais da corrida</h3>
+
+  <label>Taxa de Feira</label>
+  <select id="feira" class="select">
+    <option value="0">Sem feira</option>
+    <option value="5">1 carrinho (R$ 5.00)</option>
+    <option value="7.99">2 carrinhos ou mais (R$ 7.99)</option>
+  </select>
+
+  <label>Transporte Animal</label>
+  <select id="animal" class="select">
+    <option value="0">Nenhum</option>
+    <option value="4.99">Pequeno (R$ 4.99)</option>
+    <option value="7.99">Médio (R$ 7.99)</option>
+    <option value="11.99">Grande (R$ 11.99)</option>
+  </select>
+
+  <label>Tempo de espera (min)</label>
+  <input type="number" id="espera" class="select" value="0">
+
+  <label>Saída de Praia</label>
+  <select id="saidaPraia" class="select">
+    <option value="0">Não</option>
+    <option value="10">Sim (+ R$ 10,00)</option>
+  </select>
+
+</div>
   </div>
 </div>
 
+  <div class="card">
+  <h3>Resumo da viagem</h3>
+  <div id="previewResumo"></div>
+  <div class="valor" id="previewTotal">R$ 0,00</div>
+</div>
+  
 <div class="bottom">
   <button id="confirmar" disabled>Confirmar rota</button>
 </div>
@@ -396,6 +431,50 @@ modalTipoCarro.onclick=e=>{
   if(e.target===modalTipoCarro) modalTipoCarro.style.display="none";
 };
 
+  function calcularPreview(){
+
+  if(!origem || !destino) return;
+
+  let base = 0;
+
+  if(!parada){
+    base = DataManager.buscarValor(origem,destino) || 0;
+  } else {
+    base =
+      (DataManager.buscarValor(origem,parada)||0) +
+      (DataManager.buscarValor(parada,destino)||0);
+  }
+
+  let taxas = 0;
+
+  const feira = parseFloat(document.getElementById("feira")?.value || 0);
+  const animal = parseFloat(document.getElementById("animal")?.value || 0);
+  const espera = parseFloat(document.getElementById("espera")?.value || 0);
+  const saidaPraia = parseFloat(document.getElementById("saidaPraia")?.value || 0);
+  const categoria = parseFloat(tipoCarroInput.value || 1);
+
+  taxas += feira + animal + saidaPraia;
+
+  if(espera > 5){
+    taxas += 3 + ((espera-5)*0.60);
+  }
+
+  let subtotal = base + taxas;
+
+  if(categoria > 1){
+    subtotal = subtotal * categoria;
+  }
+
+  document.getElementById("previewResumo").innerHTML = `
+    <div class="linha"><span>Rota</span><span>R$ ${base.toFixed(2)}</span></div>
+    <div class="linha"><span>Taxas</span><span>R$ ${taxas.toFixed(2)}</span></div>
+  `;
+
+  document.getElementById("previewTotal").innerText =
+    "R$ " + subtotal.toFixed(2);
+
+}
+  
 function selecionar(valor){
 
   if(modo==="origem"){
@@ -457,14 +536,20 @@ confirmarBtn.onclick=()=>{
 
   const tipoCarro=parseFloat(tipoCarroInput.value);
 
-  localStorage.setItem("rf_corrida_temp",JSON.stringify({
-    origem,
-    parada,
-    destino,
-    valor:valorTotal,
-    categoria:tipoCarro
-  }));
+localStorage.setItem("rf_corrida_temp", JSON.stringify({
+  origem,
+  parada,
+  destino,
+  valor: valorTotal,
+  categoria: tipoCarro,
+  feira: document.getElementById("feira")?.value || 0,
+  animal: document.getElementById("animal")?.value || 0,
+  espera: document.getElementById("espera")?.value || 0,
+  saidaPraia: document.getElementById("saidaPraia")?.value || 0
+}));
 
+    calcularPreview();
+  
   window.location.href="resumo.html";
 };
 
@@ -472,6 +557,9 @@ confirmarBtn.onclick=()=>{
   const temaSalvo=localStorage.getItem("rf_theme")||"dark";
   document.body.setAttribute("data-theme",temaSalvo);
 })();
+document.querySelectorAll("select,input").forEach(e=>{
+  e.addEventListener("change", calcularPreview);
+});
 
 </script>
 
