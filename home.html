@@ -142,70 +142,318 @@ box-shadow:0 0 10px rgba(255,215,0,0.2);
 
 <script>
 
-let origem=null,parada=null,destino=null;
+/* INIT (LOADER + DATA) */
+async function init(){
+  document.getElementById("loading").style.display="flex";
 
+  try{
+    await DataManager.carregar();
+  }catch(e){
+    console.error(e);
+    alert("Erro ao carregar rotas");
+  }
+
+  document.getElementById("loading").style.display="none";
+}
+init();
+
+/* MENU */
+function abrirMenu(){
+  menu.classList.add("ativo");
+  menuOverlay.style.display="block";
+}
+
+function fecharMenu(){
+  menu.classList.remove("ativo");
+  menuOverlay.style.display="none";
+}
+
+function irPara(p){
+  window.location.href=p;
+}
+
+/* SISTEMA */
+let origem=null, parada=null, destino=null, modo=null;
+
+const modal=document.getElementById("modal");
+const lista=document.getElementById("lista");
+const busca=document.getElementById("busca");
+const confirmarBtn=document.getElementById("confirmar");
+
+/* MODAL */
+function abrirModal(tipo){
+
+  if(tipo!=="origem" && !origem){
+    alert("Selecione a origem primeiro.");
+    return;
+  }
+
+  modo=tipo;
+  busca.value="";
+  modal.style.display="flex";
+
+  let dados=[];
+
+  if(tipo==="origem") dados=DataManager.listarOrigens();
+
+  if(tipo==="parada"){
+    dados=DataManager.listarDestinos(origem)
+    .filter(p=>DataManager.listarDestinos(p).length>0);
+  }
+
+  if(tipo==="destino"){
+    dados=parada
+      ? DataManager.listarDestinos(parada)
+      : DataManager.listarDestinos(origem);
+  }
+
+  renderLista(dados);
+}
+
+function renderLista(arr){
+  lista.innerHTML="";
+
+  arr.forEach(item=>{
+    const div=document.createElement("div");
+    div.innerText=item;
+
+    div.onclick=()=>{
+      selecionar(item);
+      modal.style.display="none";
+    };
+
+    lista.appendChild(div);
+  });
+}
+
+busca.addEventListener("input",()=>{
+  const termo=busca.value.toLowerCase();
+
+  Array.from(lista.children).forEach(div=>{
+    div.style.display = div.innerText.toLowerCase().includes(termo)
+      ? "block"
+      : "none";
+  });
+});
+
+/* SELEÇÃO */
+function selecionar(valor){
+
+  if(modo==="origem"){
+    origem=valor;
+    parada=null;
+    destino=null;
+
+    origemTexto.innerText=valor;
+    paradaTexto.innerText="Selecionar parada";
+    destinoTexto.innerText="Selecionar destino";
+
+    paradaBtn.style.display="none";
+  }
+
+  if(modo==="parada"){
+    parada=valor;
+    destino=null;
+    paradaTexto.innerText=valor;
+  }
+
+  if(modo==="destino"){
+    destino=valor;
+    destinoTexto.innerText=valor;
+  }
+
+  confirmarBtn.disabled=!(origem && destino);
+
+  calcularPreview();
+}
+
+/* BOTÕES */
+origemBtn.onclick=()=>abrirModal("origem");
+paradaBtn.onclick=()=>abrirModal("parada");
+destinoBtn.onclick=()=>abrirModal("destino");
+
+addParada.onclick=e=>{
+  e.stopPropagation();
+
+  if(!origem){
+    alert("Selecione a origem primeiro.");
+    return;
+  }
+
+  paradaBtn.style.display="flex";
+};
+
+modal.onclick=e=>{
+  if(e.target===modal) modal.style.display="none";
+};
+
+/* CALCULO EM TEMPO REAL */
 function calcularPreview(){
 
-if(!origem || !destino){
-document.getElementById("valorPreview").innerText="R$ 0,00";
-return;
+  if(!origem || !destino){
+    document.getElementById("valorPreview").innerText="R$ 0,00";
+    return;
+  }
+
+  // BASE (com parada)
+  let base = 0;
+
+  if(!parada){
+    base = DataManager.buscarValor(origem,destino)||0;
+  }else{
+    base =
+      (DataManager.buscarValor(origem,parada)||0) +
+      (DataManager.buscarValor(parada,destino)||0);
+  }
+
+  // TAXAS
+  let taxas = 0;
+
+  const feira = parseFloat(document.getElementById("feira").value) || 0;
+  const animal = parseFloat(document.getElementById("animal").value) || 0;
+  const espera = parseFloat(document.getElementById("espera").value) || 0;
+  const saidaPraia = parseFloat(document.getElementById("saidaPraia").value) || 0;
+  const pagamento = document.getElementById("pagamento").value;
+
+  if(feira) taxas += feira;
+  if(animal) taxas += animal;
+
+  if(espera > 5){
+    taxas += 3 + ((espera - 5) * 0.6);
+  }
+
+  if(saidaPraia) taxas += saidaPraia;
+
+  // TAXA FIXA
+  taxas += 4.99;
+
+  // VEÍCULO
+  const categoria = parseFloat(document.getElementById("tipoCarro").value || 1);
+  let baseComCategoria = base * categoria;
+
+  // TOTAL
+  let total = baseComCategoria + taxas;
+
+  if(pagamento==="debito") total /= 0.98;
+  if(pagamento==="credito") total /= 0.95;
+
+  // DESTACAR TAXAS
+  const card = document.getElementById("cardTotal");
+  const info = document.getElementById("infoTaxas");
+
+  if(taxas > 0){
+    card.classList.add("card-taxas");
+    info.innerText = "Inclui taxas adicionais";
+  }else{
+    card.classList.remove("card-taxas");
+    info.innerText = "";
+  }
+
+  // ANIMAÇÃO
+  const el = document.getElementById("valorPreview");
+
+  el.classList.add("valor-animando");
+  el.innerText = "R$ " + total.toFixed(2);
+
+  setTimeout(()=>{
+    el.classList.remove("valor-animando");
+  },200);
 }
 
-let base = DataManager.buscarValor(origem,destino)||0;
-
-let taxas = 0;
-
-const feira=parseFloat(feira.value)||0;
-const animal=parseFloat(animal.value)||0;
-const espera=parseFloat(espera.value)||0;
-const saidaPraia=parseFloat(saidaPraia.value)||0;
-
-if(feira) taxas+=feira;
-if(animal) taxas+=animal;
-
-if(espera>5){
-taxas+=3+((espera-5)*0.6);
-}
-
-if(saidaPraia) taxas+=saidaPraia;
-
-// taxa fixa
-taxas+=4.99;
-
-// VEÍCULO
-const categoria=parseFloat(tipoCarro.value||1);
-let baseComCategoria=base*categoria;
-
-let total=baseComCategoria+taxas;
-
-const pagamento=pagamento.value;
-
-if(pagamento==="debito") total/=0.98;
-if(pagamento==="credito") total/=0.95;
-
-// destaque taxas
-const card=document.getElementById("cardTotal");
-const info=document.getElementById("infoTaxas");
-
-if(taxas>0){
-card.classList.add("card-taxas");
-info.innerText="Inclui taxas adicionais";
-}else{
-card.classList.remove("card-taxas");
-info.innerText="";
-}
-
-// animação
-const el=document.getElementById("valorPreview");
-el.classList.add("valor-animando");
-el.innerText="R$ "+total.toFixed(2);
-setTimeout(()=>el.classList.remove("valor-animando"),200);
-
-}
-
+/* LISTENERS */
 document.querySelectorAll("select,input").forEach(el=>{
-el.addEventListener("change",calcularPreview);
+  el.addEventListener("change", calcularPreview);
 });
+
+/* CONFIRMAR */
+confirmarBtn.onclick=()=>{
+
+  let base = 0;
+
+  if(!parada){
+    base = DataManager.buscarValor(origem,destino)||0;
+  }else{
+    base =
+      (DataManager.buscarValor(origem,parada)||0) +
+      (DataManager.buscarValor(parada,destino)||0);
+  }
+
+  let taxas = 0;
+  let recibo = "";
+
+  const feira = parseFloat(document.getElementById("feira").value) || 0;
+  const animal = parseFloat(document.getElementById("animal").value) || 0;
+  const espera = parseFloat(document.getElementById("espera").value) || 0;
+  const saidaPraia = parseFloat(document.getElementById("saidaPraia").value) || 0;
+  const pagamento = document.getElementById("pagamento").value;
+  const observacao = document.getElementById("observacao").value || "";
+
+  if(feira){ taxas+=feira; recibo+=`Feira: R$ ${feira.toFixed(2)}\n`; }
+  if(animal){ taxas+=animal; recibo+=`Animal: R$ ${animal.toFixed(2)}\n`; }
+
+  if(espera>5){
+    const taxaEspera=3+((espera-5)*0.6);
+    taxas+=taxaEspera;
+    recibo+=`Espera: R$ ${taxaEspera.toFixed(2)}\n`;
+  }
+
+  if(saidaPraia){ taxas+=saidaPraia; recibo+=`Saída Praia: R$ ${saidaPraia.toFixed(2)}\n`; }
+
+  // DESVIO
+  taxas+=4.99;
+  recibo+=`Desvio de rota: R$ 4.99\n`;
+
+  const categoria = parseFloat(document.getElementById("tipoCarro").value || 1);
+  let baseComCategoria = base * categoria;
+
+  let total = baseComCategoria + taxas;
+
+  if(pagamento==="debito") total/=0.98;
+  if(pagamento==="credito") total/=0.95;
+
+  localStorage.setItem("rf_corrida_temp", JSON.stringify({
+    origem,
+    parada,
+    destino,
+    totalFinal: total,
+    detalhamento: recibo,
+    pagamento,
+    observacao
+  }));
+
+  window.location.href="resumo.html";
+};
+
+/* TEMA */
+(function(){
+  const temaSalvo = localStorage.getItem("rf_theme") || "dark";
+  document.body.setAttribute("data-theme", temaSalvo);
+})();
+
+/* TIPO DE CARRO */
+const tipoCarroBtn = document.getElementById("tipoCarroBtn");
+const modalTipoCarro = document.getElementById("modalTipoCarro");
+const tipoCarroTexto = document.getElementById("tipoCarroTexto");
+const tipoCarroInput = document.getElementById("tipoCarro");
+
+tipoCarroBtn.onclick = () => {
+  modalTipoCarro.style.display = "flex";
+};
+
+document.querySelectorAll("#modalTipoCarro .rf-option").forEach(opcao=>{
+  opcao.onclick = () => {
+    tipoCarroInput.value = opcao.dataset.value;
+    tipoCarroTexto.innerText = opcao.innerText;
+    modalTipoCarro.style.display = "none";
+    calcularPreview();
+  };
+});
+
+modalTipoCarro.onclick = (e) => {
+  if(e.target === modalTipoCarro){
+    modalTipoCarro.style.display = "none";
+  }
+};
 
 </script>
 
