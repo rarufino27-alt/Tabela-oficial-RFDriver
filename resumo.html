@@ -303,6 +303,56 @@ alert("Erro ao gerar recibo.");
 
 }
 
+function enviarOrcamento(){
+
+const total = localStorage.getItem("rf_total_final") || "0.00";
+
+let mensagem = `🚗 *Orçamento de Viagem - RF*\n\n`;
+
+mensagem += `📍 Origem: ${origem}\n`;
+
+if(parada){
+mensagem += `📍 Parada: ${parada}\n`;
+}
+
+mensagem += `📍 Destino: ${destino}\n\n`;
+
+/* EXTRAS */
+if(obs){
+mensagem += `📝 Obs: ${obs}\n`;
+}
+
+if(embarque){
+mensagem += `⏰ Embarque: ${embarque}\n`;
+}
+
+if(desembarque){
+mensagem += `⏰ Desembarque: ${desembarque}\n`;
+}
+
+/* TAXAS */
+if(feira > 0) mensagem += `🛒 Feira: R$ ${parseFloat(feira).toFixed(2)}\n`;
+if(animal > 0) mensagem += `🐾 Animal: R$ ${parseFloat(animal).toFixed(2)}\n`;
+if(saidaPraia > 0) mensagem += `🏖️ Saída de praia: R$ ${parseFloat(saidaPraia).toFixed(2)}\n`;
+
+if(espera > 5){
+const taxaEspera = 3 + ((espera - 5) * 0.60);
+mensagem += `⏳ Espera: R$ ${taxaEspera.toFixed(2)}\n`;
+}
+
+/* VEÍCULO */
+if(categoria > 1){
+mensagem += `🚐 Veículo: 6 lugares\n`;
+}
+
+mensagem += `\n💰 *Total: R$ ${parseFloat(total).toFixed(2)}*\n\n`;
+mensagem += `📲 Solicite sua corrida com a RF!`;
+
+const url = `https://wa.me/?text=${encodeURIComponent(mensagem)}`;
+
+window.open(url, "_blank");
+}
+
 /* INIT */
 montarRota();
 montarExtras();
