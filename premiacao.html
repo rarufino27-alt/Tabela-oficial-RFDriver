@@ -32,6 +32,7 @@ font-weight:700;
 margin-bottom:15px;
 }
 
+/* ===== CARDS ===== */
 .card{
 background:var(--card);
 border-radius:16px;
@@ -40,6 +41,57 @@ margin-bottom:15px;
 box-shadow:0 4px 12px rgba(0,0,0,0.15);
 }
 
+/* ===== BONUS PREMIUM ===== */
+.bonus-premium{
+background:linear-gradient(135deg,#FFD700,#f59e0b);
+color:#000;
+}
+
+.bonus-top{
+font-weight:bold;
+font-size:16px;
+margin-bottom:6px;
+}
+
+.bonus-valor{
+font-size:22px;
+font-weight:bold;
+margin-bottom:6px;
+}
+
+.bonus-divisao{
+display:flex;
+justify-content:space-between;
+font-size:13px;
+}
+
+/* ===== GANHADOR ===== */
+.ganhador{
+border:2px solid #FFD700;
+text-align:center;
+}
+
+.ganhador-box{
+font-size:20px;
+margin:10px 0;
+}
+
+/* ===== PARCIAL ===== */
+.parcial-item{
+padding:10px;
+border-bottom:1px solid rgba(255,255,255,0.1);
+font-size:15px;
+}
+
+.parcial-item:last-child{
+border:none;
+}
+
+.top1{color:#FFD700;font-weight:700;}
+.top2{color:#C0C0C0;}
+.top3{color:#CD7F32;}
+
+/* ===== RANKING ===== */
 .motorista{
 display:flex;
 justify-content:space-between;
@@ -58,13 +110,19 @@ font-weight:700;
 margin-right:10px;
 }
 
-.top1{color:#FFD700;font-weight:700;}
-.top2{color:#C0C0C0;}
-.top3{color:#CD7F32;}
-
 .detalhe p{
 margin:5px 0;
 font-size:14px;
+}
+
+/* ===== TEMA CLARO ===== */
+body[data-theme="light"] .bonus-premium{
+background:linear-gradient(135deg,#facc15,#f59e0b);
+color:#111;
+}
+
+body[data-theme="light"] .ganhador{
+border-color:#f59e0b;
 }
 
 @media(min-width:600px){
@@ -95,6 +153,51 @@ z-index:9999;
 
 <div class="header">🏆 Ranking de Motoristas</div>
 
+<!-- 🔥 BÔNUS SEMANAL -->
+<div class="card bonus-premium">
+
+  <div class="bonus-top">
+    🏆 BÔNUS SEMANAL RF
+  </div>
+
+  <div class="bonus-valor">
+    💰 R$ 100 na semana
+  </div>
+
+  <div class="bonus-divisao">
+    <span>Seg–Sáb: R$ 50</span>
+    <span>Domingo: R$ 50</span>
+  </div>
+
+</div>
+
+<!-- 🥇 GANHADOR -->
+<div class="card ganhador">
+
+  <h3>🥇 Último ganhador</h3>
+
+  <div class="ganhador-box">
+    <strong>Genilson</strong><br>
+    <span>23 viagens</span>
+  </div>
+
+  <p>💰 Ganhou R$ 50</p>
+
+</div>
+
+<!-- 🔥 PARCIAL -->
+<div class="card">
+
+<h3>🔥 Parcial da semana</h3>
+<small>Atualizado em 24/03/2026 às 23:59h</small>
+
+<div class="parcial-item top1">🥇 Felipe — 12 viagens</div>
+<div class="parcial-item top2">🥈 Genilson — 10 viagens</div>
+<div class="parcial-item top3">🥉 Rogério — 8 viagens</div>
+
+</div>
+
+<!-- RANKING AUTOMÁTICO -->
 <div class="card">
 <h3>Semana</h3>
 <div id="ranking-semana"></div>
@@ -105,12 +208,6 @@ z-index:9999;
 <div id="ranking-mes"></div>
 </div>
 
-<div class="card">
-<p style="font-size:14px;opacity:0.7;">
-Os dados são atualizados automaticamente pelo sistema.
-</p>
-</div>
-
 <div class="card detalhe" id="detalhe">
 <h3>Detalhes</h3>
 </div>
@@ -119,28 +216,17 @@ Os dados são atualizados automaticamente pelo sistema.
 
 <script>
 
-/* =========================
-   CONFIG
-========================= */
-const META_SEMANAL = 50;
-
-/* =========================
-   TEMA
-========================= */
+/* ===== TEMA ===== */
 (function(){
 const tema = localStorage.getItem("rf_theme") || "dark";
 document.body.setAttribute("data-theme", tema);
 })();
 
-/* =========================
-   BANCO
-========================= */
+/* ===== BANCO ===== */
 let DB = JSON.parse(localStorage.getItem("rf_db")) || {motoristas:[]};
 if(!DB.motoristas) DB.motoristas = [];
 
-/* =========================
-   DATA
-========================= */
+/* ===== DATA ===== */
 function getSemanaAtual(){
 const hoje=new Date();
 const dia=hoje.getDay()||7;
@@ -154,9 +240,7 @@ fim.setDate(inicio.getDate()+6);
 return{inicio,fim};
 }
 
-/* =========================
-   CALCULOS
-========================= */
+/* ===== CALCULOS ===== */
 function totalSemana(m){
 const s=getSemanaAtual();
 return (m.registros||[]).filter(r=>{
@@ -174,9 +258,7 @@ d.getFullYear()===hoje.getFullYear();
 }).reduce((t,r)=>t+r.viagens,0);
 }
 
-/* =========================
-   RENDER
-========================= */
+/* ===== RENDER ===== */
 function atualizar(){
 
 if(DB.motoristas.length === 0){
@@ -197,20 +279,13 @@ total:totalMes(m)
 
 renderSemana(semana);
 renderMes(mes);
-
-/* 🎉 dispara confete */
-confeteSeTemLider(semana);
 }
 
-/* =========================
-   RENDER SEMANA
-========================= */
+/* ===== RENDER SEMANA ===== */
 function renderSemana(lista){
 
 const el=document.getElementById("ranking-semana");
 el.innerHTML="";
-
-const lider = lista[0]?.total || 1;
 
 if(lista[0]){
 const liderDiv=document.createElement("div");
@@ -233,29 +308,12 @@ el.appendChild(liderDiv);
 lista.slice(1).forEach((m,i)=>{
 
 const pos=i+2;
-const falta = lider - m.total;
-const progresso = Math.min((m.total / lider)*100,100);
-
-let status="🔴";
-if(falta<=3) status="🟢";
-else if(falta<=10) status="🟡";
 
 const div=document.createElement("div");
-
 div.className="motorista";
 
 div.innerHTML=`
-<div style="width:100%">
 <span>${pos}º - ${m.nome}</span>
-
-<div style="font-size:12px">${status} Faltam ${falta}</div>
-
-<div style="height:6px;background:#333;border-radius:10px;margin-top:5px;">
-<div style="width:${progresso}%;height:6px;background:#22c55e;border-radius:10px;"></div>
-</div>
-
-</div>
-
 <strong>${m.total}</strong>
 `;
 
@@ -263,29 +321,19 @@ el.appendChild(div);
 });
 }
 
-/* =========================
-   RENDER MÊS
-========================= */
+/* ===== RENDER MÊS ===== */
 function renderMes(lista){
 
 const el=document.getElementById("ranking-mes");
 el.innerHTML="";
 
-const lider = lista[0]?.total || 1;
-
 lista.forEach((m,i)=>{
 
-const falta = lider - m.total;
-
-let extra = i===0 ? "💰 R$100" : `Faltam ${falta}`;
-
 const div=document.createElement("div");
-
 div.className="motorista";
 
 div.innerHTML=`
 <span>${i+1}º - ${m.nome}</span>
-<div style="font-size:12px">${extra}</div>
 <strong>${m.total}</strong>
 `;
 
@@ -293,74 +341,6 @@ el.appendChild(div);
 });
 }
 
-/* =========================
-   CONFETE (SEGURO)
-========================= */
-function soltarConfete(){
-
-const canvas = document.getElementById("confeteCanvas");
-if(!canvas) return;
-
-const ctx = canvas.getContext("2d");
-
-canvas.width = window.innerWidth;
-canvas.height = window.innerHeight;
-
-let confetes=[];
-
-for(let i=0;i<120;i++){
-confetes.push({
-x:Math.random()*canvas.width,
-y:Math.random()*canvas.height-canvas.height,
-r:Math.random()*6+4,
-d:Math.random()*50,
-color:`hsl(${Math.random()*360},100%,50%)`
-});
-}
-
-let angle=0;
-
-function draw(){
-ctx.clearRect(0,0,canvas.width,canvas.height);
-
-confetes.forEach(c=>{
-ctx.fillStyle=c.color;
-ctx.fillRect(c.x,c.y,c.r,c.r);
-});
-
-angle+=0.01;
-
-confetes.forEach(c=>{
-c.y+=2;
-c.x+=Math.sin(angle);
-});
-}
-
-let anim=setInterval(draw,20);
-
-setTimeout(()=>{
-clearInterval(anim);
-ctx.clearRect(0,0,canvas.width,canvas.height);
-},3000);
-
-}
-
-/* =========================
-   DISPARO CONFETE
-========================= */
-function confeteSeTemLider(lista){
-
-if(!lista || lista.length===0) return;
-
-if(lista[0].total > 0){
-setTimeout(()=>{
-try{ soltarConfete(); }catch(e){}
-},500);
-}
-
-}
-
-/* INIT */
 atualizar();
 
 </script>
