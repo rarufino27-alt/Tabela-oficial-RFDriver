@@ -244,6 +244,9 @@
 
 <script>
 
+const previewTotal = document.getElementById("previewTotal");
+const resumoLabel = document.getElementById("resumoLabel");
+  
 /* INIT */
 async function init(){
   const loading = document.getElementById("loading");
@@ -369,7 +372,6 @@ let origem=null,parada=null,destino=null,modo=null;
 const modal=document.getElementById("modal");
 const lista=document.getElementById("lista");
 const busca=document.getElementById("busca");
-const confirmarBtn=document.getElementById("confirmar");
 
 function abrirModal(tipo){
 
@@ -518,9 +520,6 @@ function selecionar(valor){
     destinoTexto.innerText=valor;
   }
 
-  confirmarBtn.disabled=!(origem&&destino);
-}
-
 origemBtn.onclick=()=>abrirModal("origem");
 paradaBtn.onclick=()=>abrirModal("parada");
 destinoBtn.onclick=()=>abrirModal("destino");
@@ -551,7 +550,8 @@ confirmarBtn.onclick=()=>{
       (DataManager.buscarValor(origem,parada)||0) +
       (DataManager.buscarValor(parada,destino)||0);
   }
-
+calcularPreview();
+  
   const tipoCarro=parseFloat(tipoCarroInput.value);
 
   localStorage.setItem("rf_corrida_temp",JSON.stringify({
@@ -584,6 +584,44 @@ document.querySelectorAll("select,input").forEach(e=>{
   e.addEventListener("change", calcularPreview);
 });
 
+  document.getElementById("btnContinuar").onclick = () => {
+
+  if(!origem || !destino){
+    alert("Selecione origem e destino");
+    return;
+  }
+
+  let valorTotal=0;
+
+  if(!parada){
+    valorTotal=DataManager.buscarValor(origem,destino)||0;
+  }else{
+    valorTotal=
+      (DataManager.buscarValor(origem,parada)||0) +
+      (DataManager.buscarValor(parada,destino)||0);
+  }
+
+  const tipoCarro=parseFloat(tipoCarroInput.value);
+
+  localStorage.setItem("rf_corrida_temp",JSON.stringify({
+    origem,
+    parada,
+    destino,
+    valor:valorTotal,
+    categoria:tipoCarro,
+
+    feira: document.getElementById("feira")?.value || 0,
+    animal: document.getElementById("animal")?.value || 0,
+    espera: document.getElementById("espera")?.value || 0,
+    saidaPraia: document.getElementById("saidaPraia")?.value || 0,
+
+    obs: document.getElementById("obs")?.value || "",
+    embarque: document.getElementById("embarque")?.value || "",
+    desembarque: document.getElementById("desembarque")?.value || ""
+  }));
+
+  window.location.href="resumo.html";
+};
 </script>
 
 </body>
