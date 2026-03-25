@@ -134,6 +134,7 @@ to{opacity:1;}
 <div class="valor" id="valorFinal">R$ 0,00</div>
 <div class="cta-area">
 <button onclick="solicitar()">Gerar Recibo</button>
+<button onclick="enviarOrcamento()">Enviar Orçamento whatsapp</button>  
 </div>
 </div>
 </div>
@@ -300,6 +301,43 @@ alert("Erro ao gerar recibo. Tente novamente.");
 
 }
 
+  function enviarOrcamento(){
+
+let texto = `🚗 *ORÇAMENTO DE VIAGEM - RF MOTORISTA*\n\n`;
+
+texto += `📍 Origem: ${origem}\n`;
+texto += `📍 Destino: ${destino}\n\n`;
+
+texto += `💰 Valor estimado: *R$ ${parseFloat(totalFinal).toFixed(2)}*\n\n`;
+
+if(detalhamento){
+texto += `🧾 Detalhes:\n`;
+
+detalhamento.split("\n").forEach(linha=>{
+if(linha.trim()){
+texto += `• ${linha}\n`;
+}
+});
+
+texto += `\n`;
+}
+
+texto += `💳 Pagamento: ${pagamento || "-"}\n`;
+
+if(embarque){
+texto += `⏰ Embarque: ${embarque}\n`;
+}
+
+if(desembarque){
+texto += `⏰ Desembarque: ${desembarque}\n`;
+}
+
+texto += `\n📲 Atendimento rápido e seguro`;
+
+const url = `https://wa.me/?text=${encodeURIComponent(texto)}`;
+
+window.location.href = url;
+}
 </script>
 
 </body>
