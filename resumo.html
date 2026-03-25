@@ -131,19 +131,14 @@ to{opacity:1;}
 
 <div class="footer">
 <div class="footer-inner">
+
 <div class="valor" id="valorFinal">R$ 0,00</div>
+
 <div class="cta-area">
 <button onclick="solicitar()">Gerar Recibo</button>
-</div>
-  
+<button onclick="enviarOrcamento()">Enviar Orçamento</button>
 </div>
 
-<div class="footer">
-<div class="footer-inner">
-<div class="valor" id="valorFinal">R$ 0,00</div>
-<div class="cta-area">
-<button onclick="enviarOrcamento()">Enviar Orçamento whatsapp</button>  
-</div>
 </div>
 </div>
 
@@ -184,7 +179,8 @@ totalFinal,
 detalhamento,
 pagamento,
 embarque,
-desembarque
+desembarque,
+observacao
 } = corrida;
 
 /* ROTA */
@@ -233,6 +229,18 @@ detalheHTML += `
 `;
 
 /* HORÁRIOS (SÓ SE EXISTIR) */
+  /* OBSERVAÇÃO */
+if(observacao && observacao.trim() !== ""){
+detalheHTML += `
+<div class="bloco-sec">
+<div class="sec-title">Observação</div>
+<div style="font-size:14px;opacity:0.9;line-height:1.4">
+${observacao}
+</div>
+</div>
+`;
+}
+  
 if(embarque || desembarque){
 detalheHTML += `<div class="bloco-sec"><div class="sec-title">Horários</div>`;
 
@@ -275,7 +283,8 @@ detalhes: detalhamento,
 data,
 hora,
 embarque,
-desembarque
+desembarque,
+observacao
 };
 
 const res = await fetch("https://backend-recibo-rf.onrender.com/gerar-recibo", {
@@ -331,6 +340,10 @@ texto += `\n`;
 }
 
 texto += `💳 Pagamento: ${pagamento || "-"}\n`;
+
+if(observacao && observacao.trim() !== ""){
+texto += `📝 Observação: ${observacao}\n`;
+}    
 
 if(embarque){
 texto += `⏰ Embarque: ${embarque}\n`;
