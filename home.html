@@ -11,7 +11,11 @@
 <link rel="stylesheet" href="theme/theme.css">
 <link rel="stylesheet" href="theme/layout.css">
 <link rel="stylesheet" href="theme/components.css">
-
+<style>
+  .espaco-final {
+  height: 120px;
+}
+</style>
 </head>
 
 <body>
@@ -127,6 +131,7 @@
     </div>
   </div>
 
+  <!-- CARD PRINCIPAL -->
   <div class="card">
 
     <div class="campo" id="origemBtn">
@@ -164,51 +169,58 @@
       <input type="hidden" id="tipoCarro" value="1">
     </div>
 
-    <div class="card">
-
-  <h3>Adicionais da corrida</h3>
-
-  <label>Taxa de Feira</label>
-  <select id="feira" class="select">
-    <option value="0">Sem feira</option>
-    <option value="5">1 carrinho (R$ 5.00)</option>
-    <option value="7.99">2 carrinhos ou mais (R$ 7.99)</option>
-  </select>
-
-  <label>Transporte Animal</label>
-  <select id="animal" class="select">
-    <option value="0">Nenhum</option>
-    <option value="4.99">Pequeno (R$ 4.99)</option>
-    <option value="7.99">Médio (R$ 7.99)</option>
-    <option value="11.99">Grande (R$ 11.99)</option>
-  </select>
-
-  <label>Tempo de espera (min)</label>
-  <input type="number" id="espera" class="select" value="0">
-
-  <label>Saída de Praia</label>
-  <select id="saidaPraia" class="select">
-    <option value="0">Não</option>
-    <option value="10">Sim (+ R$ 10,00)</option>
-  </select>
-
-</div>
-
-    <div class="card">
-  <h3>Observação ao passageiro</h3>
-  <textarea id="obs" placeholder="Ex: motorista já está no local, cor do carro, etc..."></textarea>
-</div>
-
-<div class="card">
-  <h3>Horários da viagem</h3>
-
-  <label>Horário de Embarque</label>
-  <input type="time" id="embarque" class="select">
-
-  <label>Horário de Desembarque</label>
-  <input type="time" id="desembarque" class="select">
-</div>
   </div>
+
+  <!-- ADICIONAIS -->
+  <div class="card">
+    <h3>Adicionais da corrida</h3>
+
+    <label>Taxa de Feira</label>
+    <select id="feira" class="select">
+      <option value="0">Sem feira</option>
+      <option value="5">1 carrinho (R$ 5.00)</option>
+      <option value="7.99">2 carrinhos ou mais (R$ 7.99)</option>
+    </select>
+
+    <label>Transporte Animal</label>
+    <select id="animal" class="select">
+      <option value="0">Nenhum</option>
+      <option value="4.99">Pequeno (R$ 4.99)</option>
+      <option value="7.99">Médio (R$ 7.99)</option>
+      <option value="11.99">Grande (R$ 11.99)</option>
+    </select>
+
+    <label>Tempo de espera (min)</label>
+    <input type="number" id="espera" class="select" value="0">
+
+    <label>Saída de Praia</label>
+    <select id="saidaPraia" class="select">
+      <option value="0">Não</option>
+      <option value="10">Sim (+ R$ 10,00)</option>
+    </select>
+  </div>
+
+  <!-- OBS -->
+  <div class="card">
+    <h3>Observação ao passageiro</h3>
+    <textarea id="obs" placeholder="Ex: motorista já está no local, cor do carro, etc..."></textarea>
+  </div>
+
+  <!-- HORÁRIOS -->
+  <div class="card">
+    <h3>Horários da viagem</h3>
+
+    <label>Horário de Embarque</label>
+    <input type="time" id="embarque" class="select">
+
+    <label>Horário de Desembarque</label>
+    <input type="time" id="desembarque" class="select">
+  </div>
+
+  <!-- 🔥 ESPAÇO FINAL (ESSENCIAL) -->
+  <div class="espaco-final"></div>
+
+</div>
 </div>
 
 <div class="resumo-bar" id="resumoBar">
