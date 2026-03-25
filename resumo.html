@@ -307,15 +307,15 @@ function enviarOrcamento(){
 
 const total = localStorage.getItem("rf_total_final") || "0.00";
 
-let mensagem = `🚗 *Orçamento de Viagem - RF*\n\n`;
+let mensagem = `*Orçamento - RF*\n\n`;
 
-mensagem += `📍 Origem: ${origem}\n`;
+mensagem += `📌 Origem: ${origem}\n`;
 
 if(parada){
-mensagem += `📍 Parada: ${parada}\n`;
+mensagem += `⏳ Parada: ${parada}\n`;
 }
 
-mensagem += `📍 Destino: ${destino}\n\n`;
+mensagem += `🏁 Destino: ${destino}\n\n`;
 
 /* EXTRAS */
 if(obs){
@@ -323,16 +323,16 @@ mensagem += `📝 Obs: ${obs}\n`;
 }
 
 if(embarque){
-mensagem += `⏰ Embarque: ${embarque}\n`;
+mensagem += `🛫 Embarque: ${embarque}\n`;
 }
 
 if(desembarque){
-mensagem += `⏰ Desembarque: ${desembarque}\n`;
+mensagem += `🛬 Desembarque: ${desembarque}\n`;
 }
 
 /* TAXAS */
 if(feira > 0) mensagem += `🛒 Feira: R$ ${parseFloat(feira).toFixed(2)}\n`;
-if(animal > 0) mensagem += `🐾 Animal: R$ ${parseFloat(animal).toFixed(2)}\n`;
+if(animal > 0) mensagem += `🐶 Animal: R$ ${parseFloat(animal).toFixed(2)}\n`;
 if(saidaPraia > 0) mensagem += `🏖️ Saída de praia: R$ ${parseFloat(saidaPraia).toFixed(2)}\n`;
 
 if(espera > 5){
