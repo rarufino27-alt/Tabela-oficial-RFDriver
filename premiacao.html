@@ -23,13 +23,14 @@ font-family:system-ui;
 
 .page{
 padding:15px;
-padding-bottom:90px;
+padding-bottom:100px;
 }
 
 .header{
 font-size:22px;
 font-weight:700;
 margin-bottom:15px;
+text-align:center;
 }
 
 /* ===== CARDS ===== */
@@ -41,10 +42,11 @@ margin-bottom:15px;
 box-shadow:0 4px 12px rgba(0,0,0,0.15);
 }
 
-/* ===== BONUS PREMIUM ===== */
+/* ===== BONUS ===== */
 .bonus-premium{
 background:linear-gradient(135deg,#FFD700,#f59e0b);
 color:#000;
+text-align:center;
 }
 
 .bonus-top{
@@ -91,28 +93,23 @@ border:none;
 .top2{color:#C0C0C0;}
 .top3{color:#CD7F32;}
 
-/* ===== RANKING ===== */
-.motorista{
-display:flex;
-justify-content:space-between;
-align-items:center;
-padding:12px;
-border-bottom:1px solid rgba(255,255,255,0.05);
-font-size:15px;
+/* ===== AVISO ===== */
+.aviso{
+font-size:13px;
+opacity:0.7;
+text-align:center;
 }
 
-.motorista:last-child{
+/* ===== BOTÃO ===== */
+.btn-voltar{
+width:100%;
+padding:14px;
 border:none;
-}
-
-.pos{
+border-radius:12px;
+background:#FFD700;
+color:#000;
 font-weight:700;
-margin-right:10px;
-}
-
-.detalhe p{
-margin:5px 0;
-font-size:14px;
+margin-top:10px;
 }
 
 /* ===== TEMA CLARO ===== */
@@ -138,22 +135,11 @@ margin:auto;
 
 <body>
 
-<!-- CONFETE -->
-<canvas id="confeteCanvas" style="
-position:fixed;
-top:0;
-left:0;
-width:100%;
-height:100%;
-pointer-events:none;
-z-index:9999;
-"></canvas>
-
 <div class="page">
 
 <div class="header">🏆 Ranking de Motoristas</div>
 
-<!-- 🔥 BÔNUS SEMANAL -->
+<!-- BÔNUS -->
 <div class="card bonus-premium">
 
   <div class="bonus-top">
@@ -171,7 +157,7 @@ z-index:9999;
 
 </div>
 
-<!-- 🥇 GANHADOR -->
+<!-- GANHADOR -->
 <div class="card ganhador">
 
   <h3>🥇 Último ganhador</h3>
@@ -185,7 +171,7 @@ z-index:9999;
 
 </div>
 
-<!-- 🔥 PARCIAL -->
+<!-- PARCIAL -->
 <div class="card">
 
 <h3>🔥 Parcial da semana</h3>
@@ -197,152 +183,23 @@ z-index:9999;
 
 </div>
 
-<!-- RANKING AUTOMÁTICO -->
-<div class="card">
-<h3>Semana</h3>
-<div id="ranking-semana"></div>
+<!-- AVISO -->
+<div class="card aviso">
+📊 O ranking completo é atualizado automaticamente <strong>uma vez por dia</strong>.
 </div>
 
-<div class="card">
-<h3>Mês</h3>
-<div id="ranking-mes"></div>
-</div>
-
-<div class="card detalhe" id="detalhe">
-<h3>Detalhes</h3>
-</div>
+<!-- BOTÃO VOLTAR -->
+<button class="btn-voltar" onclick="history.back()">
+⬅ Voltar
+</button>
 
 </div>
 
 <script>
-
-/* ===== TEMA ===== */
 (function(){
 const tema = localStorage.getItem("rf_theme") || "dark";
 document.body.setAttribute("data-theme", tema);
 })();
-
-/* ===== BANCO ===== */
-let DB = JSON.parse(localStorage.getItem("rf_db")) || {motoristas:[]};
-if(!DB.motoristas) DB.motoristas = [];
-
-/* ===== DATA ===== */
-function getSemanaAtual(){
-const hoje=new Date();
-const dia=hoje.getDay()||7;
-
-const inicio=new Date(hoje);
-inicio.setDate(hoje.getDate()-(dia-1));
-
-const fim=new Date(inicio);
-fim.setDate(inicio.getDate()+6);
-
-return{inicio,fim};
-}
-
-/* ===== CALCULOS ===== */
-function totalSemana(m){
-const s=getSemanaAtual();
-return (m.registros||[]).filter(r=>{
-const d=new Date(r.data);
-return d>=s.inicio && d<=s.fim;
-}).reduce((t,r)=>t+r.viagens,0);
-}
-
-function totalMes(m){
-const hoje=new Date();
-return (m.registros||[]).filter(r=>{
-const d=new Date(r.data);
-return d.getMonth()===hoje.getMonth() &&
-d.getFullYear()===hoje.getFullYear();
-}).reduce((t,r)=>t+r.viagens,0);
-}
-
-/* ===== RENDER ===== */
-function atualizar(){
-
-if(DB.motoristas.length === 0){
-document.getElementById("ranking-semana").innerHTML = "<p>Nenhum dado</p>";
-document.getElementById("ranking-mes").innerHTML = "<p>Nenhum dado</p>";
-return;
-}
-
-const semana=DB.motoristas.map(m=>({
-nome:m.nome,
-total:totalSemana(m)
-})).sort((a,b)=>b.total-a.total);
-
-const mes=DB.motoristas.map(m=>({
-nome:m.nome,
-total:totalMes(m)
-})).sort((a,b)=>b.total-a.total);
-
-renderSemana(semana);
-renderMes(mes);
-}
-
-/* ===== RENDER SEMANA ===== */
-function renderSemana(lista){
-
-const el=document.getElementById("ranking-semana");
-el.innerHTML="";
-
-if(lista[0]){
-const liderDiv=document.createElement("div");
-
-liderDiv.style.padding="15px";
-liderDiv.style.borderRadius="12px";
-liderDiv.style.background="#FFD700";
-liderDiv.style.color="#000";
-liderDiv.style.marginBottom="10px";
-
-liderDiv.innerHTML=`
-<h3>🥇 ${lista[0].nome}</h3>
-<strong>${lista[0].total} corridas</strong><br>
-💰 Ganhando R$50
-`;
-
-el.appendChild(liderDiv);
-}
-
-lista.slice(1).forEach((m,i)=>{
-
-const pos=i+2;
-
-const div=document.createElement("div");
-div.className="motorista";
-
-div.innerHTML=`
-<span>${pos}º - ${m.nome}</span>
-<strong>${m.total}</strong>
-`;
-
-el.appendChild(div);
-});
-}
-
-/* ===== RENDER MÊS ===== */
-function renderMes(lista){
-
-const el=document.getElementById("ranking-mes");
-el.innerHTML="";
-
-lista.forEach((m,i)=>{
-
-const div=document.createElement("div");
-div.className="motorista";
-
-div.innerHTML=`
-<span>${i+1}º - ${m.nome}</span>
-<strong>${m.total}</strong>
-`;
-
-el.appendChild(div);
-});
-}
-
-atualizar();
-
 </script>
 
 </body>
