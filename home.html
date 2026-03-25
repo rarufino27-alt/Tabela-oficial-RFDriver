@@ -193,6 +193,21 @@
   </select>
 
 </div>
+
+    <div class="card">
+  <h3>Observação ao passageiro</h3>
+  <textarea id="obs" placeholder="Ex: motorista já está no local, cor do carro, etc..."></textarea>
+</div>
+
+<div class="card">
+  <h3>Horários da viagem</h3>
+
+  <label>Horário de Embarque</label>
+  <input type="time" id="embarque" class="select">
+
+  <label>Horário de Desembarque</label>
+  <input type="time" id="desembarque" class="select">
+</div>
   </div>
 </div>
 
@@ -536,20 +551,23 @@ confirmarBtn.onclick=()=>{
 
   const tipoCarro=parseFloat(tipoCarroInput.value);
 
-localStorage.setItem("rf_corrida_temp", JSON.stringify({
-  origem,
-  parada,
-  destino,
-  valor: valorTotal,
-  categoria: tipoCarro,
-  feira: document.getElementById("feira")?.value || 0,
-  animal: document.getElementById("animal")?.value || 0,
-  espera: document.getElementById("espera")?.value || 0,
-  saidaPraia: document.getElementById("saidaPraia")?.value || 0
-}));
+  localStorage.setItem("rf_corrida_temp",JSON.stringify({
+    origem,
+    parada,
+    destino,
+    valor:valorTotal,
+    categoria:tipoCarro,
 
-    calcularPreview();
-  
+    feira: document.getElementById("feira")?.value || 0,
+    animal: document.getElementById("animal")?.value || 0,
+    espera: document.getElementById("espera")?.value || 0,
+    saidaPraia: document.getElementById("saidaPraia")?.value || 0,
+
+    obs: document.getElementById("obs")?.value || "",
+    embarque: document.getElementById("embarque")?.value || "",
+    desembarque: document.getElementById("desembarque")?.value || ""
+  }));
+
   window.location.href="resumo.html";
 };
 
