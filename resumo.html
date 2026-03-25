@@ -29,8 +29,29 @@ margin-bottom:6px;
 .linha{
 display:flex;
 justify-content:space-between;
-font-size:14px;
-margin-bottom:4px;
+align-items:center;
+font-size:15px;
+margin-bottom:6px;
+position:relative;
+}
+
+.linha span:first-child{
+position:relative;
+padding-right:10px;
+}
+
+.linha span:first-child::after{
+content:"................................................";
+position:absolute;
+left:100%;
+white-space:nowrap;
+overflow:hidden;
+opacity:0.2;
+}
+
+.linha span:last-child{
+font-weight:600;
+color:#fff;
 }
 
 .total{
@@ -39,6 +60,36 @@ font-weight:700;
 margin-top:10px;
 text-align:right;
 color:#FFD700;
+}
+
+  .card{
+transition:0.3s;
+}
+
+.card:hover{
+transform:translateY(-2px);
+box-shadow:0 10px 25px rgba(0,0,0,0.4);
+}
+
+.sec-title{
+font-size:13px;
+opacity:0.6;
+margin-bottom:6px;
+letter-spacing:0.5px;
+}
+
+.total{
+font-size:20px;
+font-weight:700;
+margin-top:12px;
+text-align:right;
+color:#FFD700;
+animation:pulse 1.5s infinite alternate;
+}
+
+@keyframes pulse{
+from{opacity:0.7;}
+to{opacity:1;}
 }
 </style>
 
@@ -146,7 +197,19 @@ if(detalhamento){
 detalheHTML += `<div class="bloco-sec"><div class="sec-title">Adicionais</div>`;
 detalhamento.split("\n").forEach(linha=>{
 if(linha.trim()){
-detalheHTML += `<div class="linha"><span>${linha}</span></div>`;
+
+const partes = linha.split("R$");
+
+const nome = partes[0].replace(":","").trim();
+const valor = partes[1] ? "R$ " + partes[1].trim() : "";
+
+detalheHTML += `
+<div class="linha">
+<span>${nome}</span>
+<span>${valor}</span>
+</div>
+`;
+
 }
 });
 detalheHTML += `</div>`;
