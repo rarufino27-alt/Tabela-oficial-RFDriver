@@ -445,11 +445,11 @@ modalTipoCarro.onclick=e=>{
   if(e.target===modalTipoCarro) modalTipoCarro.style.display="none";
 };
 
- function calcularPreview(){
+function calcularPreview(){
 
   if(!origem || !destino){
-    document.getElementById("previewResumo").innerHTML = "";
-    document.getElementById("previewTotal").innerText = "R$ 0,00";
+    previewTotal.innerText = "R$ 0,00";
+    resumoLabel.innerText = "Valor da viagem";
     return;
   }
 
@@ -464,14 +464,6 @@ modalTipoCarro.onclick=e=>{
   }
 
   let taxas = 0;
-  let html = "";
-
-  html += `
-    <div class="linha">
-      <span>🚗 Rota</span>
-      <span>R$ ${base.toFixed(2)}</span>
-    </div>
-  `;
 
   const feira = parseFloat(document.getElementById("feira")?.value || 0);
   const animal = parseFloat(document.getElementById("animal")?.value || 0);
@@ -479,37 +471,26 @@ modalTipoCarro.onclick=e=>{
   const saidaPraia = parseFloat(document.getElementById("saidaPraia")?.value || 0);
   const categoria = parseFloat(tipoCarroInput.value || 1);
 
-  if(feira > 0){
-    html += `<div class="linha"><span>🛒 Feira</span><span>R$ ${feira.toFixed(2)}</span></div>`;
-    taxas += feira;
-  }
-
-  if(animal > 0){
-    html += `<div class="linha"><span>🐶 Animal</span><span>R$ ${animal.toFixed(2)}</span></div>`;
-    taxas += animal;
-  }
-
-  if(saidaPraia > 0){
-    html += `<div class="linha"><span>🏖️ Praia</span><span>R$ ${saidaPraia.toFixed(2)}</span></div>`;
-    taxas += saidaPraia;
-  }
+  taxas += feira + animal + saidaPraia;
 
   if(espera > 5){
-    const taxaEspera = 3 + ((espera-5)*0.60);
-    html += `<div class="linha"><span>⏱️ Espera</span><span>R$ ${taxaEspera.toFixed(2)}</span></div>`;
-    taxas += taxaEspera;
+    taxas += 3 + ((espera-5)*0.60);
   }
 
   let total = base + taxas;
 
   if(categoria > 1){
-    const extra = total * (categoria - 1);
-    html += `<div class="linha"><span>🚐 6 lugares</span><span>R$ ${extra.toFixed(2)}</span></div>`;
-    total *= categoria;
+    total = total * categoria;
   }
 
-  document.getElementById("previewResumo").innerHTML = html;
-  document.getElementById("previewTotal").innerText = "R$ " + total.toFixed(2);
+  previewTotal.innerText = "R$ " + total.toFixed(2);
+
+  // 👇 Aqui é o detalhe inteligente
+  if(taxas > 0){
+    resumoLabel.innerText = "Valor com adicionais";
+  } else {
+    resumoLabel.innerText = "Valor da viagem";
+  }
 }
   
 function selecionar(valor){
