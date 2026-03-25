@@ -238,6 +238,179 @@ document.querySelectorAll("select,input").forEach(el=>{
 el.addEventListener("change",calcularPreview);
 });
 
+/* INIT */
+async function init(){
+  document.getElementById("loading").style.display="flex";
+
+  try{
+    await DataManager.carregar();
+  }catch(e){
+    console.error(e);
+    alert("Erro ao carregar rotas.");
+  }
+
+  document.getElementById("loading").style.display="none";
+}
+init();
+
+/* MENU */
+function abrirMenu(){
+  menu.classList.add("ativo");
+  menuOverlay.style.display="block";
+}
+
+function fecharMenu(){
+  menu.classList.remove("ativo");
+  menuOverlay.style.display="none";
+}
+
+function irPara(p){
+  window.location.href=p;
+}
+
+/* SISTEMA */
+let modo=null;
+
+const modal=document.createElement("div"); // fallback segurança
+const lista=document.getElementById("lista") || document.createElement("div");
+const busca=document.getElementById("busca") || document.createElement("input");
+const confirmarBtn=document.getElementById("confirmar");
+
+/* MODAL (RESTAURADO) */
+function abrirModal(tipo){
+
+  if(tipo!=="origem"&&!origem){
+    alert("Selecione a origem primeiro.");
+    return;
+  }
+
+  modo=tipo;
+
+  let dados=[];
+
+  if(tipo==="origem") dados=DataManager.listarOrigens();
+
+  if(tipo==="parada"){
+    dados=DataManager.listarDestinos(origem)
+    .filter(p=>DataManager.listarDestinos(p).length>0);
+  }
+
+  if(tipo==="destino"){
+    dados=parada
+      ? DataManager.listarDestinos(parada)
+      : DataManager.listarDestinos(origem);
+  }
+
+  renderLista(dados);
+}
+
+/* LISTA */
+function renderLista(arr){
+  lista.innerHTML="";
+
+  arr.forEach(item=>{
+    const div=document.createElement("div");
+    div.innerText=item;
+
+    div.onclick=()=>{
+      selecionar(item);
+    };
+
+    lista.appendChild(div);
+  });
+}
+
+/* SELEÇÃO */
+function selecionar(valor){
+
+  if(modo==="origem"){
+    origem=valor;
+    parada=null;
+    destino=null;
+
+    document.getElementById("origemTexto").innerText=valor;
+    document.getElementById("paradaTexto").innerText="Selecionar parada";
+    document.getElementById("destinoTexto").innerText="Selecionar destino";
+
+    document.getElementById("paradaBtn").style.display="none";
+  }
+
+  if(modo==="parada"){
+    parada=valor;
+    destino=null;
+    document.getElementById("paradaTexto").innerText=valor;
+  }
+
+  if(modo==="destino"){
+    destino=valor;
+    document.getElementById("destinoTexto").innerText=valor;
+  }
+
+  confirmarBtn.disabled=!(origem&&destino);
+
+  calcularPreview();
+}
+
+/* BOTÕES */
+document.getElementById("origemBtn").onclick=()=>abrirModal("origem");
+document.getElementById("paradaBtn").onclick=()=>abrirModal("parada");
+document.getElementById("destinoBtn").onclick=()=>abrirModal("destino");
+
+document.getElementById("addParada").onclick=e=>{
+  e.stopPropagation();
+
+  if(!origem){
+    alert("Selecione a origem primeiro.");
+    return;
+  }
+
+  document.getElementById("paradaBtn").style.display="flex";
+};
+
+/* CONFIRMAR */
+confirmarBtn.onclick=()=>{
+  let base = DataManager.buscarValor(origem,destino)||0;
+
+  localStorage.setItem("rf_corrida_temp", JSON.stringify({
+    origem,
+    destino,
+    valor: base
+  }));
+
+  window.location.href="resumo.html";
+};
+
+/* TEMA */
+(function(){
+  const temaSalvo = localStorage.getItem("rf_theme") || "dark";
+  document.body.setAttribute("data-theme", temaSalvo);
+})();
+
+/* TIPO DE CARRO */
+const tipoCarroBtn = document.getElementById("tipoCarroBtn");
+const modalTipoCarro = document.getElementById("modalTipoCarro");
+const tipoCarroTexto = document.getElementById("tipoCarroTexto");
+const tipoCarroInput = document.getElementById("tipoCarro");
+
+tipoCarroBtn.onclick = () => {
+  modalTipoCarro.style.display = "flex";
+};
+
+document.querySelectorAll("#modalTipoCarro .rf-option").forEach(opcao=>{
+  opcao.onclick = () => {
+    tipoCarroInput.value = opcao.dataset.value;
+    tipoCarroTexto.innerText = opcao.innerText;
+    modalTipoCarro.style.display = "none";
+    calcularPreview();
+  };
+});
+
+modalTipoCarro.onclick = (e) => {
+  if(e.target === modalTipoCarro){
+    modalTipoCarro.style.display = "none";
+  }
+};
+
 </script>
 
 </body>
