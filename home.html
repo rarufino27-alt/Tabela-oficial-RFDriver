@@ -211,8 +211,7 @@
   </div>
 </div>
 
-  <div class="card">
-  <h3>Resumo da viagem</h3>
+ <div class="resumo-fixo" id="resumoFixo">
   <div id="previewResumo"></div>
   <div class="valor" id="previewTotal">R$ 0,00</div>
 </div>
@@ -567,7 +566,9 @@ confirmarBtn.onclick=()=>{
     embarque: document.getElementById("embarque")?.value || "",
     desembarque: document.getElementById("desembarque")?.value || ""
   }));
-
+  
+calcularPreview();
+  
   window.location.href="resumo.html";
 };
 
