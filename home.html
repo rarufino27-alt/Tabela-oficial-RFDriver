@@ -12,246 +12,292 @@
 <link rel="stylesheet" href="theme/layout.css">
 <link rel="stylesheet" href="theme/components.css">
 
-<style>
-
-.bonus-highlight{padding:15px;}
-
-.bonus-content{
-background:linear-gradient(135deg,#111,#1f2937);
-border-radius:16px;
-padding:15px;
-border:1px solid rgba(255,215,0,0.2);
-box-shadow:0 5px 15px rgba(0,0,0,0.3);
-text-align:center;
-}
-
-.bonus-top{font-size:16px;font-weight:700;margin-bottom:5px;}
-.bonus-top span{color:#FFD700;font-size:18px;}
-.bonus-sub{font-size:13px;opacity:0.8;margin-bottom:6px;}
-.bonus-info{font-size:12px;color:#facc15;margin-bottom:10px;}
-
-.bonus-content button{
-background:#FFD700;border:none;padding:10px;border-radius:10px;font-weight:700;width:100%;
-}
-
-#valorPreview{transition:0.25s;}
-.valor-animando{transform:scale(1.08);color:#22c55e;}
-
-.card-taxas{
-border:1px solid rgba(255,215,0,0.3);
-box-shadow:0 0 10px rgba(255,215,0,0.2);
-}
-
-</style>
 </head>
 
 <body>
 
 <div id="loading" class="loading">
-<div class="loader"></div>
-<span>Carregando rotas...</span>
+  <div class="loader"></div>
+  <span>Carregando rotas...</span>
 </div>
 
 <div class="menu-overlay" id="menuOverlay" onclick="fecharMenu()"></div>
 
 <div class="menu" id="menu">
-<h3>Menu</h3>
-<div class="menu-item" onclick="irPara('termos.html')">📜 Regras do Grupo RF</div>
-<div class="menu-item" onclick="irPara('bonus.html')">📜 Regras dos Bônus</div>
-<div class="menu-item" onclick="irPara('premiacao.html')">🏆 Ranking / Premiação</div>
-<div class="menu-item" onclick="irPara('historico.html')">📊 Histórico</div>
-<div class="menu-item" onclick="irPara('configuracoes.html')">⚙️ Configurações</div>
+  <h3>Menu</h3>
+
+  <div class="menu-item" onclick="irPara('termos.html')">
+    📜 Regras do Grupo RF
+  </div>
+
+  <div class="menu-item" onclick="irPara('bonus.html')">
+    📜 Regras dos Bônus
+  </div>
+
+  <div class="menu-item" onclick="irPara('premiacao.html')">
+    🏆 Ranking / Premiação
+  </div>
+
+  <div class="menu-item" onclick="irPara('historico.html')">
+    📊 Histórico de Viagens
+  </div>
+
+  <div class="menu-item" onclick="irPara('configuracoes.html')">
+    ⚙️ Configurações
+  </div>
 </div>
 
 <div class="top-white">
-<div class="logo-area">
-<img src="icons/icon-512.png" class="logo-img">
-<span class="logo-text-dark"> RF MOTORISTA </span>
-</div>
-<div class="menu-btn-dark" onclick="abrirMenu()">☰</div>
+  <div class="logo-area">
+    <img src="icons/icon-512.png" class="logo-img">
+    <span class="logo-text-dark"> RF MOTORISTA </span>
+  </div>
+
+  <div class="menu-btn-dark" onclick="abrirMenu()">☰</div>
 </div>
 
-<div class="bonus-highlight">
-<div class="bonus-content">
-<div class="bonus-top">🏆 Ganhe até <span>R$100</span></div>
-<div class="bonus-sub">Seg–Sáb: R$50 | Domingo: R$50</div>
-<div class="bonus-info">⚠️ Horário de pico aumenta suas chances!</div>
-<button onclick="irPara('bonus.html')">Garantir meu Bônus</button>
+<!-- SLIDER -->
+<div class="slider">
+  <div class="slides" id="slides">
+
+    <div class="slide slide-text">
+      <div class="slide-content">
+        <h2>Tabela <span class="destaque">Oficial</span> RF Motorista</h2>
+        <p>Preço Fixo e justo para todos!</p>
+        <button class="slide-btn" data-acao="origem">Começar</button>
+      </div>
+    </div>
+
+    <div class="slide slide-text">
+      <div class="slide-content">
+        <h2>Bônus Extra <span class="destaque">semanal</span></h2>
+        <p>Veja como ganhar R$ 100 em bônus por semana</p>
+        <button class="slide-btn" data-acao="bonus">Garantir o meu agora!</button>
+      </div>
+    </div>
+
+    <div class="slide slide-text">
+      <div class="slide-content">
+        <h2>Ganhador <span class="destaque">desta semana</span></h2>
+        <p>🥇 Genilson com 23 viagens Realizadas</p>
+        <button class="slide-btn" data-acao="premiacao">Ver ranking</button>
+      </div>
+    </div>
+
+    <div class="slide slide-text">
+      <div class="slide-content">
+        <h2>Lâmpada <span class="destaque">queimou?</span></h2>
+        <p>Suporte imediato</p>
+        <button class="slide-btn" data-acao="whatsapp">Falar agora</button>
+      </div>
+    </div>
+
+    <div class="slide slide-text">
+      <div class="slide-content">
+        <h2>Corrida cancelada?</h2>
+        <p>Garantimos seu deslocamento</p>
+        <button class="slide-btn" data-acao="cancelamento">Resolver</button>
+      </div>
+    </div>
+
+    <div class="slide slide-text">
+      <div class="slide-content">
+        <h2>Não <span class="destaque">recebeu?</span></h2>
+        <p>O grupo resolve pra você</p>
+        <button class="slide-btn" data-acao="naoRecebeu">Resolver</button>
+      </div>
+    </div>
+
+  </div>
 </div>
+
+<div class="indicadores">
+  <div class="dotSlide ativo"></div>
+  <div class="dotSlide"></div>
+  <div class="dotSlide"></div>
+  <div class="dotSlide"></div>
+  <div class="dotSlide"></div>
 </div>
 
 <div class="center">
 
-<div class="titulo-box">
-<div class="titulo-central">
-Para onde <span>NOSSO CLIENTE</span> vai hoje?
-</div>
-</div>
+  <div class="titulo-box">
+    <div class="titulo-central">
+      Para onde <span>vamos</span> hoje?
+    </div>
+  </div>
 
-<div class="card">
+  <div class="card">
 
-<div class="campo" id="origemBtn">
-<div class="campo-left">
-<div class="dot origem"></div>
-<div id="origemTexto">Selecionar origem</div>
-</div>
-</div>
+    <div class="campo" id="origemBtn">
+      <div class="campo-left">
+        <div class="dot origem"></div>
+        <div id="origemTexto">Selecionar origem</div>
+      </div>
+    </div>
 
-<div class="campo" id="paradaBtn" style="display:none;">
-<div class="campo-left">
-<div class="dot parada"></div>
-<div id="paradaTexto">Selecionar parada</div>
-</div>
-</div>
+    <div class="campo" id="paradaBtn" style="display:none;">
+      <div class="campo-left">
+        <div class="dot parada"></div>
+        <div id="paradaTexto">Selecionar parada</div>
+      </div>
+    </div>
 
-<div class="campo" id="destinoBtn">
-<div class="campo-left">
-<div class="dot destino"></div>
-<div id="destinoTexto">Selecionar destino</div>
-</div>
-<div class="plus" id="addParada">＋</div>
-</div>
+    <div class="campo" id="destinoBtn">
+      <div class="campo-left">
+        <div class="dot destino"></div>
+        <div id="destinoTexto">Selecionar destino</div>
+      </div>
+      <div class="plus" id="addParada">＋</div>
+    </div>
 
-<div class="campo">
-<div class="campo-left">
-<div class="dot" style="background:#3b82f6;"></div>
-<div>Tipo de veículo</div>
-</div>
-<div class="rf-select" id="tipoCarroBtn">
-<span id="tipoCarroTexto">4 lugares</span>
-</div>
-<input type="hidden" id="tipoCarro" value="1">
-</div>
+    <div class="campo">
+      <div class="campo-left">
+        <div class="dot" style="background:#3b82f6;"></div>
+        <div>Tipo de veículo</div>
+      </div>
 
-</div>
+      <div class="rf-select" id="tipoCarroBtn">
+        <span id="tipoCarroTexto">4 lugares</span>
+      </div>
 
-<div class="card">
+      <input type="hidden" id="tipoCarro" value="1">
+    </div>
 
-<h3>Adicionais da corrida</h3>
-
-<select id="feira">
-<option value="0">Sem feira</option>
-<option value="5">1 carrinho</option>
-<option value="7.99">2 carrinhos</option>
-</select>
-
-<select id="animal">
-<option value="0">Nenhum</option>
-<option value="4.99">Pequeno</option>
-</select>
-
-<input type="number" id="espera" value="0">
-
-<select id="saidaPraia">
-<option value="0">Não</option>
-<option value="10">Sim</option>
-</select>
-
-<select id="pagamento">
-<option value="dinheiro">Dinheiro</option>
-<option value="pix">Pix</option>
-<option value="debito">Débito</option>
-<option value="credito">Crédito</option>
-</select>
-
-<input type="time" id="embarque">
-<input type="time" id="desembarque">
-
-</div>
-
-<div class="card">
-<textarea id="observacao" placeholder="Observação"></textarea>
-</div>
-
-<div class="card" id="cardTotal">
-<h3>Total da corrida</h3>
-<div id="valorPreview">R$ 0,00</div>
-<div id="infoTaxas"></div>
-</div>
-
+  </div>
 </div>
 
 <div class="bottom">
-<button id="confirmar" disabled>Confirmar rota</button>
+  <button id="confirmar" disabled>Confirmar rota</button>
+</div>
+
+<div class="modal" id="modal">
+  <div class="modal-content">
+    <input type="text" id="busca" placeholder="Buscar local...">
+    <div class="lista" id="lista"></div>
+  </div>
+</div>
+
+<div class="rf-modal" id="modalTipoCarro">
+  <div class="rf-modal-content">
+    <div class="rf-option" data-value="1">4 lugares</div>
+    <div class="rf-option" data-value="1.5">6 lugares (+50%)</div>
+  </div>
+</div>
+
+<div class="radar-bg">
+  <div class="radar-circle"></div>
+  <div class="radar-circle"></div>
+  <div class="radar-circle"></div>
+  <div class="radar-circle"></div>
+  <div class="radar-line"></div>
 </div>
 
 <script>
 
-let origem=null, parada=null, destino=null;
-
-function calcularPreview(){
-
-if(!origem || !destino){
-document.getElementById("valorPreview").innerText="R$ 0,00";
-return;
-}
-
-let base=DataManager.buscarValor(origem,destino)||0;
-
-let taxas=0;
-
-const feira=parseFloat(document.getElementById("feira").value)||0;
-const animal=parseFloat(document.getElementById("animal").value)||0;
-const espera=parseFloat(document.getElementById("espera").value)||0;
-const saidaPraia=parseFloat(document.getElementById("saidaPraia").value)||0;
-const pagamento=document.getElementById("pagamento").value;
-
-if(feira) taxas+=feira;
-if(animal) taxas+=animal;
-
-if(espera>5){
-taxas+=3+((espera-5)*0.6);
-}
-
-if(saidaPraia) taxas+=saidaPraia;
-
-taxas+=4.99;
-
-const categoria=parseFloat(document.getElementById("tipoCarro").value||1);
-
-let total=(base*categoria)+taxas;
-
-if(pagamento==="debito") total/=0.98;
-if(pagamento==="credito") total/=0.95;
-
-const el=document.getElementById("valorPreview");
-
-el.classList.add("valor-animando");
-el.innerText="R$ "+total.toFixed(2);
-
-setTimeout(()=>el.classList.remove("valor-animando"),200);
-
-const card=document.getElementById("cardTotal");
-const info=document.getElementById("infoTaxas");
-
-if(taxas>0){
-card.classList.add("card-taxas");
-info.innerText="Inclui taxas adicionais";
-}else{
-card.classList.remove("card-taxas");
-info.innerText="";
-}
-
-}
-
-document.querySelectorAll("select,input").forEach(el=>{
-el.addEventListener("change",calcularPreview);
-});
-
 /* INIT */
 async function init(){
-  document.getElementById("loading").style.display="flex";
+  const loading = document.getElementById("loading");
+  loading.style.display="flex";
 
   try{
     await DataManager.carregar();
   }catch(e){
-    console.error(e);
     alert("Erro ao carregar rotas.");
   }
 
-  document.getElementById("loading").style.display="none";
+  loading.style.display="none";
 }
 init();
+
+/* SLIDER */
+let slideIndex=0;
+const slides=document.getElementById("slides");
+const dots=document.querySelectorAll(".dotSlide");
+
+setInterval(()=>{
+  slideIndex++;
+  if(slideIndex >= dots.length) slideIndex = 0;
+
+  slides.style.transform = `translateX(-${slideIndex*100}%)`;
+
+  dots.forEach(d=>d.classList.remove("ativo"));
+  dots[slideIndex].classList.add("ativo");
+
+},4000);
+
+/* SWIPE */
+let startX=0,endX=0,isDragging=false;
+
+slides.addEventListener("touchstart",e=>startX=e.touches[0].clientX);
+
+slides.addEventListener("touchend",e=>{
+  endX=e.changedTouches[0].clientX;
+  handleSwipe();
+});
+
+slides.addEventListener("mousedown",e=>{
+  isDragging=true;
+  startX=e.clientX;
+});
+
+slides.addEventListener("mouseup",e=>{
+  if(!isDragging) return;
+  endX=e.clientX;
+  isDragging=false;
+  handleSwipe();
+});
+
+function handleSwipe(){
+  const diff=startX-endX;
+
+  if(Math.abs(diff)<50) return;
+
+  if(diff>0){
+    slideIndex++;
+    if(slideIndex >= dots.length) slideIndex = dots.length - 1;
+  }else{
+    slideIndex--;
+    if(slideIndex < 0) slideIndex = 0;
+  }
+
+  slides.style.transform = `translateX(-${slideIndex*100}%)`;
+
+  dots.forEach(d=>d.classList.remove("ativo"));
+  dots[slideIndex].classList.add("ativo");
+}
+
+/* BOTÕES */
+document.querySelectorAll(".slide-btn").forEach(btn=>{
+  btn.onclick=()=>{
+    const acao=btn.dataset.acao;
+
+    if(acao==="origem"){
+      document.getElementById("origemBtn").click();
+    }
+
+    if(acao==="bonus"){
+      window.location.href="bonus.html";
+    }
+
+    if(acao==="premiacao"){
+      window.location.href="premiacao.html";
+    }
+
+    if(acao==="cancelamento"){
+      window.location.href="cancelamento.html";
+    }
+
+    if(acao==="naoRecebeu"){
+      window.location.href="nao-recebeu.html";
+    }
+
+    if(acao==="whatsapp"){
+      const msg=encodeURIComponent("Olá! Preciso de suporte no grupo RF.");
+      window.open(`https://wa.me/5581989823239?text=${msg}`,"_blank");
+    }
+  };
+});
 
 /* MENU */
 function abrirMenu(){
@@ -269,14 +315,13 @@ function irPara(p){
 }
 
 /* SISTEMA */
-let modo=null;
+let origem=null,parada=null,destino=null,modo=null;
 
-const modal=document.createElement("div"); // fallback segurança
-const lista=document.getElementById("lista") || document.createElement("div");
-const busca=document.getElementById("busca") || document.createElement("input");
+const modal=document.getElementById("modal");
+const lista=document.getElementById("lista");
+const busca=document.getElementById("busca");
 const confirmarBtn=document.getElementById("confirmar");
 
-/* MODAL (RESTAURADO) */
 function abrirModal(tipo){
 
   if(tipo!=="origem"&&!origem){
@@ -285,6 +330,8 @@ function abrirModal(tipo){
   }
 
   modo=tipo;
+  busca.value="";
+  modal.style.display="flex";
 
   let dados=[];
 
@@ -304,7 +351,6 @@ function abrirModal(tipo){
   renderLista(dados);
 }
 
-/* LISTA */
 function renderLista(arr){
   lista.innerHTML="";
 
@@ -314,13 +360,42 @@ function renderLista(arr){
 
     div.onclick=()=>{
       selecionar(item);
+      modal.style.display="none";
     };
 
     lista.appendChild(div);
   });
 }
 
-/* SELEÇÃO */
+busca.addEventListener("input",()=>{
+  const termo=busca.value.toLowerCase();
+
+  Array.from(lista.children).forEach(div=>{
+    div.style.display = div.innerText.toLowerCase().includes(termo)
+      ? "block"
+      : "none";
+  });
+});
+
+const tipoCarroBtn=document.getElementById("tipoCarroBtn");
+const modalTipoCarro=document.getElementById("modalTipoCarro");
+const tipoCarroTexto=document.getElementById("tipoCarroTexto");
+const tipoCarroInput=document.getElementById("tipoCarro");
+
+tipoCarroBtn.onclick=()=>modalTipoCarro.style.display="flex";
+
+document.querySelectorAll("#modalTipoCarro .rf-option").forEach(opcao=>{
+  opcao.onclick=()=>{
+    tipoCarroInput.value=opcao.dataset.value;
+    tipoCarroTexto.innerText=opcao.innerText;
+    modalTipoCarro.style.display="none";
+  };
+});
+
+modalTipoCarro.onclick=e=>{
+  if(e.target===modalTipoCarro) modalTipoCarro.style.display="none";
+};
+
 function selecionar(valor){
 
   if(modo==="origem"){
@@ -328,35 +403,32 @@ function selecionar(valor){
     parada=null;
     destino=null;
 
-    document.getElementById("origemTexto").innerText=valor;
-    document.getElementById("paradaTexto").innerText="Selecionar parada";
-    document.getElementById("destinoTexto").innerText="Selecionar destino";
+    origemTexto.innerText=valor;
+    paradaTexto.innerText="Selecionar parada";
+    destinoTexto.innerText="Selecionar destino";
 
-    document.getElementById("paradaBtn").style.display="none";
+    paradaBtn.style.display="none";
   }
 
   if(modo==="parada"){
     parada=valor;
     destino=null;
-    document.getElementById("paradaTexto").innerText=valor;
+    paradaTexto.innerText=valor;
   }
 
   if(modo==="destino"){
     destino=valor;
-    document.getElementById("destinoTexto").innerText=valor;
+    destinoTexto.innerText=valor;
   }
 
   confirmarBtn.disabled=!(origem&&destino);
-
-  calcularPreview();
 }
 
-/* BOTÕES */
-document.getElementById("origemBtn").onclick=()=>abrirModal("origem");
-document.getElementById("paradaBtn").onclick=()=>abrirModal("parada");
-document.getElementById("destinoBtn").onclick=()=>abrirModal("destino");
+origemBtn.onclick=()=>abrirModal("origem");
+paradaBtn.onclick=()=>abrirModal("parada");
+destinoBtn.onclick=()=>abrirModal("destino");
 
-document.getElementById("addParada").onclick=e=>{
+addParada.onclick=e=>{
   e.stopPropagation();
 
   if(!origem){
@@ -364,52 +436,42 @@ document.getElementById("addParada").onclick=e=>{
     return;
   }
 
-  document.getElementById("paradaBtn").style.display="flex";
+  paradaBtn.style.display="flex";
 };
 
-/* CONFIRMAR */
-confirmarBtn.onclick=()=>{
-  let base = DataManager.buscarValor(origem,destino)||0;
+modal.onclick=e=>{
+  if(e.target===modal) modal.style.display="none";
+};
 
-  localStorage.setItem("rf_corrida_temp", JSON.stringify({
+confirmarBtn.onclick=()=>{
+
+  let valorTotal=0;
+
+  if(!parada){
+    valorTotal=DataManager.buscarValor(origem,destino)||0;
+  }else{
+    valorTotal=
+      (DataManager.buscarValor(origem,parada)||0) +
+      (DataManager.buscarValor(parada,destino)||0);
+  }
+
+  const tipoCarro=parseFloat(tipoCarroInput.value);
+
+  localStorage.setItem("rf_corrida_temp",JSON.stringify({
     origem,
+    parada,
     destino,
-    valor: base
+    valor:valorTotal,
+    categoria:tipoCarro
   }));
 
   window.location.href="resumo.html";
 };
 
-/* TEMA */
 (function(){
-  const temaSalvo = localStorage.getItem("rf_theme") || "dark";
-  document.body.setAttribute("data-theme", temaSalvo);
+  const temaSalvo=localStorage.getItem("rf_theme")||"dark";
+  document.body.setAttribute("data-theme",temaSalvo);
 })();
-
-/* TIPO DE CARRO */
-const tipoCarroBtn = document.getElementById("tipoCarroBtn");
-const modalTipoCarro = document.getElementById("modalTipoCarro");
-const tipoCarroTexto = document.getElementById("tipoCarroTexto");
-const tipoCarroInput = document.getElementById("tipoCarro");
-
-tipoCarroBtn.onclick = () => {
-  modalTipoCarro.style.display = "flex";
-};
-
-document.querySelectorAll("#modalTipoCarro .rf-option").forEach(opcao=>{
-  opcao.onclick = () => {
-    tipoCarroInput.value = opcao.dataset.value;
-    tipoCarroTexto.innerText = opcao.innerText;
-    modalTipoCarro.style.display = "none";
-    calcularPreview();
-  };
-});
-
-modalTipoCarro.onclick = (e) => {
-  if(e.target === modalTipoCarro){
-    modalTipoCarro.style.display = "none";
-  }
-};
 
 </script>
 
