@@ -33,16 +33,19 @@
 
 <div class="container">
 
+<!-- ROTA -->
 <div class="card">
 <h3>Resumo da viagem</h3>
 <div id="rota"></div>
 </div>
 
+<!-- DETALHES (NOVO) -->
 <div class="card">
-<h3>Observação ao motorista</h3>
-<textarea id="obs" placeholder="Alguma observação para o motorista?"></textarea>
+<h3>Detalhes da viagem</h3>
+<div id="extras"></div>
 </div>
 
+<!-- PAGAMENTO -->
 <div class="card">
 <h3>Forma de pagamento</h3>
 <select id="pagamento" class="select">
@@ -53,16 +56,7 @@
 </select>
 </div>
 
-<div class="card">
-<h3>Horários da viagem</h3>
-
-<label>Horário de Embarque</label>
-<input type="time" id="embarque" class="select">
-
-<label>Horário de Desembarque</label>
-<input type="time" id="desembarque" class="select">
-</div>
-
+<!-- DETALHAMENTO -->
 <div class="card">
 <h3>Detalhamento</h3>
 <div id="detalhe"></div>
@@ -116,7 +110,10 @@ let {
   feira = 0,
   animal = 0,
   espera = 0,
-  saidaPraia = 0
+  saidaPraia = 0,
+  obs = "",
+  embarque = "",
+  desembarque = ""
 } = corrida;
 
 let detalhamentoRecibo = "";
@@ -124,7 +121,6 @@ let detalhamentoRecibo = "";
 /* ===== ROTA ===== */
 
 function montarRota(){
-
 let html = `<div class="rota-item"><span>Origem:</span> ${origem}</div>`;
 
 if(parada){
@@ -134,6 +130,27 @@ html += `<div class="rota-item"><span>Parada:</span> ${parada}</div>`;
 html += `<div class="rota-item"><span>Destino:</span> ${destino}</div>`;
 
 document.getElementById("rota").innerHTML = html;
+}
+
+/* ===== EXTRAS (NOVO) ===== */
+
+function montarExtras(){
+
+let html = "";
+
+if(obs){
+html += `<div class="linha"><span>Observação</span><span>${obs}</span></div>`;
+}
+
+if(embarque){
+html += `<div class="linha"><span>Embarque</span><span>${embarque}</span></div>`;
+}
+
+if(desembarque){
+html += `<div class="linha"><span>Desembarque</span><span>${desembarque}</span></div>`;
+}
+
+document.getElementById("extras").innerHTML = html;
 }
 
 /* ===== ADICIONAL NOTURNO ===== */
@@ -159,11 +176,9 @@ let taxas = 0;
 let detalhe = "";
 let recibo = "";
 
-/* BASE */
 detalhe += `<div class="linha"><span>Rota</span><span>R$ ${base.toFixed(2)}</span></div>`;
 recibo += `Valor base: R$ ${base.toFixed(2)}\n`;
 
-/* NOTURNO */
 const noturno = adicionalNoturno(base);
 
 if(noturno > 0){
@@ -172,7 +187,6 @@ recibo += `Adicional Noturno: R$ ${noturno.toFixed(2)}\n`;
 base += noturno;
 }
 
-/* TAXAS */
 feira = parseFloat(feira);
 animal = parseFloat(animal);
 espera = parseFloat(espera);
@@ -205,10 +219,8 @@ recibo += `Espera: R$ ${taxaEspera.toFixed(2)}\n`;
 taxas += taxaEspera;
 }
 
-/* SUBTOTAL */
 let subtotal = base + taxas;
 
-/* CATEGORIA */
 if(categoria > 1){
 const acrescimo = subtotal * (categoria - 1);
 
@@ -220,7 +232,6 @@ subtotal = subtotal * categoria;
 
 detalhe += `<div class="linha"><span>Subtotal</span><span>R$ ${subtotal.toFixed(2)}</span></div>`;
 
-/* PAGAMENTO */
 let pagamento = document.getElementById("pagamento").value;
 let total = subtotal;
 
@@ -238,7 +249,6 @@ detalhamentoRecibo = recibo;
 localStorage.setItem("rf_total_final", total.toFixed(2));
 }
 
-/* EVENTOS */
 document.getElementById("pagamento").addEventListener("change", calcular);
 
 /* ===== RECIBO ===== */
@@ -252,9 +262,6 @@ const data = agora.toLocaleDateString("pt-BR");
 const hora = agora.toLocaleTimeString("pt-BR",{hour:"2-digit",minute:"2-digit"});
 
 const total = localStorage.getItem("rf_total_final") || 0;
-
-const embarque = document.getElementById("embarque").value || "-";
-const desembarque = document.getElementById("desembarque").value || "-";
 
 const payload = {
 origem,
@@ -290,6 +297,7 @@ alert("Erro ao gerar recibo.");
 
 /* INIT */
 montarRota();
+montarExtras();
 calcular();
 
 </script>
