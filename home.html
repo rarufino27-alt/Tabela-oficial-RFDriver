@@ -201,6 +201,11 @@ Garantir meu Bônus AGORA!
 
   </div>
 
+  <div class="card">
+  <h3>Observação ao passageiro</h3>
+  <textarea id="observacao" class="select" placeholder="Ex: passageiro com bagagem, ponto de referência, etc..."></textarea>
+</div>
+  
 </div>
 
 <div class="bottom">
@@ -371,6 +376,7 @@ confirmarBtn.onclick=()=>{
   const espera = parseFloat(document.getElementById("espera").value)||0;
   const saidaPraia = parseFloat(document.getElementById("saidaPraia").value)||0;
   const pagamento = document.getElementById("pagamento").value;
+  const observacao = document.getElementById("observacao").value || "";
 
   if(feira){ taxas+=feira; recibo+=`Feira: R$ ${feira}\n`; }
   if(animal){ taxas+=animal; recibo+=`Animal: R$ ${animal}\n`; }
@@ -383,7 +389,13 @@ confirmarBtn.onclick=()=>{
 
   if(saidaPraia){ taxas+=saidaPraia; recibo+=`Saída Praia: R$ ${saidaPraia}\n`; }
 
-  let total = base + taxas;
+ const categoria = parseFloat(tipoCarroInput.value);
+
+// aplica multiplicador somente na base
+let baseComCategoria = base * categoria;
+
+// soma taxas depois
+let total = baseComCategoria + taxas;
 
   if(pagamento==="debito") total/=0.98;
   if(pagamento==="credito") total/=0.95;
@@ -393,7 +405,8 @@ confirmarBtn.onclick=()=>{
     destino,
     totalFinal: total,
     detalhamento: recibo,
-    pagamento
+    pagamento,
+    observacao
   }));
 
   window.location.href="resumo.html";
