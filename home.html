@@ -11,60 +11,110 @@
 <link rel="stylesheet" href="theme/theme.css">
 <link rel="stylesheet" href="theme/layout.css">
 <link rel="stylesheet" href="theme/components.css">
+
 <style>
-  .espaco-final {
-  height: 120px;
+
+body{
+  background:#f5f6f8;
+  color:#111;
 }
 
-  .bonus-highlight {
-  background: linear-gradient(135deg,#FFD700,#f59e0b);
-  color: #000;
-
-  border-radius: 16px;
-  padding: 16px;
-
-  margin: 10px;
-
-  box-shadow: 0 10px 25px rgba(0,0,0,0.4);
+.app-container{
+  padding:15px;
 }
 
-.bonus-header {
-  font-weight: bold;
-  font-size: 16px;
-  margin-bottom: 10px;
+/* BONUS */
+.bonus-card{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  background:linear-gradient(135deg,#ffd54f,#ff9800);
+  padding:15px;
+  border-radius:16px;
+  margin-bottom:15px;
 }
 
-.bonus-valor {
-  font-size: 22px;
-  font-weight: bold;
-  margin-bottom: 8px;
+.bonus-left{
+  display:flex;
+  gap:10px;
+  align-items:center;
 }
 
-.bonus-info {
-  display: flex;
-  flex-direction: column;
-  font-size: 13px;
-  margin-bottom: 10px;
+.bonus-value{
+  font-size:20px;
+  font-weight:bold;
 }
 
-.bonus-ranking {
-  font-size: 14px;
-  margin-bottom: 12px;
+.btn-ranking{
+  background:#fff;
+  border:none;
+  padding:10px 15px;
+  border-radius:12px;
 }
 
-.bonus-highlight button {
-  width: 100%;
-  padding: 10px;
-
-  border: none;
-  border-radius: 10px;
-
-  background: #000;
-  color: #FFD700;
-
-  font-weight: bold;
+/* INPUT */
+.input-box{
+  background:#fff;
+  border-radius:12px;
+  padding:15px;
+  margin-bottom:10px;
+  display:flex;
+  align-items:center;
+  gap:10px;
+  border:2px solid transparent;
 }
+
+.input-box.green{ border-color:#22c55e; }
+.input-box.red{ border-color:#ef4444; }
+
+/* VEÍCULOS */
+.veiculos{
+  display:flex;
+  gap:10px;
+}
+
+.veiculo{
+  flex:1;
+  padding:15px;
+  border-radius:12px;
+  background:#eee;
+  text-align:center;
+}
+
+.veiculo.ativo{
+  border:2px solid #3b82f6;
+  background:#e0f2fe;
+}
+
+/* CTA FIXO */
+.cta-box{
+  position:fixed;
+  bottom:0;
+  left:0;
+  right:0;
+  background:#fff;
+  padding:15px;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  box-shadow:0 -2px 10px rgba(0,0,0,0.1);
+}
+
+.cta-box button{
+  background:linear-gradient(135deg,#ff9800,#ff5722);
+  border:none;
+  padding:12px 20px;
+  border-radius:12px;
+  color:#fff;
+  font-weight:bold;
+}
+
+.espaco-final{
+  height:120px;
+}
+
 </style>
+
 </head>
 
 <body>
@@ -74,528 +124,203 @@
   <span>Carregando rotas...</span>
 </div>
 
-<div class="menu-overlay" id="menuOverlay" onclick="fecharMenu()"></div>
-
-<div class="menu" id="menu">
-  <h3>Menu</h3>
-
-  <div class="menu-item" onclick="irPara('termos.html')">
-    📜 Regras do Grupo RF
-  </div>
-
-  <div class="menu-item" onclick="irPara('bonus.html')">
-    📜 Regras dos Bônus
-  </div>
-
-  <div class="menu-item" onclick="irPara('premiacao.html')">
-    🏆 Ranking / Premiação
-  </div>
-
-  <div class="menu-item" onclick="irPara('historico.html')">
-    📊 Histórico de Viagens
-  </div>
-
-  <div class="menu-item" onclick="irPara('configuracoes.html')">
-    ⚙️ Configurações
-  </div>
-</div>
-
+<!-- HEADER -->
 <div class="top-white">
   <div class="logo-area">
     <img src="icons/icon-512.png" class="logo-img">
-    <span class="logo-text-dark"> RF MOTORISTA </span>
+    <span class="logo-text-dark">RF MOTORISTA</span>
   </div>
-
-  <div class="menu-btn-dark" onclick="abrirMenu()">☰</div>
 </div>
 
 <div class="app-container">
 
-  <!-- BONUS -->
-  <div class="bonus-card">
-    <div class="bonus-left">
-      <div class="bonus-icon">🏆</div>
-      <div>
-        <div class="bonus-title">BÔNUS SEMANAL</div>
-        <div class="bonus-value">R$ 100 <span>/ semana</span></div>
-      </div>
-    </div>
-    <button class="btn-ranking" onclick="irPara('premiacao.html')">
-      Ver Ranking →
-    </button>
+<!-- BONUS -->
+<div class="bonus-card">
+  <div class="bonus-left">
+    🏆 <div><strong>R$ 100</strong><br><small>por semana</small></div>
   </div>
+  <button onclick="irPara('premiacao.html')">Ranking</button>
+</div>
 
-  <!-- STEPS -->
-  <div class="steps">
-    <div class="step active">1<span>Origem</span></div>
-    <div class="line"></div>
-    <div class="step">2<span>Destino</span></div>
-    <div class="line"></div>
-    <div class="step">3<span>Veículo</span></div>
-  </div>
+<!-- ORIGEM -->
+<div class="input-box green" id="origemBtn">
+  📍 <div id="origemTexto">Selecionar origem</div>
+</div>
 
-  <!-- CARD -->
-  <div class="card-modern">
+<!-- DESTINO -->
+<div class="input-box red" id="destinoBtn">
+  📍 <div id="destinoTexto">Selecionar destino</div>
+</div>
 
-    <!-- ORIGEM -->
-    <div class="input-box green" id="origemBtn">
-      <span>📍</span>
-      <div id="origemTexto">Selecionar origem</div>
-    </div>
+<!-- VEÍCULO -->
+<div class="veiculos">
+  <div class="veiculo ativo" data-value="1">🚗<br>4 lugares</div>
+  <div class="veiculo" data-value="1.5">🚐<br>6 lugares</div>
+</div>
 
-    <!-- DESTINO -->
-    <div class="input-box red" id="destinoBtn">
-      <span>📍</span>
-      <div id="destinoTexto">Selecionar destino</div>
-    </div>
+<input type="hidden" id="tipoCarro" value="1">
 
-    <!-- VEÍCULO -->
-    <div class="veiculos">
+<!-- ADICIONAIS -->
+<div class="card">
+<h3>Adicionais</h3>
 
-      <div class="veiculo ativo" data-value="1">
-        🚗
-        <strong>4 lugares</strong>
-        <span>Confortável</span>
-      </div>
+<label>Feira</label>
+<select id="feira">
+<option value="0">Sem</option>
+<option value="5">1 carrinho</option>
+<option value="7.99">2+</option>
+</select>
 
-      <div class="veiculo" data-value="1.5">
-        🚐
-        <strong>6 lugares</strong>
-        <span>Van espaçosa</span>
-      </div>
+<label>Animal</label>
+<select id="animal">
+<option value="0">Nenhum</option>
+<option value="4.99">Pequeno</option>
+<option value="7.99">Médio</option>
+<option value="11.99">Grande</option>
+</select>
 
-    </div>
+<label>Espera</label>
+<input type="number" id="espera" value="0">
 
-    <input type="hidden" id="tipoCarro" value="1">
-
-  </div>
-
-  <!-- GARANTIAS -->
-  <div class="garantias">
-    <span>✔ Sem taxa surpresa</span>
-    <span>✔ Preço fixo</span>
-    <span>✔ Motoristas verificados</span>
-  </div>
+<label>Saída praia</label>
+<select id="saidaPraia">
+<option value="0">Não</option>
+<option value="10">Sim</option>
+</select>
 
 </div>
 
-  <!-- ADICIONAIS -->
-  <div class="card">
-    <h3>Adicionais da corrida</h3>
-
-    <label>Taxa de Feira</label>
-    <select id="feira" class="select">
-      <option value="0">Sem feira</option>
-      <option value="5">1 carrinho (R$ 5.00)</option>
-      <option value="7.99">2 carrinhos ou mais (R$ 7.99)</option>
-    </select>
-
-    <label>Transporte Animal</label>
-    <select id="animal" class="select">
-      <option value="0">Nenhum</option>
-      <option value="4.99">Pequeno (R$ 4.99)</option>
-      <option value="7.99">Médio (R$ 7.99)</option>
-      <option value="11.99">Grande (R$ 11.99)</option>
-    </select>
-
-    <label>Tempo de espera (min)</label>
-    <input type="number" id="espera" class="select" value="0">
-
-    <label>Saída de Praia</label>
-    <select id="saidaPraia" class="select">
-      <option value="0">Não</option>
-      <option value="10">Sim (+ R$ 10,00)</option>
-    </select>
-  </div>
-
-  <!-- OBS -->
-  <div class="card">
-    <h3>Observação ao passageiro</h3>
-    <textarea id="obs" placeholder="Ex: motorista já está no local, cor do carro, etc..."></textarea>
-  </div>
-
-  <!-- HORÁRIOS -->
-  <div class="card">
-    <h3>Horários da viagem</h3>
-
-    <label>Horário de Embarque</label>
-    <input type="time" id="embarque" class="select">
-
-    <label>Horário de Desembarque</label>
-    <input type="time" id="desembarque" class="select">
-  </div>
-
-  <!-- 🔥 ESPAÇO FINAL (ESSENCIAL) -->
-  <div class="espaco-final"></div>
-
-</div>
+<!-- OBS -->
+<div class="card">
+<textarea id="obs" placeholder="Observação"></textarea>
 </div>
 
- <!-- CTA -->
-  <div class="cta-box">
-    <div>
-      <span>Valor estimado</span>
-      <strong id="previewTotal">R$ 0,00</strong>
-    </div>
+<!-- HORÁRIOS -->
+<div class="card">
+<label>Embarque</label>
+<input type="time" id="embarque">
 
-    <button id="btnContinuar">
-      CALCULAR CORRIDA →
-    </button>
-  </div>
-
-  </div>
+<label>Desembarque</label>
+<input type="time" id="desembarque">
 </div>
 
+<div class="espaco-final"></div>
+
+</div>
+
+<!-- CTA -->
+<div class="cta-box">
+<div>
+<span>Total</span><br>
+<strong id="previewTotal">R$ 0,00</strong>
+</div>
+
+<button id="btnContinuar">CALCULAR</button>
+</div>
+
+<!-- MODAL -->
 <div class="modal" id="modal">
-  <div class="modal-content">
-    <input type="text" id="busca" placeholder="Buscar local...">
-    <div class="lista" id="lista"></div>
-  </div>
+<div class="modal-content">
+<input type="text" id="busca">
+<div id="lista"></div>
 </div>
-
-<div class="rf-modal" id="modalTipoCarro">
-  <div class="rf-modal-content">
-    <div class="rf-option" data-value="1">4 lugares</div>
-    <div class="rf-option" data-value="1.5">6 lugares (+50%)</div>
-  </div>
-</div>
-
-<div class="radar-bg">
-  <div class="radar-circle"></div>
-  <div class="radar-circle"></div>
-  <div class="radar-circle"></div>
-  <div class="radar-circle"></div>
-  <div class="radar-line"></div>
 </div>
 
 <script>
 
-const previewTotal = document.getElementById("previewTotal");
-const resumoLabel = document.getElementById("resumoLabel");
-  
-/* INIT */
+let origem=null,parada=null,destino=null;
+
 async function init(){
-  const loading = document.getElementById("loading");
-  loading.style.display="flex";
-
-  try{
-    await DataManager.carregar();
-  }catch(e){
-    alert("Erro ao carregar rotas.");
-  }
-
-  loading.style.display="none";
+await DataManager.carregar();
 }
 init();
 
-/* BOTÕES */
-document.querySelectorAll(".slide-btn").forEach(btn=>{
-  btn.onclick=()=>{
-    const acao=btn.dataset.acao;
-
-    if(acao==="origem"){
-      document.getElementById("origemBtn").click();
-    }
-
-    if(acao==="bonus"){
-      window.location.href="bonus.html";
-    }
-
-    if(acao==="premiacao"){
-      window.location.href="premiacao.html";
-    }
-
-    if(acao==="cancelamento"){
-      window.location.href="cancelamento.html";
-    }
-
-    if(acao==="naoRecebeu"){
-      window.location.href="nao-recebeu.html";
-    }
-
-    if(acao==="whatsapp"){
-      const msg=encodeURIComponent("Olá! Preciso de suporte no grupo RF.");
-      window.open(`https://wa.me/5581989823239?text=${msg}`,"_blank");
-    }
-  };
-});
-
-/* MENU */
-function abrirMenu(){
-  menu.classList.add("ativo");
-  menuOverlay.style.display="block";
-}
-
-function fecharMenu(){
-  menu.classList.remove("ativo");
-  menuOverlay.style.display="none";
-}
-
-function irPara(p){
-  window.location.href=p;
-}
-
-/* SISTEMA */
-let origem=null,parada=null,destino=null,modo=null;
-
-const modal=document.getElementById("modal");
-const lista=document.getElementById("lista");
-const busca=document.getElementById("busca");
-
-function abrirModal(tipo){
-
-  if(tipo!=="origem"&&!origem){
-    alert("Selecione a origem primeiro.");
-    return;
-  }
-
-  modo=tipo;
-  busca.value="";
-  modal.style.display="flex";
-
-  let dados=[];
-
-  if(tipo==="origem") dados=DataManager.listarOrigens();
-
-  if(tipo==="parada"){
-    dados=DataManager.listarDestinos(origem)
-    .filter(p=>DataManager.listarDestinos(p).length>0);
-  }
-
-  if(tipo==="destino"){
-    dados=parada
-      ? DataManager.listarDestinos(parada)
-      : DataManager.listarDestinos(origem);
-  }
-
-  renderLista(dados);
-}
-
-function renderLista(arr){
-  lista.innerHTML="";
-
-  arr.forEach(item=>{
-    const div=document.createElement("div");
-    div.innerText=item;
-
-    div.onclick=()=>{
-      selecionar(item);
-      modal.style.display="none";
-    };
-
-    lista.appendChild(div);
-  });
-}
-
-busca.addEventListener("input",()=>{
-  const termo=busca.value.toLowerCase();
-
-  Array.from(lista.children).forEach(div=>{
-    div.style.display = div.innerText.toLowerCase().includes(termo)
-      ? "block"
-      : "none";
-  });
-});
-
-const tipoCarroBtn=document.getElementById("tipoCarroBtn");
-const modalTipoCarro=document.getElementById("modalTipoCarro");
-const tipoCarroTexto=document.getElementById("tipoCarroTexto");
-const tipoCarroInput=document.getElementById("tipoCarro");
-
-tipoCarroBtn.onclick=()=>modalTipoCarro.style.display="flex";
-
-document.querySelectorAll("#modalTipoCarro .rf-option").forEach(opcao=>{
-  opcao.onclick=()=>{
-    tipoCarroInput.value=opcao.dataset.value;
-    tipoCarroTexto.innerText=opcao.innerText;
-    modalTipoCarro.style.display="none";
-  };
-});
-
-modalTipoCarro.onclick=e=>{
-  if(e.target===modalTipoCarro) modalTipoCarro.style.display="none";
+document.querySelectorAll(".veiculo").forEach(v=>{
+v.onclick=()=>{
+document.querySelectorAll(".veiculo").forEach(x=>x.classList.remove("ativo"));
+v.classList.add("ativo");
+document.getElementById("tipoCarro").value=v.dataset.value;
+calcularPreview();
 };
+});
 
 function calcularPreview(){
 
-  const previewTotal = document.getElementById("previewTotal");
-
-  if(!previewTotal) return; // 🔥 evita quebrar
-
-  if(!origem || !destino){
-    previewTotal.innerText = "R$ 0,00";
-    return;
-  }
-
-  let base = 0;
-
-  if(!parada){
-    base = DataManager.buscarValor(origem,destino) || 0;
-  } else {
-    base =
-      (DataManager.buscarValor(origem,parada)||0) +
-      (DataManager.buscarValor(parada,destino)||0);
-  }
-
-  let taxas = 0;
-
-  const feira = parseFloat(document.getElementById("feira")?.value || 0);
-  const animal = parseFloat(document.getElementById("animal")?.value || 0);
-  const espera = parseFloat(document.getElementById("espera")?.value || 0);
-  const saidaPraia = parseFloat(document.getElementById("saidaPraia")?.value || 0);
-  const categoria = parseFloat(tipoCarroInput.value || 1);
-
-  taxas += feira + animal + saidaPraia;
-
-  if(espera > 5){
-    taxas += 3 + ((espera-5)*0.60);
-  }
-
-  let total = base + taxas;
-
-  if(categoria > 1){
-    total = total * categoria;
-  }
-
-  previewTotal.innerText = "R$ " + total.toFixed(2);
-}
-  
-function selecionar(valor){
-
-  if(modo==="origem"){
-    origem=valor;
-    parada=null;
-    destino=null;
-
-    origemTexto.innerText=valor;
-    paradaTexto.innerText="Selecionar parada";
-    destinoTexto.innerText="Selecionar destino";
-
-    paradaBtn.style.display="none";
-  }
-
-  if(modo==="parada"){
-    parada=valor;
-    destino=null;
-    paradaTexto.innerText=valor;
-  }
-
-  if(modo==="destino"){
-    destino=valor;
-    destinoTexto.innerText=valor;
-  }
-
-  calcularPreview();
+if(!origem || !destino){
+previewTotal.innerText="R$ 0,00";
+return;
 }
 
-/* ===== EVENTOS CORRETOS (FORA DA FUNÇÃO) ===== */
+let base=DataManager.buscarValor(origem,destino)||0;
+
+let taxas=0;
+
+taxas+=parseFloat(feira.value||0);
+taxas+=parseFloat(animal.value||0);
+taxas+=parseFloat(saidaPraia.value||0);
+
+let esperaV=parseFloat(espera.value||0);
+if(esperaV>5){
+taxas+=3+((esperaV-5)*0.60);
+}
+
+let total=(base+taxas)*parseFloat(tipoCarro.value||1);
+
+previewTotal.innerText="R$ "+total.toFixed(2);
+}
 
 origemBtn.onclick=()=>abrirModal("origem");
-paradaBtn.onclick=()=>abrirModal("parada");
 destinoBtn.onclick=()=>abrirModal("destino");
 
-addParada.onclick=e=>{
-  e.stopPropagation();
+function abrirModal(tipo){
+let dados=tipo==="origem"
+? DataManager.listarOrigens()
+: DataManager.listarDestinos(origem);
 
-  if(!origem){
-    alert("Selecione a origem primeiro.");
-    return;
-  }
+modal.style.display="flex";
+lista.innerHTML="";
 
-  paradaBtn.style.display="flex";
+dados.forEach(item=>{
+let div=document.createElement("div");
+div.innerText=item;
+div.onclick=()=>{
+if(tipo==="origem"){ origem=item; origemTexto.innerText=item; }
+if(tipo==="destino"){ destino=item; destinoTexto.innerText=item; }
+modal.style.display="none";
+calcularPreview();
 };
-
-modal.onclick=e=>{
-  if(e.target===modal) modal.style.display="none";
-};
-
-/* ===== BOTÃO NOVO (CORRETO) ===== */
-
-document.getElementById("btnContinuar").onclick = () => {
-
-  if(!origem || !destino){
-    alert("Selecione origem e destino");
-    return;
-  }
-
-  let valorTotal=0;
-
-  if(!parada){
-    valorTotal=DataManager.buscarValor(origem,destino)||0;
-  }else{
-    valorTotal=
-      (DataManager.buscarValor(origem,parada)||0) +
-      (DataManager.buscarValor(parada,destino)||0);
-  }
-
-  const tipoCarro=parseFloat(tipoCarroInput.value);
-
-  localStorage.setItem("rf_corrida_temp",JSON.stringify({
-    origem,
-    parada,
-    destino,
-    valor:valorTotal,
-    categoria:tipoCarro,
-
-    feira: document.getElementById("feira")?.value || 0,
-    animal: document.getElementById("animal")?.value || 0,
-    espera: document.getElementById("espera")?.value || 0,
-    saidaPraia: document.getElementById("saidaPraia")?.value || 0,
-
-    obs: document.getElementById("obs")?.value || "",
-    embarque: document.getElementById("embarque")?.value || "",
-    desembarque: document.getElementById("desembarque")?.value || ""
-  }));
-
-  window.location.href="resumo.html";
-};
-
-(function(){
-  const temaSalvo=localStorage.getItem("rf_theme")||"dark";
-  document.body.setAttribute("data-theme",temaSalvo);
-})();
-document.querySelectorAll("select,input").forEach(e=>{
-  e.addEventListener("change", calcularPreview);
+lista.appendChild(div);
 });
+}
 
-  document.getElementById("btnContinuar").onclick = () => {
+btnContinuar.onclick=()=>{
 
-  if(!origem || !destino){
-    alert("Selecione origem e destino");
-    return;
-  }
+if(!origem || !destino){
+alert("Selecione origem e destino");
+return;
+}
 
-  let valorTotal=0;
+let valor=DataManager.buscarValor(origem,destino)||0;
 
-  if(!parada){
-    valorTotal=DataManager.buscarValor(origem,destino)||0;
-  }else{
-    valorTotal=
-      (DataManager.buscarValor(origem,parada)||0) +
-      (DataManager.buscarValor(parada,destino)||0);
-  }
+localStorage.setItem("rf_corrida_temp",JSON.stringify({
+origem,
+destino,
+valor,
+categoria:parseFloat(tipoCarro.value),
 
-  const tipoCarro=parseFloat(tipoCarroInput.value);
+feira:feira.value,
+animal:animal.value,
+espera:espera.value,
+saidaPraia:saidaPraia.value,
 
-  localStorage.setItem("rf_corrida_temp",JSON.stringify({
-    origem,
-    parada,
-    destino,
-    valor:valorTotal,
-    categoria:tipoCarro,
+obs:obs.value,
+embarque:embarque.value,
+desembarque:desembarque.value
+}));
 
-    feira: document.getElementById("feira")?.value || 0,
-    animal: document.getElementById("animal")?.value || 0,
-    espera: document.getElementById("espera")?.value || 0,
-    saidaPraia: document.getElementById("saidaPraia")?.value || 0,
-
-    obs: document.getElementById("obs")?.value || "",
-    embarque: document.getElementById("embarque")?.value || "",
-    desembarque: document.getElementById("desembarque")?.value || ""
-  }));
-
-  window.location.href="resumo.html";
+window.location.href="resumo.html";
 };
+
 </script>
 
 </body>
