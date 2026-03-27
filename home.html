@@ -13,115 +13,30 @@
 <link rel="stylesheet" href="theme/components.css">
 
 <style>
-
-body{
-  background:#f5f6f8;
-  color:#111;
-}
-
-.app-container{
-  padding:15px;
-}
-
-/* BONUS */
-.bonus-card{
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  background:linear-gradient(135deg,#ffd54f,#ff9800);
-  padding:15px;
-  border-radius:16px;
-  margin-bottom:15px;
-}
-
-.bonus-left{
-  display:flex;
-  gap:10px;
-  align-items:center;
-}
-
-.bonus-value{
-  font-size:20px;
-  font-weight:bold;
-}
-
-.btn-ranking{
-  background:#fff;
-  border:none;
-  padding:10px 15px;
-  border-radius:12px;
-}
-
-/* INPUT */
-.input-box{
-  background:#fff;
-  border-radius:12px;
-  padding:15px;
-  margin-bottom:10px;
-  display:flex;
-  align-items:center;
-  gap:10px;
-  border:2px solid transparent;
-}
-
-.input-box.green{ border-color:#22c55e; }
-.input-box.red{ border-color:#ef4444; }
-
-/* VEÍCULOS */
-.veiculos{
-  display:flex;
-  gap:10px;
-}
-
-.veiculo{
-  flex:1;
-  padding:15px;
-  border-radius:12px;
-  background:#eee;
-  text-align:center;
-}
-
-.veiculo.ativo{
-  border:2px solid #3b82f6;
-  background:#e0f2fe;
-}
-
-/* CTA FIXO */
-.cta-box{
-  position:fixed;
-  bottom:0;
-  left:0;
-  right:0;
-  background:#fff;
-  padding:15px;
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  box-shadow:0 -2px 10px rgba(0,0,0,0.1);
-}
-
-.cta-box button{
-  background:linear-gradient(135deg,#ff9800,#ff5722);
-  border:none;
-  padding:12px 20px;
-  border-radius:12px;
-  color:#fff;
-  font-weight:bold;
-}
-
-.espaco-final{
-  height:120px;
-}
-
+.espaco-final { height:120px; }
 </style>
 
 </head>
 
-<body>
+<body data-theme="dark">
 
+<!-- LOADING -->
 <div id="loading" class="loading">
   <div class="loader"></div>
   <span>Carregando rotas...</span>
+</div>
+
+<!-- MENU -->
+<div class="menu-overlay" id="menuOverlay" onclick="fecharMenu()"></div>
+
+<div class="menu" id="menu">
+  <h3>Menu</h3>
+
+  <div class="menu-item" onclick="irPara('termos.html')">📜 Regras do Grupo RF</div>
+  <div class="menu-item" onclick="irPara('bonus.html')">📜 Regras dos Bônus</div>
+  <div class="menu-item" onclick="irPara('premiacao.html')">🏆 Ranking / Premiação</div>
+  <div class="menu-item" onclick="irPara('historico.html')">📊 Histórico</div>
+  <div class="menu-item" onclick="irPara('configuracoes.html')">⚙️ Configurações</div>
 </div>
 
 <!-- HEADER -->
@@ -130,6 +45,7 @@ body{
     <img src="icons/icon-512.png" class="logo-img">
     <span class="logo-text-dark">RF MOTORISTA</span>
   </div>
+  <div class="menu-btn-dark" onclick="abrirMenu()">☰</div>
 </div>
 
 <div class="app-container">
@@ -137,188 +53,276 @@ body{
 <!-- BONUS -->
 <div class="bonus-card">
   <div class="bonus-left">
-    🏆 <div><strong>R$ 100</strong><br><small>por semana</small></div>
+    <div class="bonus-icon">🏆</div>
+    <div>
+      <div class="bonus-title">BÔNUS SEMANAL</div>
+      <div class="bonus-value">R$ 100 <span>/ semana</span></div>
+    </div>
   </div>
-  <button onclick="irPara('premiacao.html')">Ranking</button>
+
+  <button class="btn-ranking" onclick="irPara('premiacao.html')">
+    Ver Ranking →
+  </button>
 </div>
 
-<!-- ORIGEM -->
-<div class="input-box green" id="origemBtn">
-  📍 <div id="origemTexto">Selecionar origem</div>
+<!-- STEPS -->
+<div class="steps">
+  <div class="step active">1<span>Origem</span></div>
+  <div class="line"></div>
+  <div class="step">2<span>Destino</span></div>
+  <div class="line"></div>
+  <div class="step">3<span>Veículo</span></div>
 </div>
 
-<!-- DESTINO -->
-<div class="input-box red" id="destinoBtn">
-  📍 <div id="destinoTexto">Selecionar destino</div>
+<!-- CARD PRINCIPAL -->
+<div class="card-modern">
+
+  <!-- ORIGEM -->
+  <div class="input-box green" id="origemBtn">
+    📍 <div id="origemTexto">Selecionar origem</div>
+  </div>
+
+  <!-- DESTINO -->
+  <div class="input-box red" id="destinoBtn">
+    📍 <div id="destinoTexto">Selecionar destino</div>
+  </div>
+
+  <!-- VEÍCULOS -->
+  <div class="veiculos">
+
+    <div class="veiculo ativo" data-value="1">
+      🚗
+      <strong>4 lugares</strong>
+      <span>Confortável</span>
+    </div>
+
+    <div class="veiculo" data-value="1.5">
+      🚐
+      <strong>6 lugares</strong>
+      <span>Van espaçosa</span>
+    </div>
+
+  </div>
+
+  <input type="hidden" id="tipoCarro" value="1">
+
 </div>
 
-<!-- VEÍCULO -->
-<div class="veiculos">
-  <div class="veiculo ativo" data-value="1">🚗<br>4 lugares</div>
-  <div class="veiculo" data-value="1.5">🚐<br>6 lugares</div>
+<!-- GARANTIAS -->
+<div class="garantias">
+  <span>✔ Sem taxa surpresa</span>
+  <span>✔ Preço fixo</span>
+  <span>✔ Motoristas verificados</span>
 </div>
 
-<input type="hidden" id="tipoCarro" value="1">
+</div>
 
 <!-- ADICIONAIS -->
 <div class="card">
-<h3>Adicionais</h3>
+  <h3>Adicionais da corrida</h3>
 
-<label>Feira</label>
-<select id="feira">
-<option value="0">Sem</option>
-<option value="5">1 carrinho</option>
-<option value="7.99">2+</option>
-</select>
+  <label>Taxa de Feira</label>
+  <select id="feira" class="select">
+    <option value="0">Sem feira</option>
+    <option value="5">1 carrinho (R$ 5.00)</option>
+    <option value="7.99">2 carrinhos (R$ 7.99)</option>
+  </select>
 
-<label>Animal</label>
-<select id="animal">
-<option value="0">Nenhum</option>
-<option value="4.99">Pequeno</option>
-<option value="7.99">Médio</option>
-<option value="11.99">Grande</option>
-</select>
+  <label>Transporte Animal</label>
+  <select id="animal" class="select">
+    <option value="0">Nenhum</option>
+    <option value="4.99">Pequeno</option>
+    <option value="7.99">Médio</option>
+    <option value="11.99">Grande</option>
+  </select>
 
-<label>Espera</label>
-<input type="number" id="espera" value="0">
+  <label>Tempo de espera</label>
+  <input type="number" id="espera" class="select" value="0">
 
-<label>Saída praia</label>
-<select id="saidaPraia">
-<option value="0">Não</option>
-<option value="10">Sim</option>
-</select>
-
+  <label>Saída de Praia</label>
+  <select id="saidaPraia" class="select">
+    <option value="0">Não</option>
+    <option value="10">Sim (+10)</option>
+  </select>
 </div>
 
 <!-- OBS -->
 <div class="card">
-<textarea id="obs" placeholder="Observação"></textarea>
+  <h3>Observação</h3>
+  <textarea id="obs"></textarea>
 </div>
 
 <!-- HORÁRIOS -->
 <div class="card">
-<label>Embarque</label>
-<input type="time" id="embarque">
+  <h3>Horários</h3>
 
-<label>Desembarque</label>
-<input type="time" id="desembarque">
+  <label>Embarque</label>
+  <input type="time" id="embarque" class="select">
+
+  <label>Desembarque</label>
+  <input type="time" id="desembarque" class="select">
 </div>
 
 <div class="espaco-final"></div>
 
-</div>
-
 <!-- CTA -->
 <div class="cta-box">
-<div>
-<span>Total</span><br>
-<strong id="previewTotal">R$ 0,00</strong>
-</div>
+  <div>
+    <span>Valor estimado</span>
+    <strong id="previewTotal">R$ 0,00</strong>
+  </div>
 
-<button id="btnContinuar">CALCULAR</button>
+  <button id="btnContinuar">
+    CALCULAR CORRIDA →
+  </button>
 </div>
 
 <!-- MODAL -->
 <div class="modal" id="modal">
-<div class="modal-content">
-<input type="text" id="busca">
-<div id="lista"></div>
-</div>
+  <div class="modal-content">
+    <input type="text" id="busca">
+    <div class="lista" id="lista"></div>
+  </div>
 </div>
 
 <script>
 
-let origem=null,parada=null,destino=null;
-
+/* INIT */
 async function init(){
-await DataManager.carregar();
+  const loading = document.getElementById("loading");
+
+  try{
+    await DataManager.carregar();
+  }catch(e){
+    console.error(e);
+  }
+
+  setTimeout(()=> loading.style.display="none", 500);
 }
 init();
 
-document.querySelectorAll(".veiculo").forEach(v=>{
-v.onclick=()=>{
-document.querySelectorAll(".veiculo").forEach(x=>x.classList.remove("ativo"));
-v.classList.add("ativo");
-document.getElementById("tipoCarro").value=v.dataset.value;
-calcularPreview();
-};
-});
-
-function calcularPreview(){
-
-if(!origem || !destino){
-previewTotal.innerText="R$ 0,00";
-return;
+/* MENU */
+function abrirMenu(){
+  menu.classList.add("ativo");
+  menuOverlay.style.display="block";
 }
 
-let base=DataManager.buscarValor(origem,destino)||0;
-
-let taxas=0;
-
-taxas+=parseFloat(feira.value||0);
-taxas+=parseFloat(animal.value||0);
-taxas+=parseFloat(saidaPraia.value||0);
-
-let esperaV=parseFloat(espera.value||0);
-if(esperaV>5){
-taxas+=3+((esperaV-5)*0.60);
+function fecharMenu(){
+  menu.classList.remove("ativo");
+  menuOverlay.style.display="none";
 }
 
-let total=(base+taxas)*parseFloat(tipoCarro.value||1);
-
-previewTotal.innerText="R$ "+total.toFixed(2);
+function irPara(p){
+  window.location.href=p;
 }
 
+/* ESTADO */
+let origem=null, destino=null;
+
+/* MODAL */
+const modal=document.getElementById("modal");
+const lista=document.getElementById("lista");
+
+function abrirModal(tipo){
+
+  let dados=[];
+
+  if(tipo==="origem"){
+    dados=DataManager.listarOrigens();
+  }else{
+    if(!origem){
+      alert("Selecione origem primeiro");
+      return;
+    }
+    dados=DataManager.listarDestinos(origem);
+  }
+
+  lista.innerHTML="";
+
+  dados.forEach(item=>{
+    const div=document.createElement("div");
+    div.innerText=item;
+
+    div.onclick=()=>{
+      if(tipo==="origem"){
+        origem=item;
+        origemTexto.innerText=item;
+      }else{
+        destino=item;
+        destinoTexto.innerText=item;
+      }
+
+      calcularPreview();
+      modal.style.display="none";
+    };
+
+    lista.appendChild(div);
+  });
+
+  modal.style.display="flex";
+}
+
+/* EVENTOS */
 origemBtn.onclick=()=>abrirModal("origem");
 destinoBtn.onclick=()=>abrirModal("destino");
 
-function abrirModal(tipo){
-let dados=tipo==="origem"
-? DataManager.listarOrigens()
-: DataManager.listarDestinos(origem);
-
-modal.style.display="flex";
-lista.innerHTML="";
-
-dados.forEach(item=>{
-let div=document.createElement("div");
-div.innerText=item;
-div.onclick=()=>{
-if(tipo==="origem"){ origem=item; origemTexto.innerText=item; }
-if(tipo==="destino"){ destino=item; destinoTexto.innerText=item; }
-modal.style.display="none";
-calcularPreview();
-};
-lista.appendChild(div);
+/* VEÍCULO */
+document.querySelectorAll(".veiculo").forEach(v=>{
+  v.onclick=()=>{
+    document.querySelectorAll(".veiculo").forEach(x=>x.classList.remove("ativo"));
+    v.classList.add("ativo");
+    document.getElementById("tipoCarro").value=v.dataset.value;
+    calcularPreview();
+  };
 });
+
+/* CALCULO */
+function calcularPreview(){
+
+  if(!origem || !destino){
+    previewTotal.innerText="R$ 0,00";
+    return;
+  }
+
+  let total = DataManager.buscarValor(origem,destino) || 0;
+
+  total += parseFloat(feira.value||0);
+  total += parseFloat(animal.value||0);
+  total += parseFloat(saidaPraia.value||0);
+
+  const esperaVal=parseFloat(espera.value||0);
+  if(esperaVal>5){
+    total += 3 + ((esperaVal-5)*0.6);
+  }
+
+  const categoria=parseFloat(tipoCarro.value||1);
+  total *= categoria;
+
+  previewTotal.innerText="R$ "+total.toFixed(2);
 }
 
+/* CONTINUAR */
 btnContinuar.onclick=()=>{
 
-if(!origem || !destino){
-alert("Selecione origem e destino");
-return;
-}
+  if(!origem || !destino){
+    alert("Selecione origem e destino");
+    return;
+  }
 
-let valor=DataManager.buscarValor(origem,destino)||0;
+  localStorage.setItem("rf_corrida_temp", JSON.stringify({
+    origem,
+    destino,
+    valor: previewTotal.innerText,
+    feira: feira.value,
+    animal: animal.value,
+    espera: espera.value,
+    saidaPraia: saidaPraia.value,
+    obs: obs.value,
+    embarque: embarque.value,
+    desembarque: desembarque.value
+  }));
 
-localStorage.setItem("rf_corrida_temp",JSON.stringify({
-origem,
-destino,
-valor,
-categoria:parseFloat(tipoCarro.value),
-
-feira:feira.value,
-animal:animal.value,
-espera:espera.value,
-saidaPraia:saidaPraia.value,
-
-obs:obs.value,
-embarque:embarque.value,
-desembarque:desembarque.value
-}));
-
-window.location.href="resumo.html";
+  window.location.href="resumo.html";
 };
 
 </script>
