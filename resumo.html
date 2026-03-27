@@ -33,37 +33,53 @@
 
 <div class="container">
 
-<!-- ROTA -->
-<div class="card">
-<h3>Resumo da viagem</h3>
-<div id="rota"></div>
-</div>
+  <!-- ROTA -->
+  <div class="card destaque-card">
 
-<!-- DETALHES (NOVO) -->
-<div class="card">
-<h3>Detalhes da viagem</h3>
-<div id="extras"></div>
-</div>
+    <div class="rota-top">
+      <div class="ponto origem"></div>
+      <div class="rota-texto">${origem}</div>
+    </div>
 
-<!-- PAGAMENTO -->
-<div class="card">
-<h3>Forma de pagamento</h3>
-<select id="pagamento" class="select">
-<option value="dinheiro">Dinheiro</option>
-<option value="pix">Pix</option>
-<option value="debito">Cartão Débito</option>
-<option value="credito">Cartão Crédito</option>
-</select>
-</div>
+    ${parada ? `
+    <div class="rota-top parada">
+      <div class="ponto parada"></div>
+      <div class="rota-texto">${parada}</div>
+    </div>
+    ` : ""}
 
-<!-- DETALHAMENTO -->
-<div class="card">
-<h3>Detalhamento</h3>
-<div id="detalhe"></div>
-</div>
+    <div class="rota-top">
+      <div class="ponto destino"></div>
+      <div class="rota-texto">${destino}</div>
+    </div>
+
+  </div>
+
+  <!-- EXTRAS -->
+  <div class="card">
+    <h3>Informações da viagem</h3>
+    <div id="extras"></div>
+  </div>
+
+  <!-- DETALHAMENTO -->
+  <div class="card">
+    <h3>Resumo de valores</h3>
+    <div id="detalhe"></div>
+  </div>
+
+  <!-- PAGAMENTO -->
+  <div class="card">
+    <h3>Forma de pagamento</h3>
+    <select id="pagamento" class="select">
+      <option value="dinheiro">Dinheiro</option>
+      <option value="pix">Pix</option>
+      <option value="debito">Cartão Débito</option>
+      <option value="credito">Cartão Crédito</option>
+    </select>
+  </div>
 
 </div>
-
+  
 <div class="footer">
 <div class="footer-inner">
 <div class="valor" id="valorFinal">R$ 0,00</div>
