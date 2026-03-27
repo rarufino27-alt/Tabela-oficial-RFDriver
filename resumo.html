@@ -34,7 +34,7 @@
 <div class="container">
 
   <!-- ROTA -->
-  <div class="card destaque-card">
+  <div class="card destaque-card" id="rota"></div>
 
     <div class="rota-top">
       <div class="ponto origem"></div>
@@ -145,15 +145,37 @@ let detalhamentoRecibo = "";
 /* ===== ROTA ===== */
 
 function montarRota(){
-let html = `<div class="rota-item"><span>Origem:</span> ${origem}</div>`;
 
-if(parada){
-html += `<div class="rota-item"><span>Parada:</span> ${parada}</div>`;
-}
+  let html = `
+    <div class="rota-top">
+      <div class="ponto origem"></div>
+      <div class="rota-texto">${origem}</div>
+    </div>
+  `;
 
-html += `<div class="rota-item"><span>Destino:</span> ${destino}</div>`;
+  if(parada){
+    html += `
+    <div class="rota-top parada">
+      <div class="ponto parada"></div>
+      <div class="rota-texto">${parada}</div>
+    </div>
+    `;
+  }
 
-document.getElementById("rota").innerHTML = html;
+  html += `
+    <div class="rota-top">
+      <div class="ponto destino"></div>
+      <div class="rota-texto">${destino}</div>
+    </div>
+  `;
+
+  // 🔥 AQUI ENTRA O TRECHO QUE VOCÊ PERGUNTOU
+  const rotaEl = document.getElementById("rota");
+
+  if(rotaEl){
+    rotaEl.innerHTML = html;
+  }
+
 }
 
 /* ===== EXTRAS (NOVO) ===== */
