@@ -17,7 +17,6 @@
 
 <div class="menu" id="menu">
 <h3>Menu</h3>
-
 <div class="menu-item" onclick="irPara('home.html')">🚗 Nova viagem</div>
 <div class="menu-item" onclick="irPara('termos.html')">📜 Regras do grupo</div>
 <div class="menu-item" onclick="irPara('configuracoes.html')">⚙️ Configurações</div>
@@ -35,25 +34,6 @@
 
   <!-- ROTA -->
   <div class="card destaque-card" id="rota"></div>
-
-    <div class="rota-top">
-      <div class="ponto origem"></div>
-      <div class="rota-texto">${origem}</div>
-    </div>
-
-    ${parada ? `
-    <div class="rota-top parada">
-      <div class="ponto parada"></div>
-      <div class="rota-texto">${parada}</div>
-    </div>
-    ` : ""}
-
-    <div class="rota-top">
-      <div class="ponto destino"></div>
-      <div class="rota-texto">${destino}</div>
-    </div>
-
-  </div>
 
   <!-- EXTRAS -->
   <div class="card">
@@ -73,8 +53,8 @@
     <select id="pagamento" class="select">
       <option value="dinheiro">Dinheiro</option>
       <option value="pix">Pix</option>
-      <option value="debito">Cartão Débito</option>
-      <option value="credito">Cartão Crédito</option>
+      <option value="debito">Débito</option>
+      <option value="credito">Crédito</option>
     </select>
   </div>
 
@@ -83,21 +63,14 @@
 <div class="footer">
 <div class="footer-inner">
 <div class="valor" id="valorFinal">R$ 0,00</div>
+
 <div class="cta-area-duplo">
-
-<button class="btn-secundario" onclick="enviarOrcamento()">
-📤 Orçamento
-</button>
-
-<button class="btn-principal" onclick="solicitar()">
-📄 Recibo
-</button>
+<button class="btn-secundario" onclick="enviarOrcamento()">📤 Orçamento</button>
+<button class="btn-principal" onclick="solicitar()">📄 Recibo</button>
+</div>
 
 </div>
 </div>
-</div>
-
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 
 <script>
 
@@ -106,6 +79,7 @@ const temaSalvo = localStorage.getItem("rf_theme") || "dark";
 document.body.setAttribute("data-theme", temaSalvo);
 })();
 
+/* MENU */
 function abrirMenu(){
 menu.classList.add("ativo");
 menuOverlay.style.display="block";
@@ -120,8 +94,7 @@ function irPara(p){
 window.location.href=p;
 }
 
-/* ===== DADOS ===== */
-
+/* DADOS */
 const corrida = JSON.parse(localStorage.getItem("rf_corrida_temp"));
 if(!corrida) window.location.href="home.html";
 
@@ -140,258 +113,109 @@ let {
   desembarque = ""
 } = corrida;
 
-let detalhamentoRecibo = "";
-
-/* ===== ROTA ===== */
-
+/* ROTA */
 function montarRota(){
 
-  let html = `
-    <div class="rota-top">
-      <div class="ponto origem"></div>
-      <div class="rota-texto">${origem}</div>
-    </div>
-  `;
+let html = `
+  <div class="rota-top">
+    <div class="ponto origem"></div>
+    <div class="rota-texto">${origem}</div>
+  </div>
+`;
 
-  if(parada){
-    html += `
-    <div class="rota-top parada">
-      <div class="ponto parada"></div>
-      <div class="rota-texto">${parada}</div>
-    </div>
-    `;
-  }
+if(parada){
+html += `
+  <div class="rota-top parada">
+    <div class="ponto parada"></div>
+    <div class="rota-texto">${parada}</div>
+  </div>
+`;
+}
 
-  html += `
-    <div class="rota-top">
-      <div class="ponto destino"></div>
-      <div class="rota-texto">${destino}</div>
-    </div>
-  `;
+html += `
+  <div class="rota-top">
+    <div class="ponto destino"></div>
+    <div class="rota-texto">${destino}</div>
+  </div>
+`;
 
-  // 🔥 AQUI ENTRA O TRECHO QUE VOCÊ PERGUNTOU
-  const rotaEl = document.getElementById("rota");
-
-  if(rotaEl){
-    rotaEl.innerHTML = html;
-  }
+const rotaEl = document.getElementById("rota");
+if(rotaEl){
+rotaEl.innerHTML = html;
+}
 
 }
 
-/* ===== EXTRAS (NOVO) ===== */
-
+/* EXTRAS */
 function montarExtras(){
 
 let html = "";
 
-if(obs){
-html += `<div class="linha"><span>Observação</span><span>${obs}</span></div>`;
-}
-
-if(embarque){
-html += `<div class="linha"><span>Embarque</span><span>${embarque}</span></div>`;
-}
-
-if(desembarque){
-html += `<div class="linha"><span>Desembarque</span><span>${desembarque}</span></div>`;
-}
+if(obs) html += `<div class="linha"><span>Obs</span><span>${obs}</span></div>`;
+if(embarque) html += `<div class="linha"><span>Embarque</span><span>${embarque}</span></div>`;
+if(desembarque) html += `<div class="linha"><span>Desembarque</span><span>${desembarque}</span></div>`;
 
 document.getElementById("extras").innerHTML = html;
+
 }
 
-/* ===== ADICIONAL NOTURNO ===== */
-
+/* NOTURNO */
 function adicionalNoturno(base){
+
 if(!embarque) return 0;
 
 const [h,m] = embarque.split(":").map(Number);
 const hora = h + (m/60);
 
 if(hora >= 22.5 || hora <= 5){
-if(base <= 24.99) return 4.99;
+if(base <= 24.99) return 5.00;
 return base * 0.35;
 }
 
 return 0;
 }
 
-/* ===== CALCULO ===== */
-
+/* CALCULO */
 function calcular(){
 
 let base = parseFloat(valor) || 0;
 let taxas = 0;
 let detalhe = "";
-let recibo = "";
 
+/* BASE */
 detalhe += `<div class="linha"><span>Rota</span><span>R$ ${base.toFixed(2)}</span></div>`;
-recibo += `Valor base: R$ ${base.toFixed(2)}\n`;
 
+/* NOTURNO */
 const noturno = adicionalNoturno(base);
-
 if(noturno > 0){
-detalhe += `<div class="linha"><span>Adicional Noturno</span><span>R$ ${noturno.toFixed(2)}</span></div>`;
-recibo += `Adicional Noturno: R$ ${noturno.toFixed(2)}\n`;
+detalhe += `<div class="linha"><span>Noturno</span><span>R$ ${noturno.toFixed(2)}</span></div>`;
 base += noturno;
 }
 
-feira = parseFloat(feira);
-animal = parseFloat(animal);
-espera = parseFloat(espera);
-saidaPraia = parseFloat(saidaPraia);
-
-if(feira > 0){
-detalhe += `<div class="linha"><span>Feira</span><span>R$ ${feira.toFixed(2)}</span></div>`;
-recibo += `Feira: R$ ${feira.toFixed(2)}\n`;
-taxas += feira;
-}
-
-if(animal > 0){
-detalhe += `<div class="linha"><span>Animal</span><span>R$ ${animal.toFixed(2)}</span></div>`;
-recibo += `Animal: R$ ${animal.toFixed(2)}\n`;
-taxas += animal;
-}
-
-if(saidaPraia > 0){
-detalhe += `<div class="linha"><span>Saída de Praia</span><span>R$ ${saidaPraia.toFixed(2)}</span></div>`;
-recibo += `Saída de Praia: R$ ${saidaPraia.toFixed(2)}\n`;
-taxas += saidaPraia;
-}
+/* TAXAS */
+if(feira > 0){ taxas += +feira; detalhe += `<div class="linha"><span>Feira</span><span>R$ ${(+feira).toFixed(2)}</span></div>`;}
+if(animal > 0){ taxas += +animal; detalhe += `<div class="linha"><span>Animal</span><span>R$ ${(+animal).toFixed(2)}</span></div>`;}
+if(saidaPraia > 0){ taxas += +saidaPraia; detalhe += `<div class="linha"><span>Praia</span><span>R$ ${(+saidaPraia).toFixed(2)}</span></div>`;}
 
 if(espera > 5){
-const taxaEspera = 3 + ((espera - 5) * 0.60);
-
-detalhe += `<div class="linha"><span>Espera</span><span>R$ ${taxaEspera.toFixed(2)}</span></div>`;
-recibo += `Espera: R$ ${taxaEspera.toFixed(2)}\n`;
-
-taxas += taxaEspera;
+const t = 3 + ((espera-5)*0.6);
+taxas += t;
+detalhe += `<div class="linha"><span>Espera</span><span>R$ ${t.toFixed(2)}</span></div>`;
 }
 
-let subtotal = base + taxas;
+/* TOTAL */
+let total = (base + taxas) * categoria;
 
-if(categoria > 1){
-const acrescimo = subtotal * (categoria - 1);
-
-detalhe += `<div class="linha"><span>Veículo 6 lugares</span><span>R$ ${acrescimo.toFixed(2)}</span></div>`;
-recibo += `6 lugares: R$ ${acrescimo.toFixed(2)}\n`;
-
-subtotal = subtotal * categoria;
-}
-
-detalhe += `<div class="linha"><span>Subtotal</span><span>R$ ${subtotal.toFixed(2)}</span></div>`;
-
-let pagamento = document.getElementById("pagamento").value;
-let total = subtotal;
-
-if(pagamento === "debito") total = subtotal / 0.98;
-if(pagamento === "credito") total = subtotal / 0.95;
-
-detalhe += `<div class="linha"><span>Pagamento</span><span>${pagamento}</span></div>`;
 detalhe += `<div class="total">Total: R$ ${total.toFixed(2)}</div>`;
 
 document.getElementById("detalhe").innerHTML = detalhe;
 document.getElementById("valorFinal").innerText = "R$ " + total.toFixed(2);
 
-detalhamentoRecibo = recibo;
-
 localStorage.setItem("rf_total_final", total.toFixed(2));
+
 }
 
 document.getElementById("pagamento").addEventListener("change", calcular);
-
-/* ===== RECIBO ===== */
-
-async function solicitar(){
-
-try{
-
-const agora = new Date();
-const data = agora.toLocaleDateString("pt-BR");
-const hora = agora.toLocaleTimeString("pt-BR",{hour:"2-digit",minute:"2-digit"});
-
-const total = localStorage.getItem("rf_total_final") || 0;
-
-const payload = {
-origem,
-parada,
-destino,
-total,
-detalhes: detalhamentoRecibo,
-data,
-hora,
-embarque,
-desembarque
-};
-
-const res = await fetch("https://backend-recibo-rf.onrender.com/gerar-recibo", {
-method: "POST",
-headers: { "Content-Type": "application/json" },
-body: JSON.stringify(payload)
-});
-
-const dataRes = await res.json();
-
-if(!dataRes.link) throw new Error();
-
-const msg = `📄 Recibo da sua viagem:\n${dataRes.link}`;
-
-window.location.href = `https://wa.me/?text=${encodeURIComponent(msg)}`;
-
-}catch(e){
-alert("Erro ao gerar recibo.");
-}
-
-}
-
-function enviarOrcamento(){
-
-const total = localStorage.getItem("rf_total_final") || "0.00";
-
-let mensagem = `*Orçamento - RF*\n\n`;
-
-mensagem += `📌 Origem: ${origem}\n`;
-
-if(parada){
-mensagem += `⏳ Parada: ${parada}\n`;
-}
-
-mensagem += `🏁 Destino: ${destino}\n\n`;
-
-/* EXTRAS */
-if(obs){
-mensagem += `📝 Obs: ${obs}\n`;
-}
-
-if(embarque){
-mensagem += `🛫 Embarque: ${embarque}\n`;
-}
-
-if(desembarque){
-mensagem += `🛬 Desembarque: ${desembarque}\n`;
-}
-
-/* TAXAS */
-if(feira > 0) mensagem += `🛒 Feira: R$ ${parseFloat(feira).toFixed(2)}\n`;
-if(animal > 0) mensagem += `🐶 Animal: R$ ${parseFloat(animal).toFixed(2)}\n`;
-if(saidaPraia > 0) mensagem += `🏖️ Saída de praia: R$ ${parseFloat(saidaPraia).toFixed(2)}\n`;
-
-if(espera > 5){
-const taxaEspera = 3 + ((espera - 5) * 0.60);
-mensagem += `⏳ Espera: R$ ${taxaEspera.toFixed(2)}\n`;
-}
-
-/* VEÍCULO */
-if(categoria > 1){
-mensagem += `🚐 Veículo: 6 lugares\n`;
-}
-
-mensagem += `\n💰 *Total: R$ ${parseFloat(total).toFixed(2)}*\n\n`;
-mensagem += `*Grupo RF* - _Mobilidade com excelência!_`;
-
-const url = `https://wa.me/?text=${encodeURIComponent(mensagem)}`;
-
-window.open(url, "_blank");
-}
 
 /* INIT */
 montarRota();
