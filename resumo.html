@@ -180,8 +180,10 @@ document.getElementById("extras").innerHTML = html;
 /* ===== ADICIONAL NOTURNO ===== */
 
 function adicionalNoturno(base){
-const agora = new Date();
-const hora = agora.getHours() + agora.getMinutes()/60;
+if(!embarque) return 0;
+
+const [h,m] = embarque.split(":").map(Number);
+const hora = h + (m/60);
 
 if(hora >= 22.5 || hora <= 5){
 if(base <= 24.99) return 4.99;
