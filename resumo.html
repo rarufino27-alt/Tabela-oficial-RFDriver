@@ -74,12 +74,17 @@
 
 <script>
 
+/* =========================
+TEMA
+========================= */
 (function(){
 const temaSalvo = localStorage.getItem("rf_theme") || "dark";
 document.body.setAttribute("data-theme", temaSalvo);
 })();
 
-/* MENU */
+/* =========================
+MENU
+========================= */
 function abrirMenu(){
 menu.classList.add("ativo");
 menuOverlay.style.display="block";
@@ -94,72 +99,87 @@ function irPara(p){
 window.location.href=p;
 }
 
-/* DADOS */
+/* =========================
+DADOS
+========================= */
 const corrida = JSON.parse(localStorage.getItem("rf_corrida_temp"));
-if(!corrida) window.location.href="home.html";
+
+if(!corrida){
+alert("Erro ao carregar corrida");
+window.location.href="home.html";
+}
 
 let {
-  origem,
-  parada,
-  destino,
-  valor,
-  categoria = 1,
-  feira = 0,
-  animal = 0,
-  espera = 0,
-  saidaPraia = 0,
-  obs = "",
-  embarque = "",
-  desembarque = ""
+origem,
+parada,
+destino,
+valor,
+categoria = 1,
+feira = 0,
+animal = 0,
+espera = 0,
+saidaPraia = 0,
+obs = "",
+embarque = "",
+desembarque = ""
 } = corrida;
 
-/* ROTA */
+/* =========================
+ROTA
+========================= */
 function montarRota(){
 
 let html = `
-  <div class="rota-top">
-    <div class="ponto origem"></div>
-    <div class="rota-texto">${origem}</div>
-  </div>
+<div class="rota-top">
+  <div class="ponto origem"></div>
+  <div class="rota-texto">${origem}</div>
+</div>
 `;
 
 if(parada){
 html += `
-  <div class="rota-top parada">
-    <div class="ponto parada"></div>
-    <div class="rota-texto">${parada}</div>
-  </div>
+<div class="rota-top parada">
+  <div class="ponto parada"></div>
+  <div class="rota-texto">${parada}</div>
+</div>
 `;
 }
 
 html += `
-  <div class="rota-top">
-    <div class="ponto destino"></div>
-    <div class="rota-texto">${destino}</div>
-  </div>
+<div class="rota-top">
+  <div class="ponto destino"></div>
+  <div class="rota-texto">${destino}</div>
+</div>
 `;
 
-const rotaEl = document.getElementById("rota");
-if(rotaEl){
-rotaEl.innerHTML = html;
+document.getElementById("rota").innerHTML = html;
 }
 
-}
-
-/* EXTRAS */
+/* =========================
+EXTRAS (OBS + HORÁRIO)
+========================= */
 function montarExtras(){
 
 let html = "";
 
-if(obs) html += `<div class="linha"><span>Obs</span><span>${obs}</span></div>`;
-if(embarque) html += `<div class="linha"><span>Embarque</span><span>${embarque}</span></div>`;
-if(desembarque) html += `<div class="linha"><span>Desembarque</span><span>${desembarque}</span></div>`;
-
-document.getElementById("extras").innerHTML = html;
-
+if(obs){
+html += `<div class="linha"><span>Observação</span><span>${obs}</span></div>`;
 }
 
-/* NOTURNO */
+if(embarque){
+html += `<div class="linha"><span>Embarque</span><span>${embarque}</span></div>`;
+}
+
+if(desembarque){
+html += `<div class="linha"><span>Desembarque</span><span>${desembarque}</span></div>`;
+}
+
+document.getElementById("extras").innerHTML = html;
+}
+
+/* =========================
+ADICIONAL NOTURNO
+========================= */
 function adicionalNoturno(base){
 
 if(!embarque) return 0;
@@ -168,14 +188,18 @@ const [h,m] = embarque.split(":").map(Number);
 const hora = h + (m/60);
 
 if(hora >= 22.5 || hora <= 5){
+
 if(base <= 24.99) return 5.00;
+
 return base * 0.35;
 }
 
 return 0;
 }
 
-/* CALCULO */
+/* =========================
+CÁLCULO PRINCIPAL
+========================= */
 function calcular(){
 
 let base = parseFloat(valor) || 0;
@@ -183,29 +207,63 @@ let taxas = 0;
 let detalhe = "";
 
 /* BASE */
-detalhe += `<div class="linha"><span>Rota</span><span>R$ ${base.toFixed(2)}</span></div>`;
+detalhe += `<div class="linha"><span>Corrida</span><span>R$ ${base.toFixed(2)}</span></div>`;
 
 /* NOTURNO */
 const noturno = adicionalNoturno(base);
+
 if(noturno > 0){
-detalhe += `<div class="linha"><span>Noturno</span><span>R$ ${noturno.toFixed(2)}</span></div>`;
+detalhe += `<div class="linha"><span>Adicional Noturno</span><span>R$ ${noturno.toFixed(2)}</span></div>`;
 base += noturno;
 }
 
 /* TAXAS */
-if(feira > 0){ taxas += +feira; detalhe += `<div class="linha"><span>Feira</span><span>R$ ${(+feira).toFixed(2)}</span></div>`;}
-if(animal > 0){ taxas += +animal; detalhe += `<div class="linha"><span>Animal</span><span>R$ ${(+animal).toFixed(2)}</span></div>`;}
-if(saidaPraia > 0){ taxas += +saidaPraia; detalhe += `<div class="linha"><span>Praia</span><span>R$ ${(+saidaPraia).toFixed(2)}</span></div>`;}
 
-if(espera > 5){
-const t = 3 + ((espera-5)*0.6);
-taxas += t;
-detalhe += `<div class="linha"><span>Espera</span><span>R$ ${t.toFixed(2)}</span></div>`;
+if(feira > 0){
+taxas += parseFloat(feira);
+detalhe += `<div class="linha"><span>Tx Feira</span><span>R$ ${parseFloat(feira).toFixed(2)}</span></div>`;
 }
 
-/* TOTAL */
-let total = (base + taxas) * categoria;
+if(animal > 0){
+taxas += parseFloat(animal);
+detalhe += `<div class="linha"><span>Animal</span><span>R$ ${parseFloat(animal).toFixed(2)}</span></div>`;
+}
 
+if(saidaPraia > 0){
+taxas += parseFloat(saidaPraia);
+detalhe += `<div class="linha"><span>Saída Praia</span><span>R$ ${parseFloat(saidaPraia).toFixed(2)}</span></div>`;
+}
+
+if(espera > 5){
+const taxaEspera = 3 + ((espera - 5) * 0.60);
+taxas += taxaEspera;
+detalhe += `<div class="linha"><span>Espera</span><span>R$ ${taxaEspera.toFixed(2)}</span></div>`;
+}
+
+/* SUBTOTAL */
+let subtotal = base + taxas;
+
+/* VEÍCULO */
+if(categoria > 1){
+const acrescimo = subtotal * (categoria - 1);
+detalhe += `<div class="linha"><span>Veículo 6 lugares</span><span>R$ ${acrescimo.toFixed(2)}</span></div>`;
+subtotal *= categoria;
+}
+
+/* PAGAMENTO */
+let pagamento = document.getElementById("pagamento").value;
+let total = subtotal;
+
+if(pagamento === "credito"){
+total = subtotal / 0.95;
+}
+
+if(pagamento === "debito"){
+total = subtotal / 0.98;
+}
+
+/* FINAL */
+detalhe += `<div class="linha"><span>Pagamento</span><span>${pagamento}</span></div>`;
 detalhe += `<div class="total">Total: R$ ${total.toFixed(2)}</div>`;
 
 document.getElementById("detalhe").innerHTML = detalhe;
@@ -215,6 +273,7 @@ localStorage.setItem("rf_total_final", total.toFixed(2));
 
 }
 
+/* EVENTO */
 document.getElementById("pagamento").addEventListener("change", calcular);
 
 /* INIT */
