@@ -116,19 +116,19 @@ body[data-theme="dark"]{
 
   <!-- ORIGEM -->
   <div class="input-box green" id="origemBtn">
-    📍 <div id="origemTexto">Selecionar origem</div>
+   <div id="origemTexto">Selecionar origem</div>
   </div>
 
   <div class="add-parada" id="addParada">+ Adicionar parada</div>
 
 <div class="input-box yellow" id="paradaBtn" style="display:none">
-  <span>📍</span>
+  <span> </span>
   <div id="paradaTexto">Selecionar parada</div>
 </div>
   
   <!-- DESTINO -->
   <div class="input-box red" id="destinoBtn">
-    📍 <div id="destinoTexto">Selecionar destino</div>
+     <div id="destinoTexto">Selecionar destino</div>
   </div>
 
   <!-- VEÍCULOS -->
@@ -154,8 +154,8 @@ body[data-theme="dark"]{
 
 <!-- GARANTIAS -->
 <div class="garantias">
-  <span>✔ Sem taxa surpresa</span>
-  <span>✔ Preço fixo</span>
+  <span>✔ Sem Surpresas</span>
+  <span>✔ R$ Fixo</span>
   <span>✔ Motoristas verificados</span>
 </div>
 
@@ -167,9 +167,9 @@ body[data-theme="dark"]{
 
   <label>Taxa de Feira</label>
   <select id="feira" class="select">
-    <option value="0">Sem feira</option>
-    <option value="5">1 carrinho (R$ 5.00)</option>
-    <option value="7.99">2 carrinhos (R$ 7.99)</option>
+    <option value="0">Sem Feira</option>
+    <option value="4.99">1 carrinho de Feira</option>
+    <option value="7.99">2 carrinhos de Feira</option>
   </select>
 
   <label>Transporte Animal</label>
@@ -183,27 +183,27 @@ body[data-theme="dark"]{
   <label>Tempo de espera</label>
   <input type="number" id="espera" class="select" value="0">
 
-  <label>Saída de Praia</label>
+  <label>Saída de Praia (sábado, Domingos e Feriados)</label>
   <select id="saidaPraia" class="select">
     <option value="0">Não</option>
-    <option value="10">Sim (+10)</option>
+    <option value="9.99">Sim</option>
   </select>
 </div>
 
 <!-- OBS -->
 <div class="card">
-  <h3>Observação</h3>
+  <h3>Observação ao Passageiro</h3>
   <textarea id="obs"></textarea>
 </div>
 
 <!-- HORÁRIOS -->
 <div class="card">
-  <h3>Horários</h3>
+  <h3>Horários do Translado</h3>
 
-  <label>Embarque</label>
+  <label>Hora do Embarque</label>
   <input type="time" id="embarque" class="select">
 
-  <label>Desembarque</label>
+  <label>Hora do Desembarque</label>
   <input type="time" id="desembarque" class="select">
 </div>
 
@@ -212,7 +212,7 @@ body[data-theme="dark"]{
 <!-- CTA -->
 <div class="cta-box">
   <div>
-    <span>Valor estimado</span>
+    <span>Total</span>
     <strong id="previewTotal">R$ 0,00</strong>
   </div>
 
