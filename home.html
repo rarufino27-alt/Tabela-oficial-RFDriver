@@ -109,80 +109,75 @@
   <div class="menu-btn-dark" onclick="abrirMenu()">☰</div>
 </div>
 
-<div class="center">
+<div class="app-container">
 
-<div class="bonus-highlight">
-
-  <div class="bonus-header">
-    🏆 BÔNUS SEMANAL RF
+  <!-- BONUS -->
+  <div class="bonus-card">
+    <div class="bonus-left">
+      <div class="bonus-icon">🏆</div>
+      <div>
+        <div class="bonus-title">BÔNUS SEMANAL</div>
+        <div class="bonus-value">R$ 100 <span>/ semana</span></div>
+      </div>
+    </div>
+    <button class="btn-ranking" onclick="irPara('premiacao.html')">
+      Ver Ranking →
+    </button>
   </div>
 
-  <div class="bonus-body">
+  <!-- STEPS -->
+  <div class="steps">
+    <div class="step active">1<span>Origem</span></div>
+    <div class="line"></div>
+    <div class="step">2<span>Destino</span></div>
+    <div class="line"></div>
+    <div class="step">3<span>Veículo</span></div>
+  </div>
 
-    <div class="bonus-valor">
-      💰 R$ 100 por semana
+  <!-- CARD -->
+  <div class="card-modern">
+
+    <!-- ORIGEM -->
+    <div class="input-box green" id="origemBtn">
+      <span>📍</span>
+      <div id="origemTexto">Selecionar origem</div>
     </div>
 
-    <div class="bonus-info">
-      <span>Segunda a Sábado: R$ 50</span>
-      <span>Domingo: R$ 50</span>
+    <!-- DESTINO -->
+    <div class="input-box red" id="destinoBtn">
+      <span>📍</span>
+      <div id="destinoTexto">Selecionar destino</div>
     </div>
 
-<div style="display:flex; gap:10px; margin-top:10px;">
+    <!-- VEÍCULO -->
+    <div class="veiculos">
 
-<button onclick="window.location.href='premiacao.html'" style="flex:1;">
-Ranking
-</button>
-
-<button onclick="window.location.href='bonus.html'" style="flex:1;">
-Regras
-</button>
-
-</div>
-
-</div>
-
-</div>
-
-  <!-- CARD PRINCIPAL -->
-  <div class="card">
-
-    <div class="campo" id="origemBtn">
-      <div class="campo-left">
-        <div class="dot origem"></div>
-        <div id="origemTexto">Selecionar origem</div>
-      </div>
-    </div>
-
-    <div class="campo" id="paradaBtn" style="display:none;">
-      <div class="campo-left">
-        <div class="dot parada"></div>
-        <div id="paradaTexto">Selecionar parada</div>
-      </div>
-    </div>
-
-    <div class="campo" id="destinoBtn">
-      <div class="campo-left">
-        <div class="dot destino"></div>
-        <div id="destinoTexto">Selecionar destino</div>
-      </div>
-      <div class="plus" id="addParada">＋</div>
-    </div>
-
-    <div class="campo">
-      <div class="campo-left">
-        <div class="dot" style="background:#3b82f6;"></div>
-        <div>Tipo de veículo</div>
+      <div class="veiculo ativo" data-value="1">
+        🚗
+        <strong>4 lugares</strong>
+        <span>Confortável</span>
       </div>
 
-      <div class="rf-select" id="tipoCarroBtn">
-        <span id="tipoCarroTexto">4 lugares</span>
+      <div class="veiculo" data-value="1.5">
+        🚐
+        <strong>6 lugares</strong>
+        <span>Van espaçosa</span>
       </div>
 
-      <input type="hidden" id="tipoCarro" value="1">
     </div>
+
+    <input type="hidden" id="tipoCarro" value="1">
 
   </div>
+
+  <!-- GARANTIAS -->
+  <div class="garantias">
+    <span>✔ Sem taxa surpresa</span>
+    <span>✔ Preço fixo</span>
+    <span>✔ Motoristas verificados</span>
+  </div>
+
+</div>
 
   <!-- ADICIONAIS -->
   <div class="card">
@@ -236,15 +231,17 @@ Regras
 </div>
 </div>
 
-<div class="footer-resumo">
-  <div class="footer-inner">
-
-    <div class="valor-total">
-      <span>Total</span>
+ <!-- CTA -->
+  <div class="cta-box">
+    <div>
+      <span>Valor estimado</span>
       <strong id="previewTotal">R$ 0,00</strong>
     </div>
 
-    <button id="btnContinuar">Continuar</button>
+    <button id="btnContinuar">
+      CALCULAR CORRIDA →
+    </button>
+  </div>
 
   </div>
 </div>
