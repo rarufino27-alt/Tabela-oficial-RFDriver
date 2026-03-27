@@ -202,36 +202,39 @@ CÁLCULO PRINCIPAL
 ========================= */
 function calcular(){
 
-let base = parseFloat(valor) || 0;
+let base = parseFloat(valor) || 0; // 🔥 valor original da corrida
 let taxas = 0;
 let detalhe = "";
 
-/* BASE */
+/* BASE (NÃO ALTERA NUNCA) */
 detalhe += `<div class="linha"><span>Corrida</span><span>R$ ${base.toFixed(2)}</span></div>`;
 
 /* NOTURNO */
 const noturno = adicionalNoturno(base);
 
 if(noturno > 0){
+taxas += noturno;
 detalhe += `<div class="linha"><span>Adicional Noturno</span><span>R$ ${noturno.toFixed(2)}</span></div>`;
-base += noturno;
 }
 
 /* TAXAS */
 
 if(feira > 0){
-taxas += parseFloat(feira);
-detalhe += `<div class="linha"><span>Tx Feira</span><span>R$ ${parseFloat(feira).toFixed(2)}</span></div>`;
+const v = parseFloat(feira);
+taxas += v;
+detalhe += `<div class="linha"><span>Tx Feira</span><span>R$ ${v.toFixed(2)}</span></div>`;
 }
 
 if(animal > 0){
-taxas += parseFloat(animal);
-detalhe += `<div class="linha"><span>Animal</span><span>R$ ${parseFloat(animal).toFixed(2)}</span></div>`;
+const v = parseFloat(animal);
+taxas += v;
+detalhe += `<div class="linha"><span>Animal</span><span>R$ ${v.toFixed(2)}</span></div>`;
 }
 
 if(saidaPraia > 0){
-taxas += parseFloat(saidaPraia);
-detalhe += `<div class="linha"><span>Saída Praia</span><span>R$ ${parseFloat(saidaPraia).toFixed(2)}</span></div>`;
+const v = parseFloat(saidaPraia);
+taxas += v;
+detalhe += `<div class="linha"><span>Saída Praia</span><span>R$ ${v.toFixed(2)}</span></div>`;
 }
 
 if(espera > 5){
@@ -272,7 +275,7 @@ document.getElementById("valorFinal").innerText = "R$ " + total.toFixed(2);
 localStorage.setItem("rf_total_final", total.toFixed(2));
 
 }
-
+  
 /* EVENTO */
 document.getElementById("pagamento").addEventListener("change", calcular);
 
