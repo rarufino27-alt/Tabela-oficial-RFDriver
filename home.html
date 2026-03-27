@@ -14,6 +14,17 @@
 
 <style>
 .espaco-final { height:120px; }
+
+  .add-parada{
+  margin-top:8px;
+  font-size:13px;
+  color:#facc15;
+  cursor:pointer;
+}
+
+.input-box.yellow{
+  border:1px solid #facc15;
+}
 </style>
 
 </head>
@@ -74,6 +85,13 @@
     📍 <div id="origemTexto">Selecionar origem</div>
   </div>
 
+  <div class="add-parada" id="addParada">+ Adicionar parada</div>
+
+<div class="input-box yellow" id="paradaBtn" style="display:none">
+  <span>📍</span>
+  <div id="paradaTexto">Selecionar parada</div>
+</div>
+  
   <!-- DESTINO -->
   <div class="input-box red" id="destinoBtn">
     📍 <div id="destinoTexto">Selecionar destino</div>
@@ -179,21 +197,57 @@
 
 <script>
 
-/* INIT */
-async function init(){
-  const loading = document.getElementById("loading");
+/* =========================
+ELEMENTOS
+========================= */
+const loading = document.getElementById("loading");
 
+const origemBtn = document.getElementById("origemBtn");
+const destinoBtn = document.getElementById("destinoBtn");
+const paradaBtn = document.getElementById("paradaBtn");
+const addParada = document.getElementById("addParada");
+
+const origemTexto = document.getElementById("origemTexto");
+const destinoTexto = document.getElementById("destinoTexto");
+const paradaTexto = document.getElementById("paradaTexto");
+
+const modal = document.getElementById("modal");
+const lista = document.getElementById("lista");
+
+const previewTotal = document.getElementById("previewTotal");
+
+const feira = document.getElementById("feira");
+const animal = document.getElementById("animal");
+const espera = document.getElementById("espera");
+const saidaPraia = document.getElementById("saidaPraia");
+
+const tipoCarro = document.getElementById("tipoCarro");
+
+const btnContinuar = document.getElementById("btnContinuar");
+
+const obs = document.getElementById("obs");
+const embarque = document.getElementById("embarque");
+const desembarque = document.getElementById("desembarque");
+
+/* =========================
+INIT
+========================= */
+async function init(){
   try{
     await DataManager.carregar();
   }catch(e){
-    console.error(e);
+    console.error("Erro ao carregar rotas", e);
   }
 
-  setTimeout(()=> loading.style.display="none", 500);
+  setTimeout(()=>{
+    if(loading) loading.style.display="none";
+  }, 400);
 }
 init();
 
-/* MENU */
+/* =========================
+MENU
+========================= */
 function abrirMenu(){
   menu.classList.add("ativo");
   menuOverlay.style.display="block";
@@ -208,93 +262,188 @@ function irPara(p){
   window.location.href=p;
 }
 
-/* ESTADO */
-let origem=null, destino=null;
+/* =========================
+ESTADO
+========================= */
+let origem = null;
+let destino = null;
+let parada = null;
+let modo = null;
 
-/* MODAL */
-const modal=document.getElementById("modal");
-const lista=document.getElementById("lista");
+/* =========================
+PARADA (+)
+========================= */
+if(addParada){
+  addParada.onclick = (e)=>{
+    e.stopPropagation();
 
-function abrirModal(tipo){
-
-  let dados=[];
-
-  if(tipo==="origem"){
-    dados=DataManager.listarOrigens();
-  }else{
     if(!origem){
-      alert("Selecione origem primeiro");
+      alert("Selecione a origem primeiro.");
       return;
     }
-    dados=DataManager.listarDestinos(origem);
+
+    paradaBtn.style.display = "flex";
+  };
+}
+
+/* =========================
+MODAL
+========================= */
+function abrirModal(tipo){
+
+  modo = tipo;
+  let dados = [];
+
+  if(tipo === "origem"){
+    dados = DataManager.listarOrigens();
   }
 
-  lista.innerHTML="";
+  if(tipo === "destino"){
+    if(!origem){
+      alert("Selecione a origem primeiro");
+      return;
+    }
+    dados = DataManager.listarDestinos(origem);
+  }
+
+  if(tipo === "parada"){
+    if(!origem){
+      alert("Selecione a origem primeiro");
+      return;
+    }
+    dados = DataManager.listarDestinos(origem);
+  }
+
+  lista.innerHTML = "";
 
   dados.forEach(item=>{
-    const div=document.createElement("div");
-    div.innerText=item;
+    const div = document.createElement("div");
+    div.innerText = item;
 
-    div.onclick=()=>{
-      if(tipo==="origem"){
-        origem=item;
-        origemTexto.innerText=item;
-      }else{
-        destino=item;
-        destinoTexto.innerText=item;
-      }
-
-      calcularPreview();
-      modal.style.display="none";
+    div.onclick = ()=>{
+      selecionar(item);
+      modal.style.display = "none";
     };
 
     lista.appendChild(div);
   });
 
-  modal.style.display="flex";
+  modal.style.display = "flex";
 }
 
-/* EVENTOS */
-origemBtn.onclick=()=>abrirModal("origem");
-destinoBtn.onclick=()=>abrirModal("destino");
+/* =========================
+SELEÇÃO
+========================= */
+function selecionar(valor){
 
-/* VEÍCULO */
+  if(modo === "origem"){
+    origem = valor;
+    parada = null;
+    destino = null;
+
+    origemTexto.innerText = valor;
+    destinoTexto.innerText = "Selecionar destino";
+    if(paradaTexto) paradaTexto.innerText = "Selecionar parada";
+
+    if(paradaBtn) paradaBtn.style.display = "none";
+  }
+
+  if(modo === "parada"){
+    parada = valor;
+    destino = null;
+    paradaTexto.innerText = valor;
+    destinoTexto.innerText = "Selecionar destino";
+  }
+
+  if(modo === "destino"){
+    destino = valor;
+    destinoTexto.innerText = valor;
+  }
+
+  calcularPreview();
+}
+
+/* =========================
+EVENTOS
+========================= */
+if(origemBtn) origemBtn.onclick = ()=>abrirModal("origem");
+if(destinoBtn) destinoBtn.onclick = ()=>abrirModal("destino");
+if(paradaBtn) paradaBtn.onclick = ()=>abrirModal("parada");
+
+modal.onclick = (e)=>{
+  if(e.target === modal) modal.style.display = "none";
+};
+
+/* =========================
+VEÍCULO
+========================= */
 document.querySelectorAll(".veiculo").forEach(v=>{
-  v.onclick=()=>{
+  v.onclick = ()=>{
     document.querySelectorAll(".veiculo").forEach(x=>x.classList.remove("ativo"));
     v.classList.add("ativo");
-    document.getElementById("tipoCarro").value=v.dataset.value;
+    tipoCarro.value = v.dataset.value;
     calcularPreview();
   };
 });
 
-/* CALCULO */
+/* =========================
+CÁLCULO (CORRIGIDO)
+========================= */
 function calcularPreview(){
 
   if(!origem || !destino){
-    previewTotal.innerText="R$ 0,00";
+    previewTotal.innerText = "R$ 0,00";
     return;
   }
 
-  let total = DataManager.buscarValor(origem,destino) || 0;
+  let base = 0;
 
-  total += parseFloat(feira.value||0);
-  total += parseFloat(animal.value||0);
-  total += parseFloat(saidaPraia.value||0);
-
-  const esperaVal=parseFloat(espera.value||0);
-  if(esperaVal>5){
-    total += 3 + ((esperaVal-5)*0.6);
+  if(!parada){
+    base = DataManager.buscarValor(origem, destino) || 0;
+  }else{
+    base =
+      (DataManager.buscarValor(origem, parada) || 0) +
+      (DataManager.buscarValor(parada, destino) || 0);
   }
 
-  const categoria=parseFloat(tipoCarro.value||1);
-  total *= categoria;
+  let taxas = 0;
 
-  previewTotal.innerText="R$ "+total.toFixed(2);
+  const feiraVal = Number(feira?.value || 0);
+  const animalVal = Number(animal?.value || 0);
+  const esperaVal = Number(espera?.value || 0);
+  const praiaVal = Number(saidaPraia?.value || 0);
+
+  taxas += feiraVal + animalVal + praiaVal;
+
+  if(esperaVal > 5){
+    taxas += 3 + ((esperaVal - 5) * 0.6);
+  }
+
+  let total = base + taxas;
+
+  const categoria = Number(tipoCarro.value || 1);
+  if(categoria > 1){
+    total *= categoria;
+  }
+
+  previewTotal.innerText = "R$ " + total.toFixed(2);
 }
 
-/* CONTINUAR */
-btnContinuar.onclick=()=>{
+/* =========================
+ATUALIZAÇÃO AUTOMÁTICA
+========================= */
+["feira","animal","espera","saidaPraia"].forEach(id=>{
+  const el = document.getElementById(id);
+  if(el){
+    el.addEventListener("change", calcularPreview);
+    el.addEventListener("input", calcularPreview);
+  }
+});
+
+/* =========================
+CONTINUAR
+========================= */
+btnContinuar.onclick = ()=>{
 
   if(!origem || !destino){
     alert("Selecione origem e destino");
@@ -303,18 +452,23 @@ btnContinuar.onclick=()=>{
 
   localStorage.setItem("rf_corrida_temp", JSON.stringify({
     origem,
+    parada,
     destino,
     valor: previewTotal.innerText,
-    feira: feira.value,
-    animal: animal.value,
-    espera: espera.value,
-    saidaPraia: saidaPraia.value,
-    obs: obs.value,
-    embarque: embarque.value,
-    desembarque: desembarque.value
+
+    categoria: tipoCarro.value,
+
+    feira: feira?.value || 0,
+    animal: animal?.value || 0,
+    espera: espera?.value || 0,
+    saidaPraia: saidaPraia?.value || 0,
+
+    obs: obs?.value || "",
+    embarque: embarque?.value || "",
+    desembarque: desembarque?.value || ""
   }));
 
-  window.location.href="resumo.html";
+  window.location.href = "resumo.html";
 };
 
 </script>
