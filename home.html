@@ -25,6 +25,40 @@
 .input-box.yellow{
   border:1px solid #facc15;
 }
+
+  /* LIGHT */
+:root{
+  --bg-main:#f3f3f3;
+  --bg-card:#ffffff;
+  --bg-soft:#f9f9f9;
+
+  --text-primary:#000;
+  --text-secondary:#555;
+
+  --border:#e5e5e5;
+
+  --primary:#facc15;
+  --blue:#3b82f6;
+  --green:#22c55e;
+  --red:#ef4444;
+
+  --shadow-soft:0 6px 18px rgba(0,0,0,.08);
+}
+
+/* DARK */
+body[data-theme="dark"]{
+  --bg-main:#0f0f0f;
+  --bg-card:#1c1c1c;
+  --bg-soft:#2a2a2a;
+
+  --text-primary:#fff;
+  --text-secondary:#aaa;
+
+  --border:#333;
+
+  --primary:#facc15;
+}
+  
 </style>
 
 </head>
@@ -197,6 +231,11 @@
 
 <script>
 
+  (function(){
+  const tema = localStorage.getItem("rf_theme") || "light";
+  document.body.setAttribute("data-theme", tema);
+})();
+  
 /* =========================
 ELEMENTOS
 ========================= */
