@@ -39,8 +39,9 @@ CARD
 }
 
 .bonus-card{
-  background: linear-gradient(135deg,#0f172a,#020617);
-  border:1px solid #facc15;
+  background: var(--bg-card);
+  border:1px solid var(--primary);
+  color: var(--text-primary);
   border-radius:16px;
   padding:16px;
   margin:12px;
@@ -136,9 +137,9 @@ input{
   width:100%;
   padding:10px;
   border-radius:10px;
-  border:1px solid var(--border);
   background: var(--bg-soft);
   color: var(--text-primary);
+  border:1px solid var(--border);
 }
 
 /* =========================
