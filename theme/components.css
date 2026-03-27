@@ -40,23 +40,47 @@ CARD
 
 .bonus-card{
   background: linear-gradient(135deg,#0f172a,#020617);
-  border:1px solid var(--primary);
+  border:1px solid #facc15;
   border-radius:16px;
   padding:14px;
   margin:10px;
+
   display:flex;
   justify-content:space-between;
   align-items:center;
 }
 
+.bonus-left{
+  display:flex;
+  gap:10px;
+  align-items:center;
+}
+
+.bonus-icon{
+  font-size:20px;
+}
+
 .bonus-title{
-  font-size:13px;
-  color: var(--text-secondary);
+  font-size:12px;
+  opacity:.7;
 }
 
 .bonus-value{
-  font-size:18px;
-  font-weight:bold;
+  font-size:20px;
+  font-weight:800;
+}
+
+.bonus-sub{
+  font-size:12px;
+  opacity:.6;
+}
+
+.btn-ranking{
+  background:#fff;
+  color:#000;
+  border-radius:10px;
+  padding:10px 14px;
+  font-size:13px;
 }
 
 /* =========================
