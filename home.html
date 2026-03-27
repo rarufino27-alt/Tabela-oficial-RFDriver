@@ -63,18 +63,18 @@
 
 <!-- BONUS -->
 <div class="bonus-card">
-  <div class="bonus-left">
-    <div class="bonus-icon">🏆</div>
-    <div>
-      <div class="bonus-title">BÔNUS SEMANAL</div>
-      <div class="bonus-value">R$ 100</div>
-      <div class="bonus-sub">por semana</div>
-    </div>
+
+  <div class="bonus-content">
+    <div class="bonus-title">🏆 BÔNUS SEMANAL</div>
+    <div class="bonus-value">R$ 100</div>
+    <div class="bonus-sub">por semana</div>
   </div>
 
-  <button class="btn-ranking" onclick="irPara('premiacao.html')">
-    Ver Ranking →
-  </button>
+  <div class="bonus-actions">
+    <button onclick="irPara('bonus.html')">Regras</button>
+    <button onclick="irPara('premiacao.html')">Ranking</button>
+  </div>
+
 </div>
 
 <!-- CARD PRINCIPAL -->
@@ -292,6 +292,8 @@ MODAL
 function abrirModal(tipo){
 
   modo = tipo;
+  busca.value = "";
+  
   let dados = [];
 
   if(tipo === "origem"){
@@ -415,18 +417,41 @@ function calcularPreview(){
 
   taxas += feiraVal + animalVal + praiaVal;
 
+  // espera
   if(esperaVal > 5){
     taxas += 3 + ((esperaVal - 5) * 0.6);
   }
 
-  let total = base + taxas;
+  let subtotal = base + taxas;
 
-  const categoria = Number(tipoCarro.value || 1);
-  if(categoria > 1){
-    total *= categoria;
+  // 🌙 NOTURNO
+  const hora = embarque?.value;
+
+  if(hora){
+    const [h,m] = hora.split(":").map(Number);
+    const minutos = h * 60 + m;
+
+    const inicio = 22 * 60 + 30; // 22:30
+    const fim = 5 * 60;          // 05:00
+
+    if(minutos >= inicio || minutos < fim){
+
+      if(subtotal <= 24.99){
+        subtotal += 5;
+      }else{
+        subtotal += subtotal * 0.35;
+      }
+
+    }
   }
 
-  previewTotal.innerText = "R$ " + total.toFixed(2);
+  // veículo
+  const categoria = Number(tipoCarro.value || 1);
+  if(categoria > 1){
+    subtotal *= categoria;
+  }
+
+  previewTotal.innerText = "R$ " + subtotal.toFixed(2);
 }
 
 /* =========================
@@ -471,6 +496,17 @@ btnContinuar.onclick = ()=>{
   window.location.href = "resumo.html";
 };
 
+  const busca = document.getElementById("busca");
+
+busca.addEventListener("input", ()=>{
+  const termo = busca.value.toLowerCase();
+
+  Array.from(lista.children).forEach(div=>{
+    div.style.display = div.innerText.toLowerCase().includes(termo)
+      ? "block"
+      : "none";
+  });
+});
 </script>
 
 </body>
