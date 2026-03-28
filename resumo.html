@@ -5,198 +5,49 @@
 <title>RF – Resumo</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
+<link rel="stylesheet" href="theme/theme.css">
+<link rel="stylesheet" href="theme/layout.css">
+<link rel="stylesheet" href="theme/components.css">
+
 <style>
-
-/* =========================
-THEME
-========================= */
-:root{
---bg:#0f0f0f;
---card:#1c1c1c;
---text:#fff;
---soft:#aaa;
---border:rgba(255,255,255,.08);
---primary:#facc15;
---green:#22c55e;
---red:#ef4444;
-}
-
-body[data-theme="light"]{
---bg:#f3f3f3;
---card:#fff;
---text:#111;
---soft:#666;
---border:rgba(0,0,0,.08);
-}
-
-/* =========================
-BASE
-========================= */
-body{
-margin:0;
-background:var(--bg);
-color:var(--text);
-font-family:-apple-system,Roboto;
-}
-
-.container{
-max-width:420px;
-margin:auto;
-padding:16px;
-display:flex;
-flex-direction:column;
-gap:14px;
-}
-
-/* =========================
-CARD
-========================= */
-.card{
-background:var(--card);
-border-radius:18px;
-padding:16px;
-border:1px solid var(--border);
-}
-
-/* =========================
-ROTA
-========================= */
-.rota{
-display:flex;
-justify-content:space-between;
-align-items:center;
-gap:10px;
-}
-
-.rota-box{
-flex:1;
-padding:12px;
-border-radius:14px;
-border:2px solid;
-}
-
-.origem{
-border-color:var(--green);
-}
-
-.destino{
-border-color:var(--red);
-}
-
-.label{
-font-size:12px;
-color:var(--soft);
-}
-
-.valor{
-font-weight:bold;
-}
-
-/* =========================
-SEÇÕES
-========================= */
-.titulo{
-font-weight:700;
-margin-bottom:10px;
-}
-
-/* =========================
-LINHAS
-========================= */
-.linha{
-display:flex;
-justify-content:space-between;
-margin-bottom:6px;
-font-size:14px;
-}
-
-/* =========================
-TOTAL
-========================= */
-.total-box{
-display:flex;
-justify-content:space-between;
-align-items:center;
-}
-
-.total-valor{
-font-size:26px;
-font-weight:bold;
-color:var(--primary);
-}
-
-/* =========================
-BOTÕES
-========================= */
-.btn{
-flex:1;
-padding:14px;
-border-radius:12px;
-border:none;
-font-weight:bold;
-}
-
-.btn-wpp{
-background:#16a34a;
-color:#fff;
-}
-
-.btn-pdf{
-background:var(--primary);
-color:#000;
-}
-
-.btn-row{
-display:flex;
-gap:10px;
-}
-
+.container{max-width:420px;margin:auto;padding:16px;display:flex;flex-direction:column;gap:14px;}
+.card{background:var(--card);border-radius:18px;padding:16px;border:1px solid var(--border);}
+.titulo{font-weight:700;margin-bottom:10px;}
+.linha{display:flex;justify-content:space-between;margin-bottom:6px;font-size:14px;}
+.total-box{display:flex;justify-content:space-between;align-items:center;}
+.total-valor{font-size:26px;font-weight:bold;color:var(--primary);}
+.btn-row{display:flex;gap:10px;}
+.btn{flex:1;padding:14px;border-radius:12px;border:none;font-weight:bold;}
+.btn-wpp{background:#16a34a;color:#fff;}
+.btn-pdf{background:var(--primary);color:#000;}
+.rota{display:flex;flex-direction:column;gap:6px;}
 </style>
+
 </head>
 
 <body>
 
+<!-- HEADER -->
+<div class="top-white">
+<div class="logo-area">
+<img src="icons/icon-512.png" class="logo-img">
+<span class="logo-text-dark">RF MOTORISTA</span>
+</div>
+<div class="menu-btn-dark" onclick="window.location.href='configuracoes.html'">⚙️</div>
+</div>
+
 <div class="container">
 
 <!-- ROTA -->
-<div class="card rota">
-  <div class="rota-box origem">
-    <div class="label">Origem</div>
-    <div class="valor" id="origem"></div>
-  </div>
-
-  →
-
-  <div class="rota-box destino">
-    <div class="label">Destino</div>
-    <div class="valor" id="destino"></div>
-  </div>
-</div>
+<div class="card rota" id="rota"></div>
 
 <!-- DETALHES -->
 <div class="card">
 <div class="titulo">Detalhes selecionados</div>
-
-<div class="linha">
-<span>Veículo</span>
-<span id="veiculo"></span>
-</div>
-
-<div class="linha">
-<span>Embarque</span>
-<span id="embarque"></span>
-</div>
-
-<div class="linha">
-<span>Desembarque</span>
-<span id="desembarque"></span>
-</div>
-
-<div class="linha">
-<span>Obs</span>
-<span id="obs"></span>
-</div>
-
+<div class="linha"><span>Veículo</span><span id="veiculo"></span></div>
+<div class="linha"><span>Embarque</span><span id="embarque"></span></div>
+<div class="linha"><span>Desembarque</span><span id="desembarque"></span></div>
+<div class="linha"><span>Obs</span><span id="obs"></span></div>
 </div>
 
 <!-- TAXAS -->
@@ -208,21 +59,19 @@ gap:10px;
 <!-- PAGAMENTO -->
 <div class="card">
 <div class="titulo">Forma de pagamento</div>
-
 <select id="pagamento">
 <option value="dinheiro">Dinheiro</option>
 <option value="pix">PIX</option>
 <option value="credito">Crédito</option>
 <option value="debito">Débito</option>
 </select>
-
 </div>
 
 <!-- TOTAL -->
 <div class="card total-box">
 <div>
-<div class="label">Total da viagem</div>
-<div class="total-valor" id="total"></div>
+<div>Total da viagem</div>
+<div class="total-valor" id="totalFinal"></div>
 </div>
 
 <div>
@@ -233,25 +82,28 @@ gap:10px;
 
 <!-- BOTÕES -->
 <div class="btn-row">
-<button class="btn btn-wpp" onclick="wpp()">WhatsApp</button>
-<button class="btn btn-pdf" onclick="pdf()">PDF</button>
+<button class="btn btn-wpp" onclick="wpp()">Orçamento WhatsApp</button>
+<button class="btn btn-pdf" onclick="pdf()">Gerar PDF</button>
 </div>
 
 </div>
 
 <script>
 
-/* THEME */
+/* TEMA */
 document.body.setAttribute("data-theme", localStorage.getItem("rf_theme") || "dark");
 
 /* DADOS */
 const d = JSON.parse(localStorage.getItem("rf_corrida_temp"));
-
 if(!d) location.href="home.html";
 
-/* PREENCHER */
-origem.innerText = d.origem;
-destino.innerText = d.destino;
+/* ROTA */
+let rotaHTML = `<div>📍 ${d.origem}</div>`;
+if(d.parada) rotaHTML += `<div>⏳ ${d.parada}</div>`;
+rotaHTML += `<div>🏁 ${d.destino}</div>`;
+document.getElementById("rota").innerHTML = rotaHTML;
+
+/* DETALHES */
 veiculo.innerText = d.categoria > 1 ? "6 lugares" : "4 lugares";
 embarque.innerText = d.embarque || "-";
 desembarque.innerText = d.desembarque || "-";
@@ -261,60 +113,121 @@ obs.innerText = d.obs || "-";
 let taxasHTML = "";
 let totalTaxas = 0;
 
-if(d.feira > 0){
-taxasHTML += `<div class="linha"><span>Feira</span><span>R$ ${(+d.feira).toFixed(2)}</span></div>`;
-totalTaxas += +d.feira;
+function addTaxa(nome, valor){
+taxasHTML += `<div class="linha"><span>${nome}</span><span>R$ ${valor.toFixed(2)}</span></div>`;
+totalTaxas += valor;
 }
 
-if(d.animal > 0){
-taxasHTML += `<div class="linha"><span>Animal</span><span>R$ ${(+d.animal).toFixed(2)}</span></div>`;
-totalTaxas += +d.animal;
-}
-
-if(d.saidaPraia > 0){
-taxasHTML += `<div class="linha"><span>Praia</span><span>R$ ${(+d.saidaPraia).toFixed(2)}</span></div>`;
-totalTaxas += +d.saidaPraia;
-}
+if(d.feira > 0) addTaxa("Feira", +d.feira);
+if(d.animal > 0) addTaxa("Animal", +d.animal);
+if(d.saidaPraia > 0) addTaxa("Saída Praia", +d.saidaPraia);
 
 if(d.espera > 5){
 let t = 3 + ((d.espera-5)*0.6);
-taxasHTML += `<div class="linha"><span>Espera</span><span>R$ ${t.toFixed(2)}</span></div>`;
-totalTaxas += t;
+addTaxa("Espera", t);
 }
 
+/* ADICIONAL NOTURNO */
+function noturno(base){
+if(!d.embarque) return 0;
+let [h,m] = d.embarque.split(":").map(Number);
+let hora = h + m/60;
+
+if(hora >= 22.5 || hora <= 5){
+if(base <= 24.99) return 4.99;
+return base * 0.35;
+}
+return 0;
+}
+
+/* BASE */
+let base = +d.valor;
+
+/* NOTURNO */
+let not = noturno(base);
+if(not > 0){
+addTaxa("Adicional Noturno", not);
+}
+
+/* RENDER TAXAS */
 document.getElementById("taxas").innerHTML = taxasHTML;
 
 /* TOTAL */
-let base = +d.valor;
-let total = base + totalTaxas;
+let subtotal = base + totalTaxas;
 
-function atualizar(){
+function calcular(){
 
-let pagamento = pagamentoSelect.value;
+let pagamento = document.getElementById("pagamento").value;
+let total = subtotal;
 
-let final = total;
+if(pagamento === "credito") total = subtotal / 0.95;
+if(pagamento === "debito") total = subtotal / 0.98;
 
-if(pagamento === "credito") final = total / 0.95;
-if(pagamento === "debito") final = total / 0.98;
-
-document.getElementById("total").innerText = "R$ " + final.toFixed(2);
+document.getElementById("totalFinal").innerText = "R$ " + total.toFixed(2);
 document.getElementById("base").innerText = "R$ " + base.toFixed(2);
 document.getElementById("totalTaxas").innerText = "+ R$ " + totalTaxas.toFixed(2);
 
+localStorage.setItem("rf_total_final", total.toFixed(2));
 }
 
-const pagamentoSelect = document.getElementById("pagamento");
-pagamentoSelect.addEventListener("change", atualizar);
+document.getElementById("pagamento").addEventListener("change", calcular);
 
-atualizar();
+calcular();
 
-/* AÇÕES */
+/* WHATSAPP */
 function wpp(){
-window.open("https://wa.me/?text=Orçamento RF");
+
+let total = localStorage.getItem("rf_total_final");
+
+let msg = `🚗 *ORÇAMENTO RF*\n\n`;
+msg += `📍 ${d.origem}\n`;
+if(d.parada) msg += `⏳ ${d.parada}\n`;
+msg += `🏁 ${d.destino}\n\n`;
+
+msg += `🚘 ${veiculo.innerText}\n`;
+
+if(d.embarque) msg += `🕒 ${d.embarque}\n`;
+if(d.desembarque) msg += `🕓 ${d.desembarque}\n`;
+if(d.obs) msg += `📝 ${d.obs}\n`;
+
+msg += `\n💰 *Total: R$ ${parseFloat(total).toFixed(2)}*`;
+
+window.open(`https://wa.me/?text=${encodeURIComponent(msg)}`);
 }
 
-function pdf(){
-alert("PDF aqui");
+/* PDF */
+async function pdf(){
+
+try{
+
+let total = localStorage.getItem("rf_total_final");
+
+const payload = {
+origem:d.origem,
+parada:d.parada,
+destino:d.destino,
+total,
+detalhes:taxasHTML,
+data:new Date().toLocaleDateString(),
+hora:new Date().toLocaleTimeString(),
+embarque:d.embarque,
+desembarque:d.desembarque
+};
+
+const res = await fetch("https://backend-recibo-rf.onrender.com/gerar-recibo",{
+method:"POST",
+headers:{ "Content-Type":"application/json"},
+body:JSON.stringify(payload)
+});
+
+const r = await res.json();
+
+window.location.href=`https://wa.me/?text=${encodeURIComponent("📄 Recibo:\n"+r.link)}`;
+
+}catch(e){
+alert("Erro PDF");
+}
+
 }
 
 </script>
