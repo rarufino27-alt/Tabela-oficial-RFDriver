@@ -145,3 +145,7 @@ width:90%;
 max-width:420px;
 margin:20px auto 40px auto;
 }
+
+.app-container{
+  padding-bottom:120px;
+}
