@@ -1,43 +1,40 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
+
 <meta charset="UTF-8">
 <title>RF – Resumo</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
+<link rel="stylesheet" href="theme/theme.css">
+<link rel="stylesheet" href="theme/layout.css">
+<link rel="stylesheet" href="theme/components.css">
+
 <style>
 
-body{
-margin:0;
-font-family:Arial;
-background:#0f0f0f;
-color:#fff;
-}
-
-/* CONTAINER */
+/* CONTEÚDO */
 .container{
 max-width:420px;
-margin:auto;
+margin:20px auto;
 padding:16px;
 display:flex;
 flex-direction:column;
 gap:16px;
 }
 
-/* CARD */
+/* CARD PADRÃO */
 .card{
-background:#161616;
+background:var(--bg-card);
 border-radius:16px;
 padding:16px;
-border:1px solid rgba(255,255,255,.05);
+box-shadow:var(--shadow-soft);
 }
 
 /* ROTA */
 .rota{
 display:flex;
-align-items:center;
 justify-content:space-between;
-gap:10px;
+align-items:center;
 }
 
 .rota-box{
@@ -46,19 +43,14 @@ flex:1;
 
 .label{
 font-size:12px;
-opacity:.6;
+color:var(--text-secondary);
 }
 
 .nome{
 font-weight:bold;
 }
 
-/* TITULOS */
-h3{
-margin:0 0 10px;
-}
-
-/* TAXAS */
+/* LINHAS */
 .linha{
 display:flex;
 justify-content:space-between;
@@ -75,27 +67,21 @@ gap:10px;
 .pagamento{
 padding:12px;
 border-radius:10px;
-border:1px solid rgba(255,255,255,.1);
+border:1px solid var(--border);
 text-align:center;
 cursor:pointer;
 }
 
 .pagamento.ativo{
-border:1px solid #facc15;
-color:#facc15;
+border:1px solid var(--primary);
+color:var(--primary);
 }
 
 /* TOTAL */
-.total-box{
-display:flex;
-justify-content:space-between;
-align-items:center;
-}
-
 .total{
 font-size:26px;
 font-weight:bold;
-color:#facc15;
+color:var(--primary);
 }
 
 /* BOTÕES */
@@ -104,13 +90,12 @@ display:flex;
 gap:10px;
 }
 
-button{
+.botoes button{
 flex:1;
 padding:14px;
 border:none;
 border-radius:10px;
 font-weight:bold;
-cursor:pointer;
 }
 
 .btn-wpp{
@@ -119,14 +104,36 @@ color:#fff;
 }
 
 .btn-pdf{
-background:#facc15;
+background:var(--primary);
 color:#000;
 }
 
 </style>
+
 </head>
 
-<body>
+<body data-theme="dark">
+
+<!-- MENU IGUAL HOME -->
+<div class="menu-overlay" id="menuOverlay" onclick="fecharMenu()"></div>
+
+<div class="menu" id="menu">
+  <h3>Menu</h3>
+  <div class="menu-item" onclick="irPara('termos.html')">📜 Regras</div>
+  <div class="menu-item" onclick="irPara('bonus.html')">📜 Bônus</div>
+  <div class="menu-item" onclick="irPara('premiacao.html')">🏆 Ranking</div>
+  <div class="menu-item" onclick="irPara('historico.html')">📊 Histórico</div>
+  <div class="menu-item" onclick="irPara('configuracoes.html')">⚙️ Configurações</div>
+</div>
+
+<!-- HEADER IGUAL -->
+<div class="top-white">
+  <div class="logo-area">
+    <img src="icons/icon-512.png" class="logo-img">
+    <span class="logo-text-dark">RF MOTORISTA</span>
+  </div>
+  <div class="menu-btn-dark" onclick="abrirMenu()">☰</div>
+</div>
 
 <div class="container">
 
@@ -145,7 +152,7 @@ color:#000;
 </div>
 </div>
 
-<!-- DETALHES -->
+<!-- RESUMO -->
 <div class="card">
 <h3>Resumo da viagem</h3>
 <div id="detalhes"></div>
@@ -162,24 +169,20 @@ color:#000;
 <h3>Forma de pagamento</h3>
 
 <div class="pagamentos">
-<div class="pagamento ativo" data="dinheiro">Dinheiro</div>
-<div class="pagamento" data="pix">PIX</div>
-<div class="pagamento" data="credito">Crédito</div>
-<div class="pagamento" data="debito">Débito</div>
+<div class="pagamento ativo">Dinheiro</div>
+<div class="pagamento">PIX</div>
+<div class="pagamento">Crédito</div>
+<div class="pagamento">Débito</div>
 </div>
 
 </div>
 
 <!-- TOTAL -->
 <div class="card">
-<div class="total-box">
-<div>
-<div class="label">Total da viagem</div>
-<div class="total" id="total">R$ 0,00</div>
-</div>
+<div>Total da viagem</div>
+<div class="total" id="total"></div>
 
 <div id="resumoValores"></div>
-</div>
 </div>
 
 <!-- BOTÕES -->
@@ -192,7 +195,28 @@ color:#000;
 
 <script>
 
-/* DADOS */
+/* TEMA */
+(function(){
+  const tema = localStorage.getItem("rf_theme") || "dark";
+  document.body.setAttribute("data-theme", tema);
+})();
+
+/* MENU */
+function abrirMenu(){
+  menu.classList.add("ativo");
+  menuOverlay.style.display="block";
+}
+
+function fecharMenu(){
+  menu.classList.remove("ativo");
+  menuOverlay.style.display="none";
+}
+
+function irPara(p){
+  location.href=p;
+}
+
+/* DADOS (SEM CALCULAR) */
 const d = JSON.parse(localStorage.getItem("rf_corrida_temp"));
 
 if(!d){
@@ -201,117 +225,45 @@ location.href="home.html";
 }
 
 /* ROTA */
-document.getElementById("origem").innerText = d.origem;
-document.getElementById("destino").innerText = d.destino;
+origem.innerText = d.origem;
+destino.innerText = d.destino;
 
 /* DETALHES */
-document.getElementById("detalhes").innerHTML = `
+detalhes.innerHTML = `
 Veículo: ${d.categoria>1?"6 lugares":"4 lugares"}<br>
 Embarque: ${d.embarque || "-"}<br>
 Obs: ${d.obs || "-"}
 `;
 
 /* TAXAS */
-let base = parseFloat(d.valor) || 0;
-let taxas = 0;
-
-function add(nome,val){
-if(val>0){
-taxas += val;
-return `<div class="linha"><span>${nome}</span><span>R$ ${val.toFixed(2)}</span></div>`;
-}
-return "";
-}
-
-let taxasHTML = "";
-
-taxasHTML += add("Feira", +d.feira || 0);
-taxasHTML += add("Animal", +d.animal || 0);
-taxasHTML += add("Saída Praia", +d.saidaPraia || 0);
-
-/* ESPERA */
-if(d.espera>5){
-let t = 3 + ((d.espera-5)*0.6);
-taxasHTML += add("Espera", t);
-}
-
-/* NOTURNO */
-if(d.embarque){
-let [h,m] = d.embarque.split(":");
-let hora = +h + (m/60);
-
-if(hora>=22.5 || hora<=5){
-let n = base<=24.99 ? 4.99 : base*0.35;
-taxasHTML += add("Noturno", n);
-}
-}
-
-document.getElementById("taxas").innerHTML = taxasHTML;
-
-/* PAGAMENTO */
-let tipo = "dinheiro";
-
-document.querySelectorAll(".pagamento").forEach(p=>{
-p.onclick = ()=>{
-document.querySelectorAll(".pagamento").forEach(x=>x.classList.remove("ativo"));
-p.classList.add("ativo");
-tipo = p.getAttribute("data");
-calcular();
-};
-});
-
-/* CALCULO */
-function calcular(){
-
-let total = base + taxas;
-
-if(tipo==="credito") total/=0.95;
-if(tipo==="debito") total/=0.98;
-
-document.getElementById("total").innerText = "R$ " + total.toFixed(2);
-
-document.getElementById("resumoValores").innerHTML = `
-<div>Base: R$ ${base.toFixed(2)}</div>
-<div>Taxas: R$ ${taxas.toFixed(2)}</div>
+taxas.innerHTML = `
+<div class="linha"><span>Feira</span><span>R$ ${d.feira}</span></div>
+<div class="linha"><span>Animal</span><span>R$ ${d.animal}</span></div>
+<div class="linha"><span>Saída Praia</span><span>R$ ${d.saidaPraia}</span></div>
 `;
 
-localStorage.setItem("rf_total_final", total.toFixed(2));
-}
+/* TOTAL (SEM CALCULAR) */
+total.innerText = d.total;
 
-calcular();
+resumoValores.innerHTML = `
+<div>Base: R$ ${d.base}</div>
+<div>Taxas: R$ ${d.taxas}</div>
+`;
 
-/* WHATSAPP */
+/* WHATS */
 function wpp(){
+let msg = `🚗 *Resumo RF*
 
-let total = localStorage.getItem("rf_total_final");
+${d.origem} → ${d.destino}
 
-let msg = `🚗 *Resumo da viagem RF*
-
-📍 ${d.origem} → ${d.destino}
-
-💰 Total: R$ ${total}`;
+💰 ${d.total}`;
 
 window.open(`https://wa.me/?text=${encodeURIComponent(msg)}`);
 }
 
 /* PDF */
-async function pdf(){
-
-let total = localStorage.getItem("rf_total_final");
-
-const res = await fetch("https://backend-recibo-rf.onrender.com/gerar-recibo",{
-method:"POST",
-headers:{ "Content-Type":"application/json"},
-body:JSON.stringify({
-origem:d.origem,
-destino:d.destino,
-total
-})
-});
-
-const r = await res.json();
-
-window.open(r.link);
+function pdf(){
+window.open("https://backend-recibo-rf.onrender.com");
 }
 
 </script>
