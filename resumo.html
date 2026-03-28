@@ -26,21 +26,28 @@
   <!-- ROTA -->
   <div class="card-modern">
 
-    <div class="campo">
-      <div class="campo-left">
-        <div class="dot origem"></div>
-        <span id="origem"></span>
-      </div>
+  <div class="campo">
+    <div class="campo-left">
+      <div class="dot origem"></div>
+      <span id="origem"></span>
     </div>
-
-    <div class="campo">
-      <div class="campo-left">
-        <div class="dot destino"></div>
-        <span id="destino"></span>
-      </div>
-    </div>
-
   </div>
+
+  <div class="campo" id="paradaBox" style="display:none;">
+    <div class="campo-left">
+      <div class="dot" style="background:#facc15"></div>
+      <span id="parada"></span>
+    </div>
+  </div>
+
+  <div class="campo">
+    <div class="campo-left">
+      <div class="dot destino"></div>
+      <span id="destino"></span>
+    </div>
+  </div>
+
+</div>
 
   <!-- RESUMO -->
   <div class="card-modern">
@@ -117,9 +124,22 @@ if(!d){
   window.location.href="home.html";
 }
 
-/* ===== ROTA ===== */
-document.getElementById("origem").innerText = d.origem;
-document.getElementById("destino").innerText = d.destino;
+/* ===== BASE DA CORRIDA ===== */
+
+let base = 0;
+
+if(d.parada){
+  // origem -> parada + parada -> destino
+  const v1 = DataManager.buscarValor(d.origem, d.parada) || 0;
+  const v2 = DataManager.buscarValor(d.parada, d.destino) || 0;
+  base = v1 + v2;
+
+  document.getElementById("paradaBox").style.display = "flex";
+  document.getElementById("parada").innerText = d.parada;
+
+}else{
+  base = DataManager.buscarValor(d.origem, d.destino) || 0;
+}
 
 /* ===== DETALHES ===== */
 document.getElementById("detalhes").innerHTML = `
@@ -129,7 +149,7 @@ document.getElementById("detalhes").innerHTML = `
 `;
 
 /* ===== TAXAS ===== */
-let base = parseFloat(d.valor) || 0;
+
 let taxas = 0;
 let html = "";
 
@@ -144,19 +164,24 @@ add("Feira", +d.feira || 0);
 add("Animal", +d.animal || 0);
 add("Saída Praia", +d.saidaPraia || 0);
 
-if(d.espera>5){
-  let t = 3 + ((d.espera-5)*0.6);
-  add("Espera", t);
+if(d.espera > 5){
+  let esperaCalc = 3 + ((d.espera - 5) * 0.6);
+  add("Espera", esperaCalc);
 }
 
-/* NOTURNO */
+/* ===== NOTURNO ===== */
+
 if(d.embarque){
   let [h,m] = d.embarque.split(":");
   let hora = +h + (m/60);
 
-  if(hora>=22.5 || hora<=5){
-    let n = base<=24.99 ? 4.99 : base*0.35;
-    add("Noturno", n);
+  if(hora >= 22.5 || hora <= 5){
+
+    let adicional = base <= 24.99 
+      ? 4.99 
+      : base * 0.35;
+
+    add("Adicional Noturno", adicional);
   }
 }
 
@@ -183,6 +208,11 @@ function calcular(){
   if(pagamento==="debito") total /= 0.98;
 
   document.getElementById("total").innerText = "R$ " + total.toFixed(2);
+
+  document.getElementById("resumoValores").innerHTML = `
+    <div class="linha"><span>Valor base</span><span>R$ ${base.toFixed(2)}</span></div>
+    <div class="linha"><span>Taxas</span><span>R$ ${taxas.toFixed(2)}</span></div>
+  `;
 
   localStorage.setItem("rf_total_final", total.toFixed(2));
 }
