@@ -538,22 +538,25 @@ btnContinuar.onclick = ()=>{
   }
 
   localStorage.setItem("rf_corrida_temp", JSON.stringify({
-    origem,
-    parada,
-    destino,
-    valor: previewTotal.innerText,
+  origem,
+  parada,
+  destino,
 
-    categoria: tipoCarro.value,
+  total: previewTotal.innerText,
+  base: base,
+  taxas: taxas,
 
-    feira: feira?.value || 0,
-    animal: animal?.value || 0,
-    espera: espera?.value || 0,
-    saidaPraia: saidaPraia?.value || 0,
+  categoria: tipoCarro.value,
 
-    obs: obs?.value || "",
-    embarque: embarque?.value || "",
-    desembarque: desembarque?.value || ""
-  }));
+  feira: feira?.value || 0,
+  animal: animal?.value || 0,
+  espera: espera?.value || 0,
+  saidaPraia: saidaPraia?.value || 0,
+
+  obs: obs?.value || "",
+  embarque: embarque?.value || "",
+  desembarque: desembarque?.value || ""
+}));
 
   window.location.href = "resumo.html";
 };
