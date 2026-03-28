@@ -12,7 +12,6 @@
 
 <style>
 
-/* CONTEÚDO */
 .container{
 max-width:420px;
 margin:20px auto;
@@ -22,7 +21,6 @@ flex-direction:column;
 gap:16px;
 }
 
-/* CARD PADRÃO */
 .card{
 background:var(--bg-card);
 border-radius:16px;
@@ -30,15 +28,10 @@ padding:16px;
 box-shadow:var(--shadow-soft);
 }
 
-/* ROTA */
 .rota{
 display:flex;
 justify-content:space-between;
 align-items:center;
-}
-
-.rota-box{
-flex:1;
 }
 
 .label{
@@ -50,14 +43,18 @@ color:var(--text-secondary);
 font-weight:bold;
 }
 
-/* LINHAS */
 .linha{
 display:flex;
 justify-content:space-between;
 margin:6px 0;
 }
 
-/* PAGAMENTO */
+.total{
+font-size:26px;
+font-weight:bold;
+color:var(--primary);
+}
+
 .pagamentos{
 display:grid;
 grid-template-columns:1fr 1fr;
@@ -77,20 +74,12 @@ border:1px solid var(--primary);
 color:var(--primary);
 }
 
-/* TOTAL */
-.total{
-font-size:26px;
-font-weight:bold;
-color:var(--primary);
-}
-
-/* BOTÕES */
 .botoes{
 display:flex;
 gap:10px;
 }
 
-.botoes button{
+button{
 flex:1;
 padding:14px;
 border:none;
@@ -114,57 +103,40 @@ color:#000;
 
 <body data-theme="dark">
 
-<!-- MENU IGUAL HOME -->
-<div class="menu-overlay" id="menuOverlay" onclick="fecharMenu()"></div>
-
-<div class="menu" id="menu">
-  <h3>Menu</h3>
-  <div class="menu-item" onclick="irPara('termos.html')">📜 Regras</div>
-  <div class="menu-item" onclick="irPara('bonus.html')">📜 Bônus</div>
-  <div class="menu-item" onclick="irPara('premiacao.html')">🏆 Ranking</div>
-  <div class="menu-item" onclick="irPara('historico.html')">📊 Histórico</div>
-  <div class="menu-item" onclick="irPara('configuracoes.html')">⚙️ Configurações</div>
-</div>
-
-<!-- HEADER IGUAL -->
+<!-- HEADER -->
 <div class="top-white">
   <div class="logo-area">
     <img src="icons/icon-512.png" class="logo-img">
     <span class="logo-text-dark">RF MOTORISTA</span>
   </div>
-  <div class="menu-btn-dark" onclick="abrirMenu()">☰</div>
 </div>
 
 <div class="container">
 
-<!-- ROTA -->
 <div class="card rota">
-<div class="rota-box">
+<div>
 <div class="label">Origem</div>
 <div class="nome" id="origem"></div>
 </div>
 
 <div>→</div>
 
-<div class="rota-box">
+<div>
 <div class="label">Destino</div>
 <div class="nome" id="destino"></div>
 </div>
 </div>
 
-<!-- RESUMO -->
 <div class="card">
 <h3>Resumo da viagem</h3>
 <div id="detalhes"></div>
 </div>
 
-<!-- TAXAS -->
 <div class="card">
 <h3>Taxas adicionais</h3>
 <div id="taxas"></div>
 </div>
 
-<!-- PAGAMENTO -->
 <div class="card">
 <h3>Forma de pagamento</h3>
 
@@ -174,10 +146,8 @@ color:#000;
 <div class="pagamento">Crédito</div>
 <div class="pagamento">Débito</div>
 </div>
-
 </div>
 
-<!-- TOTAL -->
 <div class="card">
 <div>Total da viagem</div>
 <div class="total" id="total"></div>
@@ -185,64 +155,37 @@ color:#000;
 <div id="resumoValores"></div>
 </div>
 
-<!-- BOTÕES -->
 <div class="botoes">
 <button class="btn-wpp" onclick="wpp()">WhatsApp</button>
-<button class="btn-pdf" onclick="pdf()">Gerar PDF</button>
+<button class="btn-pdf" onclick="pdf()">PDF</button>
 </div>
 
 </div>
 
 <script>
 
-/* TEMA */
-(function(){
-  const tema = localStorage.getItem("rf_theme") || "dark";
-  document.body.setAttribute("data-theme", tema);
-})();
-
-/* MENU */
-function abrirMenu(){
-  menu.classList.add("ativo");
-  menuOverlay.style.display="block";
-}
-
-function fecharMenu(){
-  menu.classList.remove("ativo");
-  menuOverlay.style.display="none";
-}
-
-function irPara(p){
-  location.href=p;
-}
-
-/* DADOS (SEM CALCULAR) */
 const d = JSON.parse(localStorage.getItem("rf_corrida_temp"));
 
 if(!d){
-alert("Erro: dados não encontrados");
+alert("Erro");
 location.href="home.html";
 }
 
-/* ROTA */
 origem.innerText = d.origem;
 destino.innerText = d.destino;
 
-/* DETALHES */
 detalhes.innerHTML = `
 Veículo: ${d.categoria>1?"6 lugares":"4 lugares"}<br>
 Embarque: ${d.embarque || "-"}<br>
 Obs: ${d.obs || "-"}
 `;
 
-/* TAXAS */
 taxas.innerHTML = `
 <div class="linha"><span>Feira</span><span>R$ ${d.feira}</span></div>
 <div class="linha"><span>Animal</span><span>R$ ${d.animal}</span></div>
 <div class="linha"><span>Saída Praia</span><span>R$ ${d.saidaPraia}</span></div>
 `;
 
-/* TOTAL (SEM CALCULAR) */
 total.innerText = d.total;
 
 resumoValores.innerHTML = `
@@ -250,9 +193,8 @@ resumoValores.innerHTML = `
 <div>Taxas: R$ ${d.taxas}</div>
 `;
 
-/* WHATS */
 function wpp(){
-let msg = `🚗 *Resumo RF*
+let msg = `🚗 RF DRIVER
 
 ${d.origem} → ${d.destino}
 
@@ -261,7 +203,6 @@ ${d.origem} → ${d.destino}
 window.open(`https://wa.me/?text=${encodeURIComponent(msg)}`);
 }
 
-/* PDF */
 function pdf(){
 window.open("https://backend-recibo-rf.onrender.com");
 }
