@@ -231,14 +231,11 @@ body[data-theme="dark"]{
 
 <script>
 
-let baseGlobal = 0;
-let taxasGlobal = 0;
-  
-  (function(){
-  const tema = localStorage.getItem("rf_theme") || "light";
+(function(){
+  const tema = localStorage.getItem("rf_theme") || "dark";
   document.body.setAttribute("data-theme", tema);
 })();
-  
+
 /* =========================
 ELEMENTOS
 ========================= */
@@ -270,6 +267,19 @@ const btnContinuar = document.getElementById("btnContinuar");
 const obs = document.getElementById("obs");
 const embarque = document.getElementById("embarque");
 const desembarque = document.getElementById("desembarque");
+
+const busca = document.getElementById("busca");
+
+/* =========================
+ESTADO GLOBAL
+========================= */
+let origem = null;
+let destino = null;
+let parada = null;
+let modo = null;
+
+let baseGlobal = 0;
+let taxasGlobal = 0;
 
 /* =========================
 INIT
@@ -305,25 +315,14 @@ function irPara(p){
 }
 
 /* =========================
-ESTADO
-========================= */
-let origem = null;
-let destino = null;
-let parada = null;
-let modo = null;
-
-/* =========================
-PARADA (+)
+PARADA
 ========================= */
 if(addParada){
-  addParada.onclick = (e)=>{
-    e.stopPropagation();
-
+  addParada.onclick = ()=>{
     if(!origem){
       alert("Selecione a origem primeiro.");
       return;
     }
-
     paradaBtn.style.display = "flex";
   };
 }
@@ -338,14 +337,11 @@ function abrirModal(tipo){
 
   let dados = [];
 
-  // ORIGEM (normal)
   if(tipo === "origem"){
     dados = DataManager.listarOrigens();
   }
 
-  // PARADA (filtra apenas locais que TEM continuação)
   if(tipo === "parada"){
-
     if(!origem){
       alert("Selecione a origem primeiro");
       return;
@@ -359,20 +355,15 @@ function abrirModal(tipo){
       });
   }
 
-  // DESTINO
   if(tipo === "destino"){
-
     if(!origem){
       alert("Selecione a origem primeiro");
       return;
     }
 
-    // se tem parada → destino depende da parada
-    if(parada){
-      dados = DataManager.listarDestinos(parada);
-    }else{
-      dados = DataManager.listarDestinos(origem);
-    }
+    dados = parada
+      ? DataManager.listarDestinos(parada)
+      : DataManager.listarDestinos(origem);
   }
 
   renderLista(dados);
@@ -386,16 +377,14 @@ function selecionar(valor){
 
   if(modo === "origem"){
     origem = valor;
-
-    // reset total
     parada = null;
     destino = null;
 
     origemTexto.innerText = valor;
     destinoTexto.innerText = "Selecionar destino";
 
-    if(paradaTexto) paradaTexto.innerText = "Selecionar parada";
-    if(paradaBtn) paradaBtn.style.display = "none";
+    paradaTexto.innerText = "Selecionar parada";
+    paradaBtn.style.display = "none";
   }
 
   if(modo === "parada"){
@@ -417,9 +406,9 @@ function selecionar(valor){
 /* =========================
 EVENTOS
 ========================= */
-if(origemBtn) origemBtn.onclick = ()=>abrirModal("origem");
-if(destinoBtn) destinoBtn.onclick = ()=>abrirModal("destino");
-if(paradaBtn) paradaBtn.onclick = ()=>abrirModal("parada");
+origemBtn.onclick = ()=>abrirModal("origem");
+destinoBtn.onclick = ()=>abrirModal("destino");
+paradaBtn.onclick = ()=>abrirModal("parada");
 
 modal.onclick = (e)=>{
   if(e.target === modal) modal.style.display = "none";
@@ -438,7 +427,7 @@ document.querySelectorAll(".veiculo").forEach(v=>{
 });
 
 /* =========================
-CÁLCULO (CORRIGIDO)
+CÁLCULO
 ========================= */
 function calcularPreview(){
 
@@ -459,29 +448,23 @@ function calcularPreview(){
 
   let taxas = 0;
 
-  const feiraVal = Number(feira?.value || 0);
-  const animalVal = Number(animal?.value || 0);
-  const esperaVal = Number(espera?.value || 0);
-  const praiaVal = Number(saidaPraia?.value || 0);
+  taxas += Number(feira.value || 0);
+  taxas += Number(animal.value || 0);
+  taxas += Number(saidaPraia.value || 0);
 
-  taxas += feiraVal + animalVal + praiaVal;
-
+  const esperaVal = Number(espera.value || 0);
   if(esperaVal > 5){
     taxas += 3 + ((esperaVal - 5) * 0.6);
   }
 
   let subtotal = base + taxas;
 
-  const hora = embarque?.value;
-
+  const hora = embarque.value;
   if(hora){
     const [h,m] = hora.split(":").map(Number);
     const minutos = h * 60 + m;
 
-    const inicio = 22 * 60 + 30;
-    const fim = 5 * 60;
-
-    if(minutos >= inicio || minutos < fim){
+    if(minutos >= 1350 || minutos < 300){
       subtotal += subtotal <= 24.99 ? 5 : subtotal * 0.35;
     }
   }
@@ -491,14 +474,16 @@ function calcularPreview(){
     subtotal *= categoria;
   }
 
-  // 👉 SALVA GLOBAL
   baseGlobal = base;
   taxasGlobal = taxas;
 
   previewTotal.innerText = "R$ " + subtotal.toFixed(2);
 }
 
-  function renderLista(arr){
+/* =========================
+LISTA
+========================= */
+function renderLista(arr){
   lista.innerHTML = "";
 
   arr.forEach(item=>{
@@ -513,16 +498,27 @@ function calcularPreview(){
     lista.appendChild(div);
   });
 }
-  
+
 /* =========================
-ATUALIZAÇÃO AUTOMÁTICA
+BUSCA
+========================= */
+busca.addEventListener("input", ()=>{
+  const termo = busca.value.toLowerCase();
+
+  Array.from(lista.children).forEach(div=>{
+    div.style.display = div.innerText.toLowerCase().includes(termo)
+      ? "block"
+      : "none";
+  });
+});
+
+/* =========================
+AUTO UPDATE
 ========================= */
 ["feira","animal","espera","saidaPraia"].forEach(id=>{
   const el = document.getElementById(id);
-  if(el){
-    el.addEventListener("change", calcularPreview);
-    el.addEventListener("input", calcularPreview);
-  }
+  el.addEventListener("change", calcularPreview);
+  el.addEventListener("input", calcularPreview);
 });
 
 /* =========================
@@ -535,48 +531,26 @@ btnContinuar.onclick = ()=>{
     return;
   }
 
-  btnContinuar.onclick = ()=>{
-
-  if(!origem || !destino){
-    alert("Selecione origem e destino");
-    return;
-  }
-
   localStorage.setItem("rf_corrida_temp", JSON.stringify({
     origem,
     parada,
     destino,
-
     total: previewTotal.innerText,
     base: baseGlobal,
     taxas: taxasGlobal,
-
     categoria: tipoCarro.value,
-
-    feira: feira?.value || 0,
-    animal: animal?.value || 0,
-    espera: espera?.value || 0,
-    saidaPraia: saidaPraia?.value || 0,
-
-    obs: obs?.value || "",
-    embarque: embarque?.value || "",
-    desembarque: desembarque?.value || ""
+    feira: feira.value,
+    animal: animal.value,
+    espera: espera.value,
+    saidaPraia: saidaPraia.value,
+    obs: obs.value,
+    embarque: embarque.value,
+    desembarque: desembarque.value
   }));
 
   window.location.href = "resumo.html";
 };
 
-  const busca = document.getElementById("busca");
-
-busca.addEventListener("input", ()=>{
-  const termo = busca.value.toLowerCase();
-
-  Array.from(lista.children).forEach(div=>{
-    div.style.display = div.innerText.toLowerCase().includes(termo)
-      ? "block"
-      : "none";
-  });
-});
 </script>
 
 </body>
