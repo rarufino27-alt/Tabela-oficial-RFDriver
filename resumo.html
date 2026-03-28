@@ -15,12 +15,10 @@
 <body>
 
 <div class="top-white">
-
   <div class="logo-area">
     <img src="icons/icon-512.png" class="logo-img">
     <span class="logo-text-dark">RF MOTORISTA</span>
   </div>
-
 </div>
 
 <div class="app-container">
@@ -46,20 +44,14 @@
 
   <!-- RESUMO -->
   <div class="card-modern">
-
     <h3>Resumo da viagem</h3>
-
     <div id="detalhes"></div>
-
   </div>
 
   <!-- TAXAS -->
   <div class="card-modern">
-
     <h3>Taxas adicionais</h3>
-
     <div id="taxas"></div>
-
   </div>
 
   <!-- PAGAMENTO -->
@@ -67,134 +59,147 @@
 
     <h3>Forma de pagamento</h3>
 
-    <div class="pagamentos">
+    <div class="veiculos">
 
-      <div class="pagamento ativo" data="dinheiro">💵 Dinheiro</div>
-      <div class="pagamento" data="pix">⚡ PIX</div>
-      <div class="pagamento" data="credito">💳 Crédito</div>
-      <div class="pagamento" data="debito">🏧 Débito</div>
+      <div class="veiculo ativo pagamento" data="dinheiro">
+        💵
+        <strong>Dinheiro</strong>
+      </div>
+
+      <div class="veiculo pagamento" data="pix">
+        ⚡
+        <strong>PIX</strong>
+      </div>
+
+      <div class="veiculo pagamento" data="credito">
+        💳
+        <strong>Crédito</strong>
+      </div>
+
+      <div class="veiculo pagamento" data="debito">
+        🏧
+        <strong>Débito</strong>
+      </div>
 
     </div>
-
-  </div>
-
-  <!-- TOTAL -->
-  <div class="card-modern">
-
-    <span>Valor total</span>
-    <div class="total" id="total"></div>
-
-    <div id="resumoValores"></div>
 
   </div>
 
 </div>
 
-<div class="footer">
+<!-- CTA IGUAL HOME -->
+<div class="cta-box">
 
-  <div class="footer-inner">
-
-    <div class="cta-area-duplo">
-      <button class="btn-secundario" onclick="wpp()">WhatsApp</button>
-      <button class="btn-principal" onclick="pdf()">Gerar PDF</button>
-    </div>
-
+  <div>
+    <span>Total</span>
+    <strong id="total">R$ 0,00</strong>
   </div>
+
+  <button onclick="wpp()">
+    WHATSAPP →
+  </button>
 
 </div>
 
 <script>
 
+/* ===== TEMA GLOBAL ===== */
 (function(){
   const tema = localStorage.getItem("rf_theme") || "light";
   document.body.setAttribute("data-theme", tema);
 })();
 
-/* DADOS */
+/* ===== DADOS ===== */
 const d = JSON.parse(localStorage.getItem("rf_corrida_temp"));
 
 if(!d){
-alert("Erro nos dados");
-location.href="home.html";
+  alert("Erro: dados não encontrados");
+  window.location.href="home.html";
 }
 
-/* ROTA */
-origem.innerText = d.origem;
-destino.innerText = d.destino;
+/* ===== ROTA ===== */
+document.getElementById("origem").innerText = d.origem;
+document.getElementById("destino").innerText = d.destino;
 
-/* DETALHES */
-detalhes.innerHTML = `
-Veículo: ${d.categoria>1?"6 lugares":"4 lugares"}<br>
-Embarque: ${d.embarque || "-"}<br>
-Obs: ${d.obs || "-"}
+/* ===== DETALHES ===== */
+document.getElementById("detalhes").innerHTML = `
+<div class="linha"><span>Veículo</span><span>${d.categoria>1?"6 lugares":"4 lugares"}</span></div>
+<div class="linha"><span>Embarque</span><span>${d.embarque || "-"}</span></div>
+<div class="linha"><span>Obs</span><span>${d.obs || "-"}</span></div>
 `;
 
-/* TAXAS */
-taxas.innerHTML = `
-<div class="linha"><span>Feira</span><span>R$ ${d.feira}</span></div>
-<div class="linha"><span>Animal</span><span>R$ ${d.animal}</span></div>
-<div class="linha"><span>Saída Praia</span><span>R$ ${d.saidaPraia}</span></div>
-`;
+/* ===== TAXAS ===== */
+let base = parseFloat(d.valor) || 0;
+let taxas = 0;
+let html = "";
 
-/* TOTAL BASE */
-let totalBase = parseFloat(d.total.replace("R$ ","").replace(",","."));
-let totalFinal = totalBase;
+function add(nome,val){
+  if(val>0){
+    taxas += val;
+    html += `<div class="linha"><span>${nome}</span><span>R$ ${val.toFixed(2)}</span></div>`;
+  }
+}
 
-/* PAGAMENTO */
+add("Feira", +d.feira || 0);
+add("Animal", +d.animal || 0);
+add("Saída Praia", +d.saidaPraia || 0);
+
+if(d.espera>5){
+  let t = 3 + ((d.espera-5)*0.6);
+  add("Espera", t);
+}
+
+/* NOTURNO */
+if(d.embarque){
+  let [h,m] = d.embarque.split(":");
+  let hora = +h + (m/60);
+
+  if(hora>=22.5 || hora<=5){
+    let n = base<=24.99 ? 4.99 : base*0.35;
+    add("Noturno", n);
+  }
+}
+
+document.getElementById("taxas").innerHTML = html;
+
+/* ===== PAGAMENTO ===== */
 let pagamento = "dinheiro";
 
-function atualizarTotal(){
-
-  totalFinal = totalBase;
-
-  if(pagamento === "credito"){
-    totalFinal = totalBase / 0.95;
-  }
-
-  if(pagamento === "debito"){
-    totalFinal = totalBase / 0.98;
-  }
-
-  total.innerText = "R$ " + totalFinal.toFixed(2);
-}
-
-/* INIT */
-atualizarTotal();
-
-/* CLICK PAGAMENTO */
-document.querySelectorAll(".pagamento").forEach(p=>{
-  p.onclick = ()=>{
-    document.querySelectorAll(".pagamento").forEach(x=>x.classList.remove("ativo"));
-    p.classList.add("ativo");
-
-    pagamento = p.getAttribute("data");
-
-    atualizarTotal();
+document.querySelectorAll(".pagamento").forEach(btn=>{
+  btn.onclick = ()=>{
+    document.querySelectorAll(".pagamento").forEach(b=>b.classList.remove("ativo"));
+    btn.classList.add("ativo");
+    pagamento = btn.getAttribute("data");
+    calcular();
   };
 });
 
-/* RESUMO */
-resumoValores.innerHTML = `
-<div>Base: R$ ${d.base}</div>
-<div>Taxas: R$ ${d.taxas}</div>
-`;
+/* ===== CALCULO ===== */
+function calcular(){
 
-/* WHATS */
-function wpp(){
+  let total = base + taxas;
 
-let msg = `🚗 *RF DRIVER*
+  if(pagamento==="credito") total /= 0.95;
+  if(pagamento==="debito") total /= 0.98;
 
-📍 ${d.origem} → ${d.destino}
+  document.getElementById("total").innerText = "R$ " + total.toFixed(2);
 
-💰 R$ ${totalFinal.toFixed(2)}
-💳 Pagamento: ${pagamento}`;
-
-window.open(`https://wa.me/?text=${encodeURIComponent(msg)}`);
+  localStorage.setItem("rf_total_final", total.toFixed(2));
 }
 
-/* PDF */
-function pdf(){
-window.open("https://backend-recibo-rf.onrender.com");
+calcular();
+
+/* ===== WHATS ===== */
+function wpp(){
+
+  let total = localStorage.getItem("rf_total_final");
+
+  let msg = `🚗 *RF DRIVER*
+
+📍 ${d.origem} → ${d.destino}
+💰 R$ ${total}`;
+
+  window.open(`https://wa.me/?text=${encodeURIComponent(msg)}`);
 }
 
 </script>
