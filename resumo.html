@@ -7,54 +7,80 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <link rel="stylesheet" href="theme/theme.css">
-<link rel="stylesheet" href="theme/layout.css">
-<link rel="stylesheet" href="theme/components.css">
 
 <style>
 
+body{
+margin:0;
+font-family:Arial;
+background:#0f0f0f;
+color:#fff;
+}
+
+/* HEADER */
+.top{
+display:flex;
+align-items:center;
+justify-content:space-between;
+padding:16px;
+background:#111;
+border-bottom:1px solid #222;
+}
+
+.logo{
+display:flex;
+align-items:center;
+gap:10px;
+font-weight:bold;
+}
+
+/* CONTAINER */
 .container{
 max-width:420px;
-margin:20px auto;
+margin:auto;
 padding:16px;
 display:flex;
 flex-direction:column;
 gap:16px;
 }
 
+/* CARD */
 .card{
-background:var(--bg-card);
+background:#1a1a1a;
 border-radius:16px;
 padding:16px;
-box-shadow:var(--shadow-soft);
+box-shadow:0 10px 30px rgba(0,0,0,.4);
+border:1px solid rgba(255,255,255,.05);
 }
 
+/* ROTA */
 .rota{
 display:flex;
 justify-content:space-between;
 align-items:center;
 }
 
+.rota-box{
+flex:1;
+}
+
 .label{
 font-size:12px;
-color:var(--text-secondary);
+color:#aaa;
 }
 
 .nome{
 font-weight:bold;
 }
 
+/* LINHAS */
 .linha{
 display:flex;
 justify-content:space-between;
 margin:6px 0;
 }
 
-.total{
-font-size:26px;
-font-weight:bold;
-color:var(--primary);
-}
-
+/* PAGAMENTO */
 .pagamentos{
 display:grid;
 grid-template-columns:1fr 1fr;
@@ -62,18 +88,33 @@ gap:10px;
 }
 
 .pagamento{
-padding:12px;
-border-radius:10px;
-border:1px solid var(--border);
+padding:14px;
+border-radius:12px;
+border:1px solid #333;
 text-align:center;
 cursor:pointer;
+transition:.2s;
+}
+
+.pagamento:hover{
+transform:scale(0.97);
 }
 
 .pagamento.ativo{
-border:1px solid var(--primary);
-color:var(--primary);
+border:2px solid #facc15;
+background:rgba(250,204,21,.1);
+color:#facc15;
 }
 
+/* TOTAL */
+.total{
+font-size:28px;
+font-weight:bold;
+color:#facc15;
+margin-top:6px;
+}
+
+/* BOTÕES */
 .botoes{
 display:flex;
 gap:10px;
@@ -81,10 +122,11 @@ gap:10px;
 
 button{
 flex:1;
-padding:14px;
+padding:16px;
 border:none;
-border-radius:10px;
+border-radius:12px;
 font-weight:bold;
+cursor:pointer;
 }
 
 .btn-wpp{
@@ -93,7 +135,7 @@ color:#fff;
 }
 
 .btn-pdf{
-background:var(--primary);
+background:#facc15;
 color:#000;
 }
 
@@ -101,91 +143,102 @@ color:#000;
 
 </head>
 
-<body data-theme="dark">
+<body>
 
-<!-- HEADER -->
-<div class="top-white">
-  <div class="logo-area">
-    <img src="icons/icon-512.png" class="logo-img">
-    <span class="logo-text-dark">RF MOTORISTA</span>
+<div class="top">
+  <div class="logo">
+    <img src="icons/icon-512.png" width="28">
+    RF MOTORISTA
   </div>
 </div>
 
 <div class="container">
 
+<!-- ROTA -->
 <div class="card rota">
-<div>
+<div class="rota-box">
 <div class="label">Origem</div>
 <div class="nome" id="origem"></div>
 </div>
 
 <div>→</div>
 
-<div>
+<div class="rota-box">
 <div class="label">Destino</div>
 <div class="nome" id="destino"></div>
 </div>
 </div>
 
+<!-- DETALHES -->
 <div class="card">
 <h3>Resumo da viagem</h3>
 <div id="detalhes"></div>
 </div>
 
+<!-- TAXAS -->
 <div class="card">
 <h3>Taxas adicionais</h3>
 <div id="taxas"></div>
 </div>
 
+<!-- PAGAMENTO -->
 <div class="card">
 <h3>Forma de pagamento</h3>
 
 <div class="pagamentos">
-<div class="pagamento ativo">Dinheiro</div>
-<div class="pagamento">PIX</div>
-<div class="pagamento">Crédito</div>
-<div class="pagamento">Débito</div>
-</div>
+<div class="pagamento ativo" data="dinheiro">💵 Dinheiro</div>
+<div class="pagamento" data="pix">⚡ PIX</div>
+<div class="pagamento" data="credito">💳 Crédito</div>
+<div class="pagamento" data="debito">🏧 Débito</div>
 </div>
 
+</div>
+
+<!-- TOTAL -->
 <div class="card">
-<div>Total da viagem</div>
+<div class="label">Total da viagem</div>
 <div class="total" id="total"></div>
 
 <div id="resumoValores"></div>
 </div>
 
+<!-- BOTÕES -->
 <div class="botoes">
 <button class="btn-wpp" onclick="wpp()">WhatsApp</button>
-<button class="btn-pdf" onclick="pdf()">PDF</button>
+<button class="btn-pdf" onclick="pdf()">Gerar PDF</button>
 </div>
 
 </div>
 
 <script>
 
+/* DADOS */
 const d = JSON.parse(localStorage.getItem("rf_corrida_temp"));
 
 if(!d){
-alert("Erro");
+alert("Erro nos dados");
 location.href="home.html";
 }
 
+/* ROTA */
 origem.innerText = d.origem;
 destino.innerText = d.destino;
 
+/* DETALHES */
 detalhes.innerHTML = `
 Veículo: ${d.categoria>1?"6 lugares":"4 lugares"}<br>
 Embarque: ${d.embarque || "-"}<br>
 Obs: ${d.obs || "-"}
 `;
 
+/* TAXAS */
 taxas.innerHTML = `
 <div class="linha"><span>Feira</span><span>R$ ${d.feira}</span></div>
 <div class="linha"><span>Animal</span><span>R$ ${d.animal}</span></div>
 <div class="linha"><span>Saída Praia</span><span>R$ ${d.saidaPraia}</span></div>
 `;
 
+/* TOTAL */
 total.innerText = d.total;
 
 resumoValores.innerHTML = `
@@ -193,16 +246,31 @@ resumoValores.innerHTML = `
 <div>Taxas: R$ ${d.taxas}</div>
 `;
 
+/* PAGAMENTO FUNCIONAL */
+let pagamento = "dinheiro";
+
+document.querySelectorAll(".pagamento").forEach(p=>{
+  p.onclick = ()=>{
+    document.querySelectorAll(".pagamento").forEach(x=>x.classList.remove("ativo"));
+    p.classList.add("ativo");
+    pagamento = p.getAttribute("data");
+  };
+});
+
+/* WHATSAPP */
 function wpp(){
-let msg = `🚗 RF DRIVER
 
-${d.origem} → ${d.destino}
+let msg = `🚗 *RF DRIVER*
 
-💰 ${d.total}`;
+📍 ${d.origem} → ${d.destino}
+
+💰 ${d.total}
+💳 Pagamento: ${pagamento}`;
 
 window.open(`https://wa.me/?text=${encodeURIComponent(msg)}`);
 }
 
+/* PDF */
 function pdf(){
 window.open("https://backend-recibo-rf.onrender.com");
 }
