@@ -245,6 +245,9 @@ let totalFinal = totalBase;
 /* PAGAMENTO */
 let pagamento = "dinheiro";
 
+let totalBase = parseFloat(d.total.replace("R$ ","").replace(",","."));
+let totalFinal = totalBase;
+
 function atualizarTotal(){
 
   totalFinal = totalBase;
@@ -260,7 +263,7 @@ function atualizarTotal(){
   total.innerText = "R$ " + totalFinal.toFixed(2);
 }
 
-/* INICIAL */
+/* INIT */
 atualizarTotal();
 
 /* CLICK */
@@ -279,17 +282,6 @@ resumoValores.innerHTML = `
 <div>Base: R$ ${d.base}</div>
 <div>Taxas: R$ ${d.taxas}</div>
 `;
-
-/* PAGAMENTO FUNCIONAL */
-let pagamento = "dinheiro";
-
-document.querySelectorAll(".pagamento").forEach(p=>{
-  p.onclick = ()=>{
-    document.querySelectorAll(".pagamento").forEach(x=>x.classList.remove("ativo"));
-    p.classList.add("ativo");
-    pagamento = p.getAttribute("data");
-  };
-});
 
 /* WHATSAPP */
 function wpp(){
