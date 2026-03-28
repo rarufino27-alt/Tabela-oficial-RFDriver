@@ -168,10 +168,10 @@ color:#000;
 <div class="card-premium">
 <h3>Forma de pagamento</h3>
 <div class="pagamento-grid">
-<div class="pagamento ativo" data="dinheiro">Dinheiro</div>
-<div class="pagamento" data="pix">PIX</div>
-<div class="pagamento" data="credito">Crédito</div>
-<div class="pagamento" data="debito">Débito</div>
+<div class="pagamento ativo" data-tipo="dinheiro">Dinheiro</div>
+<div class="pagamento" data-tipo="pix">PIX</div>
+<div class="pagamento" data-tipo="credito">Crédito</div>
+<div class="pagamento" data-tipo="debito">Débito</div>
 </div>
 </div>
 
@@ -300,7 +300,7 @@ subtotal *= d.categoria;
 }
 
 /* PAGAMENTO */
-let pagamento = document.getElementById("pagamento").value;
+let pagamento = formaPagamento;
 let total = subtotal;
 
 if(pagamento === "credito") total = subtotal / 0.95;
@@ -315,7 +315,23 @@ document.getElementById("valorFinal").innerText = "R$ " + total.toFixed(2);
 localStorage.setItem("rf_total_final", total.toFixed(2));
 }
 
-document.getElementById("pagamento").addEventListener("change", calcular);
+let formaPagamento = "dinheiro";
+
+document.querySelectorAll(".pagamento").forEach(btn => {
+
+  btn.addEventListener("click", () => {
+
+    document.querySelectorAll(".pagamento")
+      .forEach(b => b.classList.remove("ativo"));
+
+    btn.classList.add("ativo");
+
+    formaPagamento = btn.dataset.tipo;
+
+    calcular();
+  });
+
+});
 
 /* WHATSAPP */
 function wpp(){
