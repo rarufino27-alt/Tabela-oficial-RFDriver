@@ -239,7 +239,41 @@ taxas.innerHTML = `
 `;
 
 /* TOTAL */
-total.innerText = d.total;
+let totalBase = parseFloat(d.total.replace("R$ ","").replace(",","."));
+let totalFinal = totalBase;
+
+/* PAGAMENTO */
+let pagamento = "dinheiro";
+
+function atualizarTotal(){
+
+  totalFinal = totalBase;
+
+  if(pagamento === "credito"){
+    totalFinal = totalBase / 0.95;
+  }
+
+  if(pagamento === "debito"){
+    totalFinal = totalBase / 0.98;
+  }
+
+  total.innerText = "R$ " + totalFinal.toFixed(2);
+}
+
+/* INICIAL */
+atualizarTotal();
+
+/* CLICK */
+document.querySelectorAll(".pagamento").forEach(p=>{
+  p.onclick = ()=>{
+    document.querySelectorAll(".pagamento").forEach(x=>x.classList.remove("ativo"));
+    p.classList.add("ativo");
+
+    pagamento = p.getAttribute("data");
+
+    atualizarTotal();
+  };
+});
 
 resumoValores.innerHTML = `
 <div>Base: R$ ${d.base}</div>
@@ -264,7 +298,7 @@ let msg = `🚗 *RF DRIVER*
 
 📍 ${d.origem} → ${d.destino}
 
-💰 ${d.total}
+💰 R$ ${totalFinal.toFixed(2)}
 💳 Pagamento: ${pagamento}`;
 
 window.open(`https://wa.me/?text=${encodeURIComponent(msg)}`);
