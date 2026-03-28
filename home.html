@@ -231,6 +231,9 @@ body[data-theme="dark"]{
 
 <script>
 
+let baseGlobal = 0;
+let taxasGlobal = 0;
+  
   (function(){
   const tema = localStorage.getItem("rf_theme") || "light";
   document.body.setAttribute("data-theme", tema);
@@ -463,39 +466,34 @@ function calcularPreview(){
 
   taxas += feiraVal + animalVal + praiaVal;
 
-  // espera
   if(esperaVal > 5){
     taxas += 3 + ((esperaVal - 5) * 0.6);
   }
 
   let subtotal = base + taxas;
 
-  // 🌙 NOTURNO
   const hora = embarque?.value;
 
   if(hora){
     const [h,m] = hora.split(":").map(Number);
     const minutos = h * 60 + m;
 
-    const inicio = 22 * 60 + 30; // 22:30
-    const fim = 5 * 60;          // 05:00
+    const inicio = 22 * 60 + 30;
+    const fim = 5 * 60;
 
     if(minutos >= inicio || minutos < fim){
-
-      if(subtotal <= 24.99){
-        subtotal += 5;
-      }else{
-        subtotal += subtotal * 0.35;
-      }
-
+      subtotal += subtotal <= 24.99 ? 5 : subtotal * 0.35;
     }
   }
 
-  // veículo
   const categoria = Number(tipoCarro.value || 1);
   if(categoria > 1){
     subtotal *= categoria;
   }
+
+  // 👉 SALVA GLOBAL
+  baseGlobal = base;
+  taxasGlobal = taxas;
 
   previewTotal.innerText = "R$ " + subtotal.toFixed(2);
 }
@@ -537,26 +535,33 @@ btnContinuar.onclick = ()=>{
     return;
   }
 
+  btnContinuar.onclick = ()=>{
+
+  if(!origem || !destino){
+    alert("Selecione origem e destino");
+    return;
+  }
+
   localStorage.setItem("rf_corrida_temp", JSON.stringify({
-  origem,
-  parada,
-  destino,
+    origem,
+    parada,
+    destino,
 
-  total: previewTotal.innerText,
-  base: base,
-  taxas: taxas,
+    total: previewTotal.innerText,
+    base: baseGlobal,
+    taxas: taxasGlobal,
 
-  categoria: tipoCarro.value,
+    categoria: tipoCarro.value,
 
-  feira: feira?.value || 0,
-  animal: animal?.value || 0,
-  espera: espera?.value || 0,
-  saidaPraia: saidaPraia?.value || 0,
+    feira: feira?.value || 0,
+    animal: animal?.value || 0,
+    espera: espera?.value || 0,
+    saidaPraia: saidaPraia?.value || 0,
 
-  obs: obs?.value || "",
-  embarque: embarque?.value || "",
-  desembarque: desembarque?.value || ""
-}));
+    obs: obs?.value || "",
+    embarque: embarque?.value || "",
+    desembarque: desembarque?.value || ""
+  }));
 
   window.location.href = "resumo.html";
 };
