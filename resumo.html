@@ -232,13 +232,95 @@ function carregarResumo(){
 /* ===== WHATS ===== */
 function wpp(){
 
-  let total = localStorage.getItem("rf_total_final") || "0.00";
+  const total = parseFloat(localStorage.getItem("rf_total_final") || 0).toFixed(2);
 
-  let msg = `🚗 *RF DRIVER*
+  let base = 0;
 
-📍 ${d.origem}${d.parada ? " → "+d.parada : ""} → ${d.destino}
+  if(d.parada){
+    const v1 = DataManager.buscarValor(d.origem, d.parada) || 0;
+    const v2 = DataManager.buscarValor(d.parada, d.destino) || 0;
+    base = v1 + v2;
+  }else{
+    base = DataManager.buscarValor(d.origem, d.destino) || 0;
+  }
 
-💰 R$ ${total}`;
+  let taxas = 0;
+  let detalhes = "";
+
+  function add(nome, emoji, val){
+    if(val > 0){
+      taxas += val;
+      detalhes += `${emoji}${nome.padEnd(18," ")} ${val.toFixed(2)}\n`;
+    }
+  }
+
+  add("Feira", "🛒", +d.feira || 0);
+  add("Saída de Praia", "⛱️", +d.saidaPraia || 0);
+  add("Animal", "🐶", +d.animal || 0);
+
+  if(d.espera > 5){
+    let esperaCalc = 3 + ((d.espera - 5) * 0.6);
+    add("Espera", "⏱️", esperaCalc);
+  }
+
+  // NOTURNO
+  if(d.embarque){
+    let [h,m] = d.embarque.split(":");
+    let hora = +h + (m/60);
+
+    if(hora >= 22.5 || hora <= 5){
+      let adicional = base <= 24.99 ? 4.99 : base * 0.35;
+      add("Adicional Noturno", "🌙", adicional);
+    }
+  }
+
+  const pagamentoTexto = {
+    dinheiro: "Dinheiro",
+    pix: "PIX",
+    credito: "Crédito",
+    debito: "Débito"
+  };
+
+  let pagamentoSelecionado = document.querySelector(".pagamento.ativo")?.getAttribute("data") || "dinheiro";
+
+  let msg = `🚖 *Orçamento RF*
+
+📌 *Origem*
+- ${d.origem}
+
+`;
+
+  if(d.parada){
+    msg += `🛑 *Parada*
+- ${d.parada}
+
+`;
+  }
+
+  msg += `🏁 *Destino*
+- ${d.destino}
+
+`;
+
+  msg += `💰 *Subtotal* - R$ ${base.toFixed(2)}
+
+`;
+
+  msg += `*Detalhes da viagem*
+
+${detalhes}
+
+`;
+
+  msg += `💰 *Subtotal* - R$ ${taxas.toFixed(2)}
+
+`;
+
+  msg += `💳 *Pagamento* ${pagamentoTexto[pagamentoSelecionado]}
+
+`;
+
+  msg += `💰 *Total* R$ ${total}`;
 
   window.open(`https://wa.me/?text=${encodeURIComponent(msg)}`);
 }
