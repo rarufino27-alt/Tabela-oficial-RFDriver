@@ -196,124 +196,180 @@ color:#000;
 <script>
 
 /* TEMA */
-document.body.setAttribute("data-theme", localStorage.getItem("rf_theme")||"dark");
+(function(){
+const tema = localStorage.getItem("rf_theme") || "dark";
+document.body.setAttribute("data-theme", tema);
+})();
 
+/* MENU */
+function abrirMenu(){
+menu.classList.add("ativo");
+menuOverlay.style.display="block";
+}
+function fecharMenu(){
+menu.classList.remove("ativo");
+menuOverlay.style.display="none";
+}
+function irPara(p){
+window.location.href=p;
+}
+
+/* DADOS */
 const d = JSON.parse(localStorage.getItem("rf_corrida_temp"));
+if(!d) window.location.href="home.html";
 
 /* ROTA */
-document.getElementById("rotaBox").innerHTML = `
-<div class="rota-col">
-<div class="rota-titulo">Origem</div>
-<div class="rota-nome">${d.origem}</div>
-</div>
+function montarRota(){
 
-<div>→</div>
+let html = `<div class="rota-item"><span>Origem:</span> ${d.origem}</div>`;
 
-<div class="rota-col">
-<div class="rota-titulo">Destino</div>
-<div class="rota-nome">${d.destino}</div>
-</div>
-`;
-
-/* DETALHES */
-document.getElementById("detalhes").innerHTML = `
-<div>${d.categoria>1?"6 lugares":"4 lugares"}</div>
-<div>${d.embarque||"-"}</div>
-<div>1 passageiro</div>
-`;
-
-/* TAXAS */
-let base = parseFloat(d.valor);
-let taxasHTML="";
-let taxas=0;
-
-function add(nome,val){
-if(val>0){
-taxas+=val;
-taxasHTML+=`<div class="taxa"><span>${nome}</span><span>R$ ${val.toFixed(2)}</span></div>`;
-}
+if(d.parada){
+html += `<div class="rota-item"><span>Parada:</span> ${d.parada}</div>`;
 }
 
-add("Feira",+d.feira||0);
-add("Animal",+d.animal||0);
-add("Saída praia",+d.saidaPraia||0);
+html += `<div class="rota-item"><span>Destino:</span> ${d.destino}</div>`;
 
-if(d.espera>5){
-let t=3+((d.espera-5)*0.6);
-add("Espera",t);
+document.getElementById("rota").innerHTML = html;
 }
 
-/* NOTURNO */
-if(d.embarque){
-let [h,m]=d.embarque.split(":");
-let hora=+h+(m/60);
+/* NOTURNO CORRETO */
+function adicionalNoturno(base){
 
-if(hora>=22.5||hora<=5){
-let n=base<=24.99?4.99:base*0.35;
-add("Noturno",n);
+if(!d.embarque) return 0;
+
+const [h,m] = d.embarque.split(":").map(Number);
+const hora = h + (m/60);
+
+if(hora >= 22.5 || hora <= 5){
+
+if(base <= 24.99) return 4.99;
+
+return base * 0.35;
 }
+
+return 0;
 }
-
-document.getElementById("taxas").innerHTML=taxasHTML;
-
-/* PAGAMENTO */
-let tipo="dinheiro";
-
-document.querySelectorAll(".pagamento").forEach(el=>{
-el.onclick=()=>{
-document.querySelectorAll(".pagamento").forEach(x=>x.classList.remove("ativo"));
-el.classList.add("ativo");
-tipo=el.getAttribute("data");
-calcular();
-};
-});
 
 /* CALCULO */
 function calcular(){
 
-let total = base + taxas;
+let base = parseFloat(d.valor) || 0;
+let taxas = 0;
+let detalhe = "";
 
-if(tipo==="credito") total/=0.95;
-if(tipo==="debito") total/=0.98;
+/* BASE */
+detalhe += `<div class="linha"><span>Corrida</span><span>R$ ${base.toFixed(2)}</span></div>`;
 
-document.getElementById("total").innerText="R$ "+total.toFixed(2);
-
-document.getElementById("resumoValores").innerHTML=`
-<div>Base: R$ ${base.toFixed(2)}</div>
-<div>Taxas: R$ ${taxas.toFixed(2)}</div>
-`;
+/* NOTURNO */
+const noturno = adicionalNoturno(base);
+if(noturno > 0){
+taxas += noturno;
+detalhe += `<div class="linha"><span>Adicional Noturno</span><span>R$ ${noturno.toFixed(2)}</span></div>`;
 }
 
-calcular();
+/* TAXAS VINDAS DA HOME */
+if(d.feira > 0){
+taxas += +d.feira;
+detalhe += `<div class="linha"><span>Feira</span><span>R$ ${(+d.feira).toFixed(2)}</span></div>`;
+}
 
-/* WPP */
+if(d.animal > 0){
+taxas += +d.animal;
+detalhe += `<div class="linha"><span>Animal</span><span>R$ ${(+d.animal).toFixed(2)}</span></div>`;
+}
+
+if(d.saidaPraia > 0){
+taxas += +d.saidaPraia;
+detalhe += `<div class="linha"><span>Saída Praia</span><span>R$ ${(+d.saidaPraia).toFixed(2)}</span></div>`;
+}
+
+if(d.espera > 5){
+const t = 3 + ((d.espera-5)*0.6);
+taxas += t;
+detalhe += `<div class="linha"><span>Espera</span><span>R$ ${t.toFixed(2)}</span></div>`;
+}
+
+/* TOTAL */
+let subtotal = base + taxas;
+
+/* VEÍCULO */
+if(d.categoria > 1){
+const add = subtotal * (d.categoria - 1);
+detalhe += `<div class="linha"><span>6 lugares</span><span>R$ ${add.toFixed(2)}</span></div>`;
+subtotal *= d.categoria;
+}
+
+/* PAGAMENTO */
+let pagamento = document.getElementById("pagamento").value;
+let total = subtotal;
+
+if(pagamento === "credito") total = subtotal / 0.95;
+if(pagamento === "debito") total = subtotal / 0.98;
+
+/* FINAL */
+detalhe += `<div class="total">Total: R$ ${total.toFixed(2)}</div>`;
+
+document.getElementById("detalhe").innerHTML = detalhe;
+document.getElementById("valorFinal").innerText = "R$ " + total.toFixed(2);
+
+localStorage.setItem("rf_total_final", total.toFixed(2));
+}
+
+document.getElementById("pagamento").addEventListener("change", calcular);
+
+/* WHATSAPP */
 function wpp(){
-let total=document.getElementById("total").innerText;
 
-let msg=`🚗 RF\n${d.origem} → ${d.destino}\n💰 ${total}`;
+let total = localStorage.getItem("rf_total_final");
+
+let msg = `🚗 *ORÇAMENTO RF*\n\n`;
+msg += `📍 ${d.origem}\n`;
+if(d.parada) msg += `⏳ ${d.parada}\n`;
+msg += `🏁 ${d.destino}\n\n`;
+
+msg += `💰 *Total: R$ ${parseFloat(total).toFixed(2)}*`;
 
 window.open(`https://wa.me/?text=${encodeURIComponent(msg)}`);
 }
 
 /* PDF */
-async function pdf(){
+async function solicitar(){
 
-let total=document.getElementById("total").innerText;
+try{
+
+const total = localStorage.getItem("rf_total_final");
+
+const payload = {
+origem:d.origem,
+parada:d.parada,
+destino:d.destino,
+total,
+detalhes:"Resumo da viagem",
+data:new Date().toLocaleDateString(),
+hora:new Date().toLocaleTimeString(),
+embarque:d.embarque,
+desembarque:d.desembarque
+};
 
 const res = await fetch("https://backend-recibo-rf.onrender.com/gerar-recibo",{
 method:"POST",
 headers:{ "Content-Type":"application/json"},
-body:JSON.stringify({
-origem:d.origem,
-destino:d.destino,
-total
-})
+body:JSON.stringify(payload)
 });
 
 const r = await res.json();
 
-window.open(`https://wa.me/?text=${encodeURIComponent("Recibo:\n"+r.link)}`);
+window.location.href=`https://wa.me/?text=${encodeURIComponent("📄 Recibo:\n"+r.link)}`;
+
+}catch(e){
+alert("Erro ao gerar PDF");
 }
+
+}
+
+/* INIT */
+montarRota();
+calcular();
 
 </script>
 
