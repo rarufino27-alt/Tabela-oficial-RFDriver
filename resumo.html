@@ -5,82 +5,68 @@
 <title>RF – Resumo</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<link rel="stylesheet" href="theme/theme.css">
-<link rel="stylesheet" href="theme/layout.css">
-<link rel="stylesheet" href="theme/components.css">
-
 <style>
 
-/* ===== CONTAINER ===== */
-.resumo-container{
-width:92%;
+body{
+margin:0;
+font-family:Arial;
+background:#0f0f0f;
+color:#fff;
+}
+
+/* CONTAINER */
+.container{
 max-width:420px;
-margin:20px auto 120px;
+margin:auto;
+padding:16px;
 display:flex;
 flex-direction:column;
 gap:16px;
 }
 
-/* ===== ROTA ===== */
-.rota-box{
-border-radius:20px;
+/* CARD */
+.card{
+background:#161616;
+border-radius:16px;
 padding:16px;
-border:1px solid rgba(255,255,255,.1);
+border:1px solid rgba(255,255,255,.05);
+}
+
+/* ROTA */
+.rota{
 display:flex;
-justify-content:space-between;
 align-items:center;
+justify-content:space-between;
 gap:10px;
 }
 
-.rota-col{
+.rota-box{
 flex:1;
 }
 
-.rota-titulo{
+.label{
 font-size:12px;
 opacity:.6;
 }
 
-.rota-nome{
-font-weight:700;
+.nome{
+font-weight:bold;
 }
 
-.rota-end{
-font-size:12px;
-opacity:.6;
+/* TITULOS */
+h3{
+margin:0 0 10px;
 }
 
-/* ===== CARD ===== */
-.card-premium{
-border-radius:20px;
-padding:18px;
-border:1px solid rgba(255,255,255,.1);
-background:rgba(0,0,0,.6);
-}
-
-/* ===== GRID ===== */
-.grid{
+/* TAXAS */
+.linha{
 display:flex;
 justify-content:space-between;
-margin-top:10px;
-font-size:14px;
+margin:6px 0;
 }
 
-.grid div{
-flex:1;
-text-align:center;
-}
-
-/* ===== TAXAS ===== */
-.taxa{
-display:flex;
-justify-content:space-between;
-padding:10px 0;
-border-bottom:1px dashed rgba(255,255,255,.1);
-}
-
-/* ===== PAGAMENTO ===== */
-.pagamento-grid{
+/* PAGAMENTO */
+.pagamentos{
 display:grid;
 grid-template-columns:1fr 1fr;
 gap:10px;
@@ -88,7 +74,7 @@ gap:10px;
 
 .pagamento{
 padding:12px;
-border-radius:12px;
+border-radius:10px;
 border:1px solid rgba(255,255,255,.1);
 text-align:center;
 cursor:pointer;
@@ -96,33 +82,35 @@ cursor:pointer;
 
 .pagamento.ativo{
 border:1px solid #facc15;
+color:#facc15;
 }
 
-/* ===== TOTAL ===== */
+/* TOTAL */
 .total-box{
 display:flex;
 justify-content:space-between;
 align-items:center;
-margin-top:10px;
 }
 
-.total-box strong{
-font-size:28px;
+.total{
+font-size:26px;
+font-weight:bold;
 color:#facc15;
 }
 
-/* ===== BOTÕES ===== */
+/* BOTÕES */
 .botoes{
 display:flex;
 gap:10px;
 }
 
-.botoes button{
+button{
 flex:1;
 padding:14px;
-border-radius:12px;
-font-weight:bold;
 border:none;
+border-radius:10px;
+font-weight:bold;
+cursor:pointer;
 }
 
 .btn-wpp{
@@ -140,252 +128,191 @@ color:#000;
 
 <body>
 
-<div class="top-white">
-<div class="logo-area">
-<img src="icons/icon-512.png" class="logo-img">
-<span class="logo-text-dark">RF MOTORISTA</span>
-</div>
-</div>
-
-<div class="resumo-container">
+<div class="container">
 
 <!-- ROTA -->
-<div class="rota-box" id="rotaBox"></div>
+<div class="card rota">
+<div class="rota-box">
+<div class="label">Origem</div>
+<div class="nome" id="origem"></div>
+</div>
+
+<div>→</div>
+
+<div class="rota-box">
+<div class="label">Destino</div>
+<div class="nome" id="destino"></div>
+</div>
+</div>
 
 <!-- DETALHES -->
-<div class="card-premium">
-<h3>Detalhes selecionados</h3>
-<div class="grid" id="detalhes"></div>
+<div class="card">
+<h3>Resumo da viagem</h3>
+<div id="detalhes"></div>
 </div>
 
 <!-- TAXAS -->
-<div class="card-premium">
+<div class="card">
 <h3>Taxas adicionais</h3>
 <div id="taxas"></div>
 </div>
 
 <!-- PAGAMENTO -->
-<div class="card-premium">
+<div class="card">
 <h3>Forma de pagamento</h3>
-<div class="pagamento-grid">
-<div class="pagamento ativo" data-tipo="dinheiro">Dinheiro</div>
-<div class="pagamento" data-tipo="pix">PIX</div>
-<div class="pagamento" data-tipo="credito">Crédito</div>
-<div class="pagamento" data-tipo="debito">Débito</div>
+
+<div class="pagamentos">
+<div class="pagamento ativo" data="dinheiro">Dinheiro</div>
+<div class="pagamento" data="pix">PIX</div>
+<div class="pagamento" data="credito">Crédito</div>
+<div class="pagamento" data="debito">Débito</div>
 </div>
+
 </div>
 
 <!-- TOTAL -->
-<div class="card-premium">
+<div class="card">
 <div class="total-box">
 <div>
-<div>Total da viagem</div>
-<strong id="total">R$ 0,00</strong>
+<div class="label">Total da viagem</div>
+<div class="total" id="total">R$ 0,00</div>
 </div>
+
 <div id="resumoValores"></div>
 </div>
 </div>
 
+<!-- BOTÕES -->
 <div class="botoes">
 <button class="btn-wpp" onclick="wpp()">WhatsApp</button>
-<button class="btn-pdf" onclick="pdf()">PDF</button>
+<button class="btn-pdf" onclick="pdf()">Gerar PDF</button>
 </div>
 
 </div>
 
 <script>
 
-/* TEMA */
-(function(){
-const tema = localStorage.getItem("rf_theme") || "dark";
-document.body.setAttribute("data-theme", tema);
-})();
-
-/* MENU */
-function abrirMenu(){
-menu.classList.add("ativo");
-menuOverlay.style.display="block";
-}
-function fecharMenu(){
-menu.classList.remove("ativo");
-menuOverlay.style.display="none";
-}
-function irPara(p){
-window.location.href=p;
-}
-
 /* DADOS */
 const d = JSON.parse(localStorage.getItem("rf_corrida_temp"));
-if(!d) window.location.href="home.html";
+
+if(!d){
+alert("Erro: dados não encontrados");
+location.href="home.html";
+}
 
 /* ROTA */
-function montarRota(){
+document.getElementById("origem").innerText = d.origem;
+document.getElementById("destino").innerText = d.destino;
 
-let html = `<div class="rota-item"><span>Origem:</span> ${d.origem}</div>`;
+/* DETALHES */
+document.getElementById("detalhes").innerHTML = `
+Veículo: ${d.categoria>1?"6 lugares":"4 lugares"}<br>
+Embarque: ${d.embarque || "-"}<br>
+Obs: ${d.obs || "-"}
+`;
 
-if(d.parada){
-html += `<div class="rota-item"><span>Parada:</span> ${d.parada}</div>`;
+/* TAXAS */
+let base = parseFloat(d.valor) || 0;
+let taxas = 0;
+
+function add(nome,val){
+if(val>0){
+taxas += val;
+return `<div class="linha"><span>${nome}</span><span>R$ ${val.toFixed(2)}</span></div>`;
+}
+return "";
 }
 
-html += `<div class="rota-item"><span>Destino:</span> ${d.destino}</div>`;
+let taxasHTML = "";
 
-document.getElementById("rota").innerHTML = html;
+taxasHTML += add("Feira", +d.feira || 0);
+taxasHTML += add("Animal", +d.animal || 0);
+taxasHTML += add("Saída Praia", +d.saidaPraia || 0);
+
+/* ESPERA */
+if(d.espera>5){
+let t = 3 + ((d.espera-5)*0.6);
+taxasHTML += add("Espera", t);
 }
 
-/* NOTURNO CORRETO */
-function adicionalNoturno(base){
+/* NOTURNO */
+if(d.embarque){
+let [h,m] = d.embarque.split(":");
+let hora = +h + (m/60);
 
-if(!d.embarque) return 0;
-
-const [h,m] = d.embarque.split(":").map(Number);
-const hora = h + (m/60);
-
-if(hora >= 22.5 || hora <= 5){
-
-if(base <= 24.99) return 4.99;
-
-return base * 0.35;
+if(hora>=22.5 || hora<=5){
+let n = base<=24.99 ? 4.99 : base*0.35;
+taxasHTML += add("Noturno", n);
+}
 }
 
-return 0;
-}
+document.getElementById("taxas").innerHTML = taxasHTML;
+
+/* PAGAMENTO */
+let tipo = "dinheiro";
+
+document.querySelectorAll(".pagamento").forEach(p=>{
+p.onclick = ()=>{
+document.querySelectorAll(".pagamento").forEach(x=>x.classList.remove("ativo"));
+p.classList.add("ativo");
+tipo = p.getAttribute("data");
+calcular();
+};
+});
 
 /* CALCULO */
 function calcular(){
 
-let base = parseFloat(d.valor) || 0;
-let taxas = 0;
-let detalhe = "";
+let total = base + taxas;
 
-/* BASE */
-detalhe += `<div class="linha"><span>Corrida</span><span>R$ ${base.toFixed(2)}</span></div>`;
+if(tipo==="credito") total/=0.95;
+if(tipo==="debito") total/=0.98;
 
-/* NOTURNO */
-const noturno = adicionalNoturno(base);
-if(noturno > 0){
-taxas += noturno;
-detalhe += `<div class="linha"><span>Adicional Noturno</span><span>R$ ${noturno.toFixed(2)}</span></div>`;
-}
+document.getElementById("total").innerText = "R$ " + total.toFixed(2);
 
-/* TAXAS VINDAS DA HOME */
-if(d.feira > 0){
-taxas += +d.feira;
-detalhe += `<div class="linha"><span>Feira</span><span>R$ ${(+d.feira).toFixed(2)}</span></div>`;
-}
-
-if(d.animal > 0){
-taxas += +d.animal;
-detalhe += `<div class="linha"><span>Animal</span><span>R$ ${(+d.animal).toFixed(2)}</span></div>`;
-}
-
-if(d.saidaPraia > 0){
-taxas += +d.saidaPraia;
-detalhe += `<div class="linha"><span>Saída Praia</span><span>R$ ${(+d.saidaPraia).toFixed(2)}</span></div>`;
-}
-
-if(d.espera > 5){
-const t = 3 + ((d.espera-5)*0.6);
-taxas += t;
-detalhe += `<div class="linha"><span>Espera</span><span>R$ ${t.toFixed(2)}</span></div>`;
-}
-
-/* TOTAL */
-let subtotal = base + taxas;
-
-/* VEÍCULO */
-if(d.categoria > 1){
-const add = subtotal * (d.categoria - 1);
-detalhe += `<div class="linha"><span>6 lugares</span><span>R$ ${add.toFixed(2)}</span></div>`;
-subtotal *= d.categoria;
-}
-
-/* PAGAMENTO */
-let pagamento = formaPagamento;
-let total = subtotal;
-
-if(pagamento === "credito") total = subtotal / 0.95;
-if(pagamento === "debito") total = subtotal / 0.98;
-
-/* FINAL */
-detalhe += `<div class="total">Total: R$ ${total.toFixed(2)}</div>`;
-
-document.getElementById("detalhe").innerHTML = detalhe;
-document.getElementById("valorFinal").innerText = "R$ " + total.toFixed(2);
+document.getElementById("resumoValores").innerHTML = `
+<div>Base: R$ ${base.toFixed(2)}</div>
+<div>Taxas: R$ ${taxas.toFixed(2)}</div>
+`;
 
 localStorage.setItem("rf_total_final", total.toFixed(2));
 }
 
-let formaPagamento = "dinheiro";
-
-document.querySelectorAll(".pagamento").forEach(btn => {
-
-  btn.addEventListener("click", () => {
-
-    document.querySelectorAll(".pagamento")
-      .forEach(b => b.classList.remove("ativo"));
-
-    btn.classList.add("ativo");
-
-    formaPagamento = btn.dataset.tipo;
-
-    calcular();
-  });
-
-});
+calcular();
 
 /* WHATSAPP */
 function wpp(){
 
 let total = localStorage.getItem("rf_total_final");
 
-let msg = `🚗 *ORÇAMENTO RF*\n\n`;
-msg += `📍 ${d.origem}\n`;
-if(d.parada) msg += `⏳ ${d.parada}\n`;
-msg += `🏁 ${d.destino}\n\n`;
+let msg = `🚗 *Resumo da viagem RF*
 
-msg += `💰 *Total: R$ ${parseFloat(total).toFixed(2)}*`;
+📍 ${d.origem} → ${d.destino}
+
+💰 Total: R$ ${total}`;
 
 window.open(`https://wa.me/?text=${encodeURIComponent(msg)}`);
 }
 
 /* PDF */
-async function solicitar(){
+async function pdf(){
 
-try{
-
-const total = localStorage.getItem("rf_total_final");
-
-const payload = {
-origem:d.origem,
-parada:d.parada,
-destino:d.destino,
-total,
-detalhes:"Resumo da viagem",
-data:new Date().toLocaleDateString(),
-hora:new Date().toLocaleTimeString(),
-embarque:d.embarque,
-desembarque:d.desembarque
-};
+let total = localStorage.getItem("rf_total_final");
 
 const res = await fetch("https://backend-recibo-rf.onrender.com/gerar-recibo",{
 method:"POST",
 headers:{ "Content-Type":"application/json"},
-body:JSON.stringify(payload)
+body:JSON.stringify({
+origem:d.origem,
+destino:d.destino,
+total
+})
 });
 
 const r = await res.json();
 
-window.location.href=`https://wa.me/?text=${encodeURIComponent("📄 Recibo:\n"+r.link)}`;
-
-}catch(e){
-alert("Erro ao gerar PDF");
+window.open(r.link);
 }
-
-}
-
-/* INIT */
-montarRota();
-calcular();
 
 </script>
 
