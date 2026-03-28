@@ -10,6 +10,14 @@
 <link rel="stylesheet" href="theme/layout.css">
 <link rel="stylesheet" href="theme/components.css">
 
+<script src="core/datamanager.js"></script>
+
+<style>
+.app-container{
+  padding-bottom:120px;
+}
+</style>
+
 </head>
 
 <body>
@@ -26,28 +34,28 @@
   <!-- ROTA -->
   <div class="card-modern">
 
-  <div class="campo">
-    <div class="campo-left">
-      <div class="dot origem"></div>
-      <span id="origem"></span>
+    <div class="campo">
+      <div class="campo-left">
+        <div class="dot origem"></div>
+        <span id="origem"></span>
+      </div>
     </div>
-  </div>
 
-  <div class="campo" id="paradaBox" style="display:none;">
-    <div class="campo-left">
-      <div class="dot" style="background:#facc15"></div>
-      <span id="parada"></span>
+    <div class="campo" id="paradaBox" style="display:none;">
+      <div class="campo-left">
+        <div class="dot" style="background:#facc15"></div>
+        <span id="parada"></span>
+      </div>
     </div>
-  </div>
 
-  <div class="campo">
-    <div class="campo-left">
-      <div class="dot destino"></div>
-      <span id="destino"></span>
+    <div class="campo">
+      <div class="campo-left">
+        <div class="dot destino"></div>
+        <span id="destino"></span>
+      </div>
     </div>
-  </div>
 
-</div>
+  </div>
 
   <!-- RESUMO -->
   <div class="card-modern">
@@ -94,7 +102,7 @@
 
 </div>
 
-<!-- CTA IGUAL HOME -->
+<!-- CTA -->
 <div class="cta-box">
 
   <div>
@@ -110,11 +118,18 @@
 
 <script>
 
-/* ===== TEMA GLOBAL ===== */
+/* ===== TEMA ===== */
 (function(){
   const tema = localStorage.getItem("rf_theme") || "light";
   document.body.setAttribute("data-theme", tema);
 })();
+
+/* ===== INIT ===== */
+async function init(){
+  await DataManager.carregar();
+  carregarResumo();
+}
+init();
 
 /* ===== DADOS ===== */
 const d = JSON.parse(localStorage.getItem("rf_corrida_temp"));
@@ -124,109 +139,105 @@ if(!d){
   window.location.href="home.html";
 }
 
-/* ===== BASE DA CORRIDA ===== */
+/* ===== CARREGAR ===== */
+function carregarResumo(){
 
-let base = 0;
+  /* ROTA */
+  document.getElementById("origem").innerText = d.origem;
+  document.getElementById("destino").innerText = d.destino;
 
-if(d.parada){
-  // origem -> parada + parada -> destino
-  const v1 = DataManager.buscarValor(d.origem, d.parada) || 0;
-  const v2 = DataManager.buscarValor(d.parada, d.destino) || 0;
-  base = v1 + v2;
+  let base = 0;
 
-  document.getElementById("paradaBox").style.display = "flex";
-  document.getElementById("parada").innerText = d.parada;
+  if(d.parada){
 
-}else{
-  base = DataManager.buscarValor(d.origem, d.destino) || 0;
-}
+    document.getElementById("paradaBox").style.display = "flex";
+    document.getElementById("parada").innerText = d.parada;
 
-/* ===== DETALHES ===== */
-document.getElementById("detalhes").innerHTML = `
-<div class="linha"><span>Veículo</span><span>${d.categoria>1?"6 lugares":"4 lugares"}</span></div>
-<div class="linha"><span>Embarque</span><span>${d.embarque || "-"}</span></div>
-<div class="linha"><span>Obs</span><span>${d.obs || "-"}</span></div>
-`;
+    const v1 = DataManager.buscarValor(d.origem, d.parada) || 0;
+    const v2 = DataManager.buscarValor(d.parada, d.destino) || 0;
 
-/* ===== TAXAS ===== */
+    base = v1 + v2;
 
-let taxas = 0;
-let html = "";
-
-function add(nome,val){
-  if(val>0){
-    taxas += val;
-    html += `<div class="linha"><span>${nome}</span><span>R$ ${val.toFixed(2)}</span></div>`;
+  }else{
+    base = DataManager.buscarValor(d.origem, d.destino) || 0;
   }
-}
 
-add("Feira", +d.feira || 0);
-add("Animal", +d.animal || 0);
-add("Saída Praia", +d.saidaPraia || 0);
-
-if(d.espera > 5){
-  let esperaCalc = 3 + ((d.espera - 5) * 0.6);
-  add("Espera", esperaCalc);
-}
-
-/* ===== NOTURNO ===== */
-
-if(d.embarque){
-  let [h,m] = d.embarque.split(":");
-  let hora = +h + (m/60);
-
-  if(hora >= 22.5 || hora <= 5){
-
-    let adicional = base <= 24.99 
-      ? 4.99 
-      : base * 0.35;
-
-    add("Adicional Noturno", adicional);
-  }
-}
-
-document.getElementById("taxas").innerHTML = html;
-
-/* ===== PAGAMENTO ===== */
-let pagamento = "dinheiro";
-
-document.querySelectorAll(".pagamento").forEach(btn=>{
-  btn.onclick = ()=>{
-    document.querySelectorAll(".pagamento").forEach(b=>b.classList.remove("ativo"));
-    btn.classList.add("ativo");
-    pagamento = btn.getAttribute("data");
-    calcular();
-  };
-});
-
-/* ===== CALCULO ===== */
-function calcular(){
-
-  let total = base + taxas;
-
-  if(pagamento==="credito") total /= 0.95;
-  if(pagamento==="debito") total /= 0.98;
-
-  document.getElementById("total").innerText = "R$ " + total.toFixed(2);
-
-  document.getElementById("resumoValores").innerHTML = `
-    <div class="linha"><span>Valor base</span><span>R$ ${base.toFixed(2)}</span></div>
-    <div class="linha"><span>Taxas</span><span>R$ ${taxas.toFixed(2)}</span></div>
+  /* DETALHES */
+  document.getElementById("detalhes").innerHTML = `
+    <div class="linha"><span>Veículo</span><span>${d.categoria>1?"6 lugares":"4 lugares"}</span></div>
+    <div class="linha"><span>Embarque</span><span>${d.embarque || "-"}</span></div>
+    <div class="linha"><span>Obs</span><span>${d.obs || "-"}</span></div>
   `;
 
-  localStorage.setItem("rf_total_final", total.toFixed(2));
-}
+  /* TAXAS */
+  let taxas = 0;
+  let html = "";
 
-calcular();
+  function add(nome,val){
+    if(val>0){
+      taxas += val;
+      html += `<div class="linha"><span>${nome}</span><span>R$ ${val.toFixed(2)}</span></div>`;
+    }
+  }
+
+  add("Feira", +d.feira || 0);
+  add("Animal", +d.animal || 0);
+  add("Saída Praia", +d.saidaPraia || 0);
+
+  if(d.espera > 5){
+    let esperaCalc = 3 + ((d.espera - 5) * 0.6);
+    add("Espera", esperaCalc);
+  }
+
+  /* NOTURNO */
+  if(d.embarque){
+    let [h,m] = d.embarque.split(":");
+    let hora = +h + (m/60);
+
+    if(hora >= 22.5 || hora <= 5){
+      let adicional = base <= 24.99 ? 4.99 : base * 0.35;
+      add("Adicional Noturno", adicional);
+    }
+  }
+
+  document.getElementById("taxas").innerHTML = html;
+
+  /* PAGAMENTO */
+  let pagamento = "dinheiro";
+
+  document.querySelectorAll(".pagamento").forEach(btn=>{
+    btn.onclick = ()=>{
+      document.querySelectorAll(".pagamento").forEach(b=>b.classList.remove("ativo"));
+      btn.classList.add("ativo");
+      pagamento = btn.getAttribute("data");
+      calcular();
+    };
+  });
+
+  function calcular(){
+
+    let total = base + taxas;
+
+    if(pagamento==="credito") total /= 0.95;
+    if(pagamento==="debito") total /= 0.98;
+
+    document.getElementById("total").innerText = "R$ " + total.toFixed(2);
+
+    localStorage.setItem("rf_total_final", total.toFixed(2));
+  }
+
+  calcular();
+}
 
 /* ===== WHATS ===== */
 function wpp(){
 
-  let total = localStorage.getItem("rf_total_final");
+  let total = localStorage.getItem("rf_total_final") || "0.00";
 
   let msg = `🚗 *RF DRIVER*
 
-📍 ${d.origem} → ${d.destino}
+📍 ${d.origem}${d.parada ? " → "+d.parada : ""} → ${d.destino}
+
 💰 R$ ${total}`;
 
   window.open(`https://wa.me/?text=${encodeURIComponent(msg)}`);
