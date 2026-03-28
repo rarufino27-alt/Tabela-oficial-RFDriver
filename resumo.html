@@ -238,15 +238,12 @@ taxas.innerHTML = `
 <div class="linha"><span>Saída Praia</span><span>R$ ${d.saidaPraia}</span></div>
 `;
 
-/* TOTAL */
+/* TOTAL BASE */
 let totalBase = parseFloat(d.total.replace("R$ ","").replace(",","."));
 let totalFinal = totalBase;
 
 /* PAGAMENTO */
 let pagamento = "dinheiro";
-
-let totalBase = parseFloat(d.total.replace("R$ ","").replace(",","."));
-let totalFinal = totalBase;
 
 function atualizarTotal(){
 
@@ -266,7 +263,7 @@ function atualizarTotal(){
 /* INIT */
 atualizarTotal();
 
-/* CLICK */
+/* CLICK PAGAMENTO */
 document.querySelectorAll(".pagamento").forEach(p=>{
   p.onclick = ()=>{
     document.querySelectorAll(".pagamento").forEach(x=>x.classList.remove("ativo"));
@@ -278,12 +275,13 @@ document.querySelectorAll(".pagamento").forEach(p=>{
   };
 });
 
+/* RESUMO */
 resumoValores.innerHTML = `
 <div>Base: R$ ${d.base}</div>
 <div>Taxas: R$ ${d.taxas}</div>
 `;
 
-/* WHATSAPP */
+/* WHATS */
 function wpp(){
 
 let msg = `🚗 *RF DRIVER*
