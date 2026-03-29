@@ -649,6 +649,7 @@ btnContinuar.onclick = ()=>{
 
 💰Subtotal - R$ ${base.toFixed(2)}
 
+______________________
 Detalhes da viagem
 `;
 
@@ -663,11 +664,13 @@ Detalhes da viagem
 
   msg += `
 💰Taxas - R$ ${taxas.toFixed(2)}
-
+______________________________
 💳 Pagamento: ${pagamento.toUpperCase()}
 
 💰Total: R$ ${total.toFixed(2)}
-`;
+
+_Grupo RF_
+_58.615.336/0001-49_`;
 
   window.open(`https://wa.me/?text=${encodeURIComponent(msg)}`);
 };
