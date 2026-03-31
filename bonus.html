@@ -12,45 +12,28 @@
 
 <style>
 
-.container{
-  width:92%;
-  max-width:420px;
-  margin:20px auto;
-}
-
-.titulo{
+/* TÍTULO */
+.page-title{
   text-align:center;
-  font-size:22px;
+  font-size:20px;
   font-weight:800;
-  margin-bottom:16px;
+  margin:15px 0;
 }
 
-.titulo span{
-  color:#ffd700;
+.page-title span{
+  color:var(--primary);
 }
 
-.card-info{
-  background:rgba(0,0,0,0.65);
-  backdrop-filter:blur(10px);
-  border-radius:18px;
-  padding:18px;
-  border:1px solid rgba(255,215,0,0.15);
-  margin-bottom:14px;
-}
-
-.card-info h3{
-  font-size:15px;
-  margin-bottom:8px;
-}
-
-.card-info p{
-  font-size:13px;
-  opacity:.85;
+/* TEXTO */
+.card-modern p{
+  font-size:14px;
   line-height:1.5;
+  opacity:.9;
 }
 
+/* DESTAQUE */
 .destaque{
-  color:#ffd700;
+  color:var(--primary);
   font-weight:700;
 }
 
@@ -58,16 +41,18 @@
 .btn-link{
   width:100%;
   margin-top:12px;
-  padding:12px;
-
+  padding:14px;
   border:none;
   border-radius:12px;
-
-  background:#ffd700;
+  background:var(--primary);
   color:#000;
+  font-weight:800;
+  font-size:15px;
+}
 
-  font-weight:700;
-  font-size:14px;
+/* ESPAÇO FINAL */
+.espaco{
+  height:100px;
 }
 
 </style>
@@ -76,89 +61,101 @@
 
 <body>
 
-<div class="container">
+<!-- HEADER PADRÃO -->
+<div class="top-white">
+  <div class="logo-area">
+    <img src="icons/icon-512.png" class="logo-img">
+    <span class="logo-text-dark">RF MOTORISTA</span>
+  </div>
+</div>
 
-<div class="titulo">
+<div class="app-container">
+
+<div class="page-title">
 Bônus <span>Semanal</span>
 </div>
 
 <!-- INTRO -->
-<div class="card-info">
+<div class="card-modern">
 <h3>🏆 Como funciona?</h3>
 <p>
-Toda semana premiamos os motoristas mais ativos da RF.  
+Toda semana premiamos os motoristas mais ativos da RF.<br>
 O bônus é baseado em <span class="destaque">desempenho real</span>: quem fizer mais corridas, ganha.
 </p>
 </div>
 
 <!-- PREMIAÇÃO -->
-<div class="card-info">
+<div class="card-modern">
 <h3>💰 Premiação</h3>
 <p>
-<span class="destaque">Segunda a sábado:</span>  
-Motorista com mais corridas no período ganha <span class="destaque">R$50</span>
+<span class="destaque">Segunda a sábado:</span><br>
+Motorista com mais corridas ganha <span class="destaque">R$50</span>
 <br><br>
-<span class="destaque">Domingo:</span>  
-Motorista com mais corridas no dia ganha <span class="destaque">R$50</span>
+<span class="destaque">Domingo:</span><br>
+Motorista com mais corridas ganha <span class="destaque">R$50</span>
 <br><br>
-Total possível na semana: <span class="destaque">R$100</span>
+Total possível: <span class="destaque">R$100</span>
 </p>
 </div>
 
 <!-- CRITÉRIO -->
-<div class="card-info">
+<div class="card-modern">
 <h3>📊 Critério principal</h3>
 <p>
-O ranking é definido pela <span class="destaque">quantidade total de corridas</span> realizadas no período.
+O ranking é definido pela <span class="destaque">quantidade total de corridas</span>.
 </p>
 </div>
 
 <!-- DESEMPATE -->
-<div class="card-info">
+<div class="card-modern">
 <h3>⚖️ Critério de desempate</h3>
 <p>
-Em caso de empate, vence quem tiver mais corridas no horário de maior demanda:
+Em caso de empate, vence quem tiver mais corridas nos horários de pico:
 <br><br>
-🕐 <span class="destaque">Das 07:00 às 09:00; 10:45 às 13:45 e 17:00 às 22:30</span>
+🕐 <span class="destaque">
+07:00–09:00 | 10:45–13:45 | 17:00–22:30
+</span>
 </p>
 </div>
 
 <!-- REGRA -->
-<div class="card-info">
+<div class="card-modern">
 <h3>⚠️ Regra importante</h3>
 <p>
-Não é só quantidade: atuar nos horários de maior movimento aumenta suas chances de vencer.
+Não é só quantidade: atuar nos horários de maior movimento aumenta suas chances.
 </p>
 </div>
 
 <!-- MOTIVAÇÃO -->
-<div class="card-info">
+<div class="card-modern">
 <h3>🚀 Importante</h3>
 <p>
-O bônus é contínuo.  
-Você pode ganhar <span class="destaque">todas as semanas</span> se manter o melhor desempenho.
+O bônus é contínuo.<br>
+Você pode ganhar <span class="destaque">todas as semanas</span>.
 </p>
 </div>
 
 <!-- CTA -->
-<div class="card-info">
+<div class="card-modern">
 <h3>📈 Acompanhe o ranking</h3>
 <p>
-Veja sua posição atual e acompanhe quem está liderando em tempo real.
+Veja sua posição atual e quem está liderando.
 </p>
 
 <button class="btn-link" onclick="window.location.href='premiacao.html'">
-Ver Ranking Atual
+Ver Ranking Atual →
 </button>
 
 </div>
+
+<div class="espaco"></div>
 
 </div>
 
 <script>
 (function(){
-const tema = localStorage.getItem("rf_theme") || "dark";
-document.body.setAttribute("data-theme", tema);
+  const tema = localStorage.getItem("rf_theme") || "dark";
+  document.body.setAttribute("data-theme", tema);
 })();
 </script>
 
