@@ -1,167 +1,115 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
+
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Configurações - RF Driver</title>
+<title>Configurações - RF</title>
+
+<link rel="stylesheet" href="theme/theme.css">
+<link rel="stylesheet" href="theme/layout.css">
+<link rel="stylesheet" href="theme/components.css">
 
 <style>
 
-body{
-margin:0;
-font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;
-background:#0f0f0f;
-color:#fff;
-transition:0.3s;
+/* AJUSTES VISUAIS */
+.page-title{
+  font-size:20px;
+  font-weight:800;
+  margin:15px 0 5px;
+  text-align:center;
 }
 
-/* TEMA CLARO */
-
-body[data-theme="light"]{
-background:#f3f3f3;
-color:#000;
+.option-modern{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  padding:14px 0;
+  border-bottom:1px solid var(--border);
+  cursor:pointer;
 }
 
-body[data-theme="light"] .card{
-background:#ffffff;
-border:1px solid rgba(0,0,0,.08);
+.option-modern:last-child{
+  border:none;
 }
 
-body[data-theme="light"] .option{
-border-bottom:1px solid rgba(0,0,0,.08);
+.option-modern:hover{
+  opacity:.8;
 }
-
-/* HEADER */
-
-.top-white{
-background:#ffffff;
-padding:20px 20px 28px 20px;
-display:flex;
-align-items:center;
-border-bottom-left-radius:32px;
-border-bottom-right-radius:32px;
-box-shadow:0 10px 30px rgba(0,0,0,.25);
-}
-
-.logo-img{
-height:60px;
-border-radius:16px;
-}
-
-/* TITULO */
-
-h1{
-color:#facc15;
-margin:30px 20px 10px;
-}
-
-/* CONTAINER */
-
-.container{
-padding:0 20px 40px;
-}
-
-/* CARD */
-
-.card{
-background:#1c1c1c;
-border-radius:20px;
-padding:20px;
-margin-bottom:20px;
-border:1px solid rgba(255,255,255,.08);
-}
-
-/* TITULO CARD */
-
-.card-title{
-font-weight:700;
-margin-bottom:10px;
-color:#facc15;
-}
-
-/* OPÇÕES */
-
-.option{
-padding:12px 0;
-border-bottom:1px solid rgba(255,255,255,.08);
-display:flex;
-justify-content:space-between;
-align-items:center;
-cursor:pointer;
-}
-
-.option:last-child{
-border-bottom:none;
-}
-
-.option:hover{
-opacity:.8;
-}
-
-/* BADGE */
 
 .badge{
-font-size:12px;
-background:#facc15;
-color:#000;
-padding:3px 8px;
-border-radius:20px;
+  font-size:12px;
+  background:var(--primary);
+  color:#000;
+  padding:4px 10px;
+  border-radius:20px;
+  font-weight:bold;
 }
 
-/* LINK */
-
-a{
-color:#facc15;
-text-decoration:none;
-font-weight:600;
+.link-voltar{
+  display:block;
+  text-align:center;
+  margin-top:20px;
+  color:var(--primary);
+  font-weight:600;
 }
 
 </style>
+
 </head>
+
 <body>
 
+<!-- HEADER PADRÃO -->
 <div class="top-white">
-<img src="icons/icon-192.png" class="logo-img">
+  <div class="logo-area">
+    <img src="icons/icon-512.png" class="logo-img">
+    <span class="logo-text-dark">RF MOTORISTA</span>
+  </div>
 </div>
 
-<h1>Configurações</h1>
+<div class="app-container">
 
-<div class="container">
+<div class="page-title">⚙️ Configurações</div>
 
-<div class="card">
-<div class="card-title">Preferências</div>
+<!-- PREFERÊNCIAS -->
+<div class="card-modern">
 
-<div class="option" onclick="alternarTema()">
-Alternar tema
-<span id="temaAtual"></span>
-</div>
+  <h3>Preferências</h3>
 
-</div>
-
-<div class="card">
-<div class="card-title">Sistema</div>
-
-<div class="option">
-Versão do aplicativo
-<span>1.0.1</span>
-</div>
-
-<div class="option" onclick="abrirSuporte()">
-Contato do suporte
-<span>WhatsApp</span>
-</div>
+  <div class="option-modern" onclick="alternarTema()">
+    <span>Alternar tema</span>
+    <span id="temaAtual"></span>
+  </div>
 
 </div>
 
-<br>
-<a href="index.html">← Voltar</a>
+<!-- SISTEMA -->
+<div class="card-modern">
+
+  <h3>Sistema</h3>
+
+  <div class="option-modern">
+    <span>Versão do aplicativo</span>
+    <span class="badge">1.0.1</span>
+  </div>
+
+  <div class="option-modern" onclick="abrirSuporte()">
+    <span>Contato do suporte</span>
+    <span>WhatsApp</span>
+  </div>
 
 </div>
-  
+
+<a href="index.html" class="link-voltar">← Voltar</a>
+
+</div>
+
 <script>
 
-/* CARREGAR TEMA SALVO */
-
+/* =========================
+CARREGAR TEMA
+========================= */
 (function(){
 
 const temaSalvo = localStorage.getItem("rf_theme") || "dark";
@@ -172,8 +120,9 @@ atualizarLabel();
 
 })();
 
-/* ALTERNAR TEMA */
-
+/* =========================
+ALTERNAR TEMA
+========================= */
 function alternarTema(){
 
 const atual = document.body.getAttribute("data-theme");
@@ -188,8 +137,9 @@ atualizarLabel();
 
 }
 
-/* LABEL DO TEMA */
-
+/* =========================
+LABEL TEMA
+========================= */
 function atualizarLabel(){
 
 const atual = document.body.getAttribute("data-theme");
@@ -199,8 +149,9 @@ atual === "dark" ? "🌙 Escuro" : "☀️ Claro";
 
 }
 
-/* SUPORTE WHATSAPP */
-
+/* =========================
+SUPORTE
+========================= */
 function abrirSuporte(){
 
 const mensagem = encodeURIComponent("Olá, preciso de suporte no aplicativo RF.");
