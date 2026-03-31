@@ -269,7 +269,7 @@ body[data-theme="dark"]{
 <script>
 
 /* =========================
-TEMA GLOBAL
+TEMA
 ========================= */
 (function(){
   const tema = localStorage.getItem("rf_theme") || "dark";
@@ -280,6 +280,9 @@ TEMA GLOBAL
 ELEMENTOS
 ========================= */
 const loading = document.getElementById("loading");
+
+const menu = document.getElementById("menu");
+const menuOverlay = document.getElementById("menuOverlay");
 
 const origemBtn = document.getElementById("origemBtn");
 const destinoBtn = document.getElementById("destinoBtn");
@@ -302,27 +305,47 @@ const espera = document.getElementById("espera");
 const saidaPraia = document.getElementById("saidaPraia");
 
 const tipoCarro = document.getElementById("tipoCarro");
+const embarque = document.getElementById("embarque");
 
 const btnContinuar = document.getElementById("btnContinuar");
-
-const obs = document.getElementById("obs");
-const embarque = document.getElementById("embarque");
-const desembarque = document.getElementById("desembarque");
 
 /* =========================
 ESTADO
 ========================= */
-let origem = null;
-let destino = null;
-let parada = null;
-let modo = null;
-let pagamento = "dinheiro";
+let origem=null;
+let destino=null;
+let parada=null;
+let modo=null;
+let pagamento="dinheiro";
 
-async function init(){
-  await DataManager.carregar();
+/* =========================
+INIT
+========================= */
+(async()=>{
+  try{
+    await DataManager.carregar();
+  }catch(e){
+    console.error(e);
+  }
   loading.style.display="none";
+})();
+
+/* =========================
+MENU
+========================= */
+function abrirMenu(){
+  menu.classList.add("ativo");
+  menuOverlay.style.display="block";
 }
-init();
+
+function fecharMenu(){
+  menu.classList.remove("ativo");
+  menuOverlay.style.display="none";
+}
+
+function irPara(p){
+  window.location.href=p;
+}
 
 /* =========================
 MODAL
@@ -330,6 +353,7 @@ MODAL
 function abrirModal(tipo){
 
   modo = tipo;
+  busca.value = "";
 
   let dados = [];
 
@@ -338,21 +362,31 @@ function abrirModal(tipo){
   }
 
   if(tipo==="parada"){
+    if(!origem) return alert("Selecione origem");
     dados = DataManager.listarDestinos(origem)
       .filter(p=>DataManager.listarDestinos(p).length>0);
   }
 
   if(tipo==="destino"){
+    if(!origem) return alert("Selecione origem");
     dados = parada
       ? DataManager.listarDestinos(parada)
       : DataManager.listarDestinos(origem);
   }
 
+  renderLista(dados);
+  modal.style.display="flex";
+}
+
+/* =========================
+LISTA
+========================= */
+function renderLista(arr){
   lista.innerHTML="";
 
-  dados.forEach(item=>{
-    const div = document.createElement("div");
-    div.innerText = item;
+  arr.forEach(item=>{
+    const div=document.createElement("div");
+    div.innerText=item;
 
     div.onclick=()=>{
       selecionar(item);
@@ -361,8 +395,6 @@ function abrirModal(tipo){
 
     lista.appendChild(div);
   });
-
-  modal.style.display="flex";
 }
 
 /* =========================
@@ -406,6 +438,7 @@ addParada.onclick=()=>{
   paradaBtn.style.display="flex";
 };
 
+/* VEÍCULO */
 document.querySelectorAll(".veiculo").forEach(v=>{
   v.onclick=()=>{
     document.querySelectorAll(".veiculo").forEach(x=>x.classList.remove("ativo"));
@@ -415,13 +448,23 @@ document.querySelectorAll(".veiculo").forEach(v=>{
   };
 });
 
+/* PAGAMENTO */
 document.querySelectorAll(".pagamento-item").forEach(p=>{
   p.onclick=()=>{
     document.querySelectorAll(".pagamento-item").forEach(x=>x.classList.remove("ativo"));
     p.classList.add("ativo");
-    pagamento=p.dataset.data;
+    pagamento = p.getAttribute("data");
     calcular();
   };
+});
+
+/* AUTO UPDATE */
+["feira","animal","espera","saidaPraia","embarque"].forEach(id=>{
+  const el=document.getElementById(id);
+  if(el){
+    el.addEventListener("change", calcular);
+    el.addEventListener("input", calcular);
+  }
 });
 
 /* =========================
@@ -434,30 +477,40 @@ function calcular(){
     return;
   }
 
-  let base = parada
-    ? DataManager.buscarValor(origem,parada)+DataManager.buscarValor(parada,destino)
-    : DataManager.buscarValor(origem,destino);
+  let base = 0;
+
+  if(!parada){
+    base = DataManager.buscarValor(origem,destino) || 0;
+  }else{
+    base =
+      (DataManager.buscarValor(origem,parada)||0) +
+      (DataManager.buscarValor(parada,destino)||0);
+  }
 
   let taxas = 0;
 
-  taxas += +feira.value;
-  taxas += +animal.value;
-  taxas += +saidaPraia.value;
+  const feiraVal = Number(feira.value || 0);
+  const animalVal = Number(animal.value || 0);
+  const praiaVal = Number(saidaPraia.value || 0);
+  const esperaVal = Number(espera.value || 0);
 
-  if(espera.value > 5){
-    taxas += 3 + ((espera.value-5)*0.6);
+  taxas += feiraVal + animalVal + praiaVal;
+
+  if(esperaVal > 5){
+    taxas += 3 + ((esperaVal - 5) * 0.6);
   }
 
+  /* NOTURNO */
   if(embarque.value){
     const [h,m]=embarque.value.split(":").map(Number);
     const min=h*60+m;
 
     if(min>=1350 || min<300){
-      taxas += base <= 24.99 ? 5 : base*0.35;
+      taxas += base <= 24.99 ? 5 : base * 0.35;
     }
   }
 
-  let total = (base+taxas) * tipoCarro.value;
+  let total = (base + taxas) * Number(tipoCarro.value || 1);
 
   if(pagamento==="credito") total/=0.95;
   if(pagamento==="debito") total/=0.98;
@@ -466,7 +519,7 @@ function calcular(){
 }
 
 /* =========================
-WHATSAPP
+WHATSAPP COMPLETO
 ========================= */
 btnContinuar.onclick=()=>{
 
@@ -474,24 +527,75 @@ btnContinuar.onclick=()=>{
     return alert("Selecione origem e destino");
   }
 
-  const valor = previewTotal.innerText;
+  let base = 0;
 
-  let msg = `🚖 Orçamento RF
+  if(!parada){
+    base = DataManager.buscarValor(origem,destino)||0;
+  }else{
+    base =
+      (DataManager.buscarValor(origem,parada)||0) +
+      (DataManager.buscarValor(parada,destino)||0);
+  }
+
+  let taxas = 0;
+  let detalhes = "";
+
+  const feiraVal = Number(feira.value || 0);
+  const animalVal = Number(animal.value || 0);
+  const praiaVal = Number(saidaPraia.value || 0);
+  const esperaVal = Number(espera.value || 0);
+
+  if(feiraVal>0){ taxas+=feiraVal; detalhes+=`🛒 Feira........ R$ ${feiraVal.toFixed(2)}\n`; }
+  if(praiaVal>0){ taxas+=praiaVal; detalhes+=`⛱️ Praia....... R$ ${praiaVal.toFixed(2)}\n`; }
+  if(animalVal>0){ taxas+=animalVal; detalhes+=`🐶 Animal...... R$ ${animalVal.toFixed(2)}\n`; }
+
+  if(esperaVal>5){
+    let esperaCalc = 3 + ((esperaVal-5)*0.6);
+    taxas+=esperaCalc;
+    detalhes+=`⏱️ Espera...... R$ ${esperaCalc.toFixed(2)}\n`;
+  }
+
+  /* NOTURNO */
+  if(embarque.value){
+    const [h,m]=embarque.value.split(":").map(Number);
+    const min=h*60+m;
+
+    if(min>=1350 || min<300){
+      let adicional = base <= 24.99 ? 5 : base*0.35;
+      taxas+=adicional;
+      detalhes+=`🌙 Noturno.... R$ ${adicional.toFixed(2)}\n`;
+    }
+  }
+
+  let total = (base + taxas) * Number(tipoCarro.value);
+
+  if(pagamento==="credito") total/=0.95;
+  if(pagamento==="debito") total/=0.98;
+
+  let msg = `🚖 *Orçamento RF*
 
 📌 Origem
 - ${origem}
 `;
 
   if(parada){
-    msg += `🛑 Parada
-- ${parada}
-`;
+    msg+=`\n🛑 Parada\n- ${parada}\n`;
   }
 
-  msg += `🏁 Destino
-- ${destino}
+  msg+=`\n🏁 Destino\n- ${destino}
 
-💰 Total ${valor}
+💰 Subtotal - R$ ${base.toFixed(2)}
+
+______________________
+Detalhes da viagem
+
+${detalhes}
+💰 Taxas - R$ ${taxas.toFixed(2)}
+
+______________________
+💳 Pagamento: ${pagamento.toUpperCase()}
+
+💰 Total R$ ${total.toFixed(2)}
 `;
 
   window.open(`https://wa.me/?text=${encodeURIComponent(msg)}`);
