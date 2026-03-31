@@ -139,13 +139,8 @@ body[data-theme="light"] .card-modern{
 CARREGAR TEMA
 ========================= */
 (function(){
-
-const temaSalvo = localStorage.getItem("rf_theme") || "dark";
-
-document.body.setAttribute("data-theme", temaSalvo);
-
-atualizarLabel();
-
+  const tema = localStorage.getItem("rf_theme") || "dark";
+  document.body.setAttribute("data-theme", tema);
 })();
 
 /* =========================
