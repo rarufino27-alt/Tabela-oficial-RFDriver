@@ -233,11 +233,6 @@ input:checked + .slider::before{
 
 </div>
 
-  <div class="option-modern" onclick="limparDados()">
-  <span>🗑️ Limpar dados</span>
-  <span>Resetar</span>
-</div>
-  
 <div class="voltar" onclick="window.location.href='index.html'">
 ← Voltar
 </div>
@@ -246,15 +241,7 @@ input:checked + .slider::before{
 
 <script>
 
-  function limparDados(){
-  if(confirm("Deseja apagar todos os dados do app?")){
-    localStorage.clear();
-    alert("Dados apagados!");
-    location.reload();
-  }
-}
-  
-  const toggle = document.getElementById("toggleTema");
+const toggle = document.getElementById("toggleTema");
 
 if(toggle){
   toggle.checked = document.documentElement.getAttribute("data-theme") === "dark";
