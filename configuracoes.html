@@ -22,6 +22,8 @@ body{
 /* HEADER CORRIGIDO */
 .top-white{
   background:var(--bg-card);
+  box-shadow:0 4px 12px rgba(0,0,0,.08);
+  padding:10px 16px;
 }
 
 .logo-text-dark{
@@ -46,17 +48,19 @@ body{
 /* CARD PREMIUM */
 .card-modern{
   padding:18px;
-  border-radius:18px;
-  margin-bottom:14px;
+  border-radius:20px;
+  margin-bottom:16px;
 
   background:var(--bg-card);
   border:1px solid var(--border);
 
-  box-shadow:0 10px 25px rgba(0,0,0,.15);
+  box-shadow:0 12px 30px rgba(0,0,0,.12);
+
+  transition:.2s;
 }
 
-body[data-theme="light"] .card-modern{
-  box-shadow:0 6px 18px rgba(0,0,0,.08);
+.card-modern:hover{
+  transform:translateY(-2px);
 }
 
 /* OPÇÕES */
@@ -64,9 +68,11 @@ body[data-theme="light"] .card-modern{
   display:flex;
   justify-content:space-between;
   align-items:center;
-  padding:16px 0;
-  border-bottom:1px solid var(--border);
+  padding:16px;
+  border-radius:12px;
   cursor:pointer;
+
+  transition:.2s;
 }
 
 .option-modern:last-child{
@@ -74,16 +80,16 @@ body[data-theme="light"] .card-modern{
 }
 
 .option-modern:hover{
-  opacity:.85;
+  background:var(--bg-soft);
 }
 
 /* BADGE */
 .badge{
-  background:var(--primary);
+  background:linear-gradient(135deg,#facc15,#fde047);
   color:#000;
-  padding:5px 10px;
-  border-radius:20px;
-  font-size:12px;
+  padding:6px 12px;
+  border-radius:999px;
+  font-size:11px;
   font-weight:800;
 }
 
@@ -96,6 +102,9 @@ body[data-theme="light"] .card-modern{
   cursor:pointer;
 }
 
+  .app-container{
+  padding:16px;
+}
 </style>
 
 </head>
@@ -119,10 +128,10 @@ body[data-theme="light"] .card-modern{
 
   <div class="section-title">Preferências</div>
 
-  <div class="option-modern" onclick="alternarTema()">
-    <span>Alternar tema</span>
-    <strong id="temaAtual"></strong>
-  </div>
+<div class="option-modern" onclick="alternarTema()">
+  <span>🎨 Tema</span>
+  <strong id="temaAtual"></strong>
+</div>
 
 </div>
 
@@ -136,10 +145,10 @@ body[data-theme="light"] .card-modern{
     <span class="badge">1.0.1</span>
   </div>
 
-  <div class="option-modern" onclick="abrirSuporte()">
-    <span>Contato do suporte</span>
-    <span>WhatsApp</span>
-  </div>
+<div class="option-modern" onclick="abrirSuporte()">
+  <span>💬 Suporte</span>
+  <span>WhatsApp</span>
+</div>
 
 </div>
 
@@ -152,12 +161,25 @@ body[data-theme="light"] .card-modern{
 <script>
 
 /* =========================
-CARREGAR TEMA GLOBAL
+CARREGAR TEMA GLOBAL (ANTES DO RENDER)
 ========================= */
 (function(){
-  const tema = localStorage.getItem("rf_theme") || "dark";
-  document.body.setAttribute("data-theme", tema);
-  atualizarLabel();
+
+  const temaSalvo = localStorage.getItem("rf_theme") || "dark";
+
+  // aplica no HTML antes de tudo (mais rápido que body)
+  document.documentElement.setAttribute("data-theme", temaSalvo);
+
+  // garante aplicação no body quando existir
+  document.addEventListener("DOMContentLoaded", () => {
+    document.body.setAttribute("data-theme", temaSalvo);
+
+    // só chama se existir (evita erro em outras páginas)
+    if(typeof atualizarLabel === "function"){
+      atualizarLabel();
+    }
+  });
+
 })();
 
 /* =========================
@@ -165,14 +187,18 @@ ALTERNAR TEMA
 ========================= */
 function alternarTema(){
 
-  const atual = document.body.getAttribute("data-theme");
+  const atual = document.documentElement.getAttribute("data-theme") || "dark";
   const novo = atual === "dark" ? "light" : "dark";
 
+  // aplica no HTML e body (garantia total)
+  document.documentElement.setAttribute("data-theme", novo);
   document.body.setAttribute("data-theme", novo);
+
   localStorage.setItem("rf_theme", novo);
 
-  atualizarLabel();
-}
+  if(typeof atualizarLabel === "function"){
+    atualizarLabel();
+  }
 
 /* =========================
 LABEL
