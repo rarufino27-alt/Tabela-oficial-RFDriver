@@ -12,23 +12,90 @@
 
 <style>
 
+/* =========================
+TEMA GLOBAL
+========================= */
+:root[data-theme="dark"]{
+  --bg-main:#0f0f0f;
+  --bg-card:#1c1c1c;
+  --bg-soft:#2a2a2a;
+
+  --text-primary:#fff;
+  --text-secondary:#aaa;
+
+  --border:#333;
+  --primary:#facc15;
+}
+
+:root[data-theme="light"]{
+  --bg-main:#f3f3f3;
+  --bg-card:#ffffff;
+  --bg-soft:#f9f9f9;
+
+  --text-primary:#000;
+  --text-secondary:#555;
+
+  --border:#e5e5e5;
+  --primary:#facc15;
+}
+
+/* BASE */
+body{
+  background:var(--bg-main);
+  color:var(--text-primary);
+  transition:.25s;
+}
+
+/* HEADER */
+.top-white{
+  background:var(--bg-card);
+  box-shadow:0 4px 12px rgba(0,0,0,.08);
+  padding:10px 16px;
+}
+
+.logo-text-dark{
+  color:var(--text-primary);
+}
+
+/* CONTAINER */
+.app-container{
+  padding:16px;
+}
+
 /* TÍTULO */
 .page-title{
   text-align:center;
-  font-size:20px;
+  font-size:22px;
   font-weight:800;
-  margin:15px 0;
+  margin:20px 0;
 }
 
 .page-title span{
   color:var(--primary);
 }
 
+/* CARD PREMIUM */
+.card-modern{
+  padding:18px;
+  border-radius:18px;
+  margin-bottom:14px;
+
+  background:var(--bg-card);
+  border:1px solid var(--border);
+
+  box-shadow:0 10px 25px rgba(0,0,0,.12);
+  transition:.2s;
+}
+
+.card-modern:hover{
+  transform:translateY(-2px);
+}
+
 /* TEXTO */
 .card-modern p{
   font-size:14px;
-  line-height:1.5;
-  opacity:.9;
+  line-height:1.6;
+  color:var(--text-secondary);
 }
 
 /* DESTAQUE */
@@ -48,6 +115,12 @@
   color:#000;
   font-weight:800;
   font-size:15px;
+  cursor:pointer;
+  transition:.2s;
+}
+
+.btn-link:hover{
+  transform:scale(0.98);
 }
 
 /* ESPAÇO FINAL */
@@ -61,7 +134,7 @@
 
 <body>
 
-<!-- HEADER PADRÃO -->
+<!-- HEADER -->
 <div class="top-white">
   <div class="logo-area">
     <img src="icons/icon-512.png" class="logo-img">
@@ -153,10 +226,15 @@ Ver Ranking Atual →
 </div>
 
 <script>
+
+/* =========================
+TEMA GLOBAL
+========================= */
 (function(){
   const tema = localStorage.getItem("rf_theme") || "dark";
-  document.body.setAttribute("data-theme", tema);
+  document.documentElement.setAttribute("data-theme", tema);
 })();
+
 </script>
 
 </body>
