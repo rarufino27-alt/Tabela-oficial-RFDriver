@@ -276,24 +276,87 @@ BUSCA INTELIGENTE
 const busca = document.getElementById("busca");
 const conteudo = document.getElementById("conteudo");
 
-const original = conteudo.innerHTML;
+const originalHTML = conteudo.innerHTML;
 
+/* =========================
+NORMALIZA TEXTO
+(remove acento, pontuação e deixa minúsculo)
+========================= */
+function normalizar(txt){
+  return txt
+    .toLowerCase()
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g,"") // remove acento
+    .replace(/[.,!?;:()]/g,""); // remove pontuação
+}
+
+/* =========================
+BUSCA AVANÇADA
+========================= */
 busca.addEventListener("input", () => {
 
-  const termo = busca.value.toLowerCase();
+  const termoOriginal = busca.value.trim();
 
-  if(!termo){
-    conteudo.innerHTML = original;
+  if(!termoOriginal){
+    conteudo.innerHTML = originalHTML;
     return;
   }
 
-  let texto = original;
+  const termo = normalizar(termoOriginal);
 
-  const regex = new RegExp(`(${termo})`, "gi");
+  let encontrou = false;
 
-  texto = texto.replace(regex, `<mark>$1</mark>`);
+  // cria um DOM temporário
+  const temp = document.createElement("div");
+  temp.innerHTML = originalHTML;
 
-  conteudo.innerHTML = texto;
+  const elementos = temp.querySelectorAll("p, li, h2");
+
+  elementos.forEach(el => {
+
+    const textoOriginal = el.innerText;
+    const textoNormalizado = normalizar(textoOriginal);
+
+    if(textoNormalizado.includes(termo)){
+      encontrou = true;
+
+      // destaca visual
+      const regex = new RegExp(`(${termoOriginal})`, "gi");
+
+      el.innerHTML = textoOriginal.replace(regex, `<mark>$1</mark>`);
+
+      // marca primeiro encontrado
+      if(!temp.querySelector(".encontrado")){
+        el.classList.add("encontrado");
+      }
+    }
+
+  });
+
+  conteudo.innerHTML = temp.innerHTML;
+
+  /* =========================
+SCROLL AUTOMÁTICO
+========================= */
+  const primeiro = conteudo.querySelector(".encontrado");
+
+  if(primeiro){
+    primeiro.scrollIntoView({
+      behavior:"smooth",
+      block:"center"
+    });
+  }
+
+  /* =========================
+NÃO ENCONTROU
+========================= */
+  if(!encontrou){
+    conteudo.innerHTML = `
+      <div style="text-align:center;padding:20px;opacity:.7">
+        ❌ Nenhum resultado encontrado para "<strong>${termoOriginal}</strong>"
+      </div>
+    `;
+  }
 
 });
 
