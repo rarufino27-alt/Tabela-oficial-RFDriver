@@ -171,7 +171,6 @@ mark{
 <div class="page-title">📜 Regras Para Motoristas RF</div>
 
 <input type="text" id="busca" class="search-box" placeholder="Buscar nas regras...">
-<input type="text" id="busca" class="search-box" placeholder="Buscar nas regras...">
 
   <button onclick="anterior()" class="nav-btn">⬅</button>
 
@@ -308,27 +307,6 @@ TEMA
 /* =========================
 BUSCA INTELIGENTE
 ========================= */
-const busca = document.getElementById("busca");
-const conteudo = document.getElementById("conteudo");
-
-const originalHTML = conteudo.innerHTML;
-
-/* =========================
-NORMALIZA TEXTO
-(remove acento, pontuação e deixa minúsculo)
-========================= */
-function normalizar(txt){
-  return txt
-    .toLowerCase()
-    .normalize("NFD")
-    .replace(/[\u0300-\u036f]/g,"") // remove acento
-    .replace(/[.,!?;:()]/g,""); // remove pontuação
-}
-
-/* =========================
-BUSCA AVANÇADA
-========================= */
-
 const busca = document.getElementById("busca");
 const conteudo = document.getElementById("conteudo");
 const navBusca = document.getElementById("navBusca");
