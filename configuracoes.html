@@ -74,7 +74,8 @@ body{
 .section-title{
   font-size:14px;
   color:var(--text-secondary);
-  margin-bottom:10px;
+  margin-bottom:14px;
+  margin-top:6px;
 }
 
 /* CARD PREMIUM */
@@ -107,6 +108,10 @@ body{
   transition:.2s;
 }
 
+  .option-modern:active{
+  transform:scale(0.97);
+}
+  
 .option-modern:last-child{
   border:none;
 }
@@ -137,6 +142,46 @@ body{
   .app-container{
   padding:16px;
 }
+
+  .switch{
+  position:relative;
+  width:42px;
+  height:22px;
+}
+
+.switch input{
+  display:none;
+}
+
+.slider{
+  position:absolute;
+  background:#ccc;
+  border-radius:20px;
+  width:100%;
+  height:100%;
+  cursor:pointer;
+  transition:.3s;
+}
+
+.slider::before{
+  content:"";
+  position:absolute;
+  width:18px;
+  height:18px;
+  border-radius:50%;
+  background:white;
+  top:2px;
+  left:2px;
+  transition:.3s;
+}
+
+input:checked + .slider{
+  background:#facc15;
+}
+
+input:checked + .slider::before{
+  transform:translateX(20px);
+}
 </style>
 
 </head>
@@ -160,9 +205,13 @@ body{
 
   <div class="section-title">Preferências</div>
 
-<div class="option-modern" onclick="alternarTema()">
+<div class="option-modern">
   <span>🎨 Tema</span>
-  <strong id="temaAtual"></strong>
+
+  <label class="switch">
+    <input type="checkbox" id="toggleTema">
+    <span class="slider"></span>
+  </label>
 </div>
 
 </div>
@@ -184,6 +233,11 @@ body{
 
 </div>
 
+  <div class="option-modern" onclick="limparDados()">
+  <span>🗑️ Limpar dados</span>
+  <span>Resetar</span>
+</div>
+  
 <div class="voltar" onclick="window.location.href='index.html'">
 ← Voltar
 </div>
@@ -192,6 +246,22 @@ body{
 
 <script>
 
+  function limparDados(){
+  if(confirm("Deseja apagar todos os dados do app?")){
+    localStorage.clear();
+    alert("Dados apagados!");
+    location.reload();
+  }
+}
+  
+  const toggle = document.getElementById("toggleTema");
+
+if(toggle){
+  toggle.checked = document.documentElement.getAttribute("data-theme") === "dark";
+
+  toggle.addEventListener("change", alternarTema);
+}
+  
 /* =========================
 CARREGAR TEMA GLOBAL (ANTES DO RENDER)
 ========================= */
