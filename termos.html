@@ -4,7 +4,7 @@
 
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Regulamento - RF</title>
+<title>Política de Uso - RF</title>
 
 <link rel="stylesheet" href="theme/theme.css">
 <link rel="stylesheet" href="theme/layout.css">
@@ -13,7 +13,7 @@
 <style>
 
 /* =========================
-TEMA (GARANTIA GLOBAL)
+TEMA GLOBAL
 ========================= */
 :root[data-theme="dark"]{
   --bg-main:#0f0f0f;
@@ -39,7 +39,6 @@ TEMA (GARANTIA GLOBAL)
   --primary:#facc15;
 }
 
-/* BASE */
 body{
   background:var(--bg-main);
   color:var(--text-primary);
@@ -67,85 +66,64 @@ body{
   font-size:22px;
   font-weight:800;
   text-align:center;
-  margin:20px 0 5px;
+  margin:20px 0 10px;
 }
 
-.intro{
-  text-align:center;
-  font-size:14px;
-  color:var(--text-secondary);
-  margin-bottom:20px;
+/* BUSCA */
+.search-box{
+  width:100%;
+  padding:14px;
+  border-radius:12px;
+  border:1px solid var(--border);
+  background:var(--bg-card);
+  color:var(--text-primary);
+  margin-bottom:16px;
+  outline:none;
 }
 
-/* CARD MENU */
+/* CARD */
 .card-modern{
-  padding:16px;
+  padding:20px;
   border-radius:18px;
-  margin-bottom:12px;
 
   background:var(--bg-card);
   border:1px solid var(--border);
 
   box-shadow:0 10px 25px rgba(0,0,0,.12);
-  transition:.2s;
 }
 
-.card-modern:hover{
-  transform:translateY(-2px);
-}
-
-/* ITEM MENU */
-.card-menu{
-  display:flex;
-  align-items:center;
-  gap:14px;
-  cursor:pointer;
-}
-
-.card-menu:active{
-  transform:scale(0.97);
-}
-
-/* ÍCONE */
-.icon{
-  font-size:20px;
-}
-
-/* NUM */
-.num{
+/* TEXTO */
+.content h2{
   color:var(--primary);
-  font-weight:800;
+  margin-top:20px;
 }
 
-/* PÁGINA */
-.page{
-  display:none;
+.content p{
+  margin-top:8px;
   line-height:1.6;
 }
 
-.page h2{
-  color:var(--primary);
-  margin-bottom:10px;
-}
-
-/* BOTÃO VOLTAR */
-.back{
-  margin-top:20px;
-  display:inline-block;
-  color:var(--primary);
-  cursor:pointer;
-  font-weight:700;
-}
-
-/* LISTA */
 ul{
+  margin-top:8px;
   padding-left:18px;
-  margin-top:10px;
 }
 
-/* ESPAÇO FINAL */
-.espaco{
-  height:100px;
+/* HIGHLIGHT BUSCA */
+mark{
+  background:#facc15;
+  color:#000;
+  padding:2px 4px;
+  border-radius:4px;
+}
+
+/* VOLTAR */
+.voltar{
+  margin-top:20px;
+  display:block;
+  text-align:center;
+  color:var(--primary);
+  font-weight:700;
+  cursor:pointer;
 }
 
 </style>
@@ -164,96 +142,62 @@ ul{
 
 <div class="app-container">
 
-<!-- MENU -->
-<div id="menu">
+<div class="page-title">📜 Política de Uso</div>
 
-<div class="page-title">📜 Regulamento</div>
-<div class="intro">Selecione um tópico</div>
+<input type="text" id="busca" class="search-box" placeholder="Buscar nas regras...">
 
-<div class="card-modern card-menu" onclick="openPage('r1')">
-  <div class="icon">📍</div>
-  <span><span class="num">1.</span> Localização</span>
-</div>
-
-<div class="card-modern card-menu" onclick="openPage('r2')">
-  <div class="icon">🚗</div>
-  <span><span class="num">2.</span> Condições do Veículo</span>
-</div>
-
-<div class="card-modern card-menu" onclick="openPage('r3')">
-  <div class="icon">📲</div>
-  <span><span class="num">3.</span> Solicitação de Viagens</span>
-</div>
-
-<div class="card-modern card-menu" onclick="openPage('r4')">
-  <div class="icon">💰</div>
-  <span><span class="num">4.</span> Taxas Adicionais</span>
-</div>
-
-<div class="card-modern card-menu" onclick="openPage('r5')">
-  <div class="icon">📅</div>
-  <span><span class="num">5.</span> Taxa Semanal</span>
-</div>
-
-<div class="card-modern card-menu" onclick="openPage('r6')">
-  <div class="icon">⭐</div>
-  <span><span class="num">6.</span> Prioridade</span>
-</div>
-
-<div class="card-modern card-menu" onclick="openPage('r7')">
-  <div class="icon">⚠️</div>
-  <span><span class="num">7.</span> Medidas Disciplinares</span>
-</div>
-
-<div class="card-modern card-menu" onclick="openPage('r8')">
-  <div class="icon">❌</div>
-  <span><span class="num">8.</span> Cancelamento</span>
-</div>
-
-<div class="card-modern card-menu" onclick="openPage('r9')">
-  <div class="icon">⏱</div>
-  <span><span class="num">9.</span> Tempo de Resposta</span>
-</div>
-
-<div class="card-modern card-menu" onclick="openPage('r10')">
-  <div class="icon">📆</div>
-  <span><span class="num">10.</span> Reserva de Corridas</span>
-</div>
-
-<div class="card-modern card-menu" onclick="openPage('r11')">
-  <div class="icon">📊</div>
-  <span><span class="num">11.</span> Ordem de Atendimento</span>
-</div>
-
-</div>
-
-<!-- EXEMPLO DE REGRA -->
-<div id="r1" class="page card-modern">
+<div class="card-modern content" id="conteudo">
 
 <h2>1. Localização</h2>
-
-<p>
-Para participar das solicitações de viagens, é obrigatório manter a localização ativa.
-</p>
-
+<p>Para participar das solicitações de viagens, é obrigatório manter a localização ativa.</p>
 <ul>
-<li>Localização ativa por 8 horas</li>
+<li>Localização ativa por no mínimo 8 horas</li>
 <li>Sem localização pode perder prioridade</li>
 <li>Administradores não são obrigados</li>
 </ul>
 
-<div class="back" onclick="back()">← Voltar</div>
+<h2>2. Condições do Veículo</h2>
+<p>O veículo deve estar em boas condições de uso, limpeza e segurança.</p>
+
+<h2>3. Solicitação de Viagens</h2>
+<p>As viagens devem ser aceitas de forma responsável e dentro das regras do grupo.</p>
+
+<h2>4. Taxas Adicionais</h2>
+<p>Taxas extras devem ser aplicadas conforme tabela oficial do grupo.</p>
+
+<h2>5. Taxa Semanal</h2>
+<p>A contribuição semanal deve ser paga para manter participação ativa.</p>
+
+<h2>6. Prioridade</h2>
+<p>Motoristas com melhor desempenho possuem prioridade nas corridas.</p>
+
+<h2>7. Medidas Disciplinares</h2>
+<p>O não cumprimento das regras pode resultar em advertência ou remoção.</p>
+
+<h2>8. Cancelamento</h2>
+<p>Cancelamentos excessivos podem gerar penalidades.</p>
+
+<h2>9. Tempo de Resposta</h2>
+<p>Motoristas devem responder rapidamente às solicitações.</p>
+
+<h2>10. Reserva de Corridas</h2>
+<p>Reservas devem ser cumpridas conforme combinado.</p>
+
+<h2>11. Ordem de Atendimento</h2>
+<p>Deve-se respeitar a ordem estabelecida pelo sistema.</p>
 
 </div>
 
-<div class="espaco"></div>
+<div class="voltar" onclick="window.location.href='index.html'">
+← Voltar
+</div>
 
 </div>
 
 <script>
 
 /* =========================
-TEMA GLOBAL (CORRIGIDO)
+TEMA
 ========================= */
 (function(){
   const tema = localStorage.getItem("rf_theme") || "dark";
@@ -261,38 +205,31 @@ TEMA GLOBAL (CORRIGIDO)
 })();
 
 /* =========================
-NAVEGAÇÃO
+BUSCA INTELIGENTE
 ========================= */
-function openPage(id){
+const busca = document.getElementById("busca");
+const conteudo = document.getElementById("conteudo");
 
-  document.getElementById("menu").style.display="none";
+const original = conteudo.innerHTML;
 
-  document.querySelectorAll(".page").forEach(p=>{
-    p.style.display="none";
-  });
+busca.addEventListener("input", () => {
 
-  document.getElementById(id).style.display="block";
+  const termo = busca.value.toLowerCase();
 
-}
+  if(!termo){
+    conteudo.innerHTML = original;
+    return;
+  }
 
-function back(){
+  let texto = original;
 
-  document.getElementById("menu").style.display="block";
+  const regex = new RegExp(`(${termo})`, "gi");
 
-  document.querySelectorAll(".page").forEach(p=>{
-    p.style.display="none";
-  });
+  texto = texto.replace(regex, `<mark>$1</mark>`);
 
-}
+  conteudo.innerHTML = texto;
 
-/* =========================
-BOTÃO VOLTAR NATIVO
-========================= */
-history.pushState(null,null,location.href);
-
-window.onpopstate=function(){
-  back();
-};
+});
 
 </script>
 
