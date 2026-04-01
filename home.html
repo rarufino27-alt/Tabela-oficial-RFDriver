@@ -374,7 +374,8 @@ function abrirModal(tipo){
       : DataManager.listarDestinos(origem);
   }
 
-  renderLista(dados);
+  listaAtual = dados;
+  renderLista(listaAtual);
   modal.style.display="flex";
 }
 
@@ -601,6 +602,16 @@ ______________________
   window.open(`https://wa.me/?text=${encodeURIComponent(msg)}`);
 };
 
+  busca.addEventListener("input", () => {
+  const termo = busca.value.toLowerCase();
+
+  const filtrados = listaAtual.filter(item =>
+    item.toLowerCase().includes(termo)
+  );
+
+  renderLista(filtrados);
+});
+  
 </script>
 
 </body>
