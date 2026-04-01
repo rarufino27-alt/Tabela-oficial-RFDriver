@@ -12,6 +12,38 @@
 
 <style>
 
+  /* =========================
+DARK MODE FORÇADO
+========================= */
+:root[data-theme="dark"]{
+  --bg-main:#0f0f0f;
+  --bg-card:#1c1c1c;
+  --bg-soft:#2a2a2a;
+
+  --text-primary:#ffffff;
+  --text-secondary:#aaaaaa;
+
+  --border:#333;
+
+  --primary:#facc15;
+}
+
+/* =========================
+LIGHT MODE
+========================= */
+:root[data-theme="light"]{
+  --bg-main:#f3f3f3;
+  --bg-card:#ffffff;
+  --bg-soft:#f9f9f9;
+
+  --text-primary:#000000;
+  --text-secondary:#555;
+
+  --border:#e5e5e5;
+
+  --primary:#facc15;
+}
+  
 /* BASE GLOBAL (ESSENCIAL) */
 body{
   background:var(--bg-main);
