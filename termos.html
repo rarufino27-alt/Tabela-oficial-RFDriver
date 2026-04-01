@@ -4,7 +4,6 @@
 
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
 <title>Regulamento - RF</title>
 
 <link rel="stylesheet" href="theme/theme.css">
@@ -13,38 +12,106 @@
 
 <style>
 
+/* =========================
+TEMA (GARANTIA GLOBAL)
+========================= */
+:root[data-theme="dark"]{
+  --bg-main:#0f0f0f;
+  --bg-card:#1c1c1c;
+  --bg-soft:#2a2a2a;
+
+  --text-primary:#fff;
+  --text-secondary:#aaa;
+
+  --border:#333;
+  --primary:#facc15;
+}
+
+:root[data-theme="light"]{
+  --bg-main:#f3f3f3;
+  --bg-card:#ffffff;
+  --bg-soft:#f9f9f9;
+
+  --text-primary:#000;
+  --text-secondary:#555;
+
+  --border:#e5e5e5;
+  --primary:#facc15;
+}
+
+/* BASE */
+body{
+  background:var(--bg-main);
+  color:var(--text-primary);
+  transition:.25s;
+}
+
+/* HEADER */
+.top-white{
+  background:var(--bg-card);
+  box-shadow:0 4px 12px rgba(0,0,0,.08);
+  padding:10px 16px;
+}
+
+.logo-text-dark{
+  color:var(--text-primary);
+}
+
+/* CONTAINER */
+.app-container{
+  padding:16px;
+}
+
 /* TÍTULO */
 .page-title{
-  font-size:20px;
+  font-size:22px;
   font-weight:800;
-  margin:15px 0 5px;
   text-align:center;
+  margin:20px 0 5px;
 }
 
 .intro{
   text-align:center;
   font-size:14px;
-  opacity:.7;
-  margin-bottom:15px;
+  color:var(--text-secondary);
+  margin-bottom:20px;
 }
 
 /* CARD MENU */
+.card-modern{
+  padding:16px;
+  border-radius:18px;
+  margin-bottom:12px;
+
+  background:var(--bg-card);
+  border:1px solid var(--border);
+
+  box-shadow:0 10px 25px rgba(0,0,0,.12);
+  transition:.2s;
+}
+
+.card-modern:hover{
+  transform:translateY(-2px);
+}
+
+/* ITEM MENU */
 .card-menu{
   display:flex;
   align-items:center;
   gap:14px;
-  padding:16px;
   cursor:pointer;
 }
 
-.card-menu:hover{
-  opacity:.8;
+.card-menu:active{
+  transform:scale(0.97);
 }
 
+/* ÍCONE */
 .icon{
   font-size:20px;
 }
 
+/* NUM */
 .num{
   color:var(--primary);
   font-weight:800;
@@ -61,19 +128,22 @@
   margin-bottom:10px;
 }
 
+/* BOTÃO VOLTAR */
 .back{
   margin-top:20px;
   display:inline-block;
   color:var(--primary);
   cursor:pointer;
-  font-weight:600;
+  font-weight:700;
 }
 
+/* LISTA */
 ul{
   padding-left:18px;
   margin-top:10px;
 }
 
+/* ESPAÇO FINAL */
 .espaco{
   height:100px;
 }
@@ -84,7 +154,7 @@ ul{
 
 <body>
 
-<!-- HEADER PADRÃO -->
+<!-- HEADER -->
 <div class="top-white">
   <div class="logo-area">
     <img src="icons/icon-512.png" class="logo-img">
@@ -157,7 +227,7 @@ ul{
 
 </div>
 
-<!-- REGRA 1 (EXEMPLO) -->
+<!-- EXEMPLO DE REGRA -->
 <div id="r1" class="page card-modern">
 
 <h2>1. Localização</h2>
@@ -182,45 +252,47 @@ Para participar das solicitações de viagens, é obrigatório manter a localiza
 
 <script>
 
-/* NAVEGAÇÃO */
+/* =========================
+TEMA GLOBAL (CORRIGIDO)
+========================= */
+(function(){
+  const tema = localStorage.getItem("rf_theme") || "dark";
+  document.documentElement.setAttribute("data-theme", tema);
+})();
+
+/* =========================
+NAVEGAÇÃO
+========================= */
 function openPage(id){
 
-document.getElementById("menu").style.display="none";
+  document.getElementById("menu").style.display="none";
 
-document.querySelectorAll(".page").forEach(p=>{
-p.style.display="none";
-});
+  document.querySelectorAll(".page").forEach(p=>{
+    p.style.display="none";
+  });
 
-document.getElementById(id).style.display="block";
+  document.getElementById(id).style.display="block";
 
 }
 
 function back(){
 
-document.getElementById("menu").style.display="block";
+  document.getElementById("menu").style.display="block";
 
-document.querySelectorAll(".page").forEach(p=>{
-p.style.display="none";
-});
+  document.querySelectorAll(".page").forEach(p=>{
+    p.style.display="none";
+  });
 
 }
 
-function voltarHome(){
-window.location.href="home.html";
-}
-
-/* BOTÃO VOLTAR */
+/* =========================
+BOTÃO VOLTAR NATIVO
+========================= */
 history.pushState(null,null,location.href);
 
 window.onpopstate=function(){
-window.location.href="termos.html";
+  back();
 };
-
-/* TEMA */
-(function(){
-const temaSalvo = localStorage.getItem("rf_theme") || "dark";
-document.body.setAttribute("data-theme", temaSalvo);
-})();
 
 </script>
 
