@@ -167,14 +167,11 @@ CARREGAR TEMA GLOBAL (ANTES DO RENDER)
 
   const temaSalvo = localStorage.getItem("rf_theme") || "dark";
 
-  // aplica no HTML antes de tudo (mais rápido que body)
   document.documentElement.setAttribute("data-theme", temaSalvo);
 
-  // garante aplicação no body quando existir
   document.addEventListener("DOMContentLoaded", () => {
     document.body.setAttribute("data-theme", temaSalvo);
 
-    // só chama se existir (evita erro em outras páginas)
     if(typeof atualizarLabel === "function"){
       atualizarLabel();
     }
@@ -190,7 +187,6 @@ function alternarTema(){
   const atual = document.documentElement.getAttribute("data-theme") || "dark";
   const novo = atual === "dark" ? "light" : "dark";
 
-  // aplica no HTML e body (garantia total)
   document.documentElement.setAttribute("data-theme", novo);
   document.body.setAttribute("data-theme", novo);
 
@@ -200,15 +196,20 @@ function alternarTema(){
     atualizarLabel();
   }
 
+} // ← AQUI ESTAVA FALTANDO
+
 /* =========================
 LABEL
 ========================= */
 function atualizarLabel(){
 
-  const atual = document.body.getAttribute("data-theme");
+  const atual = document.documentElement.getAttribute("data-theme");
 
-  document.getElementById("temaAtual").innerText =
-    atual === "dark" ? "🌙 Escuro" : "☀️ Claro";
+  const el = document.getElementById("temaAtual");
+  if(el){
+    el.innerText = atual === "dark" ? "🌙 Escuro" : "☀️ Claro";
+  }
+
 }
 
 /* =========================
@@ -218,6 +219,7 @@ function abrirSuporte(){
 
   const mensagem = encodeURIComponent("Olá, preciso de suporte no aplicativo RF.");
   window.open(`https://wa.me/5581989823239?text=${mensagem}`, "_blank");
+
 }
 
 </script>
