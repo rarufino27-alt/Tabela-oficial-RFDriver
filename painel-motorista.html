@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+
+<meta charset="UTF-8">
+<title>Painel do Motorista</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js"></script>
+<script src="core/supabase.js"></script>
+
+<style>
+
+body{
+  margin:0;
+  font-family:system-ui;
+  background:#0f172a;
+  color:#fff;
+}
+
+.header{
+  padding:15px;
+  background:#1e293b;
+  text-align:center;
+  font-weight:bold;
+}
+
+.container{
+  padding:15px;
+  max-width:600px;
+  margin:auto;
+}
+
+.card{
+  background:#1e293b;
+  padding:15px;
+  border-radius:12px;
+  margin-bottom:10px;
+}
+
+.valor{
+  font-size:20px;
+  font-weight:bold;
+  color:#22c55e;
+}
+
+.small{
+  font-size:13px;
+  color:#94a3b8;
+}
+
+select{
+  width:100%;
+  padding:10px;
+  margin-bottom:10px;
+  border-radius:8px;
+  border:none;
+  background:#020617;
+  color:#fff;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="header">
+👤 Painel do Motorista
+</div>
+
+<div class="container">
+
+<div class="card">
+  <strong id="nomeMotorista">-</strong>
+</div>
+
+<select id="filtro">
+  <option value="geral">Geral</option>
+  <option value="semana">Semana</option>
+  <option value="mes">Mês</option>
+</select>
+
+<div id="resumo"></div>
+
+<div id="lista"></div>
+
+</div>
+
+<script>
+
+const motoristaId = localStorage.getItem("motorista_id");
+const nome = localStorage.getItem("motorista_nome");
+
+if(!motoristaId){
+  window.location.href = "login-motorista.html";
+}
+
+document.getElementById("nomeMotorista").innerText = nome;
+
+let corridas = [];
+
+/* =========================
+CARREGAR
+========================= */
+async function carregar(){
+
+  const { data } = await window.supabaseClient
+    .from("corridas")
+    .select("*")
+    .eq("motorista_id", motoristaId)
+    .order("data_viagem", { ascending:false });
+
+  corridas = data;
+
+  gerar();
+
+}
+
+/* =========================
+FILTRO
+========================= */
+function filtrar(){
+
+  const tipo = filtro.value;
+
+  const hoje = new Date();
+
+  if(tipo === "geral") return corridas;
+
+  if(tipo === "semana"){
+
+    const inicio = new Date();
+    inicio.setDate(hoje.getDate() - hoje.getDay() + 1);
+
+    const fim = new Date(inicio);
+    fim.setDate(inicio.getDate() + 6);
+
+    return corridas.filter(c=>{
+      const d = new Date(c.data_viagem);
+      return d >= inicio && d <= fim;
+    });
+  }
+
+  if(tipo === "mes"){
+
+    const mesAtual = hoje.toISOString().slice(0,7);
+
+    return corridas.filter(c=>c.data_viagem.startsWith(mesAtual));
+  }
+
+}
+
+/* =========================
+GERAR
+========================= */
+function gerar(){
+
+  const listaFiltrada = filtrar();
+
+  let total = 0;
+  let canceladas = 0;
+
+  listaFiltrada.forEach(c=>{
+
+    if(c.status === "finalizada"){
+      total += Number(c.valor);
+    }else{
+      canceladas++;
+    }
+
+  });
+
+  const media = listaFiltrada.length
+    ? total / listaFiltrada.length
+    : 0;
+
+  resumo.innerHTML = `
+    <div class="card">
+      <div>Total: ${listaFiltrada.length}</div>
+      <div class="valor">R$ ${total.toFixed(2)}</div>
+      <div class="small">Canceladas: ${canceladas}</div>
+      <div class="small">Média: R$ ${media.toFixed(2)}</div>
+    </div>
+  `;
+
+  lista.innerHTML = "";
+
+  listaFiltrada.forEach(c=>{
+
+    let rota = `${c.origem} → ${c.destino}`;
+
+    if(c.parada){
+      rota = `${c.origem} → 🛑 ${c.parada} → ${c.destino}`;
+    }
+
+    const taxas = c.taxas ? `💸 ${c.taxas}` : "";
+    const noturno = c.noturno ? `🌙 ${c.noturno}` : "";
+
+    lista.innerHTML += `
+      <div class="card">
+        <div>${rota}</div>
+        <div class="valor">R$ ${c.valor.toFixed(2)}</div>
+        <div class="small">
+          📅 ${c.data_viagem} | 🕒 ${c.hora_viagem || "-"}
+        </div>
+        <div class="small">${taxas} ${noturno}</div>
+      </div>
+    `;
+  });
+
+}
+
+/* =========================
+RANKING (POSIÇÃO)
+========================= */
+async function ranking(){
+
+  const { data } = await window.supabaseClient
+    .from("corridas")
+    .select("motorista_id, valor, status");
+
+  const mapa = {};
+
+  data.forEach(c=>{
+
+    if(c.status !== "finalizada") return;
+
+    if(!mapa[c.motorista_id]){
+      mapa[c.motorista_id] = 0;
+    }
+
+    mapa[c.motorista_id] += Number(c.valor);
+
+  });
+
+  const ranking = Object.entries(mapa)
+    .sort((a,b)=>b[1]-a[1]);
+
+  const pos = ranking.findIndex(r=>r[0] == motoristaId) + 1;
+
+  const div = document.createElement("div");
+  div.className = "card";
+  div.innerHTML = `<strong>🏆 Sua posição: ${pos || "-"}</strong>`;
+
+  document.querySelector(".container").prepend(div);
+
+}
+
+/* EVENTOS */
+filtro.onchange = gerar;
+
+/* START */
+carregar();
+ranking();
+
+</script>
+
+</body>
+</html>
