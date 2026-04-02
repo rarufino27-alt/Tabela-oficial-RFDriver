@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+
+<meta charset="UTF-8">
+<title>Login Motorista</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js"></script>
+<script src="core/supabase.js"></script>
+
+<style>
+body{
+  margin:0;
+  height:100vh;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  background:#0f172a;
+  color:#fff;
+  font-family:system-ui;
+}
+
+.card{
+  width:90%;
+  max-width:350px;
+  background:#1e293b;
+  padding:25px;
+  border-radius:12px;
+}
+
+input{
+  width:100%;
+  padding:14px;
+  border-radius:10px;
+  border:1px solid #334155;
+  background:#020617;
+  color:#fff;
+  margin-bottom:12px;
+}
+
+button{
+  width:100%;
+  padding:14px;
+  border:none;
+  border-radius:10px;
+  background:#22c55e;
+  font-weight:bold;
+}
+</style>
+
+</head>
+
+<body>
+
+<div class="card">
+
+<h2>📱 Motorista RF</h2>
+
+<input id="telefone" placeholder="Digite seu telefone">
+
+<button onclick="login()">Entrar</button>
+
+</div>
+
+<script>
+
+async function login(){
+
+  const tel = document.getElementById("telefone").value.trim();
+
+  if(!tel){
+    alert("Digite o telefone");
+    return;
+  }
+
+  const { data } = await window.supabaseClient
+    .from("motoristas")
+    .select("*")
+    .eq("telefone", tel);
+
+  if(!data || data.length === 0){
+    alert("Motorista não encontrado");
+    return;
+  }
+
+  // salva sessão
+  localStorage.setItem("motorista_id", data[0].id);
+  localStorage.setItem("motorista_nome", data[0].nome);
+
+  window.location.href = "home.html";
+
+}
+
+</script>
+
+</body>
+</html>
