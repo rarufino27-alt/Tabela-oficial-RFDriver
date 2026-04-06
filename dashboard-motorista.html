@@ -39,6 +39,22 @@ body{
   margin-bottom:12px;
 }
 
+.menu{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:10px;
+  margin-bottom:15px;
+}
+
+.btn{
+  padding:12px;
+  border:none;
+  border-radius:10px;
+  background:#3b82f6;
+  color:#fff;
+  font-weight:600;
+}
+
 .valor{
   font-size:20px;
   font-weight:bold;
@@ -60,10 +76,6 @@ select{
   color:#fff;
 }
 
-canvas{
-  margin-top:10px;
-}
-
 </style>
 
 </head>
@@ -80,6 +92,27 @@ canvas{
   <strong id="nomeMotorista">-</strong>
 </div>
 
+<!-- 🔥 MENU -->
+<div class="menu">
+
+<button class="btn" onclick="ir('home.html')">
+📍 Tabela de Preços
+</button>
+
+<button class="btn" onclick="ir('bonus.html')">
+💰 Bônus
+</button>
+
+<button class="btn" onclick="ir('termos.html')">
+📜 Regras
+</button>
+
+<button class="btn" onclick="ir('configuracao.html')">
+⚙️ Configurações
+</button>
+
+</div>
+
 <select id="filtro">
   <option value="geral">Geral</option>
   <option value="semana">Semana</option>
@@ -94,14 +127,17 @@ canvas{
 
 <div id="ranking"></div>
 
-<div id="grupos"></div>
-
 <div id="lista"></div>
+
+<button class="btn" onclick="logout()" style="background:#ef4444;margin-top:10px;">
+Sair
+</button>
 
 </div>
 
 <script>
 
+/* 🔐 PROTEÇÃO */
 const motoristaId = localStorage.getItem("motorista_id");
 const nome = localStorage.getItem("motorista_nome");
 
@@ -111,11 +147,19 @@ if(!motoristaId){
 
 document.getElementById("nomeMotorista").innerText = nome;
 
+/* LOGOUT */
+function logout(){
+  localStorage.clear();
+  window.location.href = "login-motorista.html";
+}
+
+/* NAV */
+function ir(p){
+  window.location.href = p;
+}
+
 let corridas = [];
 
-/* =========================
-CARREGAR
-========================= */
 async function carregar(){
 
   const { data } = await window.supabaseClient
@@ -128,12 +172,8 @@ async function carregar(){
 
   gerar();
   gerarGrafico();
-  gerarGrupos();
 }
 
-/* =========================
-FILTRO
-========================= */
 function filtrar(){
 
   const tipo = filtro.value;
@@ -161,9 +201,6 @@ function filtrar(){
 
 }
 
-/* =========================
-RESUMO
-========================= */
 function gerar(){
 
   const listaFiltrada = filtrar();
@@ -183,7 +220,7 @@ function gerar(){
 
   resumo.innerHTML = `
     <div class="card">
-      <div>Total corridas: ${listaFiltrada.length}</div>
+      <div>Total: ${listaFiltrada.length}</div>
       <div class="valor">R$ ${total.toFixed(2)}</div>
       <div class="small">Canceladas: ${canceladas}</div>
       <div class="small">Média: R$ ${media.toFixed(2)}</div>
@@ -206,19 +243,12 @@ function gerar(){
         <div class="small">
           📅 ${c.data_viagem || "-"} | 🕒 ${c.hora_viagem || "-"}
         </div>
-        <div class="small">
-          ${c.taxas ? "💸 Taxa extra" : ""}
-          ${c.noturno ? "🌙 Noturno" : ""}
-        </div>
       </div>
     `;
   });
 
 }
 
-/* =========================
-GRÁFICO
-========================= */
 function gerarGrafico(){
 
   let finalizadas = 0;
@@ -244,67 +274,9 @@ function gerarGrafico(){
 
 }
 
-/* =========================
-RANKING
-========================= */
-async function ranking(){
-
-  const { data } = await window.supabaseClient
-    .from("corridas")
-    .select("motorista_id, valor, status");
-
-  const mapa = {};
-
-  data.forEach(c=>{
-    if(c.status !== "finalizada") return;
-
-    if(!mapa[c.motorista_id]){
-      mapa[c.motorista_id] = 0;
-    }
-
-    mapa[c.motorista_id] += Number(c.valor);
-  });
-
-  const ranking = Object.entries(mapa)
-    .sort((a,b)=>b[1]-a[1]);
-
-  const pos = ranking.findIndex(r=>r[0] == motoristaId) + 1;
-
-  document.getElementById("ranking").innerHTML = `
-    <div class="card">
-      🏆 Sua posição no grupo: ${pos || "-"}
-    </div>
-  `;
-}
-
-/* =========================
-GRUPOS (1 a 10)
-========================= */
-function gerarGrupos(){
-
-  let html = "";
-
-  for(let i=1;i<=10;i++){
-
-    html += `
-      <div class="card">
-        <strong>Grupo ${i}</strong><br>
-        Atendidas: 0<br>
-        Canceladas: 0<br>
-        Não atendidas: 0
-      </div>
-    `;
-  }
-
-  document.getElementById("grupos").innerHTML = html;
-}
-
-/* EVENTOS */
 filtro.onchange = gerar;
 
-/* START */
 carregar();
-ranking();
 
 </script>
 
