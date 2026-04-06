@@ -22,8 +22,9 @@ body{
 .header{
   padding:15px;
   background:#1e293b;
-  text-align:center;
+  text-align:left;
   font-weight:bold;
+  font-size:18px;
 }
 
 .container{
@@ -83,7 +84,7 @@ select{
 <body>
 
 <div class="header">
-🚖 Dashboard Motorista
+  <div id="saudacao">🚖 Olá!</div>
 </div>
 
 <div class="container">
@@ -145,6 +146,18 @@ if(!motoristaId){
   window.location.href = "login-motorista.html";
 }
 
+// 🔥 PEGAR PRIMEIRO NOME
+function primeiroNome(nomeCompleto){
+  if(!nomeCompleto) return "Motorista";
+  return nomeCompleto.split(" ")[0];
+}
+
+const primeiro = primeiroNome(nome);
+
+// 🔥 SAUDAÇÃO
+document.getElementById("saudacao").innerText = `🚖 Olá, ${primeiro}!`;
+
+// mantém nome completo no card
 document.getElementById("nomeMotorista").innerText = nome;
 
 /* LOGOUT */
