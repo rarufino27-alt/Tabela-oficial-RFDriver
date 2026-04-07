@@ -158,7 +158,9 @@ async function carregar(){
   let finalizadas = 0;
 
   minhas.forEach(c=>{
-    if(c.status === "finalizada"){
+    const status = (c.status || "").toLowerCase().trim();
+
+if(status === "finalizada")
       total += Number(c.valor);
       finalizadas++;
     }
@@ -197,7 +199,9 @@ async function carregar(){
   let canceladasG = 0;
 
   data.forEach(c=>{
-    if(c.status === "finalizada"){
+    const status = (c.status || "").toLowerCase().trim();
+
+if(status === "finalizada")
       totalValor += Number(c.valor);
       finalizadasG++;
     }else{
