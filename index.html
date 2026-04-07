@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>RF Passageiro</title>
+<title>RF • Escritório Virtual</title>
 
 <style>
 
@@ -12,6 +12,7 @@
   --rf-gold-strong:#F4D97A;
 }
 
+/* RESET */
 *{
   margin:0;
   padding:0;
@@ -24,52 +25,54 @@ html,body{
 }
 
 body{
-  position:relative;
   overflow:hidden;
-  background: radial-gradient(circle at top,#1A2133 0%,#080A12 70%);
   display:flex;
   align-items:center;
   justify-content:center;
   color:#fff;
-  animation:fadeIn .4s ease;
+  background: radial-gradient(circle at top,#111827 0%,#020617 80%);
+  animation:fadeIn .5s ease;
 }
 
-/* FUNDO ROTATIVO */
-
+/* FUNDO CORPORATIVO */
 body::before{
   content:"";
   position:absolute;
-  top:50%;
-  left:50%;
-  width:160%;
-  height:160%;
-  transform:translate(-50%,-50%);
-  background:radial-gradient(circle, rgba(214,184,95,.15), transparent 70%);
-  animation:rotateBg 18s linear infinite;
-  pointer-events:none;
+  width:200%;
+  height:200%;
+  background:
+    radial-gradient(circle, rgba(214,184,95,.08), transparent 60%),
+    repeating-linear-gradient(
+      45deg,
+      rgba(255,255,255,.02),
+      rgba(255,255,255,.02) 1px,
+      transparent 1px,
+      transparent 12px
+    );
+  animation:bgRotate 25s linear infinite;
+  top:-50%;
+  left:-50%;
 }
 
-@keyframes rotateBg{
-  from{transform:translate(-50%,-50%) rotate(0deg);}
-  to{transform:translate(-50%,-50%) rotate(360deg);}
+@keyframes bgRotate{
+  from{transform:rotate(0deg);}
+  to{transform:rotate(360deg);}
 }
 
 /* CONTAINER */
-
 .container{
   position:relative;
   text-align:center;
   z-index:2;
 }
 
-/* RADAR */
-
+/* ANEL CORPORATIVO */
 .radar{
   position:absolute;
-  width:300px;
-  height:300px;
+  width:320px;
+  height:320px;
   border-radius:50%;
-  border:2px solid rgba(214,184,95,.4);
+  border:1px solid rgba(214,184,95,.3);
   left:50%;
   top:50%;
   transform:translate(-50%,-50%);
@@ -81,40 +84,38 @@ body::before{
   position:absolute;
   inset:0;
   border-radius:50%;
-  border:2px solid rgba(214,184,95,.3);
-  animation:pulse 4s infinite;
+  border:1px solid rgba(214,184,95,.25);
+  animation:pulse 5s infinite;
 }
 
 .radar::after{
-  animation-delay:2s;
+  animation-delay:2.5s;
 }
 
 @keyframes pulse{
   0%{
     transform:scale(.7);
-    opacity:.8;
+    opacity:.7;
   }
   100%{
-    transform:scale(1.6);
+    transform:scale(1.7);
     opacity:0;
   }
 }
 
-/* GLOW */
-
+/* GLOW PREMIUM */
 .glow{
   position:absolute;
   width:260px;
   height:260px;
   border-radius:50%;
   background:radial-gradient(circle,var(--rf-gold),transparent 70%);
-  filter:blur(60px);
-  opacity:.4;
+  filter:blur(70px);
+  opacity:.35;
   left:50%;
   top:50%;
   transform:translate(-50%,-50%);
   animation:glowPulse 4s ease-in-out infinite;
-  pointer-events:none;
 }
 
 @keyframes glowPulse{
@@ -123,51 +124,56 @@ body::before{
 }
 
 /* LOGO */
-
 .logo{
-  width:160px;
-  max-width:70%;
-  position:relative;
-  z-index:3;
+  width:150px;
   opacity:0;
   transform:scale(.85);
-  animation:logoFast .5s ease forwards, logoFloat 4s ease-in-out infinite 1s;
+  animation:logoEnter .6s ease forwards, float 4s ease-in-out infinite 1s;
 }
 
-@keyframes logoFast{
+@keyframes logoEnter{
   to{
     opacity:1;
     transform:scale(1);
   }
 }
 
-@keyframes logoFloat{
-  0%{transform:scale(.95);}
-  50%{transform:scale(1);}
-  100%{transform:scale(.95);}
+@keyframes float{
+  0%{transform:translateY(0);}
+  50%{transform:translateY(-6px);}
+  100%{transform:translateY(0);}
 }
 
-/* TEXTO */
+/* TITULO */
+.titulo{
+  margin-top:20px;
+  font-size:18px;
+  font-weight:600;
+  letter-spacing:.6px;
+  color:#fff;
+  opacity:0;
+  animation:textFade 1s ease forwards 1.2s;
+}
 
+/* SUB */
 .tagline{
-  margin-top:25px;
-  font-size:14px;
-  letter-spacing:.5px;
+  margin-top:6px;
+  font-size:13px;
+  color:#9ca3af;
   opacity:0;
   animation:textFade 1s ease forwards 1.6s;
 }
 
 @keyframes textFade{
-  to{opacity:.9;}
+  to{opacity:1;}
 }
 
 /* PROGRESS */
-
 .progress{
   margin-top:30px;
-  width:200px;
+  width:220px;
   height:4px;
-  background:rgba(255,255,255,.1);
+  background:rgba(255,255,255,.08);
   border-radius:6px;
   overflow:hidden;
   margin-left:auto;
@@ -178,7 +184,7 @@ body::before{
   height:100%;
   width:0%;
   background:linear-gradient(90deg,var(--rf-gold),var(--rf-gold-strong));
-  animation:load 4s ease forwards;
+  animation:load 4.2s ease forwards;
 }
 
 @keyframes load{
@@ -186,7 +192,6 @@ body::before{
 }
 
 /* FADE OUT */
-
 .fade-out{
   animation:fadeOut .5s ease forwards;
 }
@@ -194,7 +199,7 @@ body::before{
 @keyframes fadeOut{
   to{
     opacity:0;
-    transform:scale(.98);
+    transform:scale(.97);
   }
 }
 
@@ -213,10 +218,14 @@ body::before{
   <div class="radar"></div>
   <div class="glow"></div>
 
-  <img src="icons/logo-1024.png" class="logo" alt="RF Passageiro">
+  <img src="icons/logo-1024.png" class="logo">
+
+  <div class="titulo">
+    Escritório Virtual RF
+  </div>
 
   <div class="tagline">
-    Tabela de Preços RF
+    Mobilidade inteligente • Gestão profissional
   </div>
 
   <div class="progress">
@@ -227,15 +236,14 @@ body::before{
 
 <script>
 
-/* Splash otimizado (4.5s total) */
-
+/* TEMPO CONTROLADO (FLUIDO) */
 setTimeout(()=>{
   document.body.classList.add("fade-out");
-},4000);
+},4200);
 
 setTimeout(()=>{
   window.location.href="dashboard-motorista.html";
-},4500);
+},4700);
 
 </script>
 
