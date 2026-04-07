@@ -537,7 +537,9 @@ function gerarGrafico(){
     c.motorista_id !== motoristaId
   ).length;
 
-  if(chart) chart.destroy();
+if(chart) chart.destroy();
+
+Chart.register(centerTextPlugin);
 
 chart = new Chart(document.getElementById("grafico"), {
   type: "doughnut",
@@ -552,6 +554,27 @@ chart = new Chart(document.getElementById("grafico"), {
       ],
       borderWidth: 1
     }]
+  },
+  options: {
+    cutout: "65%",
+    plugins: {
+      tooltip: {
+        callbacks: {
+          label: function(context) {
+            const total = context.dataset.data.reduce((a,b)=>a+b,0);
+            const valor = context.raw;
+            const percentual = total ? ((valor / total) * 100).toFixed(1) : 0;
+
+            return `${context.label}: ${valor} (${percentual}%)`;
+          }
+        }
+      },
+      legend: {
+        labels: {
+          color: "#fff"
+        }
+      }
+    }
   }
 });
 
