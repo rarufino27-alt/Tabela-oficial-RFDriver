@@ -3,60 +3,66 @@
 <head>
 
 <meta charset="UTF-8">
-<title>Painel do Motorista</title>
+<title>Painel Motorista RF</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js"></script>
 <script src="core/supabase.js"></script>
 
+<link rel="stylesheet" href="theme/theme.css">
+<link rel="stylesheet" href="theme/layout.css">
+<link rel="stylesheet" href="theme/components.css">
+
 <style>
 
-body{
-  margin:0;
-  font-family:system-ui;
-  background:#0f172a;
-  color:#fff;
+/* TABS */
+.tabs{
+  display:flex;
+  gap:6px;
+  margin-bottom:12px;
 }
 
-.header{
-  padding:15px;
-  background:#1e293b;
+.tab{
+  flex:1;
+  padding:12px;
   text-align:center;
-  font-weight:bold;
+  border-radius:10px;
+  background:var(--bg-card);
+  border:1px solid var(--border);
+  cursor:pointer;
 }
 
-.container{
-  padding:15px;
-  max-width:600px;
-  margin:auto;
+.tab.ativo{
+  background:var(--primary);
+  color:#000;
 }
 
-.card{
-  background:#1e293b;
-  padding:15px;
-  border-radius:12px;
+/* CONTEÚDO */
+.aba{
+  display:none;
+}
+
+.aba.ativa{
+  display:block;
+}
+
+/* KPI */
+.kpi{
+  padding:14px;
+  border-radius:14px;
+  background:var(--bg-card);
+  border:1px solid var(--border);
   margin-bottom:10px;
 }
 
-.valor{
+.kpi strong{
   font-size:20px;
-  font-weight:bold;
-  color:#22c55e;
+  display:block;
 }
 
 .small{
-  font-size:13px;
-  color:#94a3b8;
-}
-
-select{
-  width:100%;
-  padding:10px;
-  margin-bottom:10px;
-  border-radius:8px;
-  border:none;
-  background:#020617;
-  color:#fff;
+  font-size:12px;
+  color:var(--text-secondary);
 }
 
 </style>
@@ -65,30 +71,56 @@ select{
 
 <body>
 
-<div class="header">
-👤 Painel do Motorista
+<div class="top-white">
+  <div class="logo-area">
+    <span class="logo-text-dark">Painel RF</span>
+  </div>
 </div>
 
-<div class="container">
+<div class="center app-container">
+
+<!-- TABS -->
+<div class="tabs">
+  <div class="tab ativo" onclick="trocarAba(0)">📊 Painel</div>
+  <div class="tab" onclick="trocarAba(1)">👤 Perfil</div>
+  <div class="tab" onclick="trocarAba(2)">🌐 Grupo</div>
+</div>
+
+<!-- =========================
+ABA 1 - PAINEL MOTORISTA
+========================= -->
+<div class="aba ativa" id="aba0">
+
+<div id="painelMotorista"></div>
+
+</div>
+
+<!-- =========================
+ABA 2 - PERFIL
+========================= -->
+<div class="aba" id="aba1">
 
 <div class="card">
-  <strong id="nomeMotorista">-</strong>
+  <strong id="nomePerfil"></strong>
+  <div class="small" id="telefonePerfil"></div>
 </div>
 
-<select id="filtro">
-  <option value="geral">Geral</option>
-  <option value="semana">Semana</option>
-  <option value="mes">Mês</option>
-</select>
+</div>
 
-<div id="resumo"></div>
+<!-- =========================
+ABA 3 - GRUPO
+========================= -->
+<div class="aba" id="aba2">
 
-<div id="lista"></div>
+<div id="painelGrupo"></div>
+
+</div>
 
 </div>
 
 <script>
 
+/* LOGIN */
 const motoristaId = localStorage.getItem("motorista_id");
 const nome = localStorage.getItem("motorista_nome");
 
@@ -96,163 +128,124 @@ if(!motoristaId){
   window.location.href = "login-motorista.html";
 }
 
-document.getElementById("nomeMotorista").innerText = nome;
+/* TABS */
+function trocarAba(i){
+  document.querySelectorAll(".tab").forEach((t,idx)=>{
+    t.classList.toggle("ativo", idx===i);
+  });
 
-let corridas = [];
+  document.querySelectorAll(".aba").forEach((a,idx)=>{
+    a.classList.toggle("ativa", idx===i);
+  });
+}
 
 /* =========================
-CARREGAR
+CARREGAR DADOS
 ========================= */
+
 async function carregar(){
 
   const { data } = await window.supabaseClient
     .from("corridas")
-    .select("*")
-    .eq("motorista_id", motoristaId)
-    .order("data_viagem", { ascending:false });
+    .select("*");
 
-  corridas = data;
+  if(!data) return;
 
-  gerar();
-
-}
-
-/* =========================
-FILTRO
-========================= */
-function filtrar(){
-
-  const tipo = filtro.value;
-
-  const hoje = new Date();
-
-  if(tipo === "geral") return corridas;
-
-  if(tipo === "semana"){
-
-    const inicio = new Date();
-    inicio.setDate(hoje.getDate() - hoje.getDay() + 1);
-
-    const fim = new Date(inicio);
-    fim.setDate(inicio.getDate() + 6);
-
-    return corridas.filter(c=>{
-      const d = new Date(c.data_viagem);
-      return d >= inicio && d <= fim;
-    });
-  }
-
-  if(tipo === "mes"){
-
-    const mesAtual = hoje.toISOString().slice(0,7);
-
-    return corridas.filter(c=>c.data_viagem.startsWith(mesAtual));
-  }
-
-}
-
-/* =========================
-GERAR
-========================= */
-function gerar(){
-
-  const listaFiltrada = filtrar();
+  // 🔥 INDIVIDUAL
+  const minhas = data.filter(c=>c.motorista_id == motoristaId);
 
   let total = 0;
-  let canceladas = 0;
+  let finalizadas = 0;
 
-  listaFiltrada.forEach(c=>{
-
+  minhas.forEach(c=>{
     if(c.status === "finalizada"){
       total += Number(c.valor);
-    }else{
-      canceladas++;
+      finalizadas++;
     }
-
   });
 
-  const media = listaFiltrada.length
-    ? total / listaFiltrada.length
-    : 0;
+  painelMotorista.innerHTML = `
+    <div class="kpi">
+      <span>Ganhos</span>
+      <strong>R$ ${total.toFixed(2)}</strong>
+    </div>
 
-  resumo.innerHTML = `
-    <div class="card">
-      <div>Total: ${listaFiltrada.length}</div>
-      <div class="valor">R$ ${total.toFixed(2)}</div>
-      <div class="small">Canceladas: ${canceladas}</div>
-      <div class="small">Média: R$ ${media.toFixed(2)}</div>
+    <div class="kpi">
+      <span>Corridas</span>
+      <strong>${minhas.length}</strong>
+    </div>
+
+    <div class="kpi">
+      <span>Finalizadas</span>
+      <strong>${finalizadas}</strong>
     </div>
   `;
 
-  lista.innerHTML = "";
+  /* =========================
+  PERFIL
+  ========================= */
+  nomePerfil.innerText = nome;
 
-  listaFiltrada.forEach(c=>{
+  /* =========================
+  GRUPO
+  ========================= */
 
-    let rota = `${c.origem} → ${c.destino}`;
+  let totalGrupo = data.length;
+  let totalValor = 0;
 
-    if(c.parada){
-      rota = `${c.origem} → 🛑 ${c.parada} → ${c.destino}`;
-    }
-
-    const taxas = c.taxas ? `💸 ${c.taxas}` : "";
-    const noturno = c.noturno ? `🌙 ${c.noturno}` : "";
-
-    lista.innerHTML += `
-      <div class="card">
-        <div>${rota}</div>
-        <div class="valor">R$ ${c.valor.toFixed(2)}</div>
-        <div class="small">
-          📅 ${c.data_viagem} | 🕒 ${c.hora_viagem || "-"}
-        </div>
-        <div class="small">${taxas} ${noturno}</div>
-      </div>
-    `;
-  });
-
-}
-
-/* =========================
-RANKING (POSIÇÃO)
-========================= */
-async function ranking(){
-
-  const { data } = await window.supabaseClient
-    .from("corridas")
-    .select("motorista_id, valor, status");
-
-  const mapa = {};
+  let finalizadasG = 0;
+  let canceladasG = 0;
 
   data.forEach(c=>{
-
-    if(c.status !== "finalizada") return;
-
-    if(!mapa[c.motorista_id]){
-      mapa[c.motorista_id] = 0;
+    if(c.status === "finalizada"){
+      totalValor += Number(c.valor);
+      finalizadasG++;
+    }else{
+      canceladasG++;
     }
-
-    mapa[c.motorista_id] += Number(c.valor);
-
   });
 
-  const ranking = Object.entries(mapa)
-    .sort((a,b)=>b[1]-a[1]);
+  const naoAtendidas = totalGrupo - (finalizadasG + canceladasG);
 
-  const pos = ranking.findIndex(r=>r[0] == motoristaId) + 1;
+  const perdido = data
+    .filter(c=>c.status !== "finalizada")
+    .reduce((s,c)=>s+Number(c.valor||0),0);
 
-  const div = document.createElement("div");
-  div.className = "card";
-  div.innerHTML = `<strong>🏆 Sua posição: ${pos || "-"}</strong>`;
+  painelGrupo.innerHTML = `
+    <div class="kpi">
+      <span>Total de corridas</span>
+      <strong>${totalGrupo}</strong>
+    </div>
 
-  document.querySelector(".container").prepend(div);
+    <div class="kpi">
+      <span>Dinheiro gerado</span>
+      <strong>R$ ${totalValor.toFixed(2)}</strong>
+    </div>
+
+    <div class="kpi">
+      <span>Dinheiro perdido</span>
+      <strong>R$ ${perdido.toFixed(2)}</strong>
+    </div>
+
+    <div class="kpi">
+      <span>Finalizadas</span>
+      <strong>${((finalizadasG/totalGrupo)*100).toFixed(0)}%</strong>
+    </div>
+
+    <div class="kpi">
+      <span>Canceladas</span>
+      <strong>${((canceladasG/totalGrupo)*100).toFixed(0)}%</strong>
+    </div>
+
+    <div class="kpi">
+      <span>Não atendidas</span>
+      <strong>${((naoAtendidas/totalGrupo)*100).toFixed(0)}%</strong>
+    </div>
+  `;
 
 }
 
-/* EVENTOS */
-filtro.onchange = gerar;
-
-/* START */
 carregar();
-ranking();
 
 </script>
 
