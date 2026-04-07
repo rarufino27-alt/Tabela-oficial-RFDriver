@@ -236,6 +236,11 @@ body{
 
 <script>
 
+(function(){
+  const tema = localStorage.getItem("rf_theme") || "dark";
+  document.documentElement.setAttribute("data-theme", tema);
+})();
+
 /* LOGIN */
 if(!localStorage.getItem("motorista_id")){
   window.location.href = "login-motorista.html";
