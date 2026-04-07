@@ -12,88 +12,60 @@
 
 <style>
 
-  /* =========================
-DARK MODE FORÇADO
-========================= */
+/* DARK */
 :root[data-theme="dark"]{
-  --bg-main:#0f0f0f;
-  --bg-card:#1c1c1c;
-  --bg-soft:#2a2a2a;
+  --bg-main:#0B0F14;
+  --bg-card:#121821;
+  --bg-soft:#0F141B;
 
-  --text-primary:#ffffff;
-  --text-secondary:#aaaaaa;
+  --text-primary:#fff;
+  --text-secondary:#9CA3AF;
 
-  --border:#333;
-
-  --primary:#facc15;
+  --border:rgba(255,255,255,0.08);
+  --primary:#3B82F6;
 }
 
-/* =========================
-LIGHT MODE
-========================= */
+/* LIGHT (CORPORATIVO) */
 :root[data-theme="light"]{
-  --bg-main:#f3f3f3;
-  --bg-card:#ffffff;
-  --bg-soft:#f9f9f9;
+  --bg-main:#F4F7FB;
+  --bg-card:#FFFFFF;
+  --bg-soft:#F1F5F9;
 
-  --text-primary:#000000;
-  --text-secondary:#555;
+  --text-primary:#0f172a;
+  --text-secondary:#475569;
 
-  --border:#e5e5e5;
-
-  --primary:#facc15;
+  --border:#E2E8F0;
+  --primary:#3B82F6;
 }
-  
-/* BASE GLOBAL (ESSENCIAL) */
+
+/* BASE */
 body{
   background:var(--bg-main);
   color:var(--text-primary);
-  transition: background .25s, color .25s;
+  transition:.25s;
 }
 
-/* HEADER CORRIGIDO */
+/* HEADER */
 .top-white{
   background:var(--bg-card);
-  box-shadow:0 4px 12px rgba(0,0,0,.08);
-  padding:10px 16px;
-}
-
-.logo-text-dark{
-  color:var(--text-primary);
+  border-bottom:1px solid var(--border);
 }
 
 /* TÍTULO */
 .page-title{
-  font-size:22px;
+  font-size:20px;
   font-weight:800;
   text-align:center;
-  margin:20px 0 10px;
+  margin:20px 0;
 }
 
-/* SUBTÍTULO */
-.section-title{
-  font-size:14px;
-  color:var(--text-secondary);
-  margin-bottom:14px;
-  margin-top:6px;
-}
-
-/* CARD PREMIUM */
+/* CARD */
 .card-modern{
   padding:18px;
-  border-radius:20px;
+  border-radius:16px;
   margin-bottom:16px;
-
   background:var(--bg-card);
   border:1px solid var(--border);
-
-  box-shadow:0 12px 30px rgba(0,0,0,.12);
-
-  transition:.2s;
-}
-
-.card-modern:hover{
-  transform:translateY(-2px);
 }
 
 /* OPÇÕES */
@@ -101,19 +73,9 @@ body{
   display:flex;
   justify-content:space-between;
   align-items:center;
-  padding:16px;
-  border-radius:12px;
+  padding:14px;
+  border-radius:10px;
   cursor:pointer;
-
-  transition:.2s;
-}
-
-  .option-modern:active{
-  transform:scale(0.97);
-}
-  
-.option-modern:last-child{
-  border:none;
 }
 
 .option-modern:hover{
@@ -122,28 +84,16 @@ body{
 
 /* BADGE */
 .badge{
-  background:linear-gradient(135deg,#facc15,#fde047);
-  color:#000;
+  background:var(--primary);
+  color:#fff;
   padding:6px 12px;
   border-radius:999px;
   font-size:11px;
-  font-weight:800;
-}
-
-/* VOLTAR */
-.voltar{
-  text-align:center;
-  margin-top:25px;
-  color:var(--primary);
   font-weight:700;
-  cursor:pointer;
 }
 
-  .app-container{
-  padding:16px;
-}
-
-  .switch{
+/* SWITCH */
+.switch{
   position:relative;
   width:42px;
   height:22px;
@@ -159,8 +109,6 @@ body{
   border-radius:20px;
   width:100%;
   height:100%;
-  cursor:pointer;
-  transition:.3s;
 }
 
 .slider::before{
@@ -176,19 +124,19 @@ body{
 }
 
 input:checked + .slider{
-  background:#facc15;
+  background:var(--primary);
 }
 
 input:checked + .slider::before{
   transform:translateX(20px);
 }
+
 </style>
 
 </head>
 
 <body>
 
-<!-- HEADER -->
 <div class="top-white">
   <div class="logo-area">
     <img src="icons/icon-512.png" class="logo-img">
@@ -196,14 +144,14 @@ input:checked + .slider::before{
   </div>
 </div>
 
-<div class="app-container">
+<div class="center app-container">
 
 <div class="page-title">⚙️ Configurações</div>
 
 <!-- PREFERÊNCIAS -->
 <div class="card-modern">
 
-  <div class="section-title">Preferências</div>
+<div class="section-title">Preferências</div>
 
 <div class="option-modern">
   <span>🎨 Tema</span>
@@ -219,12 +167,12 @@ input:checked + .slider::before{
 <!-- SISTEMA -->
 <div class="card-modern">
 
-  <div class="section-title">Sistema</div>
+<div class="section-title">Sistema</div>
 
-  <div class="option-modern">
-    <span>Versão do aplicativo</span>
-    <span class="badge">1.0.1</span>
-  </div>
+<div class="option-modern">
+  <span>Versão do aplicativo</span>
+  <span class="badge">2.0.0</span>
+</div>
 
 <div class="option-modern" onclick="abrirSuporte()">
   <span>💬 Suporte</span>
@@ -233,82 +181,32 @@ input:checked + .slider::before{
 
 </div>
 
-<div class="voltar" onclick="window.location.href='index.html'">
-← Voltar
-</div>
-
 </div>
 
 <script>
 
-const toggle = document.getElementById("toggleTema");
-
-if(toggle){
-  toggle.checked = document.documentElement.getAttribute("data-theme") === "dark";
-
-  toggle.addEventListener("change", alternarTema);
-}
-  
-/* =========================
-CARREGAR TEMA GLOBAL (ANTES DO RENDER)
-========================= */
+/* 🔥 TEMA GLOBAL (CORRETO) */
 (function(){
-
-  const temaSalvo = localStorage.getItem("rf_theme") || "dark";
-
-  document.documentElement.setAttribute("data-theme", temaSalvo);
-
-  document.addEventListener("DOMContentLoaded", () => {
-    document.body.setAttribute("data-theme", temaSalvo);
-
-    if(typeof atualizarLabel === "function"){
-      atualizarLabel();
-    }
-  });
-
+  const tema = localStorage.getItem("rf_theme") || "dark";
+  document.documentElement.setAttribute("data-theme", tema);
 })();
 
-/* =========================
-ALTERNAR TEMA
-========================= */
-function alternarTema(){
+/* SWITCH */
+const toggle = document.getElementById("toggleTema");
 
-  const atual = document.documentElement.getAttribute("data-theme") || "dark";
-  const novo = atual === "dark" ? "light" : "dark";
+const temaAtual = localStorage.getItem("rf_theme") || "dark";
+toggle.checked = temaAtual === "dark";
 
-  document.documentElement.setAttribute("data-theme", novo);
-  document.body.setAttribute("data-theme", novo);
-
+toggle.addEventListener("change", () => {
+  const novo = toggle.checked ? "dark" : "light";
   localStorage.setItem("rf_theme", novo);
+  document.documentElement.setAttribute("data-theme", novo);
+});
 
-  if(typeof atualizarLabel === "function"){
-    atualizarLabel();
-  }
-
-} // ← AQUI ESTAVA FALTANDO
-
-/* =========================
-LABEL
-========================= */
-function atualizarLabel(){
-
-  const atual = document.documentElement.getAttribute("data-theme");
-
-  const el = document.getElementById("temaAtual");
-  if(el){
-    el.innerText = atual === "dark" ? "🌙 Escuro" : "☀️ Claro";
-  }
-
-}
-
-/* =========================
-SUPORTE
-========================= */
+/* SUPORTE */
 function abrirSuporte(){
-
-  const mensagem = encodeURIComponent("Olá, preciso de suporte no aplicativo RF.");
-  window.open(`https://wa.me/5581989823239?text=${mensagem}`, "_blank");
-
+  const msg = encodeURIComponent("Olá, preciso de suporte no app RF.");
+  window.open(`https://wa.me/5581989823239?text=${msg}`);
 }
 
 </script>
