@@ -199,8 +199,14 @@ async function login(){
     return;
   }
 
-  localStorage.setItem("motorista_id", data[0].id);
-  localStorage.setItem("motorista_nome", data[0].nome);
+  /* ✅ CORRETO */
+  const motorista = data[0];
+
+  localStorage.setItem("motorista_id", motorista.id);
+  localStorage.setItem("motorista_nome", motorista.nome);
+
+  /* 🔥 SESSÃO 4H */
+  localStorage.setItem("login_time", Date.now());
 
   msg.innerText = "Acesso liberado...";
 
@@ -209,12 +215,6 @@ async function login(){
   },800);
 
 }
-
-localStorage.setItem("motorista_id", data[0].id);
-localStorage.setItem("motorista_nome", data[0].nome);
-
-/* 🔥 CONTROLE DE SESSÃO */
-localStorage.setItem("login_time", Date.now());
 
 </script>
 
