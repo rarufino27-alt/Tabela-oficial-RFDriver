@@ -142,7 +142,6 @@ function trocarAba(i){
 /* =========================
 CARREGAR DADOS
 ========================= */
-
 async function carregar(){
 
   const { data } = await window.supabaseClient
@@ -151,19 +150,25 @@ async function carregar(){
 
   if(!data) return;
 
-  // 🔥 INDIVIDUAL
-  const minhas = data.filter(c=>c.motorista_id == motoristaId);
+  /* =========================
+  INDIVIDUAL
+  ========================= */
+  const minhas = data.filter(c => c.motorista_id == motoristaId);
 
   let total = 0;
   let finalizadas = 0;
 
-  minhas.forEach(c=>{
-    const status = (c.status || "").toLowerCase().trim();
+  minhas.forEach(c => {
 
-if(status === "finalizada")
-      total += Number(c.valor);
+    const status = String(c.status || "")
+      .toLowerCase()
+      .trim();
+
+    if(status === "finalizada"){
+      total += Number(c.valor || 0);
       finalizadas++;
     }
+
   });
 
   painelMotorista.innerHTML = `
@@ -198,22 +203,29 @@ if(status === "finalizada")
   let finalizadasG = 0;
   let canceladasG = 0;
 
-  data.forEach(c=>{
-    const status = (c.status || "").toLowerCase().trim();
+  data.forEach(c => {
 
-if(status === "finalizada")
-      totalValor += Number(c.valor);
+    const status = String(c.status || "")
+      .toLowerCase()
+      .trim();
+
+    if(status === "finalizada"){
+      totalValor += Number(c.valor || 0);
       finalizadasG++;
-    }else{
+    }else if(status === "cancelada"){
       canceladasG++;
     }
+
   });
 
   const naoAtendidas = totalGrupo - (finalizadasG + canceladasG);
 
   const perdido = data
-    .filter(c=>c.status !== "finalizada")
-    .reduce((s,c)=>s+Number(c.valor||0),0);
+    .filter(c => {
+      const status = String(c.status || "").toLowerCase().trim();
+      return status !== "finalizada";
+    })
+    .reduce((s,c)=>s + Number(c.valor || 0), 0);
 
   painelGrupo.innerHTML = `
     <div class="kpi">
@@ -233,17 +245,17 @@ if(status === "finalizada")
 
     <div class="kpi">
       <span>Finalizadas</span>
-      <strong>${((finalizadasG/totalGrupo)*100).toFixed(0)}%</strong>
+      <strong>${totalGrupo ? ((finalizadasG/totalGrupo)*100).toFixed(0) : 0}%</strong>
     </div>
 
     <div class="kpi">
       <span>Canceladas</span>
-      <strong>${((canceladasG/totalGrupo)*100).toFixed(0)}%</strong>
+      <strong>${totalGrupo ? ((canceladasG/totalGrupo)*100).toFixed(0) : 0}%</strong>
     </div>
 
     <div class="kpi">
       <span>Não atendidas</span>
-      <strong>${((naoAtendidas/totalGrupo)*100).toFixed(0)}%</strong>
+      <strong>${totalGrupo ? ((naoAtendidas/totalGrupo)*100).toFixed(0) : 0}%</strong>
     </div>
   `;
 
@@ -252,6 +264,5 @@ if(status === "finalizada")
 carregar();
 
 </script>
-
 </body>
 </html>
