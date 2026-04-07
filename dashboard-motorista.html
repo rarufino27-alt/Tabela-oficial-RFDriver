@@ -539,15 +539,21 @@ function gerarGrafico(){
 
   if(chart) chart.destroy();
 
-  chart = new Chart(document.getElementById("grafico"), {
-    type: "doughnut",
-    data: {
-      labels: ["Finalizadas", "Canceladas", "Não atendidas"],
-      datasets: [{
-        data: [finalizadas, canceladas, naoAtendidas]
-      }]
-    }
-  });
+chart = new Chart(document.getElementById("grafico"), {
+  type: "doughnut",
+  data: {
+    labels: ["Finalizadas", "Canceladas", "Não atendidas"],
+    datasets: [{
+      data: [finalizadas, canceladas, naoAtendidas],
+      backgroundColor: [
+        "#22c55e",
+        "#ef4444",
+        "#9ca3af"
+      ],
+      borderWidth: 1
+    }]
+  }
+});
 
 }
 
