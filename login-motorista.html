@@ -210,6 +210,12 @@ async function login(){
 
 }
 
+localStorage.setItem("motorista_id", data[0].id);
+localStorage.setItem("motorista_nome", data[0].nome);
+
+/* 🔥 CONTROLE DE SESSÃO */
+localStorage.setItem("login_time", Date.now());
+
 </script>
 
 </body>
