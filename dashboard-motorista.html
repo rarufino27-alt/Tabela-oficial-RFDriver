@@ -386,37 +386,7 @@ function gerar(){
 
   const media = listaFiltrada.length ? total / listaFiltrada.length : 0;
 
-  resumo.innerHTML = `
-    <div class="menu-grid">
-
-      <div class="kpi total">
-        <span>Ganhos</span>
-        <strong>R$ ${total.toFixed(2)}</strong>
-      </div>
-
-      <div class="kpi">
-        <span>Corridas</span>
-        <strong>${listaFiltrada.length}</strong>
-      </div>
-
-      <div class="kpi">
-        <span>Média</span>
-        <strong>R$ ${media.toFixed(2)}</strong>
-      </div>
-
-      <div class="kpi">
-        <span>Canceladas</span>
-        <strong>${canceladas}</strong>
-      </div>
-
-      <div class="kpi">
-        <span>Não atendidas</span>
-        <strong>${naoAtendidas}</strong>
-      </div>
-
-    </div>
-  `;
-
+  resumo.innerHTML
   lista.innerHTML = "";
 
   listaFiltrada.forEach(c=>{
