@@ -237,18 +237,19 @@
 
 <script>
 
+/* =========================
+BONUS
+========================= */
 async function carregarBonus(){
 
   const hoje = new Date();
 
-  // SEGUNDA A SÁBADO
   const inicioSemana = new Date();
   inicioSemana.setDate(hoje.getDate() - hoje.getDay() + 1);
 
   const fimSemana = new Date(inicioSemana);
   fimSemana.setDate(inicioSemana.getDate() + 5);
 
-  // DOMINGO
   const domingo = new Date();
   domingo.setDate(hoje.getDate() - hoje.getDay());
 
@@ -256,45 +257,36 @@ async function carregarBonus(){
   const dataFim = fimSemana.toISOString().slice(0,10);
   const dataDomingo = domingo.toISOString().slice(0,10);
 
-  // BUSCAR CORRIDAS
   const { data } = await window.supabaseClient
     .from("corridas")
     .select("motorista_id, data_viagem");
 
   if(!data) return;
 
-  // FILTRAR SEMANA
   const semana = data.filter(c =>
     c.data_viagem >= dataInicio &&
     c.data_viagem <= dataFim
   );
 
-  // AGRUPAR
   const ranking = {};
 
   semana.forEach(c=>{
     ranking[c.motorista_id] = (ranking[c.motorista_id] || 0) + 1;
   });
 
-  // TRANSFORMAR EM ARRAY
   const lista = Object.entries(ranking)
     .map(([id, total]) => ({ id, total }))
     .sort((a,b)=>b.total - a.total);
 
   const posicao = lista.findIndex(x => x.id == motoristaId) + 1;
-
   const minhasCorridas = ranking[motoristaId] || 0;
-
   const lider = lista[0]?.total || 0;
-
   const falta = lider - minhasCorridas;
 
-  // DATA FORMATADA
   function formatar(d){
     return new Date(d).toLocaleDateString("pt-BR",{day:"2-digit",month:"2-digit"});
   }
 
-  // MENSAGEM INTELIGENTE
   let mensagem = "";
 
   if(posicao === 1){
@@ -305,8 +297,7 @@ async function carregarBonus(){
     mensagem = `🚀 Faltam ${falta} corridas para liderar.`;
   }
 
-  // RENDER
-  document.getElementById("bonusCard").innerHTML = `
+  bonusCard.innerHTML = `
     <div class="bonus-content">
       <div class="bonus-title">🏆 Bônus semanal</div>
 
@@ -314,9 +305,7 @@ async function carregarBonus(){
         ${posicao || "-"}º lugar • ${minhasCorridas} corridas
       </div>
 
-      <div class="bonus-sub">
-        ${mensagem}
-      </div>
+      <div class="bonus-sub">${mensagem}</div>
 
       <div class="bonus-sub" style="margin-top:6px">
         Seg-Sáb: ${formatar(dataInicio)} → ${formatar(dataFim)}
@@ -325,12 +314,13 @@ async function carregarBonus(){
       <div class="bonus-sub">
         Domingo: ${formatar(dataDomingo)}
       </div>
-
     </div>
   `;
 }
 
-/* MENU */
+/* =========================
+MENU
+========================= */
 function abrirMenu(){
   menu.classList.add("ativo");
   menuOverlay.style.display="block";
@@ -345,7 +335,9 @@ function ir(p){
   window.location.href = p;
 }
 
-/* LOGIN */
+/* =========================
+LOGIN
+========================= */
 function logout(){
   localStorage.clear();
   window.location.href = "login-motorista.html";
@@ -356,7 +348,9 @@ function logout(){
   if(!id) logout();
 })();
 
-/* USUÁRIO */
+/* =========================
+USUÁRIO
+========================= */
 const motoristaId = localStorage.getItem("motorista_id");
 const nome = localStorage.getItem("motorista_nome");
 
@@ -368,12 +362,12 @@ const hora = new Date().getHours();
 let saudacao = hora < 12 ? "Bom dia" :
                hora < 18 ? "Boa tarde" : "Boa noite";
 
-document.getElementById("saudacao").innerText =
-`🚖 ${saudacao}, ${primeiroNome(nome)}!`;
+saudacaoEl.innerText = `🚖 ${saudacao}, ${primeiroNome(nome)}!`;
+nomeMotorista.innerText = nome;
 
-document.getElementById("nomeMotorista").innerText = nome;
-
-/* DADOS */
+/* =========================
+DADOS
+========================= */
 let corridas = [];
 let corridasGeral = [];
 let chart = null;
@@ -398,7 +392,9 @@ async function carregar(){
   gerarGrafico();
 }
 
-/* FILTRO */
+/* =========================
+FILTRO
+========================= */
 function filtrar(){
 
   const tipo = filtro.value;
@@ -424,9 +420,12 @@ function filtrar(){
     return corridas.filter(c=>c.data_viagem?.startsWith(mesAtual));
   }
 
+  return corridas;
 }
 
-/* RESUMO */
+/* =========================
+RESUMO + LISTA
+========================= */
 function gerar(){
 
   const listaFiltrada = filtrar();
@@ -436,11 +435,16 @@ function gerar(){
   let canceladas = 0;
 
   listaFiltrada.forEach(c=>{
+
     const status = (c.status || "").toLowerCase().trim();
 
-if(status === "finalizada"){
-      total += Number(c.valor);
+    if(status === "finalizada"){
+      total += Number(c.valor || 0);
       finalizadas++;
+    }else if(status === "cancelada"){
+      canceladas++;
+    }
+
   });
 
   const naoAtendidas = corridasGeral.filter(c =>
@@ -449,8 +453,44 @@ if(status === "finalizada"){
 
   const media = listaFiltrada.length ? total / listaFiltrada.length : 0;
 
-resumo.innerHTML
-lista.innerHTML = "";
+  /* KPI */
+  resumo.innerHTML = `
+    <div class="resumo-box">
+
+      <div class="kpi ganho">
+        <div class="kpi-top">Ganhos</div>
+        <div class="kpi-value">R$ ${total.toFixed(2)}</div>
+      </div>
+
+      <div class="kpi-grid">
+
+        <div class="kpi">
+          <span>Corridas</span>
+          <strong>${listaFiltrada.length}</strong>
+        </div>
+
+        <div class="kpi">
+          <span>Média</span>
+          <strong>R$ ${media.toFixed(2)}</strong>
+        </div>
+
+        <div class="kpi">
+          <span>Finalizadas</span>
+          <strong>${finalizadas}</strong>
+        </div>
+
+        <div class="kpi">
+          <span>Canceladas</span>
+          <strong>${canceladas}</strong>
+        </div>
+
+      </div>
+
+    </div>
+  `;
+
+  /* LISTA */
+  lista.innerHTML = "";
 
   listaFiltrada.forEach(c=>{
 
@@ -472,24 +512,25 @@ lista.innerHTML = "";
 
 }
 
-/* GRÁFICO */
+/* =========================
+GRÁFICO
+========================= */
 function gerarGrafico(){
 
   let finalizadas = 0;
   let canceladas = 0;
 
-listaFiltrada.forEach(c=>{
+  corridas.forEach(c=>{
 
-  const status = (c.status || "").toLowerCase().trim();
+    const status = (c.status || "").toLowerCase().trim();
 
-  if(status === "finalizada"){
-    total += Number(c.valor);
-    finalizadas++;
-  }else if(status === "cancelada"){
-    canceladas++;
-  }
+    if(status === "finalizada"){
+      finalizadas++;
+    }else if(status === "cancelada"){
+      canceladas++;
+    }
 
-});
+  });
 
   const naoAtendidas = corridasGeral.filter(c =>
     c.motorista_id !== motoristaId
@@ -509,8 +550,12 @@ listaFiltrada.forEach(c=>{
 
 }
 
+/* =========================
+EVENTOS
+========================= */
 filtro.onchange = gerar;
 
+/* START */
 carregar();
 carregarBonus();
 
