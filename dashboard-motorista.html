@@ -19,27 +19,31 @@ body{
   color:#fff;
 }
 
+/* HEADER */
 .header{
   padding:15px;
   background:#1e293b;
-  text-align:left;
-  font-weight:bold;
   font-size:18px;
+  border-bottom:1px solid #334155;
 }
 
+/* CONTAINER */
 .container{
   padding:15px;
   max-width:700px;
   margin:auto;
 }
 
+/* CARD */
 .card{
   background:#1e293b;
   padding:15px;
   border-radius:12px;
   margin-bottom:12px;
+  border:1px solid #334155;
 }
 
+/* MENU */
 .menu{
   display:grid;
   grid-template-columns:1fr 1fr;
@@ -57,7 +61,7 @@ body{
 }
 
 .valor{
-  font-size:20px;
+  font-size:22px;
   font-weight:bold;
   color:#22c55e;
 }
@@ -93,23 +97,17 @@ select{
   <strong id="nomeMotorista">-</strong>
 </div>
 
-<!-- 🔥 MENU -->
+<!-- MENU -->
 <div class="menu">
 
-<button class="btn" onclick="ir('home.html')">
-📍 Tabela de Preços
-</button>
+<button class="btn" onclick="ir('home.html')">📍 Tabela</button>
+<button class="btn" onclick="ir('bonus.html')">💰 Bônus</button>
+<button class="btn" onclick="ir('termos.html')">📜 Regras</button>
+<button class="btn" onclick="ir('configuracoes.html')">⚙️ Config</button>
 
-<button class="btn" onclick="ir('bonus.html')">
-💰 Bônus
-</button>
-
-<button class="btn" onclick="ir('termos.html')">
-📜 Regras
-</button>
-
-<button class="btn" onclick="ir('configuracoes.html')">
-⚙️ Configurações
+<!-- NOVO -->
+<button class="btn" onclick="ir('grupo.html')" style="grid-column:1/-1;background:#22c55e">
+📊 Acompanhamento do Grupo
 </button>
 
 </div>
@@ -126,8 +124,6 @@ select{
   <canvas id="grafico"></canvas>
 </div>
 
-<div id="ranking"></div>
-
 <div id="lista"></div>
 
 <button class="btn" onclick="logout()" style="background:#ef4444;margin-top:10px;">
@@ -138,7 +134,7 @@ Sair
 
 <script>
 
-/* 🔐 PROTEÇÃO */
+/* LOGIN */
 const motoristaId = localStorage.getItem("motorista_id");
 const nome = localStorage.getItem("motorista_nome");
 
@@ -146,47 +142,40 @@ if(!motoristaId){
   window.location.href = "login-motorista.html";
 }
 
-// 🔥 FUNÇÃO PRIMEIRO NOME
+/* SAUDAÇÃO */
 function primeiroNome(nomeCompleto){
-  if(!nomeCompleto) return "Motorista";
-  return nomeCompleto.split(" ")[0];
+  return nomeCompleto?.split(" ")[0] || "Motorista";
 }
 
-const primeiro = primeiroNome(nome);
-
-// 🔥 SAUDAÇÃO INTELIGENTE (AQUI ENTRA O CÓDIGO)
 const hora = new Date().getHours();
+let saudacao = hora < 12 ? "Bom dia" :
+               hora < 18 ? "Boa tarde" : "Boa noite";
 
-let saudacao = "Olá";
+document.getElementById("saudacao").innerText =
+`🚖 ${saudacao}, ${primeiroNome(nome)}!`;
 
-if(hora < 12) saudacao = "Bom dia";
-else if(hora < 18) saudacao = "Boa tarde";
-else saudacao = "Boa noite";
-
-// 🔥 APLICAR NA TELA
-document.getElementById("saudacao").innerText = `🚖 ${saudacao}, ${primeiro}!`;
-
-// 🔥 NOME COMPLETO NO CARD
 document.getElementById("nomeMotorista").innerText = nome;
 
-// mantém nome completo no card
-document.getElementById("nomeMotorista").innerText = nome;
-
-/* LOGOUT */
+/* NAV */
+function ir(p){ window.location.href = p; }
 function logout(){
   localStorage.clear();
   window.location.href = "login-motorista.html";
 }
 
-/* NAV */
-function ir(p){
-  window.location.href = p;
-}
-
 let corridas = [];
+let corridasGeral = [];
 
 async function carregar(){
 
+  // 🔥 TODAS AS CORRIDAS
+  const { data: todas } = await window.supabaseClient
+    .from("corridas")
+    .select("*");
+
+  corridasGeral = todas || [];
+
+  // 🔥 SOMENTE DO MOTORISTA
   const { data } = await window.supabaseClient
     .from("corridas")
     .select("*")
@@ -241,6 +230,10 @@ function gerar(){
     }
   });
 
+  // 🔥 NÃO ATENDIDAS
+  const naoAtendidas =
+    corridasGeral.length - corridas.length;
+
   const media = listaFiltrada.length ? total / listaFiltrada.length : 0;
 
   resumo.innerHTML = `
@@ -248,6 +241,7 @@ function gerar(){
       <div>Total: ${listaFiltrada.length}</div>
       <div class="valor">R$ ${total.toFixed(2)}</div>
       <div class="small">Canceladas: ${canceladas}</div>
+      <div class="small">Não atendidas: ${naoAtendidas}</div>
       <div class="small">Média: R$ ${media.toFixed(2)}</div>
     </div>
   `;
@@ -257,6 +251,7 @@ function gerar(){
   listaFiltrada.forEach(c=>{
 
     let rota = `${c.origem} → ${c.destino}`;
+
     if(c.parada){
       rota = `${c.origem} → 🛑 ${c.parada} → ${c.destino}`;
     }
@@ -287,12 +282,15 @@ function gerarGrafico(){
     }
   });
 
+  const naoAtendidas =
+    corridasGeral.length - corridas.length;
+
   new Chart(document.getElementById("grafico"), {
     type: "doughnut",
     data: {
-      labels: ["Finalizadas", "Canceladas"],
+      labels: ["Finalizadas", "Canceladas", "Não atendidas"],
       datasets: [{
-        data: [finalizadas, canceladas]
+        data: [finalizadas, canceladas, naoAtendidas]
       }]
     }
   });
