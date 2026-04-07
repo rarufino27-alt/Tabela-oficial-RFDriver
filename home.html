@@ -16,110 +16,129 @@
 <link rel="stylesheet" href="theme/components.css">
 
 <style>
-.espaco-final { height:120px; }
 
-  .add-parada{
-  margin-top:8px;
-  font-size:13px;
-  color:#facc15;
-  cursor:pointer;
+/* 🔥 VISUAL CORPORATIVO */
+body{
+  background:#0f172a;
+  color:#e5e7eb;
 }
 
-.input-box.yellow{
-  border:1px solid #facc15;
+/* HEADER */
+.top-white{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  padding:14px;
+  background:#1e293b;
+  border-bottom:1px solid #334155;
 }
 
-  /* LIGHT */
-:root{
-  --bg-main:#f3f3f3;
-  --bg-card:#ffffff;
-  --bg-soft:#f9f9f9;
-
-  --text-primary:#000;
-  --text-secondary:#555;
-
-  --border:#e5e5e5;
-
-  --primary:#facc15;
-  --blue:#3b82f6;
-  --green:#22c55e;
-  --red:#ef4444;
-
-  --shadow-soft:0 6px 18px rgba(0,0,0,.08);
+.logo-area{
+  display:flex;
+  align-items:center;
+  gap:10px;
 }
 
-/* DARK */
-body[data-theme="dark"]{
-  --bg-main:#0f0f0f;
-  --bg-card:#1c1c1c;
-  --bg-soft:#2a2a2a;
-
-  --text-primary:#fff;
-  --text-secondary:#aaa;
-
-  --border:#333;
-
-  --primary:#facc15;
+.logo-img{
+  width:38px;
 }
- 
-/* GRID 2x2 */
+
+.logo-text-dark{
+  font-weight:700;
+  font-size:14px;
+}
+
+/* CARD PADRÃO */
+.card-modern, .card{
+  background:#1e293b;
+  border:1px solid #334155;
+  border-radius:14px;
+  padding:14px;
+  margin-bottom:12px;
+}
+
+/* INPUT */
+.input-box{
+  padding:14px;
+  border-radius:10px;
+  margin-bottom:8px;
+  background:#020617;
+  border:1px solid #334155;
+}
+
+/* CORES */
+.input-box.green{ border-left:4px solid #22c55e; }
+.input-box.yellow{ border-left:4px solid #facc15; }
+.input-box.red{ border-left:4px solid #ef4444; }
+
+/* VALOR */
+#previewTotal{
+  font-size:32px;
+  font-weight:bold;
+  color:#22c55e;
+}
+
+/* PAGAMENTO */
 .pagamento-grid{
   display:grid;
   grid-template-columns:1fr 1fr;
-  gap:12px;
+  gap:10px;
 }
 
-/* ITEM */
 .pagamento-item{
-  background:var(--bg-soft);
-  border:1px solid var(--border);
-  border-radius:14px;
-  padding:16px;
+  background:#020617;
+  border:1px solid #334155;
+  border-radius:12px;
+  padding:14px;
   text-align:center;
-  font-weight:bold;
   cursor:pointer;
-  transition:.2s;
-  display:flex;
-  flex-direction:column;
-  gap:6px;
-  align-items:center;
-  justify-content:center;
 }
 
-/* HOVER */
-.pagamento-item:hover{
-  transform:scale(0.97);
-}
-
-/* ATIVO (ESTILO PREMIUM) */
 .pagamento-item.ativo{
-  border:2px solid var(--blue);
-  box-shadow:0 0 12px rgba(59,130,246,.3);
-  background:rgba(59,130,246,.08);
+  border:2px solid #3b82f6;
 }
- 
+
+/* CTA */
+.cta-box{
+  position:fixed;
+  bottom:0;
+  width:100%;
+  padding:10px;
+  background:#020617;
+  border-top:1px solid #334155;
+}
+
+.cta-box button{
+  width:100%;
+  padding:16px;
+  border:none;
+  border-radius:12px;
+  background:#22c55e;
+  font-weight:bold;
+  font-size:16px;
+}
+
+.add-parada{
+  font-size:13px;
+  color:#facc15;
+  margin:6px 0;
+}
+
 </style>
 
 </head>
 
-<body data-theme="dark">
-
-<!-- LOADING -->
-<div id="loading" class="loading">
-  <div class="loader"></div>
-  <span>Carregando rotas...</span>
-</div>
+<body>
 
 <!-- MENU -->
 <div class="menu-overlay" id="menuOverlay" onclick="fecharMenu()"></div>
 
 <div class="menu" id="menu">
   <h3>Menu</h3>
-
-  <div class="menu-item" onclick="irPara('termos.html')">📜 Regras do Grupo RF</div>
-  <div class="menu-item" onclick="irPara('bonus.html')">📜 Regras dos Bônus</div>
-  <div class="menu-item" onclick="irPara('painel-motorista.html')">🏆 Seu Ranking</div>
-  <div class="menu-item" onclick="irPara('configuracoes.html')">⚙️ Configurações</div>
+  <div onclick="irPara('termos.html')">📜 Regras</div>
+  <div onclick="irPara('bonus.html')">💰 Bônus</div>
+  <div onclick="irPara('painel-motorista.html')">🏆 Ranking</div>
+  <div onclick="irPara('configuracoes.html')">⚙️ Configurações</div>
 </div>
 
 <!-- HEADER -->
@@ -128,28 +147,16 @@ body[data-theme="dark"]{
     <img src="icons/icon-512.png" class="logo-img">
     <span class="logo-text-dark">RF MOTORISTA</span>
   </div>
-  <div class="menu-btn-dark" onclick="abrirMenu()">☰</div>
+  <div onclick="abrirMenu()">☰</div>
 </div>
 
 <div class="app-container">
 
 <!-- BONUS -->
-<div class="bonus-card">
-
-  <div class="bonus-content">
-    <div class="bonus-title">🏆 BÔNUS SEMANAL</div>
-    <div class="bonus-value">R$ 100</div>
-    <div class="bonus-sub">por semana</div>
-  </div>
-
-  <div class="bonus-actions">
-    <button onclick="irPara('bonus.html')">Regras</button>
-    <button onclick="irPara('painel-motorista.html')"> Seu Ranking</button>
-  </div>
-
+<div class="card-modern">
+  <strong>🏆 Bônus semanal</strong>
+  <div style="font-size:22px;color:#facc15">R$ 100</div>
 </div>
-
-<div class="app-container">
 
 <!-- ROTA -->
 <div class="card-modern">
@@ -174,70 +181,51 @@ body[data-theme="dark"]{
 <div class="card-modern">
 
   <div class="veiculos">
-
-    <div class="veiculo ativo" data-value="1">
-      🚗
-      <strong>4 lugares</strong>
-    </div>
-
-    <div class="veiculo" data-value="1.5">
-      🚐
-      <strong>6 lugares</strong>
-    </div>
-
+    <div class="veiculo ativo" data-value="1">🚗 4 lugares</div>
+    <div class="veiculo" data-value="1.5">🚐 6 lugares</div>
   </div>
 
   <input type="hidden" id="tipoCarro" value="1">
 
 </div>
 
-<!-- 💰 VALOR EM DESTAQUE -->
+<!-- VALOR -->
 <div class="card-modern" style="text-align:center">
-
   <span style="opacity:.7">Valor estimado</span>
-  <h1 id="previewTotal" style="font-size:32px;margin:10px 0;color:var(--primary)">
-    R$ 0,00
-  </h1>
-
+  <h1 id="previewTotal">R$ 0,00</h1>
 </div>
 
 <!-- PAGAMENTO -->
-<div class="card">
-
-  <h3>Forma de pagamento</h3>
+<div class="card-modern">
+  <h3>Pagamento</h3>
 
   <div class="pagamento-grid">
-
     <div class="pagamento-item ativo" data="dinheiro">💵 Dinheiro</div>
     <div class="pagamento-item" data="pix">⚡ PIX</div>
     <div class="pagamento-item" data="credito">💳 Crédito</div>
     <div class="pagamento-item" data="debito">🏧 Débito</div>
-
   </div>
-
 </div>
 
 <!-- ADICIONAIS -->
-<div class="card">
+<div class="card-modern">
 
-  <h3>Adicionais</h3>
-
-  <select id="feira" class="select">
+  <select id="feira">
     <option value="0">Feira</option>
     <option value="4.99">1 carrinho</option>
     <option value="7.99">2 carrinhos</option>
   </select>
 
-  <select id="animal" class="select">
+  <select id="animal">
     <option value="0">Animal</option>
     <option value="4.99">Pequeno</option>
     <option value="7.99">Médio</option>
     <option value="11.99">Grande</option>
   </select>
 
-  <input type="number" id="espera" class="select" placeholder="Tempo espera">
+  <input type="number" id="espera" placeholder="Tempo espera">
 
-  <select id="saidaPraia" class="select">
+  <select id="saidaPraia">
     <option value="0">Saída praia</option>
     <option value="9.99">Sim</option>
   </select>
@@ -245,19 +233,16 @@ body[data-theme="dark"]{
 </div>
 
 <!-- HORÁRIO -->
-<div class="card">
+<div class="card-modern">
   <h3>Horário</h3>
-
-  <input type="time" id="embarque" class="select">
+  <input type="time" id="embarque">
 </div>
 
 </div>
 
-<!-- CTA FIXO -->
+<!-- BOTÃO -->
 <div class="cta-box">
-  <button id="btnContinuar">
-    Enviar Orçamento →
-  </button>
+  <button id="btnContinuar">Enviar Orçamento</button>
 </div>
 
 <!-- MODAL -->
@@ -270,92 +255,38 @@ body[data-theme="dark"]{
 
 <script>
 
+/* 🔐 LOGIN */
 if(!localStorage.getItem("motorista_id")){
   window.location.href = "login-motorista.html";
 }
-  
-/* =========================
-TEMA
-========================= */
-(function(){
-  const tema = localStorage.getItem("rf_theme") || "dark";
-  document.body.setAttribute("data-theme", tema);
-})();
 
-/* =========================
-ELEMENTOS
-========================= */
-const loading = document.getElementById("loading");
-
-const menu = document.getElementById("menu");
-const menuOverlay = document.getElementById("menuOverlay");
-
-const origemBtn = document.getElementById("origemBtn");
-const destinoBtn = document.getElementById("destinoBtn");
-const paradaBtn = document.getElementById("paradaBtn");
-const addParada = document.getElementById("addParada");
-
-const origemTexto = document.getElementById("origemTexto");
-const destinoTexto = document.getElementById("destinoTexto");
-const paradaTexto = document.getElementById("paradaTexto");
-
-const modal = document.getElementById("modal");
-const lista = document.getElementById("lista");
-const busca = document.getElementById("busca");
-
-const previewTotal = document.getElementById("previewTotal");
-
-const feira = document.getElementById("feira");
-const animal = document.getElementById("animal");
-const espera = document.getElementById("espera");
-const saidaPraia = document.getElementById("saidaPraia");
-
-const tipoCarro = document.getElementById("tipoCarro");
-const embarque = document.getElementById("embarque");
-
-const btnContinuar = document.getElementById("btnContinuar");
-
-/* =========================
-ESTADO
-========================= */
+/* VARIÁVEIS */
 let origem=null;
 let destino=null;
 let parada=null;
 let modo=null;
 let pagamento="dinheiro";
 
-/* =========================
-INIT
-========================= */
+/* INIT */
 (async()=>{
-  try{
-    await DataManager.carregar();
-  }catch(e){
-    console.error(e);
-  }
-  loading.style.display="none";
+  await DataManager.carregar();
+  document.getElementById("loading")?.remove();
 })();
 
-/* =========================
-MENU
-========================= */
+/* MENU */
 function abrirMenu(){
   menu.classList.add("ativo");
   menuOverlay.style.display="block";
 }
-
 function fecharMenu(){
   menu.classList.remove("ativo");
   menuOverlay.style.display="none";
 }
-
 function irPara(p){
   window.location.href=p;
 }
 
-/* =========================
-MODAL
-========================= */
+/* MODAL */
 function abrirModal(tipo){
 
   modo = tipo;
@@ -363,14 +294,11 @@ function abrirModal(tipo){
 
   let dados = [];
 
-  if(tipo==="origem"){
-    dados = DataManager.listarOrigens();
-  }
+  if(tipo==="origem") dados = DataManager.listarOrigens();
 
   if(tipo==="parada"){
     if(!origem) return alert("Selecione origem");
-    dados = DataManager.listarDestinos(origem)
-      .filter(p=>DataManager.listarDestinos(p).length>0);
+    dados = DataManager.listarDestinos(origem);
   }
 
   if(tipo==="destino"){
@@ -381,39 +309,29 @@ function abrirModal(tipo){
   }
 
   listaAtual = dados;
-  renderLista(listaAtual);
+  renderLista(dados);
   modal.style.display="flex";
 }
 
-/* =========================
-LISTA
-========================= */
 function renderLista(arr){
   lista.innerHTML="";
-
   arr.forEach(item=>{
     const div=document.createElement("div");
     div.innerText=item;
-
     div.onclick=()=>{
       selecionar(item);
       modal.style.display="none";
     };
-
     lista.appendChild(div);
   });
 }
 
-/* =========================
-SELEÇÃO
-========================= */
 function selecionar(valor){
 
   if(modo==="origem"){
     origem=valor;
     parada=null;
     destino=null;
-
     origemTexto.innerText=valor;
     destinoTexto.innerText="Selecionar destino";
     paradaBtn.style.display="none";
@@ -433,9 +351,7 @@ function selecionar(valor){
   calcular();
 }
 
-/* =========================
-EVENTOS
-========================= */
+/* EVENTOS */
 origemBtn.onclick=()=>abrirModal("origem");
 destinoBtn.onclick=()=>abrirModal("destino");
 paradaBtn.onclick=()=>abrirModal("parada");
@@ -445,7 +361,6 @@ addParada.onclick=()=>{
   paradaBtn.style.display="flex";
 };
 
-/* VEÍCULO */
 document.querySelectorAll(".veiculo").forEach(v=>{
   v.onclick=()=>{
     document.querySelectorAll(".veiculo").forEach(x=>x.classList.remove("ativo"));
@@ -455,28 +370,15 @@ document.querySelectorAll(".veiculo").forEach(v=>{
   };
 });
 
-/* PAGAMENTO */
 document.querySelectorAll(".pagamento-item").forEach(p=>{
   p.onclick=()=>{
     document.querySelectorAll(".pagamento-item").forEach(x=>x.classList.remove("ativo"));
     p.classList.add("ativo");
-    pagamento = p.getAttribute("data");
-    calcular();
+    pagamento=p.getAttribute("data");
   };
 });
 
-/* AUTO UPDATE */
-["feira","animal","espera","saidaPraia","embarque"].forEach(id=>{
-  const el=document.getElementById(id);
-  if(el){
-    el.addEventListener("change", calcular);
-    el.addEventListener("input", calcular);
-  }
-});
-
-/* =========================
-CÁLCULO
-========================= */
+/* 🔥 CÁLCULO (AJUSTADO NOTURNO) */
 function calcular(){
 
   if(!origem || !destino){
@@ -484,30 +386,23 @@ function calcular(){
     return;
   }
 
-  let base = 0;
-
-  if(!parada){
-    base = DataManager.buscarValor(origem,destino) || 0;
-  }else{
-    base =
-      (DataManager.buscarValor(origem,parada)||0) +
+  let base = !parada
+    ? DataManager.buscarValor(origem,destino)||0
+    : (DataManager.buscarValor(origem,parada)||0) +
       (DataManager.buscarValor(parada,destino)||0);
+
+  let taxas =
+    Number(feira.value||0)+
+    Number(animal.value||0)+
+    Number(saidaPraia.value||0);
+
+  const esperaVal = Number(espera.value||0);
+
+  if(esperaVal>5){
+    taxas += 3 + ((esperaVal-5)*0.6);
   }
 
-  let taxas = 0;
-
-  const feiraVal = Number(feira.value || 0);
-  const animalVal = Number(animal.value || 0);
-  const praiaVal = Number(saidaPraia.value || 0);
-  const esperaVal = Number(espera.value || 0);
-
-  taxas += feiraVal + animalVal + praiaVal;
-
-  if(esperaVal > 5){
-    taxas += 3 + ((esperaVal - 5) * 0.6);
-  }
-
-  /* NOTURNO */
+  /* 🔥 NOTURNO CORRETO (22:30 → 05:00) */
   if(embarque.value){
     const [h,m]=embarque.value.split(":").map(Number);
     const min=h*60+m;
@@ -517,7 +412,7 @@ function calcular(){
     }
   }
 
-  let total = (base + taxas) * Number(tipoCarro.value || 1);
+  let total=(base+taxas)*Number(tipoCarro.value||1);
 
   if(pagamento==="credito") total/=0.95;
   if(pagamento==="debito") total/=0.98;
@@ -525,110 +420,6 @@ function calcular(){
   previewTotal.innerText="R$ "+total.toFixed(2);
 }
 
-/* =========================
-WHATSAPP COMPLETO
-========================= */
-btnContinuar.onclick=()=>{
-
-  if(!origem || !destino){
-    return alert("Selecione origem e destino");
-  }
-
-  let base = 0;
-
-  if(!parada){
-    base = DataManager.buscarValor(origem,destino)||0;
-  }else{
-    base =
-      (DataManager.buscarValor(origem,parada)||0) +
-      (DataManager.buscarValor(parada,destino)||0);
-  }
-
-  let taxas = 0;
-  let detalhes = "";
-
-  const feiraVal = Number(feira.value || 0);
-  const animalVal = Number(animal.value || 0);
-  const praiaVal = Number(saidaPraia.value || 0);
-  const esperaVal = Number(espera.value || 0);
-
-  if(feiraVal>0){ taxas+=feiraVal; detalhes+=`🛒 Feira........ R$ ${feiraVal.toFixed(2)}\n`; }
-  if(praiaVal>0){ taxas+=praiaVal; detalhes+=`⛱️ Praia....... R$ ${praiaVal.toFixed(2)}\n`; }
-  if(animalVal>0){ taxas+=animalVal; detalhes+=`🐶 Animal...... R$ ${animalVal.toFixed(2)}\n`; }
-
-  if(esperaVal>5){
-    let esperaCalc = 3 + ((esperaVal-5)*0.6);
-    taxas+=esperaCalc;
-    detalhes+=`⏱️ Espera...... R$ ${esperaCalc.toFixed(2)}\n`;
-  }
-
-  /* NOTURNO */
-  if(embarque.value){
-    const [h,m]=embarque.value.split(":").map(Number);
-    const min=h*60+m;
-
-    if(min>=1350 || min<300){
-      let adicional = base <= 24.99 ? 5 : base*0.35;
-      taxas+=adicional;
-      detalhes+=`🌙 Noturno.... R$ ${adicional.toFixed(2)}\n`;
-    }
-  }
-
-  let total = (base + taxas) * Number(tipoCarro.value);
-
-  if(pagamento==="credito") total/=0.95;
-  if(pagamento==="debito") total/=0.98;
-
-  let msg = `🚖 *Orçamento RF*
-
-📌 Origem
-- ${origem}
-`;
-
-  if(parada){
-    msg+=`\n🛑 Parada\n- ${parada}\n`;
-  }
-
-  msg+=`\n🏁 Destino\n- ${destino}
-
-💰 Subtotal - R$ ${base.toFixed(2)}
-
-______________________
-Detalhes da viagem
-
-${detalhes}
-💰 Taxas - R$ ${taxas.toFixed(2)}
-
-______________________
-💳 Pagamento: ${pagamento.toUpperCase()}
-
-💰 Total R$ ${total.toFixed(2)}
-`;
-
-  window.open(`https://wa.me/?text=${encodeURIComponent(msg)}`);
-};
-
-  busca.addEventListener("input", () => {
-  const termo = busca.value.toLowerCase();
-
-  const filtrados = listaAtual.filter(item =>
-    item.toLowerCase().includes(termo)
-  );
-
-  renderLista(filtrados);
-});
-
-  /* =========================
-LOGIN MOTORISTA
-========================= */
-if(!localStorage.getItem("motorista_id")){
-  window.location.href = "login-motorista.html";
-}
-
-const motoristaId = localStorage.getItem("motorista_id");
-const motoristaNome = localStorage.getItem("motorista_nome");
-
-console.log("Motorista logado:", motoristaNome, motoristaId);
 </script>
 
 </body>
