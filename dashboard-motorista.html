@@ -452,8 +452,8 @@ if(status === "finalizada"){
 
   const media = listaFiltrada.length ? total / listaFiltrada.length : 0;
 
-  resumo.innerHTML
-  lista.innerHTML = "";
+resumo.innerHTML
+lista.innerHTML = "";
 
   listaFiltrada.forEach(c=>{
 
@@ -481,12 +481,18 @@ function gerarGrafico(){
   let finalizadas = 0;
   let canceladas = 0;
 
-  corridas.forEach(c=>{
-const status = (c.status || "").toLowerCase().trim();
+listaFiltrada.forEach(c=>{
 
-if(status === "finalizada") finalizadas++;
-else if(status === "cancelada") canceladas++;
-  });
+  const status = (c.status || "").toLowerCase().trim();
+
+  if(status === "finalizada"){
+    total += Number(c.valor);
+    finalizadas++;
+  }else if(status === "cancelada"){
+    canceladas++;
+  }
+
+});
 
   const naoAtendidas = corridasGeral.filter(c =>
     c.motorista_id !== motoristaId
