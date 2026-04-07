@@ -14,125 +14,148 @@
 <link rel="stylesheet" href="theme/layout.css">
 <link rel="stylesheet" href="theme/components.css">
 
+<style>
+
+/* HEADER PREMIUM */
+.header-premium{
+  padding:20px;
+  background:linear-gradient(135deg,#0f172a,#020617);
+  border-bottom:1px solid var(--border);
+}
+
+.saudacao{
+  font-size:14px;
+  color:var(--text-secondary);
+}
+
+.nome{
+  font-size:20px;
+  font-weight:800;
+}
+
+/* RESUMO */
+.resumo-grid{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:10px;
+  margin-top:10px;
+}
+
+.kpi{
+  padding:14px;
+  border-radius:14px;
+  background:var(--bg-card);
+  border:1px solid var(--border);
+}
+
+.kpi strong{
+  font-size:18px;
+  display:block;
+}
+
+.kpi span{
+  font-size:12px;
+  color:var(--text-secondary);
+}
+
+/* GANHO DESTAQUE */
+.kpi.total{
+  grid-column:1/-1;
+  background:linear-gradient(135deg,#22c55e,#16a34a);
+  color:#000;
+}
+
+/* LISTA */
+.item-corrida{
+  padding:14px;
+  border-radius:14px;
+  background:var(--bg-card);
+  border:1px solid var(--border);
+  margin-bottom:10px;
+}
+
+.rota{
+  font-weight:600;
+}
+
+.valor{
+  font-size:18px;
+  font-weight:800;
+  color:var(--primary);
+}
+
+.data{
+  font-size:12px;
+  color:var(--text-secondary);
+}
+
+</style>
+
 </head>
 
 <body>
 
-<!-- MENU -->
-<div class="menu-overlay" id="menuOverlay" onclick="fecharMenu()"></div>
-
-<div class="menu" id="menu">
-  <h3>🚖 RF Motorista</h3>
-
-  <div class="menu-item" onclick="ir('tabela-de-precos.html')">📍 Tabela de Preços</div>
-  <div class="menu-item" onclick="ir('bonus.html')">💰 Bônus Semanal</div>
-  <div class="menu-item" onclick="ir('regras-do-grupo.html')">📜 Regras do Grupo</div>
-  <div class="menu-item" onclick="ir('configuracoes.html')">⚙️ Configurações</div>
-  <div class="menu-item" onclick="ir('grupo.html')">📊 Acompanhamento do Grupo</div>
-
-  <div class="menu-item" onclick="logout()" style="color:#ef4444;">
-    🚪 Sair
-  </div>
-</div>
-
 <!-- HEADER -->
-<div class="top-white">
-  <div class="logo-area">
-    <span class="logo-text-dark" id="saudacao">🚖 Olá</span>
-  </div>
-
-  <div class="menu-btn-dark" onclick="abrirMenu()">☰</div>
+<div class="header-premium">
+  <div class="saudacao" id="saudacao"></div>
+  <div class="nome" id="nomeMotorista"></div>
 </div>
 
 <div class="center app-container">
 
-<!-- NOME -->
-<div class="card">
-  <strong id="nomeMotorista"></strong>
+<!-- MENU -->
+<div class="menu">
+  <button class="btn-principal" onclick="ir('home.html')">📍 Tabela</button>
+  <button class="btn-secundario" onclick="ir('bonus.html')">💰 Bônus</button>
+  <button class="btn-secundario" onclick="ir('termos.html')">📜 Regras</button>
+  <button class="btn-secundario" onclick="ir('configuracoes.html')">⚙️ Config</button>
+
+  <button class="btn-sucesso" style="grid-column:1/-1"
+  onclick="ir('grupo.html')">
+  📊 Acompanhamento do Grupo
+  </button>
 </div>
 
-<div id="bonusSemana"></div>
-  
 <select id="filtro" class="select">
   <option value="geral">Geral</option>
   <option value="semana">Semana</option>
   <option value="mes">Mês</option>
 </select>
 
+<!-- RESUMO -->
 <div id="resumo"></div>
 
+<!-- GRÁFICO -->
 <div class="card">
   <canvas id="grafico"></canvas>
 </div>
 
+<!-- LISTA -->
 <div id="lista"></div>
+
+<button class="btn-perigo" onclick="logout()">Sair</button>
 
 </div>
 
 <script>
 
-(function(){
-  const tema = localStorage.getItem("rf_theme") || "dark";
-  document.documentElement.setAttribute("data-theme", tema);
-})();
-
-/* =========================
-🔐 AUTENTICAÇÃO
-========================= */
-
+/* 🔐 SESSÃO */
 function logout(){
   localStorage.clear();
   window.location.href = "login-motorista.html";
 }
 
-function verificarSessao(){
-
+(function(){
   const id = localStorage.getItem("motorista_id");
-  const loginTime = localStorage.getItem("login_time");
+  if(!id) logout();
+})();
 
-  if(!id || !loginTime){
-    logout();
-    return;
-  }
-
-  const agora = Date.now();
-  const tempo = agora - Number(loginTime);
-
-  const LIMITE = 4 * 60 * 60 * 1000;
-
-  if(tempo > LIMITE){
-    logout();
-  }else{
-    localStorage.setItem("login_time", Date.now());
-  }
-
-}
-
-verificarSessao();
-
-/* =========================
-MENU
-========================= */
-
-function abrirMenu(){
-  document.getElementById("menu").classList.add("ativo");
-  document.getElementById("menuOverlay").style.display = "block";
-}
-
-function fecharMenu(){
-  document.getElementById("menu").classList.remove("ativo");
-  document.getElementById("menuOverlay").style.display = "none";
-}
-
-/* =========================
-USUÁRIO
-========================= */
-
+/* USUÁRIO */
 const motoristaId = localStorage.getItem("motorista_id");
 const nome = localStorage.getItem("motorista_nome");
 
-function primeiroNome(nomeCompleto){
-  return nomeCompleto?.split(" ")[0] || "Motorista";
+function primeiroNome(n){
+  return n?.split(" ")[0] || "Motorista";
 }
 
 const hora = new Date().getHours();
@@ -140,17 +163,15 @@ let saudacao = hora < 12 ? "Bom dia" :
                hora < 18 ? "Boa tarde" : "Boa noite";
 
 document.getElementById("saudacao").innerText =
-`🚖 ${saudacao}, ${primeiroNome(nome)}!`;
+`${saudacao}`;
 
-document.getElementById("nomeMotorista").innerText = nome;
+document.getElementById("nomeMotorista").innerText =
+primeiroNome(nome);
 
 /* NAV */
 function ir(p){ window.location.href = p; }
 
-/* =========================
-DADOS
-========================= */
-
+/* DADOS */
 let corridas = [];
 let corridasGeral = [];
 let chart = null;
@@ -175,6 +196,7 @@ async function carregar(){
   gerarGrafico();
 }
 
+/* FILTRO */
 function filtrar(){
 
   const tipo = filtro.value;
@@ -202,6 +224,7 @@ function filtrar(){
 
 }
 
+/* RESUMO */
 function gerar(){
 
   const listaFiltrada = filtrar();
@@ -226,13 +249,33 @@ function gerar(){
   const media = listaFiltrada.length ? total / listaFiltrada.length : 0;
 
   resumo.innerHTML = `
-    <div class="card">
-      <div>Total viagens: ${listaFiltrada.length}</div>
-      <div class="valor">R$ ${total.toFixed(2)}</div>
-      <div class="small">Finalizadas: ${finalizadas}</div>
-      <div class="small">Canceladas: ${canceladas}</div>
-      <div class="small">Não atendidas: ${naoAtendidas}</div>
-      <div class="small">Média: R$ ${media.toFixed(2)}</div>
+    <div class="resumo-grid">
+
+      <div class="kpi total">
+        <span>Ganhos</span>
+        <strong>R$ ${total.toFixed(2)}</strong>
+      </div>
+
+      <div class="kpi">
+        <span>Corridas</span>
+        <strong>${listaFiltrada.length}</strong>
+      </div>
+
+      <div class="kpi">
+        <span>Média</span>
+        <strong>R$ ${media.toFixed(2)}</strong>
+      </div>
+
+      <div class="kpi">
+        <span>Canceladas</span>
+        <strong>${canceladas}</strong>
+      </div>
+
+      <div class="kpi">
+        <span>Não atendidas</span>
+        <strong>${naoAtendidas}</strong>
+      </div>
+
     </div>
   `;
 
@@ -241,17 +284,16 @@ function gerar(){
   listaFiltrada.forEach(c=>{
 
     let rota = `${c.origem} → ${c.destino}`;
-
     if(c.parada){
       rota = `${c.origem} → 🛑 ${c.parada} → ${c.destino}`;
     }
 
     lista.innerHTML += `
-      <div class="card">
-        <div>${rota}</div>
+      <div class="item-corrida">
+        <div class="rota">${rota}</div>
         <div class="valor">R$ ${Number(c.valor).toFixed(2)}</div>
-        <div class="small">
-          📅 ${c.data_viagem || "-"} | 🕒 ${c.hora_viagem || "-"}
+        <div class="data">
+          ${c.data_viagem || "-"} • ${c.hora_viagem || "-"}
         </div>
       </div>
     `;
@@ -259,6 +301,7 @@ function gerar(){
 
 }
 
+/* GRÁFICO */
 function gerarGrafico(){
 
   let finalizadas = 0;
@@ -282,11 +325,6 @@ function gerarGrafico(){
       datasets: [{
         data: [finalizadas, canceladas, naoAtendidas]
       }]
-    },
-    options:{
-      plugins:{
-        legend:{ labels:{ color:"#fff" } }
-      }
     }
   });
 
@@ -294,85 +332,7 @@ function gerarGrafico(){
 
 filtro.onchange = gerar;
 
-gerarBonus();
-
 carregar();
-
-/* =========================
-📅 PERÍODO SEMANAL
-========================= */
-function obterPeriodo(){
-
-  const hoje = new Date();
-
-  const dia = hoje.getDay(); // 0 = domingo
-
-  const segunda = new Date(hoje);
-  segunda.setDate(hoje.getDate() - (dia === 0 ? 6 : dia - 1));
-
-  const sabado = new Date(segunda);
-  sabado.setDate(segunda.getDate() + 5);
-
-  const domingo = new Date(segunda);
-  domingo.setDate(segunda.getDate() + 6);
-
-  return {
-    segunda,
-    sabado,
-    domingo
-  };
-}
-
-/* =========================
-🏆 RANKING + BONUS
-========================= */
-function gerarBonus(){
-
-  const {segunda, sabado, domingo} = obterPeriodo();
-
-  const inicio = segunda.toISOString().slice(0,10);
-  const fim = sabado.toISOString().slice(0,10);
-  const dom = domingo.toISOString().slice(0,10);
-
-  const mapa = {};
-
-  corridasGeral.forEach(c=>{
-
-    if(!c.motorista_id) return;
-
-    if(!mapa[c.motorista_id]){
-      mapa[c.motorista_id] = 0;
-    }
-
-    if(c.status === "finalizada"){
-      mapa[c.motorista_id]++;
-    }
-
-  });
-
-  const ranking = Object.entries(mapa)
-    .sort((a,b)=>b[1]-a[1]);
-
-  const posicao = ranking.findIndex(r=>r[0] == motoristaId) + 1;
-
-  document.getElementById("bonusSemana").innerHTML = `
-    <div class="card-modern">
-      <div style="font-size:13px;color:#9ca3af;">🏆 Bônus semanal</div>
-
-      <div style="margin-top:6px;font-size:14px;">
-        📅 ${inicio} até ${fim}
-      </div>
-
-      <div style="margin-top:6px;font-size:13px;color:#9ca3af;">
-        Domingo: ${dom}
-      </div>
-
-      <div style="margin-top:10px;font-size:18px;font-weight:bold;color:#facc15;">
-        Posição atual: ${posicao || "-"}º
-      </div>
-    </div>
-  `;
-}
 
 </script>
 
