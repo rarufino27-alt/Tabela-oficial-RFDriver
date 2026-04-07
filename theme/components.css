@@ -1,22 +1,26 @@
+/* =========================================================
+🎯 RF COMPONENT SYSTEM - CORPORATIVO
+========================================================= */
+
 /* =========================
 CARD
 ========================= */
 
 .card{
-  background: var(--bg-card);
-  border-radius: 20px;
-  padding: 18px;
-  border: 1px solid var(--border);
-  box-shadow: var(--shadow-soft);
-  transition: .2s;
+  background:var(--bg-card);
+  border-radius:16px;
+  padding:16px;
+  border:1px solid var(--border);
+  box-shadow:var(--shadow-soft);
+  transition:.2s;
 }
 
 .card:hover{
-  transform: translateY(-2px);
+  transform:translateY(-2px);
 }
 
 .card h3{
-  font-size:16px;
+  font-size:15px;
   margin-bottom:10px;
 }
 
@@ -24,24 +28,28 @@ CARD
   display:block;
   margin-top:10px;
   font-size:13px;
-  color: var(--text-secondary);
+  color:var(--text-secondary);
 }
 
 .card-modern{
-  background: var(--bg-card);
-  border-radius: 20px;
-  padding: 20px;
-  border: 1px solid var(--border);
-  box-shadow: var(--shadow-soft);
-  display: flex;
-  flex-direction: column;
-  gap: 18px;
+  background:var(--bg-card);
+  border-radius:16px;
+  padding:18px;
+  border:1px solid var(--border);
+  box-shadow:var(--shadow-soft);
+  display:flex;
+  flex-direction:column;
+  gap:14px;
 }
 
+/* =========================
+BONUS
+========================= */
+
 .bonus-card{
-  background: var(--bg-card);
+  background:linear-gradient(135deg,#0f172a,#020617);
   border:1px solid var(--primary);
-  color: var(--text-primary);
+  color:var(--text-primary);
   border-radius:16px;
   padding:16px;
   margin:12px;
@@ -52,18 +60,19 @@ CARD
 }
 
 .bonus-title{
-  font-size:13px;
-  opacity:.7;
+  font-size:12px;
+  color:var(--text-secondary);
 }
 
 .bonus-value{
   font-size:22px;
   font-weight:bold;
+  color:var(--primary);
 }
 
 .bonus-sub{
   font-size:12px;
-  opacity:.6;
+  color:var(--text-muted);
 }
 
 .bonus-actions{
@@ -75,18 +84,17 @@ CARD
   flex:1;
   padding:10px;
   border-radius:10px;
-  border:none;
-  font-weight:bold;
+  font-weight:600;
 }
 
 .bonus-actions button:first-child{
-  background:#2a2a2a;
-  color:#fff;
+  background:var(--bg-soft);
+  color:var(--text-primary);
 }
 
 .bonus-actions button:last-child{
-  background:#facc15;
-  color:#000;
+  background:var(--primary);
+  color:#fff;
 }
 
 /* =========================
@@ -103,7 +111,7 @@ CAMPOS
 }
 
 .campo:hover{
-  opacity:.8;
+  opacity:.85;
 }
 
 .campo-left{
@@ -119,7 +127,7 @@ CAMPOS
 }
 
 .origem{background:var(--green);}
-.parada{background:var(--primary);}
+.parada{background:var(--blue);}
 .destino{background:var(--red);}
 
 .plus{
@@ -137,32 +145,48 @@ input{
   width:100%;
   padding:10px;
   border-radius:10px;
-  background: var(--bg-soft);
-  color: var(--text-primary);
+  background:var(--bg-soft);
+  color:var(--text-primary);
   border:1px solid var(--border);
 }
 
 /* =========================
-BOTÕES
+BOTÕES PADRÃO
 ========================= */
 
 button{
   width:100%;
   padding:14px;
-  border:none;
-  border-radius:14px;
-  background: linear-gradient(135deg,#f59e0b,#ff7a00);
-  color:#000;
-  font-weight:700;
+  border-radius:12px;
+  background:var(--primary);
+  color:#fff;
+  font-weight:600;
   transition:.2s;
 }
 
 button:hover{
-  filter: brightness(1.1);
+  filter:brightness(1.1);
 }
 
 button:active{
-  transform: scale(0.96);
+  transform:scale(0.96);
+}
+
+/* VARIAÇÕES */
+
+.btn-secundario{
+  background:var(--bg-soft);
+  color:var(--text-primary);
+}
+
+.btn-sucesso{
+  background:var(--green);
+  color:#000;
+}
+
+.btn-perigo{
+  background:var(--red);
+  color:#fff;
 }
 
 /* =========================
@@ -181,7 +205,7 @@ MODAL
 }
 
 .modal-content{
-  background: var(--bg-card);
+  background:var(--bg-card);
   width:100%;
   max-width:420px;
   border-radius:16px;
@@ -204,7 +228,7 @@ MODAL
 }
 
 .lista div:hover{
-  background: rgba(255,255,255,0.05);
+  background:rgba(255,255,255,0.05);
 }
 
 /* =========================
@@ -220,10 +244,8 @@ VEÍCULO
   flex:1;
   padding:14px;
   border-radius:14px;
-
-  background: var(--bg-soft);
+  background:var(--bg-soft);
   border:1px solid var(--border);
-
   text-align:left;
 }
 
@@ -234,7 +256,7 @@ VEÍCULO
 
 .veiculo span{
   font-size:12px;
-  color: var(--text-secondary);
+  color:var(--text-secondary);
 }
 
 .veiculo.ativo{
@@ -260,7 +282,7 @@ LOADING
 .loading span{
   margin-top:10px;
   font-size:14px;
-  color: var(--text-secondary);
+  color:var(--text-secondary);
 }
 
 .loader{
@@ -277,90 +299,60 @@ LOADING
 }
 
 /* =========================
-CTA
+CTA FIXO
 ========================= */
 
 .cta-box{
   position:fixed;
   bottom:0;
   width:100%;
-  background: var(--bg-card);
+  background:var(--bg-card);
   border-top:1px solid var(--border);
   padding:12px;
-
   display:flex;
   justify-content:space-between;
   align-items:center;
 }
 
 .cta-box strong{
-  font-size:20px;
-  color: var(--primary);
+  font-size:18px;
+  color:var(--primary);
 }
 
 .cta-box button{
   padding:14px 20px;
   border-radius:12px;
-  background: linear-gradient(135deg,#f59e0b,#ff7a00);
-  color:#000;
-  font-weight:bold;
+  background:var(--primary);
+  color:#fff;
 }
 
 /* =========================
-ANIMAÇÕES
+INPUT BOX
 ========================= */
-
-body{
-  animation:fadeIn .3s ease;
-}
-
-@keyframes fadeIn{
-  from{opacity:0; transform:translateY(10px);}
-  to{opacity:1; transform:translateY(0);}
-}
 
 .input-box{
   display:flex;
   align-items:center;
   gap:12px;
-
   padding:16px;
   border-radius:14px;
-
-  background: var(--bg-soft);
+  background:var(--bg-soft);
   border:1px solid var(--border);
-
   font-size:15px;
 }
 
-
 .input-box.green{
-  border:1px solid rgba(34,197,94,0.6);
+  border:1px solid rgba(34,197,94,0.5);
 }
 
 .input-box.red{
-  border:1px solid rgba(239,68,68,0.6);
+  border:1px solid rgba(239,68,68,0.5);
 }
 
-.input-box span{
-  font-size:18px;
-}
+/* =========================
+ROTA VISUAL
+========================= */
 
-.garantias{
-  display:flex;
-  justify-content:space-between;
-  font-size:13px;
-  color: var(--text-secondary);
-  margin-top:10px;
-}
-
-.garantias span{
-  display:flex;
-  align-items:center;
-  gap:6px;
-}
-
-/* ROTA VISUAL */
 .destaque-card{
   display:flex;
   flex-direction:column;
@@ -372,7 +364,6 @@ body{
   align-items:center;
   gap:10px;
   font-size:15px;
-  font-weight:500;
 }
 
 .rota-top.parada{
@@ -386,14 +377,17 @@ body{
 }
 
 .ponto.origem{background:var(--green);}
-.ponto.parada{background:var(--primary);}
+.ponto.parada{background:var(--blue);}
 .ponto.destino{background:var(--red);}
 
 .rota-texto{
   flex:1;
 }
 
-/* DETALHE MAIS LIMPO */
+/* =========================
+DETALHES
+========================= */
+
 .linha{
   display:flex;
   justify-content:space-between;
@@ -404,12 +398,15 @@ body{
 .total{
   margin-top:10px;
   font-size:20px;
-  font-weight:800;
+  font-weight:700;
   text-align:right;
-  color:var(--primary);
+  color:var(--green);
 }
 
-/* FOOTER PREMIUM */
+/* =========================
+FOOTER
+========================= */
+
 .footer{
   position:fixed;
   bottom:0;
@@ -425,11 +422,11 @@ body{
 }
 
 .valor{
-  font-size:24px;
-  font-weight:800;
+  font-size:22px;
+  font-weight:700;
   text-align:center;
   margin-bottom:10px;
-  color:var(--primary);
+  color:var(--green);
 }
 
 .cta-area-duplo{
@@ -437,18 +434,18 @@ body{
   gap:10px;
 }
 
-.btn-secundario{
+.btn-principal{
   flex:1;
-  background:#2a2a2a;
+  background:var(--primary);
   color:#fff;
   border-radius:12px;
   padding:14px;
 }
 
-.btn-principal{
+.btn-secundario{
   flex:1;
-  background:linear-gradient(135deg,#f59e0b,#ff7a00);
-  color:#000;
+  background:var(--bg-soft);
+  color:var(--text-primary);
   border-radius:12px;
   padding:14px;
 }
