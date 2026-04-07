@@ -12,90 +12,53 @@
 
 <style>
 
-/* =========================
-TEMA GLOBAL
-========================= */
-:root[data-theme="dark"]{
-  --bg-main:#0f0f0f;
-  --bg-card:#1c1c1c;
-  --bg-soft:#2a2a2a;
-
-  --text-primary:#fff;
-  --text-secondary:#aaa;
-
-  --border:#333;
-  --primary:#facc15;
-}
-
-:root[data-theme="light"]{
-  --bg-main:#f3f3f3;
-  --bg-card:#ffffff;
-  --bg-soft:#f9f9f9;
-
-  --text-primary:#000;
-  --text-secondary:#555;
-
-  --border:#e5e5e5;
-  --primary:#facc15;
-}
-
 /* BASE */
 body{
   background:var(--bg-main);
   color:var(--text-primary);
-  transition:.25s;
 }
 
 /* HEADER */
 .top-white{
   background:var(--bg-card);
-  box-shadow:0 4px 12px rgba(0,0,0,.08);
-  padding:10px 16px;
-}
-
-.logo-text-dark{
-  color:var(--text-primary);
-}
-
-/* CONTAINER */
-.app-container{
-  padding:16px;
+  border-bottom:1px solid var(--border);
 }
 
 /* TÍTULO */
 .page-title{
   text-align:center;
-  font-size:22px;
+  font-size:20px;
   font-weight:800;
-  margin:20px 0;
+  margin:20px 0 10px;
 }
 
-.page-title span{
-  color:var(--primary);
+.page-sub{
+  text-align:center;
+  font-size:13px;
+  color:var(--text-secondary);
+  margin-bottom:20px;
 }
 
-/* CARD PREMIUM */
+/* CARD */
 .card-modern{
-  padding:18px;
-  border-radius:18px;
-  margin-bottom:14px;
-
+  padding:16px;
+  border-radius:16px;
+  margin-bottom:12px;
   background:var(--bg-card);
   border:1px solid var(--border);
-
-  box-shadow:0 10px 25px rgba(0,0,0,.12);
-  transition:.2s;
 }
 
-.card-modern:hover{
-  transform:translateY(-2px);
+/* TÍTULO CARD */
+.card-modern h3{
+  font-size:15px;
+  margin-bottom:8px;
 }
 
 /* TEXTO */
 .card-modern p{
-  font-size:14px;
-  line-height:1.6;
+  font-size:13px;
   color:var(--text-secondary);
+  line-height:1.6;
 }
 
 /* DESTAQUE */
@@ -104,28 +67,15 @@ body{
   font-weight:700;
 }
 
-/* BOTÃO */
-.btn-link{
-  width:100%;
-  margin-top:12px;
-  padding:14px;
-  border:none;
+/* BLOCO PREMIAÇÃO */
+.premio-box{
+  display:flex;
+  justify-content:space-between;
+  padding:10px;
   border-radius:12px;
-  background:var(--primary);
-  color:#000;
-  font-weight:800;
-  font-size:15px;
-  cursor:pointer;
-  transition:.2s;
-}
-
-.btn-link:hover{
-  transform:scale(0.98);
-}
-
-/* ESPAÇO FINAL */
-.espaco{
-  height:100px;
+  background:var(--bg-soft);
+  margin-top:8px;
+  font-size:13px;
 }
 
 </style>
@@ -134,7 +84,6 @@ body{
 
 <body>
 
-<!-- HEADER -->
 <div class="top-white">
   <div class="logo-area">
     <img src="icons/icon-512.png" class="logo-img">
@@ -142,99 +91,84 @@ body{
   </div>
 </div>
 
-<div class="app-container">
+<div class="center app-container">
 
-<div class="page-title">
-Bônus <span>Semanal</span>
-</div>
+<div class="page-title">🏆 Bônus Semanal</div>
+<div class="page-sub">Desempenho real • Resultado direto</div>
 
 <!-- INTRO -->
 <div class="card-modern">
-<h3>🏆 Como funciona?</h3>
-<p>
-Toda semana premiamos os motoristas mais ativos da RF.<br>
-O bônus é baseado em <span class="destaque">desempenho real</span>: quem fizer mais corridas, ganha.
-</p>
+  <h3>Como funciona</h3>
+  <p>
+    O bônus é baseado no seu <span class="destaque">desempenho semanal</span>.
+    Quanto mais corridas realizadas, maiores as chances de ganhar.
+  </p>
 </div>
 
 <!-- PREMIAÇÃO -->
 <div class="card-modern">
-<h3>💰 Premiação</h3>
-<p>
-<span class="destaque">Segunda a sábado:</span><br>
-Motorista com mais corridas ganha <span class="destaque">R$50</span>
-<br><br>
-<span class="destaque">Domingo:</span><br>
-Motorista com mais corridas ganha <span class="destaque">R$50</span>
-<br><br>
-Total possível: <span class="destaque">R$100</span>
-</p>
+  <h3>Premiação</h3>
+
+  <div class="premio-box">
+    <span>Segunda a sábado</span>
+    <strong class="destaque">R$ 50</strong>
+  </div>
+
+  <div class="premio-box">
+    <span>Domingo</span>
+    <strong class="destaque">R$ 50</strong>
+  </div>
+
+  <div class="premio-box">
+    <span>Total semanal</span>
+    <strong class="destaque">R$ 100</strong>
+  </div>
+
 </div>
 
 <!-- CRITÉRIO -->
 <div class="card-modern">
-<h3>📊 Critério principal</h3>
-<p>
-O ranking é definido pela <span class="destaque">quantidade total de corridas</span>.
-</p>
+  <h3>Critério principal</h3>
+  <p>
+    O ranking é definido pela <span class="destaque">quantidade total de corridas</span>.
+  </p>
 </div>
 
 <!-- DESEMPATE -->
 <div class="card-modern">
-<h3>⚖️ Critério de desempate</h3>
-<p>
-Em caso de empate, vence quem tiver mais corridas nos horários de pico:
-<br><br>
-🕐 <span class="destaque">
-07:00–09:00 | 10:45–13:45 | 17:00–22:30
-</span>
-</p>
+  <h3>Critério de desempate</h3>
+  <p>
+    Horários de pico têm prioridade:
+    <br><br>
+    <span class="destaque">
+      07:00–09:00 • 10:45–13:45 • 17:00–22:30
+    </span>
+  </p>
 </div>
 
 <!-- REGRA -->
 <div class="card-modern">
-<h3>⚠️ Regra importante</h3>
-<p>
-Não é só quantidade: atuar nos horários de maior movimento aumenta suas chances.
-</p>
+  <h3>Regra importante</h3>
+  <p>
+    Não é só quantidade. Atuar nos horários estratégicos aumenta suas chances.
+  </p>
 </div>
 
 <!-- MOTIVAÇÃO -->
 <div class="card-modern">
-<h3>🚀 Importante</h3>
-<p>
-O bônus é contínuo.<br>
-Você pode ganhar <span class="destaque">todas as semanas</span>.
-</p>
+  <h3>Importante</h3>
+  <p>
+    O bônus é contínuo. Você pode ganhar todas as semanas.
+  </p>
 </div>
-
-<!-- CTA -->
-<div class="card-modern">
-<h3>📈 Acompanhe o ranking</h3>
-<p>
-Veja sua posição atual e quem está liderando.
-</p>
-
-<button class="btn-link" onclick="window.location.href='premiacao.html'">
-Ver Ranking Atual →
-</button>
-
-</div>
-
-<div class="espaco"></div>
 
 </div>
 
 <script>
-
-/* =========================
-TEMA GLOBAL
-========================= */
 (function(){
   const tema = localStorage.getItem("rf_theme") || "dark";
   document.documentElement.setAttribute("data-theme", tema);
 })();
-
 </script>
 
 </body>
