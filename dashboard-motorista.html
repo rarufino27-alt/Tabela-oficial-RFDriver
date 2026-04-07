@@ -291,6 +291,82 @@ filtro.onchange = gerar;
 
 carregar();
 
+/* =========================
+📅 PERÍODO SEMANAL
+========================= */
+function obterPeriodo(){
+
+  const hoje = new Date();
+
+  const dia = hoje.getDay(); // 0 = domingo
+
+  const segunda = new Date(hoje);
+  segunda.setDate(hoje.getDate() - (dia === 0 ? 6 : dia - 1));
+
+  const sabado = new Date(segunda);
+  sabado.setDate(segunda.getDate() + 5);
+
+  const domingo = new Date(segunda);
+  domingo.setDate(segunda.getDate() + 6);
+
+  return {
+    segunda,
+    sabado,
+    domingo
+  };
+}
+
+/* =========================
+🏆 RANKING + BONUS
+========================= */
+function gerarBonus(){
+
+  const {segunda, sabado, domingo} = obterPeriodo();
+
+  const inicio = segunda.toISOString().slice(0,10);
+  const fim = sabado.toISOString().slice(0,10);
+  const dom = domingo.toISOString().slice(0,10);
+
+  const mapa = {};
+
+  corridasGeral.forEach(c=>{
+
+    if(!c.motorista_id) return;
+
+    if(!mapa[c.motorista_id]){
+      mapa[c.motorista_id] = 0;
+    }
+
+    if(c.status === "finalizada"){
+      mapa[c.motorista_id]++;
+    }
+
+  });
+
+  const ranking = Object.entries(mapa)
+    .sort((a,b)=>b[1]-a[1]);
+
+  const posicao = ranking.findIndex(r=>r[0] == motoristaId) + 1;
+
+  document.getElementById("bonusSemana").innerHTML = `
+    <div class="card-modern">
+      <div style="font-size:13px;color:#9ca3af;">🏆 Bônus semanal</div>
+
+      <div style="margin-top:6px;font-size:14px;">
+        📅 ${inicio} até ${fim}
+      </div>
+
+      <div style="margin-top:6px;font-size:13px;color:#9ca3af;">
+        Domingo: ${dom}
+      </div>
+
+      <div style="margin-top:10px;font-size:18px;font-weight:bold;color:#facc15;">
+        Posição atual: ${posicao || "-"}º
+      </div>
+    </div>
+  `;
+}
+
 </script>
 
 </body>
