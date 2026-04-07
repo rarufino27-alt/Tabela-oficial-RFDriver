@@ -441,9 +441,6 @@ function gerar(){
 if(status === "finalizada"){
       total += Number(c.valor);
       finalizadas++;
-    }else{
-      canceladas++;
-    }
   });
 
   const naoAtendidas = corridasGeral.filter(c =>
