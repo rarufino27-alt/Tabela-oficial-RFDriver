@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+
+<meta charset="UTF-8">
+<title>Perfil Motorista</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js"></script>
+<script src="core/supabase.js"></script>
+
+<style>
+
+body{
+  margin:0;
+  font-family:system-ui;
+  background:#020617;
+  color:#fff;
+}
+
+/* HEADER */
+.header{
+  padding:16px;
+  text-align:center;
+  font-size:18px;
+  font-weight:bold;
+  background:#0f172a;
+  border-bottom:1px solid #1e293b;
+}
+
+/* CONTAINER */
+.container{
+  padding:15px;
+  max-width:600px;
+  margin:auto;
+}
+
+/* CARD */
+.card{
+  background:#0f172a;
+  padding:16px;
+  border-radius:14px;
+  border:1px solid #1e293b;
+  margin-bottom:12px;
+}
+
+/* INPUT */
+input{
+  width:100%;
+  padding:12px;
+  margin-bottom:10px;
+  border-radius:10px;
+  border:1px solid #1e293b;
+  background:#020617;
+  color:#fff;
+}
+
+/* LABEL */
+.label{
+  font-size:12px;
+  color:#94a3b8;
+  margin-bottom:4px;
+}
+
+/* BOTÕES */
+button{
+  width:100%;
+  padding:12px;
+  border:none;
+  border-radius:10px;
+  font-weight:bold;
+}
+
+.save{
+  background:#22c55e;
+  color:#000;
+}
+
+.info{
+  font-size:13px;
+  color:#94a3b8;
+  margin-top:8px;
+  text-align:center;
+}
+
+.block{
+  opacity:0.6;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="header">👤 Meu Perfil</div>
+
+<div class="container">
+
+<div class="card">
+
+<div class="label">Nome</div>
+<input id="nome" disabled class="block">
+
+<div class="label">Telefone (login)</div>
+<input id="telefone" disabled class="block">
+
+<div class="label">Endereço</div>
+<input id="endereco">
+
+<div class="label">Marca do veículo</div>
+<input id="marca">
+
+<div class="label">Modelo</div>
+<input id="modelo">
+
+<div class="label">Cor</div>
+<input id="cor">
+
+<div class="label">Placa</div>
+<input id="placa">
+
+<button class="save" onclick="salvar()">Salvar Alterações</button>
+
+<div class="info">
+Alterações de nome ou telefone devem ser solicitadas à administração.
+</div>
+
+</div>
+
+</div>
+
+<script>
+
+/* =========================
+VALIDAÇÃO LOGIN
+========================= */
+const motoristaId = localStorage.getItem("motorista_id");
+
+if(!motoristaId){
+  window.location.href = "login-motorista.html";
+}
+
+/* =========================
+CARREGAR PERFIL
+========================= */
+async function carregar(){
+
+  const { data, error } = await window.supabaseClient
+    .from("motoristas")
+    .select("*")
+    .eq("id", motoristaId)
+    .single();
+
+  if(error){
+    console.log(error);
+    alert("Erro ao carregar perfil");
+    return;
+  }
+
+  nome.value = data.nome || "";
+  telefone.value = data.telefone || "";
+  endereco.value = data.endereco || "";
+
+  marca.value = data.marca || "";
+  modelo.value = data.modelo || "";
+  cor.value = data.cor || "";
+  placa.value = data.placa || "";
+
+}
+
+/* =========================
+SALVAR
+========================= */
+async function salvar(){
+
+  const data = {
+    endereco: endereco.value.trim(),
+    marca: marca.value.trim(),
+    modelo: modelo.value.trim(),
+    cor: cor.value.trim(),
+    placa: placa.value.trim()
+  };
+
+  const { error } = await window.supabaseClient
+    .from("motoristas")
+    .update(data)
+    .eq("id", motoristaId);
+
+  if(error){
+    console.log(error);
+    alert("Erro ao salvar");
+    return;
+  }
+
+  alert("Atualizado com sucesso");
+
+}
+
+/* START */
+carregar();
+
+</script>
+
+</body>
+</html>
