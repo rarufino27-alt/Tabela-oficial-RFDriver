@@ -7,9 +7,16 @@
 
 <style>
 
+/* =========================
+🎯 THEME BASE (ALINHADO)
+========================= */
 :root{
-  --rf-gold:#D6B85F;
-  --rf-gold-strong:#F4D97A;
+  --bg-main:#0B0F14;
+  --bg-soft:#0F141B;
+  --primary:#3B82F6;
+  --primary-soft:rgba(59,130,246,0.2);
+  --text:#FFFFFF;
+  --text-secondary:#9CA3AF;
 }
 
 /* RESET */
@@ -24,12 +31,15 @@ html,body{
   height:100%;
 }
 
+/* =========================
+BODY
+========================= */
 body{
   overflow:hidden;
   display:flex;
   align-items:center;
   justify-content:center;
-  color:#fff;
+  color:var(--text);
   background: radial-gradient(circle at top,#111827 0%,#020617 80%);
   animation:fadeIn .5s ease;
 }
@@ -41,7 +51,7 @@ body::before{
   width:200%;
   height:200%;
   background:
-    radial-gradient(circle, rgba(214,184,95,.08), transparent 60%),
+    radial-gradient(circle, var(--primary-soft), transparent 60%),
     repeating-linear-gradient(
       45deg,
       rgba(255,255,255,.02),
@@ -49,7 +59,7 @@ body::before{
       transparent 1px,
       transparent 12px
     );
-  animation:bgRotate 25s linear infinite;
+  animation:bgRotate 30s linear infinite;
   top:-50%;
   left:-50%;
 }
@@ -59,20 +69,24 @@ body::before{
   to{transform:rotate(360deg);}
 }
 
-/* CONTAINER */
+/* =========================
+CONTAINER
+========================= */
 .container{
   position:relative;
   text-align:center;
   z-index:2;
 }
 
-/* ANEL CORPORATIVO */
+/* =========================
+ANEL CORPORATIVO
+========================= */
 .radar{
   position:absolute;
-  width:320px;
-  height:320px;
+  width:300px;
+  height:300px;
   border-radius:50%;
-  border:1px solid rgba(214,184,95,.3);
+  border:1px solid rgba(59,130,246,.25);
   left:50%;
   top:50%;
   transform:translate(-50%,-50%);
@@ -84,50 +98,54 @@ body::before{
   position:absolute;
   inset:0;
   border-radius:50%;
-  border:1px solid rgba(214,184,95,.25);
-  animation:pulse 5s infinite;
+  border:1px solid rgba(59,130,246,.2);
+  animation:pulse 4s infinite;
 }
 
 .radar::after{
-  animation-delay:2.5s;
+  animation-delay:2s;
 }
 
 @keyframes pulse{
   0%{
     transform:scale(.7);
-    opacity:.7;
+    opacity:.6;
   }
   100%{
-    transform:scale(1.7);
+    transform:scale(1.6);
     opacity:0;
   }
 }
 
-/* GLOW PREMIUM */
+/* =========================
+GLOW
+========================= */
 .glow{
   position:absolute;
-  width:260px;
-  height:260px;
+  width:240px;
+  height:240px;
   border-radius:50%;
-  background:radial-gradient(circle,var(--rf-gold),transparent 70%);
+  background:radial-gradient(circle,var(--primary),transparent 70%);
   filter:blur(70px);
-  opacity:.35;
+  opacity:.25;
   left:50%;
   top:50%;
   transform:translate(-50%,-50%);
-  animation:glowPulse 4s ease-in-out infinite;
+  animation:glowPulse 3s ease-in-out infinite;
 }
 
 @keyframes glowPulse{
-  0%,100%{opacity:.3;}
-  50%{opacity:.6;}
+  0%,100%{opacity:.2;}
+  50%{opacity:.4;}
 }
 
-/* LOGO */
+/* =========================
+LOGO
+========================= */
 .logo{
-  width:150px;
+  width:140px;
   opacity:0;
-  transform:scale(.85);
+  transform:scale(.9);
   animation:logoEnter .6s ease forwards, float 4s ease-in-out infinite 1s;
 }
 
@@ -144,22 +162,22 @@ body::before{
   100%{transform:translateY(0);}
 }
 
-/* TITULO */
+/* =========================
+TEXTOS
+========================= */
 .titulo{
   margin-top:20px;
   font-size:18px;
   font-weight:600;
-  letter-spacing:.6px;
-  color:#fff;
+  letter-spacing:.5px;
   opacity:0;
   animation:textFade 1s ease forwards 1.2s;
 }
 
-/* SUB */
 .tagline{
   margin-top:6px;
   font-size:13px;
-  color:#9ca3af;
+  color:var(--text-secondary);
   opacity:0;
   animation:textFade 1s ease forwards 1.6s;
 }
@@ -168,7 +186,9 @@ body::before{
   to{opacity:1;}
 }
 
-/* PROGRESS */
+/* =========================
+PROGRESS
+========================= */
 .progress{
   margin-top:30px;
   width:220px;
@@ -183,15 +203,17 @@ body::before{
 .progress-bar{
   height:100%;
   width:0%;
-  background:linear-gradient(90deg,var(--rf-gold),var(--rf-gold-strong));
-  animation:load 4.2s ease forwards;
+  background:linear-gradient(90deg,#3b82f6,#60a5fa);
+  animation:load 4s ease forwards;
 }
 
 @keyframes load{
   to{width:100%;}
 }
 
-/* FADE OUT */
+/* =========================
+FADE
+========================= */
 .fade-out{
   animation:fadeOut .5s ease forwards;
 }
@@ -236,14 +258,14 @@ body::before{
 
 <script>
 
-/* TEMPO CONTROLADO (FLUIDO) */
+/* TRANSIÇÃO */
 setTimeout(()=>{
   document.body.classList.add("fade-out");
-},4200);
+},4000);
 
 setTimeout(()=>{
   window.location.href="dashboard-motorista.html";
-},4700);
+},4500);
 
 </script>
 
