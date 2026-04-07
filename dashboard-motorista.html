@@ -16,31 +16,22 @@
 
 <style>
 
-/* HEADER PREMIUM */
-.header-premium{
-  padding:20px;
-  background:linear-gradient(135deg,#0f172a,#020617);
-  border-bottom:1px solid var(--border);
+/* HEADER PADRÃO */
+.top-white{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
 }
 
-.saudacao{
-  font-size:14px;
-  color:var(--text-secondary);
-}
-
-.nome{
-  font-size:20px;
-  font-weight:800;
-}
-
-/* RESUMO */
-.resumo-grid{
+/* MENU GRID */
+.menu-grid{
   display:grid;
   grid-template-columns:1fr 1fr;
   gap:10px;
-  margin-top:10px;
+  margin-bottom:12px;
 }
 
+/* KPI */
 .kpi{
   padding:14px;
   border-radius:14px;
@@ -58,10 +49,8 @@
   color:var(--text-secondary);
 }
 
-/* GANHO DESTAQUE */
 .kpi.total{
-  grid-column:1/-1;
-  background:linear-gradient(135deg,#22c55e,#16a34a);
+  background:linear-gradient(135deg,var(--primary),#60a5fa);
   color:#000;
 }
 
@@ -74,19 +63,40 @@
   margin-bottom:10px;
 }
 
-.rota{
-  font-weight:600;
-}
-
+.rota{ font-weight:600; }
 .valor{
   font-size:18px;
   font-weight:800;
   color:var(--primary);
 }
-
 .data{
   font-size:12px;
   color:var(--text-secondary);
+}
+
+.bonus-card{
+  background: linear-gradient(135deg,#0f172a,#020617);
+  border:1px solid var(--primary);
+  border-radius:18px;
+  padding:16px;
+  margin-bottom:12px;
+}
+
+.bonus-title{
+  font-size:13px;
+  opacity:.7;
+}
+
+.bonus-value{
+  font-size:20px;
+  font-weight:800;
+  color:var(--primary);
+}
+
+.bonus-sub{
+  font-size:13px;
+  color:var(--text-secondary);
+  margin-top:4px;
 }
 
 </style>
@@ -95,25 +105,45 @@
 
 <body>
 
+<!-- MENU -->
+<div class="menu-overlay" id="menuOverlay" onclick="fecharMenu()"></div>
+
+<div class="menu" id="menu">
+  <h3>RF</h3>
+
+  <div class="menu-item" onclick="ir('home.html')">📍 Tabela</div>
+  <div class="menu-item" onclick="ir('bonus.html')">💰 Bônus</div>
+  <div class="menu-item" onclick="ir('termos.html')">📜 Regras</div>
+  <div class="menu-item" onclick="ir('configuracoes.html')">⚙️ Configurações</div>
+  <div class="menu-item" onclick="ir('grupo.html')">📊 Grupo</div>
+</div>
+
 <!-- HEADER -->
-<div class="header-premium">
-  <div class="saudacao" id="saudacao"></div>
-  <div class="nome" id="nomeMotorista"></div>
+<div class="top-white">
+  <div class="logo-area">
+    <span class="logo-text-dark" id="saudacao">🚖</span>
+  </div>
+
+  <div class="menu-btn-dark" onclick="abrirMenu()">☰</div>
 </div>
 
 <div class="center app-container">
 
-<!-- MENU -->
-<div class="menu">
-  <button class="btn-principal" onclick="ir('home.html')">📍 Tabela</button>
-  <button class="btn-secundario" onclick="ir('bonus.html')">💰 Bônus</button>
-  <button class="btn-secundario" onclick="ir('termos.html')">📜 Regras</button>
-  <button class="btn-secundario" onclick="ir('configuracoes.html')">⚙️ Config</button>
+<!-- NOME -->
+<div class="card">
+  <strong id="nomeMotorista"></strong>
+</div>
 
-  <button class="btn-sucesso" style="grid-column:1/-1"
-  onclick="ir('grupo.html')">
-  📊 Acompanhamento do Grupo
-  </button>
+<div class="bonus-card destaque-card">
+
+  <div class="bonus-content">
+    <div class="bonus-title">🏆 Bônus semanal</div>
+    <div class="bonus-value">Ganhe até R$100</div>
+    <div class="bonus-sub">
+      Quanto mais corridas você fizer, maiores suas chances de liderar o ranking.
+    </div>
+  </div>
+
 </div>
 
 <select id="filtro" class="select">
@@ -139,7 +169,22 @@
 
 <script>
 
-/* 🔐 SESSÃO */
+/* MENU */
+function abrirMenu(){
+  menu.classList.add("ativo");
+  menuOverlay.style.display="block";
+}
+
+function fecharMenu(){
+  menu.classList.remove("ativo");
+  menuOverlay.style.display="none";
+}
+
+function ir(p){
+  window.location.href = p;
+}
+
+/* LOGIN */
 function logout(){
   localStorage.clear();
   window.location.href = "login-motorista.html";
@@ -163,13 +208,9 @@ let saudacao = hora < 12 ? "Bom dia" :
                hora < 18 ? "Boa tarde" : "Boa noite";
 
 document.getElementById("saudacao").innerText =
-`${saudacao}`;
+`🚖 ${saudacao}, ${primeiroNome(nome)}!`;
 
-document.getElementById("nomeMotorista").innerText =
-primeiroNome(nome);
-
-/* NAV */
-function ir(p){ window.location.href = p; }
+document.getElementById("nomeMotorista").innerText = nome;
 
 /* DADOS */
 let corridas = [];
@@ -249,7 +290,7 @@ function gerar(){
   const media = listaFiltrada.length ? total / listaFiltrada.length : 0;
 
   resumo.innerHTML = `
-    <div class="resumo-grid">
+    <div class="menu-grid">
 
       <div class="kpi total">
         <span>Ganhos</span>
