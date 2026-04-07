@@ -11,16 +11,12 @@
 
 <style>
 
-/* =========================
-🎯 THEME
-========================= */
 :root{
   --bg-main:#0B0F14;
   --bg-card:#121821;
   --bg-soft:#0F141B;
 
   --primary:#3B82F6;
-  --green:#22C55E;
 
   --text:#FFFFFF;
   --text-secondary:#9CA3AF;
@@ -28,7 +24,6 @@
   --border:rgba(255,255,255,0.08);
 }
 
-/* RESET */
 *{
   margin:0;
   padding:0;
@@ -36,9 +31,6 @@
   font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;
 }
 
-/* =========================
-BODY
-========================= */
 body{
   min-height:100vh;
   display:flex;
@@ -48,25 +40,7 @@ body{
   color:var(--text);
 }
 
-/* FUNDO SUAVE */
-body::before{
-  content:"";
-  position:absolute;
-  width:200%;
-  height:200%;
-  background:
-    radial-gradient(circle, rgba(59,130,246,.15), transparent 60%);
-  animation:rotateBg 25s linear infinite;
-}
-
-@keyframes rotateBg{
-  from{transform:rotate(0deg);}
-  to{transform:rotate(360deg);}
-}
-
-/* =========================
-CARD
-========================= */
+/* CARD */
 .card{
   width:90%;
   max-width:360px;
@@ -75,8 +49,6 @@ CARD
   border-radius:18px;
   border:1px solid var(--border);
   box-shadow:0 20px 40px rgba(0,0,0,.5);
-  position:relative;
-  z-index:2;
   text-align:center;
 }
 
@@ -86,7 +58,7 @@ CARD
   margin-bottom:15px;
 }
 
-/* TITULO */
+/* TEXTOS */
 .titulo{
   font-size:18px;
   font-weight:700;
@@ -121,18 +93,9 @@ button{
   color:#fff;
   font-weight:600;
   font-size:15px;
-  transition:.2s;
 }
 
-button:hover{
-  filter:brightness(1.1);
-}
-
-button:active{
-  transform:scale(0.97);
-}
-
-/* STATUS */
+/* MSG */
 .msg{
   margin-top:12px;
   font-size:13px;
@@ -149,13 +112,8 @@ button:active{
 
   <img src="icons/icon-192.png" class="logo">
 
-  <div class="titulo">
-    Escritório Virtual RF
-  </div>
-
-  <div class="sub">
-    Acesso do motorista
-  </div>
+  <div class="titulo">Escritório Virtual RF</div>
+  <div class="sub">Acesso do motorista</div>
 
   <input id="telefone" placeholder="Digite seu telefone">
 
@@ -172,47 +130,54 @@ async function login(){
   const msg = document.getElementById("msg");
   msg.innerText = "";
 
-  const telInput = document.getElementById("telefone").value;
+  let telInput = document.getElementById("telefone").value;
 
   if(!telInput){
     msg.innerText = "Digite o telefone";
     return;
   }
 
+  // 🔥 NORMALIZAÇÃO
   const tel = telInput.replace(/\D/g, "");
 
   msg.innerText = "Verificando acesso...";
 
-  const { data, error } = await window.supabaseClient
-    .from("motoristas")
-    .select("*")
-    .or(`telefone1.eq.${tel},telefone2.eq.${tel}`);
+  try{
 
-  if(error){
-    console.error(error);
-    msg.innerText = "Erro ao conectar";
-    return;
+    const { data, error } = await window.supabaseClient
+      .from("motoristas")
+      .select("id, nome, telefone")
+      .eq("telefone", tel)
+      .limit(1);
+
+    if(error){
+      console.error(error);
+      msg.innerText = "Erro ao conectar";
+      return;
+    }
+
+    if(!data || data.length === 0){
+      msg.innerText = "Motorista não encontrado";
+      return;
+    }
+
+    const motorista = data[0];
+
+    // 🔥 SALVA SESSÃO
+    localStorage.setItem("motorista_id", motorista.id);
+    localStorage.setItem("motorista_nome", motorista.nome);
+    localStorage.setItem("login_time", Date.now());
+
+    msg.innerText = "Acesso liberado...";
+
+    setTimeout(()=>{
+      window.location.href = "dashboard-motorista.html";
+    },700);
+
+  }catch(e){
+    console.error(e);
+    msg.innerText = "Erro inesperado";
   }
-
-  if(!data || data.length === 0){
-    msg.innerText = "Motorista não encontrado";
-    return;
-  }
-
-  /* ✅ CORRETO */
-  const motorista = data[0];
-
-  localStorage.setItem("motorista_id", motorista.id);
-  localStorage.setItem("motorista_nome", motorista.nome);
-
-  /* 🔥 SESSÃO 4H */
-  localStorage.setItem("login_time", Date.now());
-
-  msg.innerText = "Acesso liberado...";
-
-  setTimeout(()=>{
-    window.location.href = "dashboard-motorista.html";
-  },800);
 
 }
 
