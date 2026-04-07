@@ -436,7 +436,9 @@ function gerar(){
   let canceladas = 0;
 
   listaFiltrada.forEach(c=>{
-    if(c.status === "finalizada"){
+    const status = (c.status || "").toLowerCase().trim();
+
+if(status === "finalizada"){
       total += Number(c.valor);
       finalizadas++;
     }else{
@@ -480,8 +482,10 @@ function gerarGrafico(){
   let canceladas = 0;
 
   corridas.forEach(c=>{
-    if(c.status === "finalizada") finalizadas++;
-    else canceladas++;
+const status = (c.status || "").toLowerCase().trim();
+
+if(status === "finalizada") finalizadas++;
+else if(status === "cancelada") canceladas++;
   });
 
   const naoAtendidas = corridasGeral.filter(c =>
