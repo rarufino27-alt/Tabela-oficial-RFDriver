@@ -18,11 +18,30 @@
 
 <body>
 
+<!-- MENU -->
+<div class="menu-overlay" id="menuOverlay" onclick="fecharMenu()"></div>
+
+<div class="menu" id="menu">
+  <h3>🚖 RF Motorista</h3>
+
+  <div class="menu-item" onclick="ir('home.html')">📍 Tabela de Preços</div>
+  <div class="menu-item" onclick="ir('bonus.html')">💰 Bônus</div>
+  <div class="menu-item" onclick="ir('termos.html')">📜 Regras</div>
+  <div class="menu-item" onclick="ir('configuracoes.html')">⚙️ Configurações</div>
+  <div class="menu-item" onclick="ir('grupo.html')">📊 Acompanhamento do Grupo</div>
+
+  <div class="menu-item" onclick="logout()" style="color:#ef4444;">
+    🚪 Sair
+  </div>
+</div>
+
 <!-- HEADER -->
 <div class="top-white">
   <div class="logo-area">
     <span class="logo-text-dark" id="saudacao">🚖 Olá</span>
   </div>
+
+  <div class="menu-btn-dark" onclick="abrirMenu()">☰</div>
 </div>
 
 <div class="center app-container">
@@ -30,21 +49,6 @@
 <!-- NOME -->
 <div class="card">
   <strong id="nomeMotorista"></strong>
-</div>
-
-<!-- MENU -->
-<div class="menu">
-
-<button class="btn-principal" onclick="ir('home.html')">📍 Tabela</button>
-<button class="btn-secundario" onclick="ir('bonus.html')">💰 Bônus</button>
-<button class="btn-secundario" onclick="ir('termos.html')">📜 Regras</button>
-<button class="btn-secundario" onclick="ir('configuracoes.html')">⚙️ Config</button>
-
-<button class="btn-sucesso" style="grid-column:1/-1"
-onclick="ir('grupo.html')">
-📊 Acompanhamento do Grupo
-</button>
-
 </div>
 
 <select id="filtro" class="select">
@@ -60,10 +64,6 @@ onclick="ir('grupo.html')">
 </div>
 
 <div id="lista"></div>
-
-<button class="btn-perigo" onclick="logout()">
-Sair
-</button>
 
 </div>
 
@@ -104,13 +104,26 @@ function verificarSessao(){
 verificarSessao();
 
 /* =========================
-DADOS USUÁRIO
+MENU
+========================= */
+
+function abrirMenu(){
+  document.getElementById("menu").classList.add("ativo");
+  document.getElementById("menuOverlay").style.display = "block";
+}
+
+function fecharMenu(){
+  document.getElementById("menu").classList.remove("ativo");
+  document.getElementById("menuOverlay").style.display = "none";
+}
+
+/* =========================
+USUÁRIO
 ========================= */
 
 const motoristaId = localStorage.getItem("motorista_id");
 const nome = localStorage.getItem("motorista_nome");
 
-/* SAUDAÇÃO */
 function primeiroNome(nomeCompleto){
   return nomeCompleto?.split(" ")[0] || "Motorista";
 }
@@ -155,10 +168,6 @@ async function carregar(){
   gerarGrafico();
 }
 
-/* =========================
-FILTRO
-========================= */
-
 function filtrar(){
 
   const tipo = filtro.value;
@@ -186,10 +195,6 @@ function filtrar(){
 
 }
 
-/* =========================
-RESUMO + LISTA
-========================= */
-
 function gerar(){
 
   const listaFiltrada = filtrar();
@@ -207,7 +212,6 @@ function gerar(){
     }
   });
 
-  /* NÃO ATENDIDAS CORRETO */
   const naoAtendidas = corridasGeral.filter(c =>
     c.motorista_id !== motoristaId
   ).length;
@@ -248,10 +252,6 @@ function gerar(){
 
 }
 
-/* =========================
-GRÁFICO
-========================= */
-
 function gerarGrafico(){
 
   let finalizadas = 0;
@@ -266,9 +266,7 @@ function gerarGrafico(){
     c.motorista_id !== motoristaId
   ).length;
 
-  if(chart){
-    chart.destroy();
-  }
+  if(chart) chart.destroy();
 
   chart = new Chart(document.getElementById("grafico"), {
     type: "doughnut",
@@ -280,19 +278,15 @@ function gerarGrafico(){
     },
     options:{
       plugins:{
-        legend:{
-          labels:{ color:"#fff" }
-        }
+        legend:{ labels:{ color:"#fff" } }
       }
     }
   });
 
 }
 
-/* EVENTOS */
 filtro.onchange = gerar;
 
-/* START */
 carregar();
 
 </script>
