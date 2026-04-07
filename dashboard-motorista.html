@@ -169,6 +169,99 @@
 
 <script>
 
+async function carregarBonus(){
+
+  const hoje = new Date();
+
+  // SEGUNDA A SÁBADO
+  const inicioSemana = new Date();
+  inicioSemana.setDate(hoje.getDate() - hoje.getDay() + 1);
+
+  const fimSemana = new Date(inicioSemana);
+  fimSemana.setDate(inicioSemana.getDate() + 5);
+
+  // DOMINGO
+  const domingo = new Date();
+  domingo.setDate(hoje.getDate() - hoje.getDay());
+
+  const dataInicio = inicioSemana.toISOString().slice(0,10);
+  const dataFim = fimSemana.toISOString().slice(0,10);
+  const dataDomingo = domingo.toISOString().slice(0,10);
+
+  // BUSCAR CORRIDAS
+  const { data } = await window.supabaseClient
+    .from("corridas")
+    .select("motorista_id, data_viagem");
+
+  if(!data) return;
+
+  // FILTRAR SEMANA
+  const semana = data.filter(c =>
+    c.data_viagem >= dataInicio &&
+    c.data_viagem <= dataFim
+  );
+
+  // AGRUPAR
+  const ranking = {};
+
+  semana.forEach(c=>{
+    ranking[c.motorista_id] = (ranking[c.motorista_id] || 0) + 1;
+  });
+
+  // TRANSFORMAR EM ARRAY
+  const lista = Object.entries(ranking)
+    .map(([id, total]) => ({ id, total }))
+    .sort((a,b)=>b.total - a.total);
+
+  const posicao = lista.findIndex(x => x.id == motoristaId) + 1;
+
+  const minhasCorridas = ranking[motoristaId] || 0;
+
+  const lider = lista[0]?.total || 0;
+
+  const falta = lider - minhasCorridas;
+
+  // DATA FORMATADA
+  function formatar(d){
+    return new Date(d).toLocaleDateString("pt-BR",{day:"2-digit",month:"2-digit"});
+  }
+
+  // MENSAGEM INTELIGENTE
+  let mensagem = "";
+
+  if(posicao === 1){
+    mensagem = "🔥 Você está liderando! Continue assim.";
+  }else if(falta === 1){
+    mensagem = "🚀 Falta 1 corrida para assumir a liderança.";
+  }else{
+    mensagem = `🚀 Faltam ${falta} corridas para liderar.`;
+  }
+
+  // RENDER
+  document.getElementById("bonusCard").innerHTML = `
+    <div class="bonus-content">
+      <div class="bonus-title">🏆 Bônus semanal</div>
+
+      <div class="bonus-value">
+        ${posicao || "-"}º lugar • ${minhasCorridas} corridas
+      </div>
+
+      <div class="bonus-sub">
+        ${mensagem}
+      </div>
+
+      <div class="bonus-sub" style="margin-top:6px">
+        Seg-Sáb: ${formatar(dataInicio)} → ${formatar(dataFim)}
+      </div>
+
+      <div class="bonus-sub">
+        Domingo: ${formatar(dataDomingo)}
+      </div>
+
+    </div>
+  `;
+}
+
 /* MENU */
 function abrirMenu(){
   menu.classList.add("ativo");
@@ -374,6 +467,7 @@ function gerarGrafico(){
 filtro.onchange = gerar;
 
 carregar();
+carregarBonus();
 
 </script>
 
