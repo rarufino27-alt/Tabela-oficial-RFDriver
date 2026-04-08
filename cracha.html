@@ -7,6 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <style>
+
 body{
   margin:0;
   background:#020617;
@@ -17,6 +18,7 @@ body{
   align-items:center;
   height:100vh;
 }
+
 .card{
   width:90%;
   max-width:400px;
@@ -26,6 +28,20 @@ body{
   padding:20px;
   text-align:center;
 }
+
+h2{
+  margin-bottom:10px;
+}
+
+p{
+  color:#94a3b8;
+  font-size:14px;
+}
+
+a{
+  text-decoration:none;
+}
+
 button{
   width:100%;
   padding:16px;
@@ -34,7 +50,10 @@ button{
   background:#22c55e;
   font-weight:bold;
   font-size:16px;
+  color:#000;
+  margin-top:15px;
 }
+
 </style>
 
 </head>
@@ -46,7 +65,10 @@ button{
   <h2>🚖 Crachá RF</h2>
   <p>Toque abaixo para visualizar seu crachá</p>
 
-  <button onclick="abrirCracha()">📥 Ver / Baixar Crachá</button>
+  <!-- 🔥 BOTÃO REAL (LINK NATIVO) -->
+  <a id="linkCracha" target="_blank">
+    <button>📥 Ver / Baixar Crachá</button>
+  </a>
 
 </div>
 
@@ -61,7 +83,7 @@ function getMotoristaId(){
   }
 }
 
-function abrirCracha(){
+function configurarLink(){
 
   const id = getMotoristaId();
 
@@ -72,10 +94,11 @@ function abrirCracha(){
 
   const url = `https://rarufino27-alt.github.io/Tabela-oficial-RFDriver/ver-cracha.html?id=${id}`;
 
-  // 🔥 FORÇA ABRIR FORA DO APK
-  window.location.replace(url);
+  document.getElementById("linkCracha").href = url;
 
 }
+
+configurarLink();
 
 </script>
 
