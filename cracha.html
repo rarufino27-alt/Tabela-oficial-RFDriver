@@ -61,9 +61,16 @@ function abrirCracha(){
     return;
   }
 
-  const pagina = `https://rarufino27-alt.github.io/Tabela-oficial-RFDrive/ver-cracha.html?id=${id}`;
+  // 🔥 salva antes de abrir
+  localStorage.setItem("cracha_id", id);
 
-  window.open(pagina, "_blank");
+  const pagina = "https://rarufino27-alt.github.io/Tabela-oficial-RFDrive/ver-cracha.html";
+
+  if(window.cordova){
+    window.open(pagina, "_system");
+  }else{
+    window.open(pagina, "_blank");
+  }
 
 }
 
