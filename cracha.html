@@ -231,8 +231,7 @@ const id = getMotoristaId();
   document.getElementById("placa").innerText = data.placa || "";
 
   /* FOTO */
-  document.getElementById("foto").src =
-    data.foto_url || "https://via.placeholder.com/100";
+ foto.src = data.foto_url || "icons/user.png";
 
   /* STATUS */
   const status = document.getElementById("statusBadge");
