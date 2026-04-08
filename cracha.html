@@ -132,20 +132,21 @@ function getMotoristaId(){
 }
 
 /* =========================
-📌 BAIXAR CRACHÁ
+📌 ABRIR CRACHÁ (APK SAFE)
 ========================= */
-function baixarCracha(url){
+function abrirCracha(url){
 
   if(!url){
     alert("Crachá não disponível");
     return;
   }
 
-  window.open(url, "_blank");
+  // 🔥 força abrir fora do app (resolve problema APK)
+  window.open(url, "_system" in window ? "_system" : "_blank");
 }
 
 /* =========================
-📌 CARREGAR
+📌 CARREGAR DADOS
 ========================= */
 async function carregar(){
 
@@ -180,7 +181,6 @@ async function carregar(){
 
     /* PREENCHER */
     nome.innerText = data.nome || "-";
-
     carro.innerText = `${data.marca || ""} ${data.modelo || ""}`.trim() || "-";
     placa.innerText = data.placa || "-";
 
@@ -193,12 +193,15 @@ async function carregar(){
       status.className = "status inativo";
     }
 
-    /* BOTÃO */
-    btn.onclick = () => baixarCracha(data.cracha_url);
+    /* 🔥 LINK DO CRACHÁ (DO BANCO) */
+    const url = data.cracha_url;
 
-    /* PREVIEW DO CRACHÁ */
-    if(data.cracha_url){
-      preview.innerHTML = `<img src="${data.cracha_url}">`;
+    /* BOTÃO */
+    btn.onclick = () => abrirCracha(url);
+
+    /* PREVIEW */
+    if(url){
+      preview.innerHTML = `<img src="${url}">`;
     }
 
   }catch(e){
@@ -211,6 +214,5 @@ async function carregar(){
 document.addEventListener("DOMContentLoaded", carregar);
 
 </script>
-
 </body>
 </html>
