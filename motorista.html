@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+
+<meta charset="UTF-8">
+<title>RF Motorista</title>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js"></script>
+<script src="core/supabase.js"></script>
+
+<style>
+body{
+  background:#0f172a;
+  color:#fff;
+  font-family:system-ui;
+  text-align:center;
+  padding:20px;
+}
+
+.card{
+  background:#1e293b;
+  padding:20px;
+  border-radius:12px;
+}
+
+.foto{
+  width:120px;
+  height:120px;
+  border-radius:50%;
+  margin-bottom:10px;
+}
+
+.status{
+  padding:6px 12px;
+  border-radius:20px;
+  display:inline-block;
+  margin-bottom:10px;
+}
+
+.ativo{ background:#16a34a; }
+.inativo{ background:#dc2626; }
+
+</style>
+
+</head>
+
+<body>
+
+<div class="card">
+
+<img id="foto" class="foto">
+
+<h2 id="nome"></h2>
+
+<div id="status"></div>
+
+<p id="carro"></p>
+<p id="placa"></p>
+
+</div>
+
+<script>
+
+function getId(){
+  const url = new URL(window.location.href);
+  return url.searchParams.get("id");
+}
+
+async function carregar(){
+
+  const id = getId();
+
+  if(!id){
+    document.body.innerHTML="Motorista inválido";
+    return;
+  }
+
+  const { data } = await supabase
+    .from("motoristas")
+    .select("*")
+    .eq("id", id)
+    .single();
+
+  if(!data){
+    document.body.innerHTML="Não encontrado";
+    return;
+  }
+
+  nome.innerText = data.nome;
+  carro.innerText = data.marca + " " + data.modelo;
+  placa.innerText = data.placa;
+  foto.src = data.foto_url;
+
+  const st = document.getElementById("status");
+
+  if(data.status === "ativo"){
+    st.innerText = "ATIVO";
+    st.className = "status ativo";
+  }else{
+    st.innerText = "INATIVO";
+    st.className = "status inativo";
+  }
+
+}
+
+carregar();
+
+</script>
+
+</body>
+</html>
