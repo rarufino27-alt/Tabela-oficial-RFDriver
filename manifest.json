@@ -1,12 +1,14 @@
 {
-  "name": "RF Driver",
-  "short_name": "RF Driver",
-  "start_url": "./splash.html",
+  "name": "RF Motorista",
+  "short_name": "Grupo RF",
+  "start_url": "./index.html",
   "scope": "./",
   "display": "standalone",
-  "background_color": "#000000",
-  "theme_color": "#f5c542",
+  "background_color": "#020617",
+  "theme_color": "#22c55e",
   "orientation": "portrait",
+  "description": "Aplicativo de Mobilidade para Motoristas",
+  "id": "rf.motorista.app",
   "icons": [
     {
       "src": "./icons/192.png",
