@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+
+<meta charset="UTF-8">
+<title>Crachá RF</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js"></script>
+<script src="core/supabase.js"></script>
+
+<script src="https://html2canvas.hertzen.com/dist/html2canvas.min.js"></script>
+
+<style>
+
+body{
+  margin:0;
+  background:#000;
+  font-family:system-ui;
+  color:#fff;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+}
+
+/* AREA DO CRACHÁ */
+#cracha{
+  width:350px;
+  background:linear-gradient(180deg,#000,#111);
+  border-radius:16px;
+  padding:20px;
+  margin-top:20px;
+  border:2px solid #d4af37;
+  position:relative;
+}
+
+/* LOGO */
+.logo{
+  text-align:center;
+  font-size:28px;
+  font-weight:bold;
+  letter-spacing:2px;
+}
+
+.sub{
+  text-align:center;
+  color:#d4af37;
+  margin-bottom:10px;
+}
+
+/* STATUS */
+.status{
+  text-align:center;
+  margin:10px 0;
+}
+
+.status span{
+  padding:6px 14px;
+  border-radius:20px;
+  font-size:12px;
+  font-weight:bold;
+}
+
+.ativo{
+  background:#16a34a;
+}
+
+.inativo{
+  background:#dc2626;
+}
+
+/* FOTO */
+.foto{
+  width:100px;
+  height:100px;
+  border-radius:50%;
+  border:3px solid #d4af37;
+  object-fit:cover;
+  display:block;
+  margin:10px auto;
+}
+
+/* CARRO */
+.carro{
+  text-align:center;
+  margin:10px 0;
+}
+
+/* NOME */
+.nome{
+  text-align:center;
+  font-size:22px;
+  font-weight:bold;
+  margin-top:10px;
+}
+
+.tipo{
+  text-align:center;
+  color:#d4af37;
+}
+
+/* BOTÃO */
+button{
+  margin:20px;
+  padding:14px 20px;
+  border:none;
+  border-radius:10px;
+  background:#22c55e;
+  font-weight:bold;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div id="cracha">
+
+  <div class="logo">RF</div>
+  <div class="sub">MOTORISTA</div>
+
+  <div class="status">
+    <span id="statusBadge">...</span>
+  </div>
+
+  <img id="foto" class="foto">
+
+  <div class="carro" id="carro"></div>
+  <div class="carro" id="placa"></div>
+
+  <div class="nome" id="nome"></div>
+  <div class="tipo">MOTORISTA</div>
+
+</div>
+
+<button onclick="baixar()">📥 Baixar Crachá</button>
+
+<script>
+
+async function carregar(){
+
+  const id = localStorage.getItem("motorista_id");
+
+  if(!id){
+    alert("Não autenticado");
+    return;
+  }
+
+  const { data } = await window.supabaseClient
+    .from("motoristas")
+    .select("*")
+    .eq("id", id)
+    .single();
+
+  if(!data){
+    alert("Erro ao carregar");
+    return;
+  }
+
+  /* PREENCHER */
+
+  document.getElementById("nome").innerText = data.nome;
+
+  document.getElementById("carro").innerText =
+    `${data.marca || ""} ${data.modelo || ""}`;
+
+  document.getElementById("placa").innerText = data.placa || "";
+
+  /* FOTO */
+  document.getElementById("foto").src =
+    data.foto_url || "https://via.placeholder.com/100";
+
+  /* STATUS */
+  const status = document.getElementById("statusBadge");
+
+  if(data.status === "ativo"){
+    status.innerText = "ATIVO";
+    status.className = "ativo";
+  }else{
+    status.innerText = "INATIVO";
+    status.className = "inativo";
+  }
+
+}
+
+/* DOWNLOAD */
+async function baixar(){
+
+  const elemento = document.getElementById("cracha");
+
+  const canvas = await html2canvas(elemento);
+
+  const link = document.createElement("a");
+  link.download = "cracha-rf.png";
+  link.href = canvas.toDataURL();
+  link.click();
+}
+
+/* START */
+carregar();
+
+</script>
+
+</body>
+</html>
