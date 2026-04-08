@@ -74,21 +74,27 @@ button{
 <script>
 
 function getId(){
-  const url = new URL(window.location.href);
-  return url.searchParams.get("id");
+  // 🔥 pega do storage (não usa URL)
+  return localStorage.getItem("cracha_id");
 }
 
 async function carregar(){
 
   const id = getId();
 
-  const { data } = await window.supabaseClient
+  if(!id){
+    alert("Motorista não identificado");
+    return;
+  }
+
+  const { data, error } = await window.supabaseClient
     .from("motoristas")
     .select("cracha_url")
     .eq("id", id)
     .single();
 
-  if(!data || !data.cracha_url){
+  if(error || !data || !data.cracha_url){
+    console.error(error);
     alert("Crachá não disponível");
     return;
   }
@@ -98,15 +104,17 @@ async function carregar(){
 }
 
 function baixar(){
+
   const url = document.getElementById("imgCracha").src;
 
   const link = document.createElement("a");
   link.href = url;
   link.download = "cracha-rf.png";
   link.click();
+
 }
 
-carregar();
+document.addEventListener("DOMContentLoaded", carregar);
 
 </script>
 
