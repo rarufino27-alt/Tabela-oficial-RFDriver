@@ -56,12 +56,22 @@ button{
 <script>
 
 function getMotoristaId(){
-  try{
-    const url = new URL(window.location.href);
-    return url.searchParams.get("id") || localStorage.getItem("motorista_id");
-  }catch{
-    return localStorage.getItem("motorista_id");
+
+  // 1️⃣ tenta pegar da URL
+  const url = new URL(window.location.href);
+  let id = url.searchParams.get("id");
+
+  // 2️⃣ tenta pegar do localStorage
+  if(!id){
+    id = localStorage.getItem("motorista_id");
   }
+
+  // 3️⃣ fallback TEMPORÁRIO (teste)
+  if(!id){
+    id = "3ae6e7b1-a4bb-4020-8c39-291d24dee681"; // seu ID atual
+  }
+
+  return id;
 }
 
 function abrirCracha(){
