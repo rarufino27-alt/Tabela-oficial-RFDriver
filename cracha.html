@@ -137,8 +137,17 @@ button{
 
 <button onclick="baixar()">📥 Baixar Crachá</button>
 
+<canvas id="qrcode"></canvas>
+
 <script>
 
+function gerarQR(id){
+
+  const url = `https://SEU-SITE/motorista.html?id=${id}`;
+
+  QRCode.toCanvas(document.getElementById("qrcode"), url);
+}
+  
 async function carregar(){
 
   const id = localStorage.getItem("motorista_id");
@@ -200,7 +209,8 @@ async function baixar(){
 
 /* START */
 carregar();
-
+gerarQR(data.id);
+  
 </script>
 
 </body>
