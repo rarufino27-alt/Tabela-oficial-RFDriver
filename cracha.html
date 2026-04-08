@@ -17,19 +17,14 @@ body{
   font-family:system-ui;
   color:#fff;
   display:flex;
-  flex-direction:column;
+  justify-content:center;
   align-items:center;
+  height:100vh;
 }
 
-/* CARD */
-#container{
-  width:100%;
-  max-width:400px;
-  padding:20px;
-}
-
-/* CARD INFO */
 .card{
+  width:90%;
+  max-width:400px;
   background:#0f172a;
   border:1px solid #334155;
   border-radius:16px;
@@ -37,59 +32,15 @@ body{
   text-align:center;
 }
 
-/* NOME */
-.nome{
-  font-size:20px;
-  font-weight:bold;
-}
-
-/* STATUS */
-.status{
-  margin-top:8px;
-  font-size:13px;
-  padding:6px 12px;
-  border-radius:20px;
-  display:inline-block;
-}
-
-.ativo{
-  background:#16a34a;
-}
-
-.inativo{
-  background:#dc2626;
-}
-
-/* VEICULO */
-.info{
-  margin-top:15px;
-  font-size:14px;
-  opacity:.8;
-}
-
-/* BOTÃO */
 button{
   width:100%;
-  margin-top:15px;
-  padding:14px;
+  padding:16px;
   border:none;
   border-radius:12px;
   background:#22c55e;
   font-weight:bold;
-  font-size:15px;
+  font-size:16px;
   cursor:pointer;
-}
-
-/* PREVIEW */
-.preview{
-  margin-top:15px;
-  border-radius:12px;
-  overflow:hidden;
-}
-
-.preview img{
-  width:100%;
-  border-radius:12px;
 }
 
 </style>
@@ -98,22 +49,13 @@ button{
 
 <body>
 
-<div id="container">
+<div class="card">
 
-  <div class="card">
+  <h2>🚖 Crachá RF</h2>
 
-    <div class="nome" id="nome">...</div>
+  <p>Toque abaixo para visualizar seu crachá</p>
 
-    <div id="status" class="status">...</div>
-
-    <div class="info" id="carro"></div>
-    <div class="info" id="placa"></div>
-
-    <button id="btnCracha">📥 Baixar Crachá</button>
-
-    <div class="preview" id="preview"></div>
-
-  </div>
+  <button onclick="abrirCracha()">📥 Ver / Baixar Crachá</button>
 
 </div>
 
@@ -128,7 +70,7 @@ function getMotoristaId(){
   }
 }
 
-async function carregar(){
+function abrirCracha(){
 
   const id = getMotoristaId();
 
@@ -137,7 +79,6 @@ async function carregar(){
     return;
   }
 
-  // 🔥 REDIRECIONA DIRETO PRA PÁGINA INTERMEDIÁRIA
   const pagina = `https://rarufino27-alt.github.io/Tabela-oficial-RFDrive/ver-cracha.html?id=${id}`;
 
   if(window.cordova){
@@ -148,8 +89,7 @@ async function carregar(){
 
 }
 
-document.addEventListener("DOMContentLoaded", carregar);
-
 </script>
+
 </body>
 </html>
