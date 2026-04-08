@@ -72,7 +72,7 @@ function getMotoristaId(){
 
 function abrirCracha(){
 
-  const id = getMotoristaId();
+  const id = localStorage.getItem("motorista_id");
 
   if(!id){
     alert("Motorista não identificado");
