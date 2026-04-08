@@ -6,11 +6,7 @@
 <title>Crachá RF</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js"></script>
-<script src="core/supabase.js"></script>
-
 <style>
-
 body{
   margin:0;
   background:#020617;
@@ -21,7 +17,6 @@ body{
   align-items:center;
   height:100vh;
 }
-
 .card{
   width:90%;
   max-width:400px;
@@ -31,7 +26,6 @@ body{
   padding:20px;
   text-align:center;
 }
-
 button{
   width:100%;
   padding:16px;
@@ -40,9 +34,7 @@ button{
   background:#22c55e;
   font-weight:bold;
   font-size:16px;
-  cursor:pointer;
 }
-
 </style>
 
 </head>
@@ -52,7 +44,6 @@ button{
 <div class="card">
 
   <h2>🚖 Crachá RF</h2>
-
   <p>Toque abaixo para visualizar seu crachá</p>
 
   <button onclick="abrirCracha()">📥 Ver / Baixar Crachá</button>
@@ -60,15 +51,6 @@ button{
 </div>
 
 <script>
-
-function getMotoristaId(){
-  try{
-    const url = new URL(window.location.href);
-    return url.searchParams.get("id") || localStorage.getItem("motorista_id");
-  }catch{
-    return localStorage.getItem("motorista_id");
-  }
-}
 
 function abrirCracha(){
 
@@ -81,11 +63,7 @@ function abrirCracha(){
 
   const pagina = `https://rarufino27-alt.github.io/Tabela-oficial-RFDrive/ver-cracha.html?id=${id}`;
 
-  if(window.cordova){
-    window.open(pagina, "_system");
-  }else{
-    window.open(pagina, "_blank");
-  }
+  window.open(pagina, "_blank");
 
 }
 
