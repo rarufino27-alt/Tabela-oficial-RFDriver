@@ -110,6 +110,36 @@ button{
   font-weight:bold;
 }
 
+.topo{
+  text-align:center;
+}
+
+.foto-area{
+  display:flex;
+  justify-content:center;
+  margin:10px 0;
+}
+
+.info{
+  text-align:center;
+  margin-top:10px;
+}
+
+.veiculo{
+  font-size:14px;
+  opacity:.8;
+}
+
+.placa{
+  font-weight:bold;
+  color:#d4af37;
+}
+
+.qr-area{
+  display:flex;
+  justify-content:center;
+  margin-top:15px;
+}  
 </style>
 
 </head>
@@ -118,31 +148,37 @@ button{
 
 <div id="cracha">
 
-  <div class="logo">RF</div>
-  <div class="sub">MOTORISTA</div>
+  <div class="topo">
+    <div class="logo">RF</div>
+    <div class="sub">MOTORISTA</div>
 
-  <div class="status">
-    <span id="statusBadge">...</span>
+    <div class="status">
+      <span id="statusBadge">ATIVO</span>
+    </div>
   </div>
 
-  <img id="foto" class="foto">
+  <div class="foto-area">
+    <img id="foto" class="foto">
+  </div>
 
-  <div class="carro" id="carro"></div>
-  <div class="carro" id="placa"></div>
+  <div class="info">
 
-  <div class="nome" id="nome"></div>
-  <div class="tipo">MOTORISTA</div>
+    <div class="nome" id="nome"></div>
+    <div class="tipo">Motorista</div>
+
+    <div class="veiculo" id="carro"></div>
+    <div class="placa" id="placa"></div>
+
+  </div>
+
+  <div class="qr-area">
+    <canvas id="qrcode"></canvas>
+  </div>
 
 </div>
 
 <button onclick="baixar()">📥 Baixar Crachá</button>
 
-<canvas id="qrcode"></canvas>
-
-  <div style="text-align:center; margin-top:15px;">
-  <canvas id="qrcode"></canvas>
-</div>
-  
 <script>
 
 function gerarQR(id){
@@ -161,7 +197,12 @@ function gerarQR(id){
   
 async function carregar(){
 
-  const id = localStorage.getItem("motorista_id");
+  function getMotoristaId(){
+  const url = new URL(window.location.href);
+  return url.searchParams.get("id") || localStorage.getItem("motorista_id");
+}
+
+const id = getMotoristaId();
 
   if(!id){
     alert("Não autenticado");
