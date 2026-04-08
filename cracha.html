@@ -119,9 +119,6 @@ button{
 
 <script>
 
-/* =========================
-📌 OBTER ID
-========================= */
 function getMotoristaId(){
   try{
     const url = new URL(window.location.href);
@@ -131,9 +128,6 @@ function getMotoristaId(){
   }
 }
 
-/* =========================
-📌 REDIRECIONAR DIRETO
-========================= */
 async function carregar(){
 
   const id = getMotoristaId();
@@ -143,35 +137,17 @@ async function carregar(){
     return;
   }
 
-  const { data, error } = await window.supabaseClient
-    .from("motoristas")
-    .select("cracha_url")
-    .eq("id", id)
-    .single();
+  // 🔥 REDIRECIONA DIRETO PRA PÁGINA INTERMEDIÁRIA
+  const pagina = `https://rarufino27-alt.github.io/Tabela-oficial-RFDrive/ver-cracha.html?id=${id}`;
 
-  if(error || !data || !data.cracha_url){
-    console.error(error);
-    alert("Crachá não disponível");
-    return;
-  }
-
-  const url = data.cracha_url;
-
-  // 🔥 FORÇA abrir fora do app (APK)
   if(window.cordova){
-    window.open(url, "_system");
+    window.open(pagina, "_system");
   }else{
-    window.open(url, "_blank");
+    window.open(pagina, "_blank");
   }
-
-  // opcional: voltar ou fechar tela
-  setTimeout(()=>{
-    window.history.back();
-  }, 1000);
 
 }
 
-/* START */
 document.addEventListener("DOMContentLoaded", carregar);
 
 </script>
