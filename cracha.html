@@ -181,89 +181,153 @@ button{
 
 <script>
 
+/* =========================
+📌 OBTER ID (URL OU STORAGE)
+========================= */
+function getMotoristaId(){
+  try{
+    const url = new URL(window.location.href);
+    return url.searchParams.get("id") || localStorage.getItem("motorista_id");
+  }catch{
+    return localStorage.getItem("motorista_id");
+  }
+}
+
+/* =========================
+📌 GERAR QR CODE
+========================= */
 function gerarQR(id){
 
-  const url = `https://rarufino27-alt.github.io/Tabela-oficial-RFDrive/motorista.html?id=${id}`;
+  const canvas = document.getElementById("qrcode");
+  if(!canvas) return;
 
-  QRCode.toCanvas(
-    document.getElementById("qrcode"),
-    url,
-    {
-      width:100,
-      margin:1
-    }
-  );
+  const url = `https://rarufino27-alt.github.io/Tabela-oficial-RFDriver/cracha.html?id=${id}`;
+
+  QRCode.toCanvas(canvas, url, {
+    width: 100,
+    margin: 1
+  });
 }
-  
+
+/* =========================
+📌 CARREGAR DADOS
+========================= */
 async function carregar(){
 
-  function getMotoristaId(){
-  const url = new URL(window.location.href);
-  return url.searchParams.get("id") || localStorage.getItem("motorista_id");
-}
-
-const id = getMotoristaId();
+  const id = getMotoristaId();
 
   if(!id){
-    alert("Não autenticado");
+    alert("Motorista não identificado");
     return;
   }
 
-  const { data, error } = await window.supabaseClient
-    .from("motoristas")
-    .select("*")
-    .eq("id", id)
-    .single();
+  try{
 
-  if(error || !data){
-    console.error(error);
-    alert("Erro ao carregar");
-    return;
+    const { data, error } = await window.supabaseClient
+      .from("motoristas")
+      .select("*")
+      .eq("id", id)
+      .single();
+
+    if(error || !data){
+      console.error(error);
+      alert("Erro ao carregar dados");
+      return;
+    }
+
+    /* =========================
+    📌 ELEMENTOS
+    ========================= */
+    const nome = document.getElementById("nome");
+    const carro = document.getElementById("carro");
+    const placa = document.getElementById("placa");
+    const foto = document.getElementById("foto");
+    const status = document.getElementById("statusBadge");
+
+    /* =========================
+    📌 PREENCHER DADOS
+    ========================= */
+
+    if(nome) nome.innerText = data.nome || "-";
+
+    if(carro){
+      carro.innerText = `${data.marca || ""} ${data.modelo || ""}`.trim() || "-";
+    }
+
+    if(placa) placa.innerText = data.placa || "-";
+
+    /* =========================
+    📌 FOTO (CORRIGIDO)
+    ========================= */
+
+    if(foto){
+      foto.src = data.foto_url || "icons/user.png";
+
+      foto.onerror = () => {
+        foto.src = "icons/user.png";
+      };
+    }
+
+    /* =========================
+    📌 STATUS
+    ========================= */
+
+    if(status){
+      if(data.status === "ativo"){
+        status.innerText = "ATIVO";
+        status.className = "ativo";
+      }else{
+        status.innerText = "INATIVO";
+        status.className = "inativo";
+      }
+    }
+
+    /* =========================
+    📌 GERAR QR
+    ========================= */
+    gerarQR(data.id);
+
+  }catch(e){
+    console.error(e);
+    alert("Erro inesperado");
   }
-
-  /* PREENCHER */
-
-  document.getElementById("nome").innerText = data.nome;
-
-  document.getElementById("carro").innerText =
-    `${data.marca || ""} ${data.modelo || ""}`;
-
-  document.getElementById("placa").innerText = data.placa || "";
-
-  /* FOTO */
- foto.src = data.foto_url || "icons/user.png";
-
-  /* STATUS */
-  const status = document.getElementById("statusBadge");
-
-  if(data.status === "ativo"){
-    status.innerText = "ATIVO";
-    status.className = "ativo";
-  }else{
-    status.innerText = "INATIVO";
-    status.className = "inativo";
-  }
-
-  /* 🔥 GERAR QR AQUI (CORRETO) */
-  gerarQR(data.id);
 }
-  
-/* DOWNLOAD */
+
+/* =========================
+📌 DOWNLOAD DO CRACHÁ
+========================= */
 async function baixar(){
 
   const elemento = document.getElementById("cracha");
 
-  const canvas = await html2canvas(elemento);
+  if(!elemento){
+    alert("Erro ao gerar crachá");
+    return;
+  }
 
-  const link = document.createElement("a");
-  link.download = "cracha-rf.png";
-  link.href = canvas.toDataURL();
-  link.click();
+  try{
+
+    const canvas = await html2canvas(elemento, {
+      scale: 2,
+      useCORS: true
+    });
+
+    const link = document.createElement("a");
+    link.download = "cracha-rf.png";
+    link.href = canvas.toDataURL("image/png");
+    link.click();
+
+  }catch(e){
+    console.error(e);
+    alert("Erro ao baixar crachá");
+  }
 }
 
-/* START */
-carregar();
-  
+/* =========================
+📌 START SEGURO
+========================= */
+document.addEventListener("DOMContentLoaded", carregar);
+
 </script>
 
 </body>
