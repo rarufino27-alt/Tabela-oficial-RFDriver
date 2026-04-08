@@ -132,21 +132,7 @@ function getMotoristaId(){
 }
 
 /* =========================
-📌 ABRIR CRACHÁ (APK SAFE)
-========================= */
-function abrirCracha(url){
-
-  if(!url){
-    alert("Crachá não disponível");
-    return;
-  }
-
-  // 🔥 força abrir fora do app (resolve problema APK)
-  window.open(url, "_system" in window ? "_system" : "_blank");
-}
-
-/* =========================
-📌 CARREGAR DADOS
+📌 REDIRECIONAR DIRETO
 ========================= */
 async function carregar(){
 
@@ -157,57 +143,32 @@ async function carregar(){
     return;
   }
 
-  try{
+  const { data, error } = await window.supabaseClient
+    .from("motoristas")
+    .select("cracha_url")
+    .eq("id", id)
+    .single();
 
-    const { data, error } = await window.supabaseClient
-      .from("motoristas")
-      .select("*")
-      .eq("id", id)
-      .single();
-
-    if(error || !data){
-      console.error(error);
-      alert("Erro ao carregar");
-      return;
-    }
-
-    /* ELEMENTOS */
-    const nome = document.getElementById("nome");
-    const status = document.getElementById("status");
-    const carro = document.getElementById("carro");
-    const placa = document.getElementById("placa");
-    const btn = document.getElementById("btnCracha");
-    const preview = document.getElementById("preview");
-
-    /* PREENCHER */
-    nome.innerText = data.nome || "-";
-    carro.innerText = `${data.marca || ""} ${data.modelo || ""}`.trim() || "-";
-    placa.innerText = data.placa || "-";
-
-    /* STATUS */
-    if(data.status === "ativo"){
-      status.innerText = "ATIVO";
-      status.className = "status ativo";
-    }else{
-      status.innerText = "INATIVO";
-      status.className = "status inativo";
-    }
-
-    /* 🔥 LINK DO CRACHÁ (DO BANCO) */
-    const url = data.cracha_url;
-
-    /* BOTÃO */
-    btn.onclick = () => abrirCracha(url);
-
-    /* PREVIEW */
-    if(url){
-      preview.innerHTML = `<img src="${url}">`;
-    }
-
-  }catch(e){
-    console.error(e);
-    alert("Erro inesperado");
+  if(error || !data || !data.cracha_url){
+    console.error(error);
+    alert("Crachá não disponível");
+    return;
   }
+
+  const url = data.cracha_url;
+
+  // 🔥 FORÇA abrir fora do app (APK)
+  if(window.cordova){
+    window.open(url, "_system");
+  }else{
+    window.open(url, "_blank");
+  }
+
+  // opcional: voltar ou fechar tela
+  setTimeout(()=>{
+    window.history.back();
+  }, 1000);
+
 }
 
 /* START */
