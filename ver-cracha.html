@@ -26,7 +26,6 @@ body{
   padding:16px;
 }
 
-/* CARD */
 .card{
   background:rgba(30,41,59,.6);
   border:1px solid rgba(255,255,255,.05);
@@ -35,27 +34,12 @@ body{
   text-align:center;
 }
 
-/* TITULO */
-h2{
-  margin-bottom:10px;
-}
-
-/* DESCRIÇÃO */
-.desc{
-  font-size:14px;
-  color:#94a3b8;
-  margin-bottom:16px;
-}
-
-/* IMAGEM */
 img{
   width:100%;
   border-radius:12px;
   margin-bottom:12px;
-  border:1px solid rgba(255,255,255,.05);
 }
 
-/* BOTÃO */
 button{
   width:100%;
   padding:16px;
@@ -65,19 +49,6 @@ button{
   font-weight:bold;
   font-size:16px;
   color:#000;
-}
-
-/* INFO */
-.info{
-  font-size:13px;
-  color:#94a3b8;
-  margin-top:12px;
-}
-
-.loader{
-  margin:30px 0;
-  font-size:14px;
-  color:#94a3b8;
 }
 
 </style>
@@ -92,19 +63,9 @@ button{
 
     <h2>🚖 Crachá RF</h2>
 
-    <div class="desc">
-      Apresente este crachá aos passageiros para validação da corrida.
-    </div>
+    <img id="imgCracha">
 
-    <div id="loading" class="loader">Carregando crachá...</div>
-
-    <img id="imgCracha" style="display:none;">
-
-    <button id="btnDownload" style="display:none;">📥 Baixar Crachá</button>
-
-    <div class="info">
-      Se o download não iniciar, pressione e segure na imagem para salvar.
-    </div>
+    <button onclick="baixar()">📥 Baixar Crachá</button>
 
   </div>
 
@@ -112,64 +73,39 @@ button{
 
 <script>
 
-/* =========================
-📌 PEGAR ID
-========================= */
 function getId(){
-  try{
-    const url = new URL(window.location.href);
-    return url.searchParams.get("id");
-  }catch{
-    return null;
-  }
+  const url = new URL(window.location.href);
+  return url.searchParams.get("id");
 }
 
-/* =========================
-📌 CARREGAR CRACHÁ
-========================= */
 async function carregar(){
 
   const id = getId();
 
-  if(!id){
-    alert("Motorista não identificado");
-    return;
-  }
-
-  const { data, error } = await window.supabaseClient
+  const { data } = await window.supabaseClient
     .from("motoristas")
     .select("cracha_url")
     .eq("id", id)
     .single();
 
-  if(error || !data || !data.cracha_url){
-    console.error(error);
+  if(!data || !data.cracha_url){
     alert("Crachá não disponível");
     return;
   }
 
-  const img = document.getElementById("imgCracha");
-  const btn = document.getElementById("btnDownload");
-  const loading = document.getElementById("loading");
-
-  img.src = data.cracha_url;
-
-  img.onload = ()=>{
-    loading.style.display = "none";
-    img.style.display = "block";
-    btn.style.display = "block";
-  };
-
-  btn.onclick = ()=>{
-    const link = document.createElement("a");
-    link.href = data.cracha_url;
-    link.download = "cracha-rf.png";
-    link.click();
-  };
+  document.getElementById("imgCracha").src = data.cracha_url;
 
 }
 
-/* START */
+function baixar(){
+  const url = document.getElementById("imgCracha").src;
+
+  const link = document.createElement("a");
+  link.href = url;
+  link.download = "cracha-rf.png";
+  link.click();
+}
+
 carregar();
 
 </script>
