@@ -52,25 +52,28 @@ button{
 
 <script>
 
+function getMotoristaId(){
+  try{
+    const url = new URL(window.location.href);
+    return url.searchParams.get("id") || localStorage.getItem("motorista_id");
+  }catch{
+    return localStorage.getItem("motorista_id");
+  }
+}
+
 function abrirCracha(){
 
-  const id = localStorage.getItem("motorista_id");
+  const id = getMotoristaId();
 
   if(!id){
     alert("Motorista não identificado");
     return;
   }
 
-  // 🔥 salva antes de abrir
-  localStorage.setItem("cracha_id", id);
+  const url = `https://rarufino27-alt.github.io/Tabela-oficial-RFDriver/ver-cracha.html?id=${id}`;
 
-  const pagina = "https://rarufino27-alt.github.io/Tabela-oficial-RFDriver/ver-cracha.html";
-
-  if(window.cordova){
-    window.open(pagina, "_system");
-  }else{
-    window.open(pagina, "_blank");
-  }
+  // 🔥 FORÇA ABRIR FORA DO APK
+  window.location.href = url;
 
 }
 
