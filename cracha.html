@@ -6,17 +6,14 @@
 <title>Crachá RF</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<script src="https://cdn.jsdelivr.net/npm/qrcode/build/qrcode.min.js"></script>  
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js"></script>
 <script src="core/supabase.js"></script>
-
-<script src="https://html2canvas.hertzen.com/dist/html2canvas.min.js"></script>
 
 <style>
 
 body{
   margin:0;
-  background:#000;
+  background:#020617;
   font-family:system-ui;
   color:#fff;
   display:flex;
@@ -24,42 +21,35 @@ body{
   align-items:center;
 }
 
-/* AREA DO CRACHÁ */
-#cracha{
-  width:350px;
-  background:linear-gradient(180deg,#000,#111);
+/* CARD */
+#container{
+  width:100%;
+  max-width:400px;
+  padding:20px;
+}
+
+/* CARD INFO */
+.card{
+  background:#0f172a;
+  border:1px solid #334155;
   border-radius:16px;
   padding:20px;
-  margin-top:20px;
-  border:2px solid #d4af37;
-  position:relative;
+  text-align:center;
 }
 
-/* LOGO */
-.logo{
-  text-align:center;
-  font-size:28px;
+/* NOME */
+.nome{
+  font-size:20px;
   font-weight:bold;
-  letter-spacing:2px;
-}
-
-.sub{
-  text-align:center;
-  color:#d4af37;
-  margin-bottom:10px;
 }
 
 /* STATUS */
 .status{
-  text-align:center;
-  margin:10px 0;
-}
-
-.status span{
-  padding:6px 14px;
+  margin-top:8px;
+  font-size:13px;
+  padding:6px 12px;
   border-radius:20px;
-  font-size:12px;
-  font-weight:bold;
+  display:inline-block;
 }
 
 .ativo{
@@ -70,119 +60,67 @@ body{
   background:#dc2626;
 }
 
-/* FOTO */
-.foto{
-  width:100px;
-  height:100px;
-  border-radius:50%;
-  border:3px solid #d4af37;
-  object-fit:cover;
-  display:block;
-  margin:10px auto;
-}
-
-/* CARRO */
-.carro{
-  text-align:center;
-  margin:10px 0;
-}
-
-/* NOME */
-.nome{
-  text-align:center;
-  font-size:22px;
-  font-weight:bold;
-  margin-top:10px;
-}
-
-.tipo{
-  text-align:center;
-  color:#d4af37;
-}
-
-/* BOTÃO */
-button{
-  margin:20px;
-  padding:14px 20px;
-  border:none;
-  border-radius:10px;
-  background:#22c55e;
-  font-weight:bold;
-}
-
-.topo{
-  text-align:center;
-}
-
-.foto-area{
-  display:flex;
-  justify-content:center;
-  margin:10px 0;
-}
-
+/* VEICULO */
 .info{
-  text-align:center;
-  margin-top:10px;
-}
-
-.veiculo{
+  margin-top:15px;
   font-size:14px;
   opacity:.8;
 }
 
-.placa{
+/* BOTÃO */
+button{
+  width:100%;
+  margin-top:15px;
+  padding:14px;
+  border:none;
+  border-radius:12px;
+  background:#22c55e;
   font-weight:bold;
-  color:#d4af37;
+  font-size:15px;
+  cursor:pointer;
 }
 
-.qr-area{
-  display:flex;
-  justify-content:center;
+/* PREVIEW */
+.preview{
   margin-top:15px;
-}  
+  border-radius:12px;
+  overflow:hidden;
+}
+
+.preview img{
+  width:100%;
+  border-radius:12px;
+}
+
 </style>
 
 </head>
 
 <body>
 
-<div id="cracha">
+<div id="container">
 
-  <div class="topo">
-    <div class="logo">RF</div>
-    <div class="sub">MOTORISTA</div>
+  <div class="card">
 
-    <div class="status">
-      <span id="statusBadge">ATIVO</span>
-    </div>
-  </div>
+    <div class="nome" id="nome">...</div>
 
-  <div class="foto-area">
-    <img id="foto" class="foto">
-  </div>
+    <div id="status" class="status">...</div>
 
-  <div class="info">
+    <div class="info" id="carro"></div>
+    <div class="info" id="placa"></div>
 
-    <div class="nome" id="nome"></div>
-    <div class="tipo">Motorista</div>
+    <button id="btnCracha">📥 Baixar Crachá</button>
 
-    <div class="veiculo" id="carro"></div>
-    <div class="placa" id="placa"></div>
+    <div class="preview" id="preview"></div>
 
-  </div>
-
-  <div class="qr-area">
-    <canvas id="qrcode"></canvas>
   </div>
 
 </div>
 
-<button onclick="baixar()">📥 Baixar Crachá</button>
-
 <script>
 
 /* =========================
-📌 OBTER ID (URL OU STORAGE)
+📌 OBTER ID
 ========================= */
 function getMotoristaId(){
   try{
@@ -194,23 +132,20 @@ function getMotoristaId(){
 }
 
 /* =========================
-📌 GERAR QR CODE
+📌 BAIXAR CRACHÁ
 ========================= */
-function gerarQR(id){
+function baixarCracha(url){
 
-  const canvas = document.getElementById("qrcode");
-  if(!canvas) return;
+  if(!url){
+    alert("Crachá não disponível");
+    return;
+  }
 
-  const url = `https://rarufino27-alt.github.io/Tabela-oficial-RFDriver/cracha.html?id=${id}`;
-
-  QRCode.toCanvas(canvas, url, {
-    width: 100,
-    margin: 1
-  });
+  window.open(url, "_blank");
 }
 
 /* =========================
-📌 CARREGAR DADOS
+📌 CARREGAR
 ========================= */
 async function carregar(){
 
@@ -231,61 +166,40 @@ async function carregar(){
 
     if(error || !data){
       console.error(error);
-      alert("Erro ao carregar dados");
+      alert("Erro ao carregar");
       return;
     }
 
-    /* =========================
-    📌 ELEMENTOS
-    ========================= */
+    /* ELEMENTOS */
     const nome = document.getElementById("nome");
+    const status = document.getElementById("status");
     const carro = document.getElementById("carro");
     const placa = document.getElementById("placa");
-    const foto = document.getElementById("foto");
-    const status = document.getElementById("statusBadge");
+    const btn = document.getElementById("btnCracha");
+    const preview = document.getElementById("preview");
 
-    /* =========================
-    📌 PREENCHER DADOS
-    ========================= */
+    /* PREENCHER */
+    nome.innerText = data.nome || "-";
 
-    if(nome) nome.innerText = data.nome || "-";
+    carro.innerText = `${data.marca || ""} ${data.modelo || ""}`.trim() || "-";
+    placa.innerText = data.placa || "-";
 
-    if(carro){
-      carro.innerText = `${data.marca || ""} ${data.modelo || ""}`.trim() || "-";
+    /* STATUS */
+    if(data.status === "ativo"){
+      status.innerText = "ATIVO";
+      status.className = "status ativo";
+    }else{
+      status.innerText = "INATIVO";
+      status.className = "status inativo";
     }
 
-    if(placa) placa.innerText = data.placa || "-";
+    /* BOTÃO */
+    btn.onclick = () => baixarCracha(data.cracha_url);
 
-    /* =========================
-    📌 FOTO (CORRIGIDO)
-    ========================= */
-
-    if(foto){
-      foto.src = data.foto_url || "icons/user.png";
-
-      foto.onerror = () => {
-        foto.src = "icons/user.png";
-      };
+    /* PREVIEW DO CRACHÁ */
+    if(data.cracha_url){
+      preview.innerHTML = `<img src="${data.cracha_url}">`;
     }
-
-    /* =========================
-    📌 STATUS
-    ========================= */
-
-    if(status){
-      if(data.status === "ativo"){
-        status.innerText = "ATIVO";
-        status.className = "ativo";
-      }else{
-        status.innerText = "INATIVO";
-        status.className = "inativo";
-      }
-    }
-
-    /* =========================
-    📌 GERAR QR
-    ========================= */
-    gerarQR(data.id);
 
   }catch(e){
     console.error(e);
@@ -293,39 +207,7 @@ async function carregar(){
   }
 }
 
-/* =========================
-📌 DOWNLOAD DO CRACHÁ
-========================= */
-async function baixar(){
-
-  const elemento = document.getElementById("cracha");
-
-  if(!elemento){
-    alert("Erro ao gerar crachá");
-    return;
-  }
-
-  try{
-
-    const canvas = await html2canvas(elemento, {
-      scale: 2,
-      useCORS: true
-    });
-
-    const link = document.createElement("a");
-    link.download = "cracha-rf.png";
-    link.href = canvas.toDataURL("image/png");
-    link.click();
-
-  }catch(e){
-    console.error(e);
-    alert("Erro ao baixar crachá");
-  }
-}
-
-/* =========================
-📌 START SEGURO
-========================= */
+/* START */
 document.addEventListener("DOMContentLoaded", carregar);
 
 </script>
