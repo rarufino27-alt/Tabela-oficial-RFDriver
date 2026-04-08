@@ -139,13 +139,24 @@ button{
 
 <canvas id="qrcode"></canvas>
 
+  <div style="text-align:center; margin-top:15px;">
+  <canvas id="qrcode"></canvas>
+</div>
+  
 <script>
 
 function gerarQR(id){
 
   const url = `https://SEU-SITE/motorista.html?id=${id}`;
 
-  QRCode.toCanvas(document.getElementById("qrcode"), url);
+  QRCode.toCanvas(
+    document.getElementById("qrcode"),
+    url,
+    {
+      width:100,
+      margin:1
+    }
+  );
 }
   
 async function carregar(){
@@ -157,13 +168,14 @@ async function carregar(){
     return;
   }
 
-  const { data } = await window.supabaseClient
+  const { data, error } = await window.supabaseClient
     .from("motoristas")
     .select("*")
     .eq("id", id)
     .single();
 
-  if(!data){
+  if(error || !data){
+    console.error(error);
     alert("Erro ao carregar");
     return;
   }
@@ -192,8 +204,10 @@ async function carregar(){
     status.className = "inativo";
   }
 
+  /* 🔥 GERAR QR AQUI (CORRETO) */
+  gerarQR(data.id);
 }
-
+  
 /* DOWNLOAD */
 async function baixar(){
 
@@ -209,7 +223,6 @@ async function baixar(){
 
 /* START */
 carregar();
-gerarQR(data.id);
   
 </script>
 
