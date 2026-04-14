@@ -122,6 +122,47 @@ body{
   margin-bottom:12px;
 }
 
+/* BONUS */
+.cta-bonus{
+  background:linear-gradient(135deg,#22c55e,#16a34a);
+  border-radius:18px;
+  padding:18px;
+  margin-bottom:12px;
+  color:#000;
+  cursor:pointer;
+  transition:0.2s;
+}
+
+.cta-bonus:hover{
+  transform:scale(1.02);
+}
+
+.cta-bonus-title{
+  font-weight:bold;
+  font-size:16px;
+  margin-bottom:4px;
+}
+
+.cta-bonus-desc{
+  font-size:13px;
+}
+
+/* BOTÃO CALCULO */
+.cta-calculo{
+  background:linear-gradient(135deg,#3b82f6,#2563eb);
+  border-radius:18px;
+  padding:18px;
+  text-align:center;
+  font-weight:bold;
+  font-size:16px;
+  cursor:pointer;
+  transition:0.2s;
+}
+
+.cta-calculo:hover{
+  transform:scale(1.03);
+}
+  
 /* LISTA */
 .item-corrida{
   padding:14px;
@@ -167,6 +208,17 @@ body{
   <div class="kpi-card" id="kpiCorridas"></div>
 </div>
 
+  <div class="cta-bonus" onclick="ir('bonus.html')">
+  <div class="cta-bonus-title">💰 Ganhe bônus semanal</div>
+  <div class="cta-bonus-desc">
+    Realize corridas dentro do grupo RF e ganhe até <strong>R$100 por semana</strong>.
+  </div>
+</div>
+
+<div class="cta-calculo" onclick="ir('tabela-de-precos.html')">
+  🚀 Calcule sua viagem aqui
+</div>
+  
 <!-- GRID -->
 <div class="main-grid">
 
