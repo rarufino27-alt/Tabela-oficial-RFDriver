@@ -210,9 +210,16 @@ let corridas = [];
 let chart = null;
 
 async function carregar(){
-  const { data } = await supabase.from("corridas")
+
+  const { data, error } = await window.supabaseClient
+    .from("corridas")
     .select("*")
     .eq("motorista_id", motoristaId);
+
+  if(error){
+    console.error("Erro ao carregar:", error);
+    return;
+  }
 
   corridas = data || [];
   gerar();
