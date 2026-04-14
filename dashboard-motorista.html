@@ -16,19 +16,14 @@
 
 <style>
 
-/* =========================
-SAFE AREA
-========================= */
+/* SAFE AREA */
 html, body{
   margin:0;
   padding:0;
-  padding-top: env(safe-area-inset-top);
   padding-bottom: env(safe-area-inset-bottom);
 }
 
-/* =========================
-BASE
-========================= */
+/* BASE */
 body{
   line-height:1.4;
   letter-spacing:0.3px;
@@ -39,51 +34,41 @@ body{
   padding-bottom: calc(24px + env(safe-area-inset-bottom));
 }
 
-/* =========================
-HEADER
-========================= */
+/* HEADER */
 .top-white{
   display:flex;
   justify-content:space-between;
   align-items:center;
   padding:14px;
-
   margin-top: env(safe-area-inset-top);
-
   background:var(--bg-card);
   border-bottom:1px solid var(--border);
 }
 
-/* =========================
-CARD
-========================= */
+/* CARD */
 .card{
   background:var(--bg-card);
   border:1px solid var(--border);
   border-radius:16px;
   padding:16px;
   margin-bottom:12px;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.25);
+  box-shadow:0 4px 12px rgba(0,0,0,0.25);
 }
 
-/* =========================
-BONUS
-========================= */
+/* BONUS */
 .bonus-card{
-  background: linear-gradient(135deg,#020617,#0f172a);
+  background:linear-gradient(135deg,#020617,#0f172a);
   border:1px solid var(--primary);
   border-radius:18px;
   padding:18px;
   margin-bottom:12px;
 }
 
-.bonus-title{ font-size:13px; opacity:.7; }
-.bonus-value{ font-size:20px; font-weight:800; color:var(--primary); }
-.bonus-sub{ font-size:13px; color:var(--text-secondary); margin-top:4px; }
+.bonus-title{font-size:13px;opacity:.7;}
+.bonus-value{font-size:20px;font-weight:800;color:var(--primary);}
+.bonus-sub{font-size:13px;color:var(--text-secondary);margin-top:4px;}
 
-/* =========================
-KPI
-========================= */
+/* KPI */
 .resumo-box{
   display:flex;
   flex-direction:column;
@@ -114,9 +99,7 @@ KPI
   gap:12px;
 }
 
-/* =========================
-LISTA
-========================= */
+/* LISTA */
 .item-corrida{
   padding:16px;
   border-radius:16px;
@@ -125,22 +108,18 @@ LISTA
   margin-bottom:10px;
 }
 
-.rota{ font-weight:600; }
-.valor{ font-size:18px; font-weight:800; color:var(--primary); }
-.data{ font-size:12px; color:var(--text-secondary); }
+.rota{font-weight:600;}
+.valor{font-size:18px;font-weight:800;color:var(--primary);}
+.data{font-size:12px;color:var(--text-secondary);}
 
-/* =========================
-INPUT
-========================= */
+/* INPUT */
 .select{
   margin-bottom:12px;
   border-radius:10px;
   padding:12px;
 }
 
-/* =========================
-BOTÃO
-========================= */
+/* BOTÃO */
 .btn-perigo{
   margin-top:12px;
   border-radius:12px;
@@ -153,6 +132,7 @@ BOTÃO
 
 <body>
 
+<!-- HEADER -->
 <div class="top-white">
   <div class="logo-area">
     <span id="saudacao">🚖</span>
@@ -170,7 +150,7 @@ BOTÃO
   <div class="bonus-title">🏆 Bônus semanal</div>
   <div class="bonus-value">Ganhe até R$100</div>
   <div class="bonus-sub">
-    Quanto mais corridas você fizer, maiores suas chances.
+    Quanto mais corridas você fizer, maiores suas chances de liderar o ranking.
   </div>
 </div>
 
@@ -206,26 +186,70 @@ const nome = localStorage.getItem("motorista_nome");
 
 document.getElementById("nomeMotorista").innerText = nome || "Motorista";
 
+/* SAUDAÇÃO */
+const hora = new Date().getHours();
+let saudacao = hora < 12 ? "Bom dia" :
+               hora < 18 ? "Boa tarde" : "Boa noite";
+
+document.getElementById("saudacao").innerText =
+`🚖 ${saudacao}, ${nome?.split(" ")[0] || ""}!`;
+
 let corridas = [];
+let corridasGeral = [];
 let chart = null;
 
+/* BONUS */
+async function carregarBonus(){
+
+  const { data } = await window.supabaseClient
+    .from("corridas")
+    .select("motorista_id, data_viagem");
+
+  if(!data) return;
+
+  const ranking = {};
+
+  data.forEach(c=>{
+    ranking[c.motorista_id] = (ranking[c.motorista_id] || 0) + 1;
+  });
+
+  const listaRank = Object.entries(ranking)
+    .map(([id, total]) => ({ id, total }))
+    .sort((a,b)=>b.total - a.total);
+
+  const posicao = listaRank.findIndex(x => x.id == motoristaId) + 1;
+  const minhasCorridas = ranking[motoristaId] || 0;
+
+  bonusCard.innerHTML = `
+    <div class="bonus-title">🏆 Ranking</div>
+    <div class="bonus-value">${posicao || "-"}º lugar</div>
+    <div class="bonus-sub">${minhasCorridas} corridas</div>
+  `;
+}
+
+/* DADOS */
 async function carregar(){
 
-  const { data, error } = await window.supabaseClient
+  const { data: todas } = await window.supabaseClient
+    .from("corridas")
+    .select("*");
+
+  corridasGeral = todas || [];
+
+  const { data } = await window.supabaseClient
     .from("corridas")
     .select("*")
     .eq("motorista_id", motoristaId);
 
-  if(error){
-    console.error("Erro ao carregar:", error);
-    return;
-  }
-
   corridas = data || [];
+
   gerar();
+  gerarGrafico();
 }
 
+/* GERAR */
 function gerar(){
+
   let total = 0;
 
   corridas.forEach(c=>{
@@ -246,13 +270,45 @@ function gerar(){
       <div class="item-corrida">
         <div class="rota">${c.origem} → ${c.destino}</div>
         <div class="valor">R$ ${Number(c.valor).toFixed(2)}</div>
-        <div class="data">${c.data_viagem || "-"}</div>
+        <div class="data">${c.data_viagem || "-"} • ${c.hora_viagem || "-"}</div>
       </div>
     `;
   });
 }
 
+/* GRÁFICO */
+function gerarGrafico(){
+
+  let finalizadas = corridas.length;
+
+  if(chart) chart.destroy();
+
+  chart = new Chart(document.getElementById("grafico"), {
+    type: "doughnut",
+    data: {
+      labels: ["Corridas"],
+      datasets: [{
+        data: [finalizadas],
+        backgroundColor: ["#22c55e"]
+      }]
+    },
+    options:{
+      plugins:{
+        legend:{labels:{color:"#fff"}}
+      }
+    }
+  });
+}
+
+/* AÇÕES */
+function logout(){
+  localStorage.clear();
+  window.location.href = "login-motorista.html";
+}
+
+/* START */
 carregar();
+carregarBonus();
 
 </script>
 
