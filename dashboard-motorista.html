@@ -3,7 +3,7 @@
 <head>
 
 <meta charset="UTF-8">
-<title>Dashboard Motorista RF</title>
+<title>RF Dashboard</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js"></script>
@@ -11,51 +11,119 @@
 <script src="core/supabase.js"></script>
 
 <link rel="stylesheet" href="theme/theme.css">
-<link rel="stylesheet" href="theme/layout.css">
-<link rel="stylesheet" href="theme/components.css">
 
 <style>
 
 /* SAFE AREA */
-html, body{
+html,body{
   margin:0;
   padding:0;
   padding-bottom: env(safe-area-inset-bottom);
-}
-
-/* BASE */
-body{
-  line-height:1.4;
-  letter-spacing:0.3px;
+  font-family:system-ui;
 }
 
 /* HEADER */
-.top-white{
+.header{
+  background:#020617;
+  padding:16px;
+  margin-top:env(safe-area-inset-top);
   display:flex;
   justify-content:space-between;
   align-items:center;
+  border-bottom:1px solid #334155;
+}
+
+.header span{
+  font-weight:600;
+}
+
+/* CONTAINER */
+.container{
+  padding:16px;
+}
+
+/* RESUMO (tipo saldo) */
+.resumo{
+  background:linear-gradient(135deg,#22c55e,#16a34a);
+  color:#000;
+  padding:18px;
+  border-radius:16px;
+  margin-bottom:16px;
+}
+
+.resumo small{opacity:.7}
+.resumo h1{margin:5px 0}
+
+/* AÇÕES RÁPIDAS */
+.grid{
+  display:grid;
+  grid-template-columns:repeat(2,1fr);
+  gap:10px;
+  margin-bottom:16px;
+}
+
+.card-btn{
+  background:#020617;
+  border:1px solid #334155;
+  padding:16px;
+  border-radius:14px;
+  text-align:center;
+  cursor:pointer;
+}
+
+/* BONUS */
+.bonus{
+  background:#020617;
+  border:1px solid #3b82f6;
+  padding:16px;
+  border-radius:16px;
+  margin-bottom:16px;
+}
+
+/* GRÁFICO */
+.card{
+  background:#020617;
+  border:1px solid #334155;
+  border-radius:16px;
+  padding:16px;
+  margin-bottom:16px;
+}
+
+/* LISTA */
+.item{
+  background:#020617;
+  border:1px solid #334155;
   padding:14px;
-  margin-top: env(safe-area-inset-top);
-  background:var(--bg-card);
-  border-bottom:1px solid var(--border);
+  border-radius:14px;
+  margin-bottom:10px;
+}
+
+.valor{
+  color:#22c55e;
+  font-weight:bold;
+}
+
+.data{
+  font-size:12px;
+  opacity:.6;
 }
 
 /* MENU */
 .menu{
   position:fixed;
-  top:0;
   left:-260px;
+  top:0;
   width:260px;
   height:100%;
   background:#020617;
   transition:.3s;
-  z-index:999;
   padding:20px;
+  z-index:999;
 }
 
-.menu.ativo{ left:0; }
+.menu.ativo{left:0;}
 
-.menu-overlay{
+.overlay{
   position:fixed;
   width:100%;
   height:100%;
@@ -64,88 +132,20 @@ body{
   z-index:998;
 }
 
-.menu-item{
+.menu div{
   padding:12px;
   border-bottom:1px solid #334155;
 }
 
-/* CONTAINER */
-.app-container{
-  padding:16px;
-  padding-bottom: calc(24px + env(safe-area-inset-bottom));
-}
-
-/* CARD */
-.card{
-  background:var(--bg-card);
-  border:1px solid var(--border);
-  border-radius:16px;
-  padding:16px;
-  margin-bottom:12px;
-}
-
-/* BONUS */
-.bonus-card{
-  background:linear-gradient(135deg,#020617,#0f172a);
-  border:1px solid var(--primary);
-  border-radius:18px;
-  padding:18px;
-  margin-bottom:12px;
-}
-
-.bonus-title{font-size:13px;opacity:.7;}
-.bonus-value{font-size:20px;font-weight:800;color:var(--primary);}
-.bonus-sub{font-size:13px;color:var(--text-secondary);}
-
-/* KPI */
-.kpi{
-  padding:16px;
-  border-radius:16px;
-  background:var(--bg-card);
-  border:1px solid var(--border);
-}
-
-.kpi.ganho{
-  background:linear-gradient(135deg,#22c55e,#16a34a);
-  color:#000;
-}
-
-.kpi-value{
-  font-size:24px;
-  font-weight:800;
-}
-
-.kpi-grid{
-  display:grid;
-  grid-template-columns:1fr 1fr;
-  gap:12px;
-}
-
-/* LISTA */
-.item-corrida{
-  padding:16px;
-  border-radius:16px;
-  background:var(--bg-card);
-  border:1px solid var(--border);
-  margin-bottom:10px;
-}
-
-.rota{font-weight:600;}
-.valor{font-size:18px;font-weight:800;color:var(--primary);}
-.data{font-size:12px;color:var(--text-secondary);}
-
-/* INPUT */
-.select{
-  margin-bottom:12px;
-  padding:12px;
-  border-radius:10px;
-}
-
 /* BOTÃO */
-.btn-perigo{
-  margin-top:12px;
+.btn{
+  width:100%;
   padding:14px;
+  border:none;
   border-radius:12px;
+  background:#ef4444;
+  color:#fff;
+  margin-top:10px;
 }
 
 </style>
@@ -154,257 +154,140 @@ body{
 
 <body>
 
-<!-- MENU -->
-<div class="menu-overlay" id="menuOverlay" onclick="fecharMenu()"></div>
+<div class="overlay" id="overlay" onclick="fecharMenu()"></div>
 
 <div class="menu" id="menu">
   <h3>RF</h3>
-  <div class="menu-item" onclick="ir('perfil.html')">👤 Perfil</div>
-  <div class="menu-item" onclick="ir('cracha.html')">🪪 Crachá</div>
-  <div class="menu-item" onclick="ir('tabela-de-precos.html')">📍 Tabela</div>
-  <div class="menu-item" onclick="ir('bonus.html')">💰 Bônus</div>
-  <div class="menu-item" onclick="ir('configuracoes.html')">⚙️ Config</div>
+  <div onclick="ir('perfil.html')">Perfil</div>
+  <div onclick="ir('cracha.html')">Crachá</div>
+  <div onclick="ir('tabela-de-precos.html')">Tabela</div>
 </div>
 
-<!-- HEADER -->
-<div class="top-white">
+<div class="header">
   <span id="saudacao">🚖</span>
   <div onclick="abrirMenu()">☰</div>
 </div>
 
-<div class="app-container">
+<div class="container">
 
-<div class="card">
-  <strong id="nomeMotorista"></strong>
+<!-- RESUMO -->
+<div class="resumo">
+  <small>Ganhos totais</small>
+  <h1 id="total">R$ 0,00</h1>
 </div>
 
-<div class="bonus-card" id="bonusCard"></div>
+<!-- AÇÕES -->
+<div class="grid">
+  <div class="card-btn" onclick="ir('cadastro.html')">
+    👤 Cadastrar Motorista
+  </div>
+  <div class="card-btn" onclick="ir('cadastrar-corrida.html')">
+    🚖 Nova Corrida
+  </div>
+</div>
 
-<select id="filtro" class="select">
-  <option value="geral">Geral</option>
-  <option value="semana">Semana</option>
-  <option value="mes">Mês</option>
-</select>
+<!-- BONUS -->
+<div class="bonus" id="bonus"></div>
 
-<div id="resumo"></div>
-
+<!-- GRÁFICO -->
 <div class="card">
   <canvas id="grafico"></canvas>
 </div>
 
+<!-- LISTA -->
 <div id="lista"></div>
 
-<button class="btn-perigo" onclick="logout()">Sair</button>
+<button class="btn" onclick="logout()">Sair</button>
 
 </div>
 
 <script>
 
-/* MENU */
 function abrirMenu(){
-  document.getElementById("menu").classList.add("ativo");
-  document.getElementById("menuOverlay").style.display="block";
+  menu.classList.add("ativo");
+  overlay.style.display="block";
 }
 
 function fecharMenu(){
-  document.getElementById("menu").classList.remove("ativo");
-  document.getElementById("menuOverlay").style.display="none";
+  menu.classList.remove("ativo");
+  overlay.style.display="none";
 }
 
 function ir(p){ window.location.href = p; }
 
-/* LOGIN */
-if(!localStorage.getItem("motorista_id")){
-  window.location.href="login-motorista.html";
-}
-
-const motoristaId = localStorage.getItem("motorista_id");
+const id = localStorage.getItem("motorista_id");
 const nome = localStorage.getItem("motorista_nome");
 
-/* SAUDAÇÃO */
-const hora = new Date().getHours();
-const saudacao = hora < 12 ? "Bom dia" :
-                 hora < 18 ? "Boa tarde" : "Boa noite";
-
 document.getElementById("saudacao").innerText =
-`🚖 ${saudacao}, ${nome?.split(" ")[0] || ""}!`;
+"🚖 Olá, " + (nome?.split(" ")[0] || "");
 
-document.getElementById("nomeMotorista").innerText = nome || "";
+let corridas=[];
+let chart;
 
-/* DADOS */
-let corridas = [];
-let corridasGeral = [];
-let chart = null;
-
-/* BONUS */
-async function carregarBonus(){
-
-  const { data } = await window.supabaseClient
-    .from("corridas")
-    .select("motorista_id");
-
-  if(!data) return;
-
-  const ranking = {};
-
-  data.forEach(c=>{
-    ranking[c.motorista_id] = (ranking[c.motorista_id] || 0) + 1;
-  });
-
-  const lista = Object.entries(ranking)
-    .map(([id,total])=>({id,total}))
-    .sort((a,b)=>b.total-a.total);
-
-  const posicao = lista.findIndex(x=>x.id==motoristaId)+1;
-  const minhas = ranking[motoristaId] || 0;
-
-  document.getElementById("bonusCard").innerHTML = `
-    <div class="bonus-title">🏆 Ranking</div>
-    <div class="bonus-value">${posicao || "-"}º lugar</div>
-    <div class="bonus-sub">${minhas} corridas</div>
-  `;
-}
-
-/* CARREGAR */
 async function carregar(){
-
-  const { data: todas } = await window.supabaseClient
-    .from("corridas")
-    .select("*");
-
-  corridasGeral = todas || [];
 
   const { data } = await window.supabaseClient
     .from("corridas")
     .select("*")
-    .eq("motorista_id", motoristaId)
-    .order("data_viagem",{ascending:false});
+    .eq("motorista_id", id);
 
   corridas = data || [];
 
   gerar();
-  gerarGrafico();
+  grafico();
 }
 
-/* FILTRO */
-function filtrar(){
-  const tipo = filtro.value;
-  const hoje = new Date();
-
-  if(tipo==="geral") return corridas;
-
-  if(tipo==="semana"){
-    const inicio = new Date();
-    inicio.setDate(hoje.getDate()-hoje.getDay()+1);
-    const fim = new Date(inicio);
-    fim.setDate(inicio.getDate()+6);
-
-    return corridas.filter(c=>{
-      const d=new Date(c.data_viagem);
-      return d>=inicio && d<=fim;
-    });
-  }
-
-  if(tipo==="mes"){
-    const mesAtual = hoje.toISOString().slice(0,7);
-    return corridas.filter(c=>c.data_viagem?.startsWith(mesAtual));
-  }
-
-  return corridas;
-}
-
-/* GERAR */
 function gerar(){
 
-  const listaFiltrada = filtrar();
+  let total=0;
 
-  let total=0, finalizadas=0, canceladas=0;
-
-  listaFiltrada.forEach(c=>{
-    const status=(c.status||"").toLowerCase();
-    if(status==="finalizada"){ total+=Number(c.valor||0); finalizadas++; }
-    else if(status==="cancelada"){ canceladas++; }
+  corridas.forEach(c=>{
+    total+=Number(c.valor||0);
   });
 
-  const naoAtendidas = corridasGeral.filter(c =>
-    c.motorista_id !== motoristaId
-  ).length;
-
-  const media = listaFiltrada.length ? total / listaFiltrada.length : 0;
-
-  resumo.innerHTML = `
-    <div class="kpi ganho">
-      <div>Ganhos</div>
-      <div class="kpi-value">R$ ${total.toFixed(2)}</div>
-    </div>
-
-    <div class="kpi-grid">
-      <div class="kpi"><span>Corridas</span><strong>${listaFiltrada.length}</strong></div>
-      <div class="kpi"><span>Média</span><strong>R$ ${media.toFixed(2)}</strong></div>
-      <div class="kpi"><span>Finalizadas</span><strong>${finalizadas}</strong></div>
-      <div class="kpi"><span>Canceladas</span><strong>${canceladas}</strong></div>
-    </div>
-  `;
+  document.getElementById("total").innerText =
+    "R$ " + total.toFixed(2);
 
   lista.innerHTML="";
 
-  listaFiltrada.forEach(c=>{
+  corridas.forEach(c=>{
     lista.innerHTML+=`
-      <div class="item-corrida">
-        <div class="rota">${c.origem} → ${c.destino}</div>
-        <div class="valor">R$ ${Number(c.valor).toFixed(2)}</div>
-        <div class="data">${c.data_viagem} • ${c.hora_viagem || ""}</div>
+      <div class="item">
+        ${c.origem} → ${c.destino}
+        <div class="valor">R$ ${c.valor}</div>
+        <div class="data">${c.data_viagem}</div>
       </div>
     `;
   });
+
+  document.getElementById("bonus").innerHTML =
+    `🏆 Você possui ${corridas.length} corridas`;
 }
 
-/* GRÁFICO */
-function gerarGrafico(){
+function grafico(){
 
-  let finalizadas=0, canceladas=0;
-
-  corridas.forEach(c=>{
-    const s=(c.status||"").toLowerCase();
-    if(s==="finalizada") finalizadas++;
-    else if(s==="cancelada") canceladas++;
-  });
-
-  const naoAtendidas = corridasGeral.filter(c =>
-    c.motorista_id !== motoristaId
-  ).length;
+  let finalizadas = corridas.length;
 
   if(chart) chart.destroy();
 
-  chart = new Chart(document.getElementById("grafico"), {
+  chart = new Chart(grafico,{
     type:"doughnut",
     data:{
-      labels:["Finalizadas","Canceladas","Não atendidas"],
+      labels:["Corridas"],
       datasets:[{
-        data:[finalizadas,canceladas,naoAtendidas],
-        backgroundColor:["#22c55e","#ef4444","#9ca3af"]
+        data:[finalizadas],
+        backgroundColor:["#22c55e"]
       }]
-    },
-    options:{
-      plugins:{
-        legend:{labels:{color:"#fff"}}
-      }
     }
   });
 }
 
-/* EVENTOS */
-filtro.onchange = gerar;
-
-/* LOGOUT */
 function logout(){
   localStorage.clear();
   window.location.href="login-motorista.html";
 }
 
-/* START */
 carregar();
-carregarBonus();
 
 </script>
 
