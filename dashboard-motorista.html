@@ -29,11 +29,6 @@ body{
   letter-spacing:0.3px;
 }
 
-.app-container{
-  padding:16px;
-  padding-bottom: calc(24px + env(safe-area-inset-bottom));
-}
-
 /* HEADER */
 .top-white{
   display:flex;
@@ -58,14 +53,10 @@ body{
   padding:20px;
 }
 
-.menu.ativo{
-  left:0;
-}
+.menu.ativo{ left:0; }
 
 .menu-overlay{
   position:fixed;
-  top:0;
-  left:0;
   width:100%;
   height:100%;
   background:rgba(0,0,0,.5);
@@ -76,7 +67,12 @@ body{
 .menu-item{
   padding:12px;
   border-bottom:1px solid #334155;
-  cursor:pointer;
+}
+
+/* CONTAINER */
+.app-container{
+  padding:16px;
+  padding-bottom: calc(24px + env(safe-area-inset-bottom));
 }
 
 /* CARD */
@@ -134,6 +130,7 @@ body{
   margin-bottom:10px;
 }
 
+.rota{font-weight:600;}
 .valor{font-size:18px;font-weight:800;color:var(--primary);}
 .data{font-size:12px;color:var(--text-secondary);}
 
@@ -141,6 +138,7 @@ body{
 .select{
   margin-bottom:12px;
   padding:12px;
+  border-radius:10px;
 }
 
 /* BOTÃO */
@@ -156,16 +154,19 @@ body{
 
 <body>
 
+<!-- MENU -->
 <div class="menu-overlay" id="menuOverlay" onclick="fecharMenu()"></div>
 
 <div class="menu" id="menu">
   <h3>RF</h3>
-  <div class="menu-item" onclick="ir('perfil.html')">Perfil</div>
-  <div class="menu-item" onclick="ir('cracha.html')">Crachá</div>
-  <div class="menu-item" onclick="ir('tabela-de-precos.html')">Tabela</div>
-  <div class="menu-item" onclick="ir('bonus.html')">Bônus</div>
+  <div class="menu-item" onclick="ir('perfil.html')">👤 Perfil</div>
+  <div class="menu-item" onclick="ir('cracha.html')">🪪 Crachá</div>
+  <div class="menu-item" onclick="ir('tabela-de-precos.html')">📍 Tabela</div>
+  <div class="menu-item" onclick="ir('bonus.html')">💰 Bônus</div>
+  <div class="menu-item" onclick="ir('configuracoes.html')">⚙️ Config</div>
 </div>
 
+<!-- HEADER -->
 <div class="top-white">
   <span id="saudacao">🚖</span>
   <div onclick="abrirMenu()">☰</div>
@@ -173,20 +174,22 @@ body{
 
 <div class="app-container">
 
-<div class="card"><strong id="nomeMotorista"></strong></div>
+<div class="card">
+  <strong id="nomeMotorista"></strong>
+</div>
 
 <div class="bonus-card" id="bonusCard"></div>
 
 <select id="filtro" class="select">
-<option value="geral">Geral</option>
-<option value="semana">Semana</option>
-<option value="mes">Mês</option>
+  <option value="geral">Geral</option>
+  <option value="semana">Semana</option>
+  <option value="mes">Mês</option>
 </select>
 
 <div id="resumo"></div>
 
 <div class="card">
-<canvas id="grafico"></canvas>
+  <canvas id="grafico"></canvas>
 </div>
 
 <div id="lista"></div>
@@ -197,32 +200,85 @@ body{
 
 <script>
 
+/* MENU */
 function abrirMenu(){
-  menu.classList.add("ativo");
-  menuOverlay.style.display="block";
+  document.getElementById("menu").classList.add("ativo");
+  document.getElementById("menuOverlay").style.display="block";
 }
 
 function fecharMenu(){
-  menu.classList.remove("ativo");
-  menuOverlay.style.display="none";
+  document.getElementById("menu").classList.remove("ativo");
+  document.getElementById("menuOverlay").style.display="none";
 }
 
 function ir(p){ window.location.href = p; }
 
+/* LOGIN */
+if(!localStorage.getItem("motorista_id")){
+  window.location.href="login-motorista.html";
+}
+
 const motoristaId = localStorage.getItem("motorista_id");
 const nome = localStorage.getItem("motorista_nome");
 
-nomeMotorista.innerText = nome || "";
+/* SAUDAÇÃO */
+const hora = new Date().getHours();
+const saudacao = hora < 12 ? "Bom dia" :
+                 hora < 18 ? "Boa tarde" : "Boa noite";
 
+document.getElementById("saudacao").innerText =
+`🚖 ${saudacao}, ${nome?.split(" ")[0] || ""}!`;
+
+document.getElementById("nomeMotorista").innerText = nome || "";
+
+/* DADOS */
 let corridas = [];
-let chart;
+let corridasGeral = [];
+let chart = null;
 
+/* BONUS */
+async function carregarBonus(){
+
+  const { data } = await window.supabaseClient
+    .from("corridas")
+    .select("motorista_id");
+
+  if(!data) return;
+
+  const ranking = {};
+
+  data.forEach(c=>{
+    ranking[c.motorista_id] = (ranking[c.motorista_id] || 0) + 1;
+  });
+
+  const lista = Object.entries(ranking)
+    .map(([id,total])=>({id,total}))
+    .sort((a,b)=>b.total-a.total);
+
+  const posicao = lista.findIndex(x=>x.id==motoristaId)+1;
+  const minhas = ranking[motoristaId] || 0;
+
+  document.getElementById("bonusCard").innerHTML = `
+    <div class="bonus-title">🏆 Ranking</div>
+    <div class="bonus-value">${posicao || "-"}º lugar</div>
+    <div class="bonus-sub">${minhas} corridas</div>
+  `;
+}
+
+/* CARREGAR */
 async function carregar(){
+
+  const { data: todas } = await window.supabaseClient
+    .from("corridas")
+    .select("*");
+
+  corridasGeral = todas || [];
 
   const { data } = await window.supabaseClient
     .from("corridas")
     .select("*")
-    .eq("motorista_id", motoristaId);
+    .eq("motorista_id", motoristaId)
+    .order("data_viagem",{ascending:false});
 
   corridas = data || [];
 
@@ -230,56 +286,125 @@ async function carregar(){
   gerarGrafico();
 }
 
+/* FILTRO */
+function filtrar(){
+  const tipo = filtro.value;
+  const hoje = new Date();
+
+  if(tipo==="geral") return corridas;
+
+  if(tipo==="semana"){
+    const inicio = new Date();
+    inicio.setDate(hoje.getDate()-hoje.getDay()+1);
+    const fim = new Date(inicio);
+    fim.setDate(inicio.getDate()+6);
+
+    return corridas.filter(c=>{
+      const d=new Date(c.data_viagem);
+      return d>=inicio && d<=fim;
+    });
+  }
+
+  if(tipo==="mes"){
+    const mesAtual = hoje.toISOString().slice(0,7);
+    return corridas.filter(c=>c.data_viagem?.startsWith(mesAtual));
+  }
+
+  return corridas;
+}
+
+/* GERAR */
 function gerar(){
 
-  let total = 0;
+  const listaFiltrada = filtrar();
 
-  corridas.forEach(c=> total += Number(c.valor||0));
+  let total=0, finalizadas=0, canceladas=0;
+
+  listaFiltrada.forEach(c=>{
+    const status=(c.status||"").toLowerCase();
+    if(status==="finalizada"){ total+=Number(c.valor||0); finalizadas++; }
+    else if(status==="cancelada"){ canceladas++; }
+  });
+
+  const naoAtendidas = corridasGeral.filter(c =>
+    c.motorista_id !== motoristaId
+  ).length;
+
+  const media = listaFiltrada.length ? total / listaFiltrada.length : 0;
 
   resumo.innerHTML = `
     <div class="kpi ganho">
       <div>Ganhos</div>
       <div class="kpi-value">R$ ${total.toFixed(2)}</div>
     </div>
+
+    <div class="kpi-grid">
+      <div class="kpi"><span>Corridas</span><strong>${listaFiltrada.length}</strong></div>
+      <div class="kpi"><span>Média</span><strong>R$ ${media.toFixed(2)}</strong></div>
+      <div class="kpi"><span>Finalizadas</span><strong>${finalizadas}</strong></div>
+      <div class="kpi"><span>Canceladas</span><strong>${canceladas}</strong></div>
+    </div>
   `;
 
   lista.innerHTML="";
 
-  corridas.forEach(c=>{
-    lista.innerHTML += `
+  listaFiltrada.forEach(c=>{
+    lista.innerHTML+=`
       <div class="item-corrida">
-        <div>${c.origem} → ${c.destino}</div>
-        <div class="valor">R$ ${c.valor}</div>
-        <div class="data">${c.data_viagem}</div>
+        <div class="rota">${c.origem} → ${c.destino}</div>
+        <div class="valor">R$ ${Number(c.valor).toFixed(2)}</div>
+        <div class="data">${c.data_viagem} • ${c.hora_viagem || ""}</div>
       </div>
     `;
   });
 }
 
+/* GRÁFICO */
 function gerarGrafico(){
 
-  let total = corridas.length;
+  let finalizadas=0, canceladas=0;
+
+  corridas.forEach(c=>{
+    const s=(c.status||"").toLowerCase();
+    if(s==="finalizada") finalizadas++;
+    else if(s==="cancelada") canceladas++;
+  });
+
+  const naoAtendidas = corridasGeral.filter(c =>
+    c.motorista_id !== motoristaId
+  ).length;
 
   if(chart) chart.destroy();
 
-  chart = new Chart(grafico,{
+  chart = new Chart(document.getElementById("grafico"), {
     type:"doughnut",
     data:{
-      labels:["Corridas"],
+      labels:["Finalizadas","Canceladas","Não atendidas"],
       datasets:[{
-        data:[total],
-        backgroundColor:["#22c55e"]
+        data:[finalizadas,canceladas,naoAtendidas],
+        backgroundColor:["#22c55e","#ef4444","#9ca3af"]
       }]
+    },
+    options:{
+      plugins:{
+        legend:{labels:{color:"#fff"}}
+      }
     }
   });
 }
 
+/* EVENTOS */
+filtro.onchange = gerar;
+
+/* LOGOUT */
 function logout(){
   localStorage.clear();
   window.location.href="login-motorista.html";
 }
 
+/* START */
 carregar();
+carregarBonus();
 
 </script>
 
