@@ -45,6 +45,40 @@ body{
   border-bottom:1px solid var(--border);
 }
 
+/* MENU */
+.menu{
+  position:fixed;
+  top:0;
+  left:-260px;
+  width:260px;
+  height:100%;
+  background:#020617;
+  transition:.3s;
+  z-index:999;
+  padding:20px;
+}
+
+.menu.ativo{
+  left:0;
+}
+
+.menu-overlay{
+  position:fixed;
+  top:0;
+  left:0;
+  width:100%;
+  height:100%;
+  background:rgba(0,0,0,.5);
+  display:none;
+  z-index:998;
+}
+
+.menu-item{
+  padding:12px;
+  border-bottom:1px solid #334155;
+  cursor:pointer;
+}
+
 /* CARD */
 .card{
   background:var(--bg-card);
@@ -52,7 +86,6 @@ body{
   border-radius:16px;
   padding:16px;
   margin-bottom:12px;
-  box-shadow:0 4px 12px rgba(0,0,0,0.25);
 }
 
 /* BONUS */
@@ -66,16 +99,9 @@ body{
 
 .bonus-title{font-size:13px;opacity:.7;}
 .bonus-value{font-size:20px;font-weight:800;color:var(--primary);}
-.bonus-sub{font-size:13px;color:var(--text-secondary);margin-top:4px;}
+.bonus-sub{font-size:13px;color:var(--text-secondary);}
 
 /* KPI */
-.resumo-box{
-  display:flex;
-  flex-direction:column;
-  gap:12px;
-  margin-bottom:12px;
-}
-
 .kpi{
   padding:16px;
   border-radius:16px;
@@ -108,22 +134,20 @@ body{
   margin-bottom:10px;
 }
 
-.rota{font-weight:600;}
 .valor{font-size:18px;font-weight:800;color:var(--primary);}
 .data{font-size:12px;color:var(--text-secondary);}
 
 /* INPUT */
 .select{
   margin-bottom:12px;
-  border-radius:10px;
   padding:12px;
 }
 
 /* BOTÃO */
 .btn-perigo{
   margin-top:12px;
-  border-radius:12px;
   padding:14px;
+  border-radius:12px;
 }
 
 </style>
@@ -132,40 +156,37 @@ body{
 
 <body>
 
-<!-- HEADER -->
+<div class="menu-overlay" id="menuOverlay" onclick="fecharMenu()"></div>
+
+<div class="menu" id="menu">
+  <h3>RF</h3>
+  <div class="menu-item" onclick="ir('perfil.html')">Perfil</div>
+  <div class="menu-item" onclick="ir('cracha.html')">Crachá</div>
+  <div class="menu-item" onclick="ir('tabela-de-precos.html')">Tabela</div>
+  <div class="menu-item" onclick="ir('bonus.html')">Bônus</div>
+</div>
+
 <div class="top-white">
-  <div class="logo-area">
-    <span id="saudacao">🚖</span>
-  </div>
+  <span id="saudacao">🚖</span>
   <div onclick="abrirMenu()">☰</div>
 </div>
 
 <div class="app-container">
 
-<div class="card">
-  <strong id="nomeMotorista"></strong>
-</div>
-
-<div class="bonus-card">
-  <div class="bonus-title">🏆 Bônus semanal</div>
-  <div class="bonus-value">Ganhe até R$100</div>
-  <div class="bonus-sub">
-    Quanto mais corridas você fizer, maiores suas chances de liderar o ranking.
-  </div>
-</div>
+<div class="card"><strong id="nomeMotorista"></strong></div>
 
 <div class="bonus-card" id="bonusCard"></div>
 
 <select id="filtro" class="select">
-  <option value="geral">Geral</option>
-  <option value="semana">Semana</option>
-  <option value="mes">Mês</option>
+<option value="geral">Geral</option>
+<option value="semana">Semana</option>
+<option value="mes">Mês</option>
 </select>
 
 <div id="resumo"></div>
 
 <div class="card">
-  <canvas id="grafico"></canvas>
+<canvas id="grafico"></canvas>
 </div>
 
 <div id="lista"></div>
@@ -176,65 +197,27 @@ body{
 
 <script>
 
-/* LOGIN */
-if(!localStorage.getItem("motorista_id")){
-  window.location.href = "login-motorista.html";
+function abrirMenu(){
+  menu.classList.add("ativo");
+  menuOverlay.style.display="block";
 }
+
+function fecharMenu(){
+  menu.classList.remove("ativo");
+  menuOverlay.style.display="none";
+}
+
+function ir(p){ window.location.href = p; }
 
 const motoristaId = localStorage.getItem("motorista_id");
 const nome = localStorage.getItem("motorista_nome");
 
-document.getElementById("nomeMotorista").innerText = nome || "Motorista";
-
-/* SAUDAÇÃO */
-const hora = new Date().getHours();
-let saudacao = hora < 12 ? "Bom dia" :
-               hora < 18 ? "Boa tarde" : "Boa noite";
-
-document.getElementById("saudacao").innerText =
-`🚖 ${saudacao}, ${nome?.split(" ")[0] || ""}!`;
+nomeMotorista.innerText = nome || "";
 
 let corridas = [];
-let corridasGeral = [];
-let chart = null;
+let chart;
 
-/* BONUS */
-async function carregarBonus(){
-
-  const { data } = await window.supabaseClient
-    .from("corridas")
-    .select("motorista_id, data_viagem");
-
-  if(!data) return;
-
-  const ranking = {};
-
-  data.forEach(c=>{
-    ranking[c.motorista_id] = (ranking[c.motorista_id] || 0) + 1;
-  });
-
-  const listaRank = Object.entries(ranking)
-    .map(([id, total]) => ({ id, total }))
-    .sort((a,b)=>b.total - a.total);
-
-  const posicao = listaRank.findIndex(x => x.id == motoristaId) + 1;
-  const minhasCorridas = ranking[motoristaId] || 0;
-
-  bonusCard.innerHTML = `
-    <div class="bonus-title">🏆 Ranking</div>
-    <div class="bonus-value">${posicao || "-"}º lugar</div>
-    <div class="bonus-sub">${minhasCorridas} corridas</div>
-  `;
-}
-
-/* DADOS */
 async function carregar(){
-
-  const { data: todas } = await window.supabaseClient
-    .from("corridas")
-    .select("*");
-
-  corridasGeral = todas || [];
 
   const { data } = await window.supabaseClient
     .from("corridas")
@@ -247,14 +230,11 @@ async function carregar(){
   gerarGrafico();
 }
 
-/* GERAR */
 function gerar(){
 
   let total = 0;
 
-  corridas.forEach(c=>{
-    total += Number(c.valor || 0);
-  });
+  corridas.forEach(c=> total += Number(c.valor||0));
 
   resumo.innerHTML = `
     <div class="kpi ganho">
@@ -263,52 +243,43 @@ function gerar(){
     </div>
   `;
 
-  lista.innerHTML = "";
+  lista.innerHTML="";
 
   corridas.forEach(c=>{
     lista.innerHTML += `
       <div class="item-corrida">
-        <div class="rota">${c.origem} → ${c.destino}</div>
-        <div class="valor">R$ ${Number(c.valor).toFixed(2)}</div>
-        <div class="data">${c.data_viagem || "-"} • ${c.hora_viagem || "-"}</div>
+        <div>${c.origem} → ${c.destino}</div>
+        <div class="valor">R$ ${c.valor}</div>
+        <div class="data">${c.data_viagem}</div>
       </div>
     `;
   });
 }
 
-/* GRÁFICO */
 function gerarGrafico(){
 
-  let finalizadas = corridas.length;
+  let total = corridas.length;
 
   if(chart) chart.destroy();
 
-  chart = new Chart(document.getElementById("grafico"), {
-    type: "doughnut",
-    data: {
-      labels: ["Corridas"],
-      datasets: [{
-        data: [finalizadas],
-        backgroundColor: ["#22c55e"]
+  chart = new Chart(grafico,{
+    type:"doughnut",
+    data:{
+      labels:["Corridas"],
+      datasets:[{
+        data:[total],
+        backgroundColor:["#22c55e"]
       }]
-    },
-    options:{
-      plugins:{
-        legend:{labels:{color:"#fff"}}
-      }
     }
   });
 }
 
-/* AÇÕES */
 function logout(){
   localStorage.clear();
-  window.location.href = "login-motorista.html";
+  window.location.href="login-motorista.html";
 }
 
-/* START */
 carregar();
-carregarBonus();
 
 </script>
 
