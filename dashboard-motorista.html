@@ -14,12 +14,14 @@
 
 <style>
 
-/* BASE */
+/* SAFE AREA */
 body{
   margin:0;
   font-family:system-ui;
   background:#020617;
   color:#fff;
+  padding-top: env(safe-area-inset-top);
+  padding-bottom: env(safe-area-inset-bottom);
 }
 
 /* HEADER */
@@ -28,6 +30,7 @@ body{
   justify-content:space-between;
   align-items:center;
   padding:16px;
+  margin-top:10px;
   background:#020617;
   border-bottom:1px solid #1e293b;
 }
@@ -35,6 +38,39 @@ body{
 /* CONTAINER */
 .container{
   padding:16px;
+  padding-bottom: calc(90px + env(safe-area-inset-bottom));
+}
+
+/* MENU */
+.menu{
+  position:fixed;
+  top:0;
+  left:-260px;
+  width:260px;
+  height:100%;
+  background:#020617;
+  border-right:1px solid #1e293b;
+  transition:.3s;
+  z-index:999;
+  padding:16px;
+}
+
+.menu.ativo{
+  left:0;
+}
+
+.menu-item{
+  padding:14px;
+  border-bottom:1px solid #1e293b;
+  cursor:pointer;
+}
+
+.menu-overlay{
+  position:fixed;
+  inset:0;
+  background:rgba(0,0,0,.6);
+  display:none;
+  z-index:998;
 }
 
 /* KPI */
@@ -52,16 +88,7 @@ body{
   border-radius:16px;
 }
 
-.kpi-card span{
-  font-size:12px;
-  opacity:.6;
-}
-
-.kpi-card h2{
-  margin:4px 0 0;
-}
-
-/* GRID PRINCIPAL */
+/* GRID */
 .main-grid{
   display:grid;
   grid-template-columns:2fr 1fr;
@@ -81,12 +108,6 @@ body{
   border-radius:16px;
   padding:16px;
   margin-bottom:12px;
-}
-
-.card-title{
-  font-size:14px;
-  margin-bottom:10px;
-  opacity:.7;
 }
 
 /* RANKING */
@@ -111,7 +132,6 @@ body{
   padding:14px;
   border-radius:14px;
   text-align:center;
-  cursor:pointer;
 }
 
 /* LISTA */
@@ -121,23 +141,10 @@ body{
   background:#020617;
   border:1px solid #1e293b;
   margin-bottom:8px;
-  transition:0.2s;
 }
 
-.item-corrida:hover{
-  transform:scale(1.02);
-  border-color:#22c55e;
-}
-
-.valor{
-  color:#22c55e;
-  font-weight:bold;
-}
-
-.data{
-  font-size:12px;
-  opacity:.6;
-}
+.valor{color:#22c55e;font-weight:bold;}
+.data{font-size:12px;opacity:.6;}
 
 </style>
 
@@ -145,9 +152,23 @@ body{
 
 <body>
 
+<!-- MENU -->
+<div class="menu-overlay" id="menuOverlay" onclick="fecharMenu()"></div>
+
+<div class="menu" id="menu">
+  <h3>RF</h3>
+  <div class="menu-item" onclick="ir('perfil.html')">👤 Perfil</div>
+  <div class="menu-item" onclick="ir('cracha.html')">🪪 Crachá</div>
+  <div class="menu-item" onclick="ir('tabela-de-precos.html')">📍 Tabela</div>
+  <div class="menu-item" onclick="ir('bonus.html')">💰 Bônus</div>
+  <div class="menu-item" onclick="ir('configuracoes.html')">⚙️ Config</div>
+  <div class="menu-item" onclick="ir('painel-motorista.html')">👤 Painel</div>
+</div>
+
+<!-- HEADER -->
 <div class="header">
   <span id="saudacao"></span>
-  <div onclick="logout()">Sair</div>
+  <div onclick="abrirMenu()">☰</div>
 </div>
 
 <div class="container">
@@ -161,31 +182,23 @@ body{
 <!-- GRID -->
 <div class="main-grid">
 
-  <!-- ESQUERDA -->
   <div>
-
     <div class="card">
-      <div class="card-title">Desempenho</div>
       <canvas id="grafico"></canvas>
     </div>
 
     <div class="card">
-      <div class="card-title">Corridas</div>
       <div id="lista"></div>
     </div>
-
   </div>
 
-  <!-- DIREITA -->
   <div>
-
     <div class="bonus-card" id="bonusCard"></div>
 
     <div class="acoes">
       <div class="acao-btn" onclick="ir('cadastro.html')">👤 Motorista</div>
       <div class="acao-btn" onclick="ir('cadastrar-corrida.html')">🚖 Corrida</div>
     </div>
-
   </div>
 
 </div>
@@ -193,6 +206,17 @@ body{
 </div>
 
 <script>
+
+/* MENU */
+function abrirMenu(){
+  menu.classList.add("ativo");
+  menuOverlay.style.display="block";
+}
+
+function fecharMenu(){
+  menu.classList.remove("ativo");
+  menuOverlay.style.display="none";
+}
 
 /* LOGIN */
 if(!localStorage.getItem("motorista_id")){
@@ -207,12 +231,11 @@ const hora = new Date().getHours();
 let saudacao = hora < 12 ? "Bom dia" :
                hora < 18 ? "Boa tarde" : "Boa noite";
 
-document.getElementById("saudacao").innerText =
+saudacaoEl.innerText =
 `🚖 ${saudacao}, ${nome?.split(" ")[0] || ""}`;
 
 /* DADOS */
 let corridas = [];
-let corridasGeral = [];
 let chart = null;
 
 /* BONUS */
@@ -221,8 +244,6 @@ async function carregarBonus(){
   const { data } = await window.supabaseClient
     .from("corridas")
     .select("motorista_id");
-
-  if(!data) return;
 
   const ranking = {};
 
@@ -235,22 +256,12 @@ async function carregarBonus(){
     .sort((a,b)=>b.total - a.total);
 
   const posicao = lista.findIndex(x => x.id == motoristaId) + 1;
-  const minhasCorridas = ranking[motoristaId] || 0;
 
-  bonusCard.innerHTML = `
-    🏆 ${posicao || "-"}º lugar<br>
-    ${minhasCorridas} corridas
-  `;
+  bonusCard.innerHTML = `🏆 ${posicao || "-"}º lugar`;
 }
 
 /* CARREGAR */
 async function carregar(){
-
-  const { data: todas } = await window.supabaseClient
-    .from("corridas")
-    .select("*");
-
-  corridasGeral = todas || [];
 
   const { data } = await window.supabaseClient
     .from("corridas")
@@ -273,10 +284,10 @@ function gerar(){
     total += Number(c.valor || 0);
   });
 
-  document.getElementById("kpiGanhos").innerHTML =
+  kpiGanhos.innerHTML =
     `<span>Ganhos</span><h2>R$ ${total.toFixed(2)}</h2>`;
 
-  document.getElementById("kpiCorridas").innerHTML =
+  kpiCorridas.innerHTML =
     `<span>Corridas</span><h2>${corridas.length}</h2>`;
 
   lista.innerHTML="";
@@ -286,7 +297,7 @@ function gerar(){
       <div class="item-corrida">
         <div>${c.origem} → ${c.destino}</div>
         <div class="valor">R$ ${Number(c.valor).toFixed(2)}</div>
-        <div class="data">${c.data_viagem || "-"} • ${c.hora_viagem || ""}</div>
+        <div class="data">${c.data_viagem || "-"}</div>
       </div>
     `;
   });
@@ -295,8 +306,6 @@ function gerar(){
 /* GRÁFICO */
 function gerarGrafico(){
 
-  let total = corridas.length;
-
   if(chart) chart.destroy();
 
   chart = new Chart(grafico,{
@@ -304,20 +313,15 @@ function gerarGrafico(){
     data:{
       labels:["Corridas"],
       datasets:[{
-        label:"Total",
-        data:[total],
+        data:[corridas.length],
         backgroundColor:"#22c55e"
       }]
     }
   });
 }
 
-/* NAV */
-function ir(p){
-  window.location.href = p;
-}
+function ir(p){ window.location.href = p; }
 
-/* LOGOUT */
 function logout(){
   localStorage.clear();
   window.location.href="login-motorista.html";
