@@ -162,6 +162,39 @@ body{
 .cta-calculo:hover{
   transform:scale(1.03);
 }
+
+  .ranking-card{
+  background:#0f172a;
+  border:1px solid #1e293b;
+  border-radius:16px;
+  padding:16px;
+  margin-bottom:12px;
+}
+
+.ranking-title{
+  font-size:14px;
+  margin-bottom:10px;
+  opacity:.7;
+}
+
+.ranking-item{
+  display:flex;
+  justify-content:space-between;
+  padding:10px;
+  border-bottom:1px solid #1e293b;
+}
+
+.ranking-item:last-child{
+  border-bottom:none;
+}
+
+.rank{
+  font-weight:bold;
+}
+
+.gold{ color:#f59e0b; }
+.silver{ color:#cbd5f5; }
+.bronze{ color:#f97316; }
   
 /* LISTA */
 .item-corrida{
@@ -215,6 +248,11 @@ body{
   </div>
 </div>
 
+  <div class="ranking-card">
+  <div class="ranking-title">🏆 Top Motoristas</div>
+  <div id="rankingTop3"></div>
+</div>
+  
 <div class="cta-calculo" onclick="ir('tabela-de-precos.html')">
   🚀 Calcule sua viagem aqui
 </div>
@@ -313,6 +351,59 @@ async function carregar(){
   gerarGrafico();
 }
 
+  async function carregarRankingTop3(){
+
+  const { data, error } = await window.supabaseClient
+    .from("corridas")
+    .select("motorista_id, status")
+    .eq("status", "finalizada"); // 🔥 FILTRO IMPORTANTE
+
+  if(error || !data) return;
+
+  const ranking = {};
+
+  data.forEach(c=>{
+    ranking[c.motorista_id] = (ranking[c.motorista_id] || 0) + 1;
+  });
+
+  const lista = Object.entries(ranking)
+    .map(([id, total]) => ({ id, total }))
+    .sort((a,b)=>b.total - a.total)
+    .slice(0,3);
+
+  // 🔥 buscar nomes dos motoristas
+  const ids = lista.map(x => x.id);
+
+  const { data: motoristas } = await window.supabaseClient
+    .from("motoristas")
+    .select("id, nome")
+    .in("id", ids);
+
+  const nomes = {};
+  motoristas?.forEach(m=>{
+    nomes[m.id] = m.nome;
+  });
+
+  // 🔥 render
+  rankingTop3.innerHTML = "";
+
+  lista.forEach((item, index)=>{
+
+    const posicoes = ["🥇","🥈","🥉"];
+    const cores = ["gold","silver","bronze"];
+
+    rankingTop3.innerHTML += `
+      <div class="ranking-item">
+        <div class="${cores[index]}">
+          ${posicoes[index]} ${nomes[item.id] || "Motorista"}
+        </div>
+        <div>${item.total} corridas</div>
+      </div>
+    `;
+  });
+
+}
+  
 /* GERAR */
 function gerar(){
 
@@ -369,7 +460,8 @@ function logout(){
 /* START */
 carregar();
 carregarBonus();
-
+carregarRankingTop3();
+  
 </script>
 
 </body>
