@@ -3,7 +3,7 @@
 <head>
 
 <meta charset="UTF-8">
-<title>RF Dashboard</title>
+<title>Dashboard Motorista RF</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js"></script>
@@ -11,142 +11,81 @@
 <script src="core/supabase.js"></script>
 
 <link rel="stylesheet" href="theme/theme.css">
+<link rel="stylesheet" href="theme/layout.css">
+<link rel="stylesheet" href="theme/components.css">
 
 <style>
 
-/* SAFE AREA */
-html,body{
+/* SAFE AREA (CORRIGIDO) */
+html, body{
   margin:0;
   padding:0;
   padding-bottom: env(safe-area-inset-bottom);
-  font-family:system-ui;
 }
 
 /* HEADER */
-.header{
-  background:#020617;
-  padding:16px;
-  margin-top:env(safe-area-inset-top);
+.top-white{
   display:flex;
   justify-content:space-between;
   align-items:center;
-  border-bottom:1px solid #334155;
-}
-
-.header span{
-  font-weight:600;
+  padding:14px;
+  margin-top: env(safe-area-inset-top);
+  background:var(--bg-card);
+  border-bottom:1px solid var(--border);
 }
 
 /* CONTAINER */
-.container{
+.app-container{
   padding:16px;
+  padding-bottom: calc(24px + env(safe-area-inset-bottom));
 }
 
-/* RESUMO (tipo saldo) */
-.resumo{
+/* BLOCO GANHOS (NOVO VISUAL, MESMA LÓGICA) */
+.resumo-destaque{
   background:linear-gradient(135deg,#22c55e,#16a34a);
-  color:#000;
+  border-radius:18px;
   padding:18px;
-  border-radius:16px;
-  margin-bottom:16px;
+  margin-bottom:12px;
+  color:#000;
 }
 
-.resumo small{opacity:.7}
-.resumo h1{margin:5px 0}
-
-/* AÇÕES RÁPIDAS */
-.grid{
+/* BOTÕES AÇÃO */
+.acoes{
   display:grid;
-  grid-template-columns:repeat(2,1fr);
+  grid-template-columns:1fr 1fr;
   gap:10px;
-  margin-bottom:16px;
+  margin-bottom:12px;
 }
 
-.card-btn{
+.acao-btn{
   background:#020617;
   border:1px solid #334155;
-  padding:16px;
+  padding:14px;
   border-radius:14px;
   text-align:center;
   cursor:pointer;
 }
 
 /* BONUS */
-.bonus{
-  background:#020617;
-  border:1px solid #3b82f6;
-  padding:16px;
-  border-radius:16px;
-  margin-bottom:16px;
-}
-
-/* GRÁFICO */
-.card{
-  background:#020617;
-  border:1px solid #334155;
-  border-radius:16px;
-  padding:16px;
-  margin-bottom:16px;
+.bonus-card{
+  background:linear-gradient(135deg,#020617,#0f172a);
+  border:1px solid var(--primary);
+  border-radius:18px;
+  padding:18px;
+  margin-bottom:12px;
 }
 
 /* LISTA */
-.item{
-  background:#020617;
-  border:1px solid #334155;
-  padding:14px;
-  border-radius:14px;
+.item-corrida{
+  padding:16px;
+  border-radius:16px;
+  background:var(--bg-card);
+  border:1px solid var(--border);
   margin-bottom:10px;
 }
 
-.valor{
-  color:#22c55e;
-  font-weight:bold;
-}
-
-.data{
-  font-size:12px;
-  opacity:.6;
-}
-
-/* MENU */
-.menu{
-  position:fixed;
-  left:-260px;
-  top:0;
-  width:260px;
-  height:100%;
-  background:#020617;
-  transition:.3s;
-  padding:20px;
-  z-index:999;
-}
-
-.menu.ativo{left:0;}
-
-.overlay{
-  position:fixed;
-  width:100%;
-  height:100%;
-  background:rgba(0,0,0,.5);
-  display:none;
-  z-index:998;
-}
-
-.menu div{
-  padding:12px;
-  border-bottom:1px solid #334155;
-}
-
-/* BOTÃO */
-.btn{
-  width:100%;
-  padding:14px;
-  border:none;
-  border-radius:12px;
-  background:#ef4444;
-  color:#fff;
-  margin-top:10px;
-}
+.valor{color:#22c55e;font-weight:bold;}
+.data{font-size:12px;opacity:.6;}
 
 </style>
 
@@ -154,117 +93,176 @@ html,body{
 
 <body>
 
-<div class="overlay" id="overlay" onclick="fecharMenu()"></div>
+<!-- MENU ORIGINAL -->
+<div class="menu-overlay" id="menuOverlay" onclick="fecharMenu()"></div>
 
 <div class="menu" id="menu">
   <h3>RF</h3>
-  <div onclick="ir('perfil.html')">Perfil</div>
-  <div onclick="ir('cracha.html')">Crachá</div>
-  <div onclick="ir('tabela-de-precos.html')">Tabela</div>
+  <div class="menu-item" onclick="ir('perfil.html')">👤 Perfil</div>
+  <div class="menu-item" onclick="ir('cracha.html')">🪪 Crachá</div>
+  <div class="menu-item" onclick="ir('tabela-de-precos.html')">📍 Tabela</div>
+  <div class="menu-item" onclick="ir('bonus.html')">💰 Bônus</div>
+  <div class="menu-item" onclick="ir('configuracoes.html')">⚙️ Config</div>
+  <div class="menu-item" onclick="ir('painel-motorista.html')">👤 Painel</div>
 </div>
 
-<div class="header">
+<!-- HEADER -->
+<div class="top-white">
   <span id="saudacao">🚖</span>
   <div onclick="abrirMenu()">☰</div>
 </div>
 
-<div class="container">
+<div class="app-container">
 
-<!-- RESUMO -->
-<div class="resumo">
-  <small>Ganhos totais</small>
-  <h1 id="total">R$ 0,00</h1>
-</div>
+<!-- GANHOS (APENAS VISUAL) -->
+<div class="resumo-destaque" id="resumoTopo"></div>
 
 <!-- AÇÕES -->
-<div class="grid">
-  <div class="card-btn" onclick="ir('cadastro.html')">
-    👤 Cadastrar Motorista
-  </div>
-  <div class="card-btn" onclick="ir('cadastrar-corrida.html')">
-    🚖 Nova Corrida
-  </div>
+<div class="acoes">
+  <div class="acao-btn" onclick="ir('cadastro.html')">👤 Motorista</div>
+  <div class="acao-btn" onclick="ir('cadastrar-corrida.html')">🚖 Corrida</div>
 </div>
 
-<!-- BONUS -->
-<div class="bonus" id="bonus"></div>
+<!-- BONUS ORIGINAL -->
+<div class="bonus-card" id="bonusCard"></div>
 
-<!-- GRÁFICO -->
+<!-- FILTRO ORIGINAL -->
+<select id="filtro" class="select">
+  <option value="geral">Geral</option>
+  <option value="semana">Semana</option>
+  <option value="mes">Mês</option>
+</select>
+
+<!-- RESUMO ORIGINAL -->
+<div id="resumo"></div>
+
+<!-- GRÁFICO ORIGINAL -->
 <div class="card">
   <canvas id="grafico"></canvas>
 </div>
 
-<!-- LISTA -->
+<!-- LISTA ORIGINAL -->
 <div id="lista"></div>
 
-<button class="btn" onclick="logout()">Sair</button>
+<button class="btn-perigo" onclick="logout()">Sair</button>
 
 </div>
 
 <script>
 
+/* MENU ORIGINAL */
 function abrirMenu(){
   menu.classList.add("ativo");
-  overlay.style.display="block";
+  menuOverlay.style.display="block";
 }
 
 function fecharMenu(){
   menu.classList.remove("ativo");
-  overlay.style.display="none";
+  menuOverlay.style.display="none";
 }
 
 function ir(p){ window.location.href = p; }
 
-const id = localStorage.getItem("motorista_id");
+/* LOGIN ORIGINAL */
+if(!localStorage.getItem("motorista_id")){
+  window.location.href="login-motorista.html";
+}
+
+const motoristaId = localStorage.getItem("motorista_id");
 const nome = localStorage.getItem("motorista_nome");
 
+/* SAUDAÇÃO ORIGINAL */
+const hora = new Date().getHours();
+let saudacao = hora < 12 ? "Bom dia" :
+               hora < 18 ? "Boa tarde" : "Boa noite";
+
 document.getElementById("saudacao").innerText =
-"🚖 Olá, " + (nome?.split(" ")[0] || "");
+`🚖 ${saudacao}, ${nome?.split(" ")[0] || ""}!`;
 
-let corridas=[];
-let chart;
+/* DADOS ORIGINAIS */
+let corridas = [];
+let corridasGeral = [];
+let chart = null;
 
+/* BONUS ORIGINAL */
+async function carregarBonus(){
+
+  const { data } = await window.supabaseClient
+    .from("corridas")
+    .select("motorista_id, data_viagem");
+
+  if(!data) return;
+
+  const ranking = {};
+
+  data.forEach(c=>{
+    ranking[c.motorista_id] = (ranking[c.motorista_id] || 0) + 1;
+  });
+
+  const lista = Object.entries(ranking)
+    .map(([id, total]) => ({ id, total }))
+    .sort((a,b)=>b.total - a.total);
+
+  const posicao = lista.findIndex(x => x.id == motoristaId) + 1;
+  const minhasCorridas = ranking[motoristaId] || 0;
+
+  bonusCard.innerHTML = `
+    <div class="bonus-title">🏆 Ranking</div>
+    <div class="bonus-value">${posicao || "-"}º lugar</div>
+    <div class="bonus-sub">${minhasCorridas} corridas</div>
+  `;
+}
+
+/* CARREGAR ORIGINAL */
 async function carregar(){
+
+  const { data: todas } = await window.supabaseClient
+    .from("corridas")
+    .select("*");
+
+  corridasGeral = todas || [];
 
   const { data } = await window.supabaseClient
     .from("corridas")
     .select("*")
-    .eq("motorista_id", id);
+    .eq("motorista_id", motoristaId)
+    .order("data_viagem",{ascending:false});
 
   corridas = data || [];
 
   gerar();
-  grafico();
+  gerarGrafico();
 }
 
+/* GERAR ORIGINAL */
 function gerar(){
+
+  const listaFiltrada = corridas;
 
   let total=0;
 
-  corridas.forEach(c=>{
-    total+=Number(c.valor||0);
+  listaFiltrada.forEach(c=>{
+    total += Number(c.valor || 0);
   });
 
-  document.getElementById("total").innerText =
-    "R$ " + total.toFixed(2);
+  document.getElementById("resumoTopo").innerHTML =
+    `<strong>Ganhos</strong><h2>R$ ${total.toFixed(2)}</h2>`;
 
   lista.innerHTML="";
 
-  corridas.forEach(c=>{
+  listaFiltrada.forEach(c=>{
     lista.innerHTML+=`
-      <div class="item">
-        ${c.origem} → ${c.destino}
-        <div class="valor">R$ ${c.valor}</div>
-        <div class="data">${c.data_viagem}</div>
+      <div class="item-corrida">
+        <div>${c.origem} → ${c.destino}</div>
+        <div class="valor">R$ ${Number(c.valor).toFixed(2)}</div>
+        <div class="data">${c.data_viagem || "-"} • ${c.hora_viagem || ""}</div>
       </div>
     `;
   });
-
-  document.getElementById("bonus").innerHTML =
-    `🏆 Você possui ${corridas.length} corridas`;
 }
 
-function grafico(){
+/* GRÁFICO ORIGINAL */
+function gerarGrafico(){
 
   let finalizadas = corridas.length;
 
@@ -282,12 +280,15 @@ function grafico(){
   });
 }
 
+/* LOGOUT */
 function logout(){
   localStorage.clear();
   window.location.href="login-motorista.html";
 }
 
+/* START */
 carregar();
+carregarBonus();
 
 </script>
 
