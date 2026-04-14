@@ -11,6 +11,7 @@
 <script src="core/supabase.js"></script>
 
 <link rel="stylesheet" href="theme/theme.css">
+<link rel="icon" href="data:,">  
 
 <style>
 
@@ -230,6 +231,8 @@ const nome = localStorage.getItem("motorista_nome");
 const hora = new Date().getHours();
 let saudacao = hora < 12 ? "Bom dia" :
                hora < 18 ? "Boa tarde" : "Boa noite";
+
+const saudacaoEl = document.getElementById("saudacao");
 
 saudacaoEl.innerText =
 `🚖 ${saudacao}, ${nome?.split(" ")[0] || ""}`;
