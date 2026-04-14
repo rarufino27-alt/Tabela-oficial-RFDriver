@@ -11,50 +11,98 @@
 <script src="core/supabase.js"></script>
 
 <link rel="stylesheet" href="theme/theme.css">
-<link rel="stylesheet" href="theme/layout.css">
-<link rel="stylesheet" href="theme/components.css">
 
 <style>
 
-/* SAFE AREA (CORRIGIDO) */
-html, body{
+/* BASE */
+body{
   margin:0;
-  padding:0;
-  padding-bottom: env(safe-area-inset-bottom);
+  font-family:system-ui;
+  background:#020617;
+  color:#fff;
 }
 
 /* HEADER */
-.top-white{
+.header{
   display:flex;
   justify-content:space-between;
   align-items:center;
-  padding:14px;
-  margin-top: env(safe-area-inset-top);
-  background:var(--bg-card);
-  border-bottom:1px solid var(--border);
+  padding:16px;
+  background:#020617;
+  border-bottom:1px solid #1e293b;
 }
 
 /* CONTAINER */
-.app-container{
+.container{
   padding:16px;
-  padding-bottom: calc(24px + env(safe-area-inset-bottom));
 }
 
-/* BLOCO GANHOS (NOVO VISUAL, MESMA LÓGICA) */
-.resumo-destaque{
-  background:linear-gradient(135deg,#22c55e,#16a34a);
-  border-radius:18px;
-  padding:18px;
-  margin-bottom:12px;
-  color:#000;
-}
-
-/* BOTÕES AÇÃO */
-.acoes{
+/* KPI */
+.kpi-grid{
   display:grid;
   grid-template-columns:1fr 1fr;
   gap:10px;
   margin-bottom:12px;
+}
+
+.kpi-card{
+  background:#0f172a;
+  border:1px solid #1e293b;
+  padding:16px;
+  border-radius:16px;
+}
+
+.kpi-card span{
+  font-size:12px;
+  opacity:.6;
+}
+
+.kpi-card h2{
+  margin:4px 0 0;
+}
+
+/* GRID PRINCIPAL */
+.main-grid{
+  display:grid;
+  grid-template-columns:2fr 1fr;
+  gap:12px;
+}
+
+@media(max-width:768px){
+  .main-grid{
+    grid-template-columns:1fr;
+  }
+}
+
+/* CARD */
+.card{
+  background:#0f172a;
+  border:1px solid #1e293b;
+  border-radius:16px;
+  padding:16px;
+  margin-bottom:12px;
+}
+
+.card-title{
+  font-size:14px;
+  margin-bottom:10px;
+  opacity:.7;
+}
+
+/* RANKING */
+.bonus-card{
+  background:linear-gradient(135deg,#f59e0b,#d97706);
+  color:#000;
+  border-radius:16px;
+  padding:16px;
+  margin-bottom:12px;
+}
+
+/* AÇÕES */
+.acoes{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:10px;
 }
 
 .acao-btn{
@@ -66,26 +114,30 @@ html, body{
   cursor:pointer;
 }
 
-/* BONUS */
-.bonus-card{
-  background:linear-gradient(135deg,#020617,#0f172a);
-  border:1px solid var(--primary);
-  border-radius:18px;
-  padding:18px;
-  margin-bottom:12px;
-}
-
 /* LISTA */
 .item-corrida{
-  padding:16px;
-  border-radius:16px;
-  background:var(--bg-card);
-  border:1px solid var(--border);
-  margin-bottom:10px;
+  padding:14px;
+  border-radius:14px;
+  background:#020617;
+  border:1px solid #1e293b;
+  margin-bottom:8px;
+  transition:0.2s;
 }
 
-.valor{color:#22c55e;font-weight:bold;}
-.data{font-size:12px;opacity:.6;}
+.item-corrida:hover{
+  transform:scale(1.02);
+  border-color:#22c55e;
+}
+
+.valor{
+  color:#22c55e;
+  font-weight:bold;
+}
+
+.data{
+  font-size:12px;
+  opacity:.6;
+}
 
 </style>
 
@@ -93,77 +145,56 @@ html, body{
 
 <body>
 
-<!-- MENU ORIGINAL -->
-<div class="menu-overlay" id="menuOverlay" onclick="fecharMenu()"></div>
-
-<div class="menu" id="menu">
-  <h3>RF</h3>
-  <div class="menu-item" onclick="ir('perfil.html')">👤 Perfil</div>
-  <div class="menu-item" onclick="ir('cracha.html')">🪪 Crachá</div>
-  <div class="menu-item" onclick="ir('tabela-de-precos.html')">📍 Tabela</div>
-  <div class="menu-item" onclick="ir('bonus.html')">💰 Bônus</div>
-  <div class="menu-item" onclick="ir('configuracoes.html')">⚙️ Config</div>
-  <div class="menu-item" onclick="ir('painel-motorista.html')">👤 Painel</div>
+<div class="header">
+  <span id="saudacao"></span>
+  <div onclick="logout()">Sair</div>
 </div>
 
-<!-- HEADER -->
-<div class="top-white">
-  <span id="saudacao">🚖</span>
-  <div onclick="abrirMenu()">☰</div>
+<div class="container">
+
+<!-- KPI -->
+<div class="kpi-grid">
+  <div class="kpi-card" id="kpiGanhos"></div>
+  <div class="kpi-card" id="kpiCorridas"></div>
 </div>
 
-<div class="app-container">
+<!-- GRID -->
+<div class="main-grid">
 
-<!-- GANHOS (APENAS VISUAL) -->
-<div class="resumo-destaque" id="resumoTopo"></div>
+  <!-- ESQUERDA -->
+  <div>
 
-<!-- AÇÕES -->
-<div class="acoes">
-  <div class="acao-btn" onclick="ir('cadastro.html')">👤 Motorista</div>
-  <div class="acao-btn" onclick="ir('cadastrar-corrida.html')">🚖 Corrida</div>
+    <div class="card">
+      <div class="card-title">Desempenho</div>
+      <canvas id="grafico"></canvas>
+    </div>
+
+    <div class="card">
+      <div class="card-title">Corridas</div>
+      <div id="lista"></div>
+    </div>
+
+  </div>
+
+  <!-- DIREITA -->
+  <div>
+
+    <div class="bonus-card" id="bonusCard"></div>
+
+    <div class="acoes">
+      <div class="acao-btn" onclick="ir('cadastro.html')">👤 Motorista</div>
+      <div class="acao-btn" onclick="ir('cadastrar-corrida.html')">🚖 Corrida</div>
+    </div>
+
+  </div>
+
 </div>
-
-<!-- BONUS ORIGINAL -->
-<div class="bonus-card" id="bonusCard"></div>
-
-<!-- FILTRO ORIGINAL -->
-<select id="filtro" class="select">
-  <option value="geral">Geral</option>
-  <option value="semana">Semana</option>
-  <option value="mes">Mês</option>
-</select>
-
-<!-- RESUMO ORIGINAL -->
-<div id="resumo"></div>
-
-<!-- GRÁFICO ORIGINAL -->
-<div class="card">
-  <canvas id="grafico"></canvas>
-</div>
-
-<!-- LISTA ORIGINAL -->
-<div id="lista"></div>
-
-<button class="btn-perigo" onclick="logout()">Sair</button>
 
 </div>
 
 <script>
 
-/* MENU ORIGINAL */
-function abrirMenu(){
-  menu.classList.add("ativo");
-  menuOverlay.style.display="block";
-}
-
-function fecharMenu(){
-  menu.classList.remove("ativo");
-  menuOverlay.style.display="none";
-}
-
-function ir(p){ window.location.href = p; }
-
-/* LOGIN ORIGINAL */
+/* LOGIN */
 if(!localStorage.getItem("motorista_id")){
   window.location.href="login-motorista.html";
 }
@@ -171,25 +202,25 @@ if(!localStorage.getItem("motorista_id")){
 const motoristaId = localStorage.getItem("motorista_id");
 const nome = localStorage.getItem("motorista_nome");
 
-/* SAUDAÇÃO ORIGINAL */
+/* SAUDAÇÃO */
 const hora = new Date().getHours();
 let saudacao = hora < 12 ? "Bom dia" :
                hora < 18 ? "Boa tarde" : "Boa noite";
 
 document.getElementById("saudacao").innerText =
-`🚖 ${saudacao}, ${nome?.split(" ")[0] || ""}!`;
+`🚖 ${saudacao}, ${nome?.split(" ")[0] || ""}`;
 
-/* DADOS ORIGINAIS */
+/* DADOS */
 let corridas = [];
 let corridasGeral = [];
 let chart = null;
 
-/* BONUS ORIGINAL */
+/* BONUS */
 async function carregarBonus(){
 
   const { data } = await window.supabaseClient
     .from("corridas")
-    .select("motorista_id, data_viagem");
+    .select("motorista_id");
 
   if(!data) return;
 
@@ -207,13 +238,12 @@ async function carregarBonus(){
   const minhasCorridas = ranking[motoristaId] || 0;
 
   bonusCard.innerHTML = `
-    <div class="bonus-title">🏆 Ranking</div>
-    <div class="bonus-value">${posicao || "-"}º lugar</div>
-    <div class="bonus-sub">${minhasCorridas} corridas</div>
+    🏆 ${posicao || "-"}º lugar<br>
+    ${minhasCorridas} corridas
   `;
 }
 
-/* CARREGAR ORIGINAL */
+/* CARREGAR */
 async function carregar(){
 
   const { data: todas } = await window.supabaseClient
@@ -234,23 +264,24 @@ async function carregar(){
   gerarGrafico();
 }
 
-/* GERAR ORIGINAL */
+/* GERAR */
 function gerar(){
-
-  const listaFiltrada = corridas;
 
   let total=0;
 
-  listaFiltrada.forEach(c=>{
+  corridas.forEach(c=>{
     total += Number(c.valor || 0);
   });
 
-  document.getElementById("resumoTopo").innerHTML =
-    `<strong>Ganhos</strong><h2>R$ ${total.toFixed(2)}</h2>`;
+  document.getElementById("kpiGanhos").innerHTML =
+    `<span>Ganhos</span><h2>R$ ${total.toFixed(2)}</h2>`;
+
+  document.getElementById("kpiCorridas").innerHTML =
+    `<span>Corridas</span><h2>${corridas.length}</h2>`;
 
   lista.innerHTML="";
 
-  listaFiltrada.forEach(c=>{
+  corridas.forEach(c=>{
     lista.innerHTML+=`
       <div class="item-corrida">
         <div>${c.origem} → ${c.destino}</div>
@@ -261,23 +292,29 @@ function gerar(){
   });
 }
 
-/* GRÁFICO ORIGINAL */
+/* GRÁFICO */
 function gerarGrafico(){
 
-  let finalizadas = corridas.length;
+  let total = corridas.length;
 
   if(chart) chart.destroy();
 
   chart = new Chart(grafico,{
-    type:"doughnut",
+    type:"bar",
     data:{
       labels:["Corridas"],
       datasets:[{
-        data:[finalizadas],
-        backgroundColor:["#22c55e"]
+        label:"Total",
+        data:[total],
+        backgroundColor:"#22c55e"
       }]
     }
   });
+}
+
+/* NAV */
+function ir(p){
+  window.location.href = p;
 }
 
 /* LOGOUT */
