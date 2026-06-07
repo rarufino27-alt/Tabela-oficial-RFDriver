@@ -1,376 +1,1078 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Política de Uso - RF</title>
-
-<link rel="stylesheet" href="theme/theme.css">
-<link rel="stylesheet" href="theme/layout.css">
-<link rel="stylesheet" href="theme/components.css">
-
+<title>Regras dos Motoristas — WS Viagens</title>
+<meta name="description" content="Política e regras oficiais para motoristas WS Viagens. Organização, segurança e profissionalismo.">
 <style>
+/* =========================================================
+   WS VIAGENS — Regras dos Motoristas
+   HTML/CSS/JS puro • Arquivo único • Mobile first
+   ========================================================= */
 
-/* BASE */
-body{
-  background:var(--bg-main);
-  color:var(--text-primary);
+:root{
+  --bg: #0b1020;
+  --bg-2:#0f1730;
+  --surface:#121a36;
+  --surface-2:#172146;
+  --border: rgba(255,255,255,.08);
+  --border-strong: rgba(255,255,255,.16);
+  --text:#eef2ff;
+  --muted:#aab4d4;
+  --primary:#ffd400;          /* amarelo WS */
+  --primary-2:#ffb800;
+  --primary-ink:#1a1a1a;
+  --accent:#3b82f6;
+  --success:#22c55e;
+  --danger:#ef4444;
+  --warning:#f59e0b;
+  --gradient: linear-gradient(135deg,#ffd400 0%, #ffb800 45%, #ff8a00 100%);
+  --gradient-soft: linear-gradient(135deg, rgba(255,212,0,.18), rgba(59,130,246,.12));
+  --shadow-sm: 0 1px 2px rgba(0,0,0,.25);
+  --shadow-md: 0 8px 24px rgba(0,0,0,.35);
+  --shadow-lg: 0 24px 60px rgba(0,0,0,.45);
+  --radius: 16px;
+  --radius-sm: 10px;
+  --radius-lg: 22px;
 }
 
-/* HEADER */
-.top-white{
-  background:var(--bg-card);
+@media (prefers-color-scheme: light){
+  :root{
+    --bg:#f6f7fb;
+    --bg-2:#eef1f8;
+    --surface:#ffffff;
+    --surface-2:#f8faff;
+    --border:rgba(15,23,48,.08);
+    --border-strong:rgba(15,23,48,.16);
+    --text:#0f1730;
+    --muted:#4a5578;
+    --gradient-soft: linear-gradient(135deg, rgba(255,212,0,.25), rgba(59,130,246,.10));
+  }
+}
+
+*{box-sizing:border-box}
+html,body{margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{
+  font-family:'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, system-ui, sans-serif;
+  background:
+    radial-gradient(1200px 600px at 10% -10%, rgba(255,212,0,.10), transparent 60%),
+    radial-gradient(900px 500px at 90% 0%, rgba(59,130,246,.12), transparent 60%),
+    var(--bg);
+  color:var(--text);
+  line-height:1.55;
+  -webkit-font-smoothing:antialiased;
+  text-rendering:optimizeLegibility;
+}
+
+/* Barra de progresso */
+.progress{
+  position:fixed; top:0; left:0; right:0; height:3px;
+  background:transparent; z-index:60;
+}
+.progress__bar{
+  height:100%; width:0%;
+  background:var(--gradient);
+  box-shadow:0 0 12px rgba(255,212,0,.55);
+  transition:width .1s linear;
+}
+
+/* HERO */
+.hero{
+  position:relative;
+  padding:28px 20px 80px;
+  overflow:hidden;
+  background:
+    radial-gradient(800px 380px at 80% 0%, rgba(255,212,0,.18), transparent 60%),
+    radial-gradient(700px 380px at 0% 0%, rgba(59,130,246,.18), transparent 60%),
+    linear-gradient(180deg, var(--bg-2), transparent 80%);
   border-bottom:1px solid var(--border);
 }
+.hero__nav{
+  display:flex; align-items:center; justify-content:space-between;
+  max-width:1100px; margin:0 auto 28px;
+}
+.brand{display:flex; align-items:center; gap:12px}
+.brand__logo{
+  width:44px; height:44px; border-radius:12px;
+  background:var(--gradient);
+  display:grid; place-items:center;
+  color:var(--primary-ink); font-weight:900; font-size:18px;
+  box-shadow:var(--shadow-md);
+  letter-spacing:-.5px;
+}
+.brand__name{font-weight:800; letter-spacing:.3px}
+.brand__sub{font-size:11px; color:var(--muted); display:block; margin-top:-2px}
 
-/* TÍTULO */
-.page-title{
-  font-size:20px;
-  font-weight:800;
-  text-align:center;
-  margin:20px 0 10px;
+.badge{
+  display:inline-flex; align-items:center; gap:6px;
+  padding:6px 12px; border-radius:999px;
+  background:rgba(255,212,0,.12); color:var(--primary);
+  font-size:12px; font-weight:700; letter-spacing:.4px;
+  border:1px solid rgba(255,212,0,.25);
+}
+.hero__content{max-width:1100px; margin:0 auto; text-align:center}
+.hero h1{
+  font-size:clamp(28px, 5vw, 48px);
+  line-height:1.1; margin:18px 0 14px;
+  font-weight:900; letter-spacing:-.02em;
+  background:linear-gradient(180deg, var(--text), color-mix(in srgb, var(--text) 65%, transparent));
+  -webkit-background-clip:text; background-clip:text; color:transparent;
+}
+.hero h1 em{
+  font-style:normal;
+  background:var(--gradient);
+  -webkit-background-clip:text; background-clip:text; color:transparent;
+}
+.hero p.lead{
+  max-width:640px; margin:0 auto; color:var(--muted);
+  font-size:clamp(14px, 2vw, 17px);
 }
 
-.page-sub{
-  text-align:center;
-  font-size:13px;
-  color:var(--text-secondary);
-  margin-bottom:20px;
+/* Container */
+.container{max-width:1100px; margin:0 auto; padding:0 20px}
+
+/* Topo de busca + tópicos (sticky) */
+.toolbar{
+  position:sticky; top:0; z-index:50;
+  margin:-40px auto 0;
+  background:color-mix(in srgb, var(--bg) 80%, transparent);
+  backdrop-filter: blur(14px) saturate(140%);
+  -webkit-backdrop-filter: blur(14px) saturate(140%);
+  border-bottom:1px solid var(--border);
+}
+.toolbar__inner{
+  max-width:1100px; margin:0 auto; padding:14px 20px;
 }
 
-/* BUSCA */
-.search-box{
-  width:100%;
-  padding:14px;
-  border-radius:12px;
-  border:1px solid var(--border);
-  background:var(--bg-card);
-  color:var(--text-primary);
-  margin-bottom:10px;
+/* Search */
+.search{
+  position:relative;
+  background:var(--surface);
+  border:1px solid var(--border-strong);
+  border-radius:14px;
+  display:flex; align-items:center; gap:10px;
+  padding:10px 12px;
+  box-shadow:var(--shadow-md);
+  transition:border-color .2s, box-shadow .2s;
 }
-
-/* NAVEGAÇÃO BUSCA */
-#navBusca{
+.search:focus-within{border-color:var(--primary); box-shadow:0 0 0 4px rgba(255,212,0,.18)}
+.search svg{flex-shrink:0; opacity:.7}
+.search input{
+  flex:1; border:0; outline:0; background:transparent;
+  color:var(--text); font-size:15px; padding:6px 0;
+  font-family:inherit;
+}
+.search input::placeholder{color:var(--muted)}
+.search__clear{
+  border:0; background:transparent; color:var(--muted);
+  cursor:pointer; padding:6px; border-radius:8px;
   display:none;
-  margin-bottom:10px;
-  text-align:center;
 }
+.search__clear:hover{background:var(--surface-2); color:var(--text)}
+.search__clear.show{display:inline-flex}
 
-/* BOTÃO */
-.nav-btn{
-  border:none;
-  background:var(--primary);
-  color:#000;
-  padding:6px 12px;
-  border-radius:8px;
-  cursor:pointer;
-  font-weight:700;
+.search__nav{
+  display:none; align-items:center; gap:6px;
+  padding-left:8px; margin-left:8px;
+  border-left:1px solid var(--border);
 }
+.search__nav.show{display:flex}
+.search__nav button{
+  border:0; background:var(--surface-2); color:var(--text);
+  width:30px; height:30px; border-radius:8px;
+  cursor:pointer; font-weight:700;
+  display:grid; place-items:center;
+}
+.search__nav button:hover{background:var(--primary); color:var(--primary-ink)}
+.search__count{font-size:12px; color:var(--muted); min-width:46px; text-align:center}
 
-/* CARD */
-.card-modern{
-  padding:18px;
-  border-radius:16px;
-  background:var(--bg-card);
+/* Suggestions */
+.suggestions{
+  position:absolute; top:calc(100% + 8px); left:0; right:0;
+  background:var(--surface); border:1px solid var(--border-strong);
+  border-radius:12px; box-shadow:var(--shadow-lg);
+  max-height:320px; overflow:auto; padding:6px;
+  display:none; z-index:60;
+}
+.suggestions.show{display:block}
+.suggestion{
+  padding:10px 12px; border-radius:8px; cursor:pointer;
+  display:flex; align-items:center; gap:10px;
+  font-size:14px;
+}
+.suggestion:hover, .suggestion.active{background:var(--surface-2)}
+.suggestion__icon{
+  width:28px; height:28px; border-radius:8px;
+  background:var(--gradient-soft);
+  display:grid; place-items:center; flex-shrink:0;
+}
+.suggestion__title{font-weight:600}
+.suggestion__sub{color:var(--muted); font-size:12px}
+
+/* Tópicos em destaque */
+.topics{
+  display:grid; grid-template-columns:repeat(auto-fill, minmax(140px, 1fr));
+  gap:10px; margin-top:12px;
+}
+.topic{
+  display:flex; align-items:center; gap:10px;
+  padding:12px; border-radius:12px;
+  background:var(--surface); border:1px solid var(--border);
+  cursor:pointer; text-align:left;
+  transition:transform .15s, border-color .15s, background .15s;
+  color:inherit; font-family:inherit;
+}
+.topic:hover{transform:translateY(-2px); border-color:var(--primary); background:var(--surface-2)}
+.topic__icon{
+  width:36px; height:36px; border-radius:10px;
+  background:var(--gradient-soft);
+  display:grid; place-items:center;
+  font-size:18px; flex-shrink:0;
+}
+.topic__label{font-size:13px; font-weight:700; line-height:1.2}
+
+/* Conteúdo principal */
+main{padding:32px 20px 120px; max-width:1100px; margin:0 auto}
+
+.card{
+  background:var(--surface);
   border:1px solid var(--border);
+  border-radius:var(--radius-lg);
+  margin-bottom:16px;
+  overflow:hidden;
+  transition:border-color .2s, box-shadow .2s;
+}
+.card.is-target{
+  border-color:var(--primary);
+  box-shadow:0 0 0 4px rgba(255,212,0,.15), var(--shadow-md);
+  animation:pulse 1.2s ease;
+}
+@keyframes pulse{
+  0%{box-shadow:0 0 0 0 rgba(255,212,0,.45)}
+  100%{box-shadow:0 0 0 16px rgba(255,212,0,0)}
 }
 
-/* CONTEÚDO */
-.content h2{
-  margin-top:20px;
-  font-size:16px;
-  color:var(--primary);
+.card__head{
+  display:flex; align-items:center; gap:14px;
+  padding:18px 20px; cursor:pointer;
+  user-select:none;
+  background:transparent;
+  border:0; width:100%; text-align:left;
+  font-family:inherit; color:inherit;
 }
+.card__head:hover{background:var(--surface-2)}
+.card__num{
+  width:38px; height:38px; flex-shrink:0;
+  border-radius:10px;
+  background:var(--gradient);
+  color:var(--primary-ink);
+  display:grid; place-items:center;
+  font-weight:900; font-size:14px;
+  box-shadow:var(--shadow-sm);
+}
+.card__icon{
+  width:38px; height:38px; flex-shrink:0;
+  border-radius:10px;
+  background:var(--gradient-soft);
+  display:grid; place-items:center;
+  font-size:20px;
+}
+.card__title{flex:1; font-size:16px; font-weight:800; letter-spacing:-.01em}
+.card__chevron{
+  width:28px; height:28px; flex-shrink:0;
+  display:grid; place-items:center;
+  color:var(--muted);
+  transition:transform .2s;
+}
+.card[open] .card__chevron{transform:rotate(180deg)}
 
-.content p{
-  margin-top:8px;
+.card__body{
+  padding:0 20px 22px;
+  border-top:1px solid var(--border);
+  padding-top:18px;
+  font-size:14.5px;
+  color:var(--text);
+}
+.card__body p{margin:0 0 12px; color:var(--muted)}
+.card__body strong{color:var(--text)}
+.card__body ul{margin:0 0 12px; padding-left:20px}
+.card__body li{margin:8px 0; color:var(--muted)}
+.card__body li::marker{color:var(--primary)}
+
+/* Callouts */
+.callout{
+  display:flex; gap:12px;
+  padding:12px 14px; border-radius:12px;
+  margin:12px 0;
   font-size:14px;
-  color:var(--text-secondary);
-  line-height:1.6;
+  border:1px solid;
+}
+.callout__icon{font-size:18px; flex-shrink:0; line-height:1.4}
+.callout--warning{
+  background:rgba(245,158,11,.08);
+  border-color:rgba(245,158,11,.3);
+  color:#fbbf24;
+}
+.callout--danger{
+  background:rgba(239,68,68,.08);
+  border-color:rgba(239,68,68,.3);
+  color:#fca5a5;
+}
+.callout--info{
+  background:rgba(59,130,246,.08);
+  border-color:rgba(59,130,246,.3);
+  color:#93c5fd;
+}
+.callout--success{
+  background:rgba(34,197,94,.08);
+  border-color:rgba(34,197,94,.3);
+  color:#86efac;
+}
+.callout p{color:inherit !important; margin:0 !important}
+.callout strong{color:inherit !important}
+
+/* Highlight da busca */
+mark.hit{
+  background:var(--primary); color:var(--primary-ink);
+  padding:1px 4px; border-radius:4px; font-weight:700;
+}
+mark.hit.active{
+  background:var(--success); color:#fff;
+  box-shadow:0 0 0 3px rgba(34,197,94,.35);
 }
 
-.content li{
-  margin-top:6px;
-  font-size:14px;
-  color:var(--text-secondary);
+/* FAB */
+.fab{
+  position:fixed; right:18px; bottom:18px; z-index:55;
+  display:flex; flex-direction:column; gap:10px;
+  align-items:flex-end;
+}
+.fab__menu{
+  display:flex; flex-direction:column; gap:8px;
+  background:var(--surface);
+  border:1px solid var(--border-strong);
+  border-radius:14px;
+  padding:8px;
+  box-shadow:var(--shadow-lg);
+  transform:scale(.9) translateY(8px); opacity:0; pointer-events:none;
+  transform-origin: bottom right;
+  transition:.18s ease;
+}
+.fab.open .fab__menu{transform:scale(1) translateY(0); opacity:1; pointer-events:auto}
+.fab__item{
+  display:flex; align-items:center; gap:10px;
+  padding:10px 14px; border:0; cursor:pointer;
+  background:transparent; color:var(--text);
+  border-radius:10px; font-family:inherit; font-size:14px; font-weight:600;
+  white-space:nowrap;
+}
+.fab__item:hover{background:var(--surface-2)}
+.fab__main{
+  width:54px; height:54px; border-radius:50%;
+  background:var(--gradient);
+  border:0; cursor:pointer;
+  display:grid; place-items:center;
+  box-shadow:var(--shadow-lg);
+  color:var(--primary-ink);
+  transition:transform .2s;
+}
+.fab__main:hover{transform:scale(1.06)}
+.fab.open .fab__main{transform:rotate(45deg)}
+
+/* Footer */
+footer{
+  text-align:center; padding:30px 20px 40px;
+  color:var(--muted); font-size:13px;
+  border-top:1px solid var(--border);
 }
 
-ul{
-  padding-left:18px;
+/* Acessibilidade: focus visível */
+:focus-visible{
+  outline:3px solid var(--primary);
+  outline-offset:2px;
+  border-radius:8px;
 }
 
-/* DESTAQUE BUSCA */
-mark{
-  background:var(--primary);
-  color:#000;
-  padding:2px 4px;
-  border-radius:4px;
+/* Responsividade refinada */
+@media (max-width:520px){
+  .hero{padding:22px 16px 70px}
+  .hero h1{font-size:28px}
+  .toolbar__inner{padding:12px 16px}
+  main{padding:24px 16px 120px}
+  .card__head{padding:16px}
+  .card__body{padding:16px 16px 18px}
+  .topic{padding:10px}
+  .topic__icon{width:32px; height:32px; font-size:16px}
+  .topic__label{font-size:12px}
+  .fab__item span.label{display:none}
 }
-
-.resultado-ativo{
-  outline:2px solid #22c55e;
-  background:rgba(34,197,94,0.1);
+@media (min-width:768px){
+  .topics{grid-template-columns:repeat(7, 1fr)}
 }
-
-/* VOLTAR */
-.voltar{
-  margin-top:20px;
-  text-align:center;
-  color:var(--primary);
-  font-weight:700;
-  cursor:pointer;
-}
-
 </style>
-
 </head>
-
 <body>
 
-<div class="top-white">
-  <div class="logo-area">
-    <img src="icons/icon-512.png" class="logo-img">
-    <span class="logo-text-dark">WS MOTORISTA</span>
+<!-- Barra de progresso de leitura -->
+<div class="progress" aria-hidden="true"><div class="progress__bar" id="progressBar"></div></div>
+
+<!-- HERO -->
+<header class="hero" role="banner">
+  <div class="hero__nav">
+    <div class="brand">
+      <div class="brand__logo" aria-hidden="true">WS</div>
+      <div>
+        <span class="brand__name">WS Viagens</span>
+        <span class="brand__sub">Portal do Motorista</span>
+      </div>
+    </div>
+    <span class="badge">v2.0 • 2026</span>
+  </div>
+
+  <div class="hero__content">
+    <span class="badge" style="background:rgba(59,130,246,.12); color:#93c5fd; border-color:rgba(59,130,246,.25)">📜 Política Oficial</span>
+    <h1>Regras dos <em>Motoristas WS</em></h1>
+    <p class="lead">Organização, segurança e profissionalismo. Tudo que você precisa saber para rodar com a WS Viagens em um só lugar.</p>
+  </div>
+</header>
+
+<!-- TOOLBAR: BUSCA + TÓPICOS -->
+<div class="toolbar" role="search">
+  <div class="toolbar__inner">
+    <div class="search">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
+      <input id="search" type="text" placeholder="Buscar regras, palavras-chave, taxas..." aria-label="Buscar nas regras" autocomplete="off">
+      <button class="search__clear" id="searchClear" aria-label="Limpar busca">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
+      </button>
+      <div class="search__nav" id="searchNav" aria-live="polite">
+        <button id="prevHit" aria-label="Resultado anterior">↑</button>
+        <span class="search__count" id="searchCount">0 / 0</span>
+        <button id="nextHit" aria-label="Próximo resultado">↓</button>
+      </div>
+      <div class="suggestions" id="suggestions" role="listbox"></div>
+    </div>
+
+    <nav class="topics" aria-label="Tópicos em destaque">
+      <button class="topic" data-target="regra-1"><span class="topic__icon" aria-hidden="true">📍</span><span class="topic__label">Localização</span></button>
+      <button class="topic" data-target="regra-3"><span class="topic__icon" aria-hidden="true">🚗</span><span class="topic__label">Viagens</span></button>
+      <button class="topic" data-target="regra-5"><span class="topic__icon" aria-hidden="true">💰</span><span class="topic__label">Taxa Semanal</span></button>
+      <button class="topic" data-target="regra-6"><span class="topic__icon" aria-hidden="true">🏆</span><span class="topic__label">Bônus</span></button>
+      <button class="topic" data-target="regra-7"><span class="topic__icon" aria-hidden="true">🛡️</span><span class="topic__label">Segurança</span></button>
+      <button class="topic" data-target="regra-8"><span class="topic__icon" aria-hidden="true">❌</span><span class="topic__label">Cancelamentos</span></button>
+      <button class="topic" data-target="regra-11"><span class="topic__icon" aria-hidden="true">⚠️</span><span class="topic__label">Penalidades</span></button>
+    </nav>
   </div>
 </div>
 
-<div class="center app-container">
+<!-- CONTEÚDO -->
+<main id="content">
 
-<div class="page-title">📜 Regras Para Motoristas WS</div>
-<div class="page-sub">Organização • Segurança • Profissionalismo</div>
+  <!-- 1. LOCALIZAÇÃO -->
+  <article class="card" id="regra-1" open>
+    <button class="card__head" aria-expanded="true" aria-controls="body-1">
+      <span class="card__num">01</span>
+      <span class="card__icon" aria-hidden="true">📍</span>
+      <span class="card__title">Localização</span>
+      <span class="card__chevron" aria-hidden="true">▾</span>
+    </button>
+    <div class="card__body" id="body-1">
+      <p>Para participar das solicitações de viagens, é obrigatório manter a localização atual ativa por no mínimo 8 horas.</p>
+      <ul>
+        <li>Localização ativa por no mínimo <strong>8 horas</strong>.</li>
+        <li>Sem localização não será possível participar das solicitações de viagens.</li>
+        <li>Administradores não são obrigados a ativar a localização para participar das solicitações.</li>
+        <li>Para aceitar uma viagem agendada não é necessário estar com a localização ativa.</li>
+      </ul>
+    </div>
+  </article>
 
-<input type="text" id="busca" class="search-box" placeholder="Buscar nas regras...">
+  <!-- 2. CONDIÇÕES DO VEÍCULO -->
+  <article class="card" id="regra-2" open>
+    <button class="card__head" aria-expanded="true" aria-controls="body-2">
+      <span class="card__num">02</span>
+      <span class="card__icon" aria-hidden="true">🚙</span>
+      <span class="card__title">Condições do Veículo</span>
+      <span class="card__chevron" aria-hidden="true">▾</span>
+    </button>
+    <div class="card__body" id="body-2">
+      <p>O veículo deve estar em boas condições de uso, limpeza e segurança.</p>
+      <div class="callout callout--warning">
+        <span class="callout__icon">🔊</span>
+        <p>Durante a viagem é <strong>terminantemente proibido</strong> colocar o som alto. O volume deve permanecer em altura ambiente.</p>
+      </div>
+    </div>
+  </article>
 
-<div id="navBusca">
-  <button onclick="anterior()" class="nav-btn">⬅</button>
-  <span id="contadorBusca" style="margin:0 10px;"></span>
-  <button onclick="proximo()" class="nav-btn">➡</button>
-</div>
+  <!-- 3. SOLICITAÇÃO DE VIAGENS -->
+  <article class="card" id="regra-3" open>
+    <button class="card__head" aria-expanded="true" aria-controls="body-3">
+      <span class="card__num">03</span>
+      <span class="card__icon" aria-hidden="true">🚗</span>
+      <span class="card__title">Solicitação de Viagens</span>
+      <span class="card__chevron" aria-hidden="true">▾</span>
+    </button>
+    <div class="card__body" id="body-3">
+      <p>As viagens devem ser aceitas de forma responsável e dentro das regras do grupo. Caso a solicitação envolva qualquer risco à segurança física do motorista ou do veículo, o motorista pode cancelar a qualquer momento.</p>
+      <ul>
+        <li><strong>3.1</strong> Para a viagem ser válida é necessário que contenha as informações de <strong>embarque e desembarque</strong>, sendo terminantemente proibido aceitar solicitações sem essas informações. (Exceção: se após algumas tentativas de orientação o passageiro tiver dificuldades para solicitar corretamente por ser leigo, o motorista que aceitar deverá realizar a viagem independentemente do destino ou origem.)</li>
+        <li><strong>3.2</strong> Ao sinalizar a intenção de aceitar a viagem, o motorista deve escrever <strong>"EU"</strong> ou <strong>"PV"</strong>, informando assim a intenção de realizar a viagem.</li>
+        <li><strong>3.3</strong> Erros de digitação são aceitáveis, desde que o motorista sinalize de alguma forma a intenção de realizar a viagem.</li>
+        <li><strong>3.4</strong> Quando houver concorrência na solicitação, o motorista que concorrer deverá esperar a marcação para poder entrar em contato com o passageiro.</li>
+        <li><strong>3.5</strong> Todos os preços devem ser consultados pela <strong>tabela oficial</strong>. É terminantemente proibido cobrar valor diferente, salvo se a administração autorizar previamente.</li>
+        <li><strong>3.6</strong> Se a viagem solicitada não estiver descrita na tabela, o motorista deverá consultar o preço com a administração; não é permitido cobrar valor arbitrário. Caso cobre a mais, deverá devolver ao passageiro o valor excedente.</li>
+        <li><strong>3.7</strong> Toda viagem local deve ser aceita seguindo a sequência.</li>
+        <li><strong>3.8</strong> Caso surja uma viagem para buscar em local distante e o motorista esteja próximo da viagem seguinte, ele poderá pular e pegar a mais próxima, mas deve explicar no grupo o motivo.</li>
+        <li><strong>3.9</strong> Em viagens para buscar em outra cidade, o motorista não é obrigado a aceitar e, nesse caso, também não é obrigado a seguir a sequência de solicitação.</li>
+        <li><strong>3.10</strong> Em solicitações para outra cidade ou viagens longas (ex.: praias), a prioridade é de quem está no <strong>local de embarque</strong>, mesmo que não tenha sido o primeiro a aceitar. O primeiro deve repassar a viagem para o motorista que estiver no local.</li>
+        <li><strong>3.11</strong> Viagens agendadas: uma vez aceitas, o motorista se compromete a realizá-las. Pode solicitar <strong>50% adiantado</strong> para assegurar a viagem. Em caso de cancelamento, só será obrigado a devolver 50% do valor já recebido.</li>
+      </ul>
+    </div>
+  </article>
 
-<div class="card-modern content" id="conteudo">
+  <!-- 4. TAXAS ADICIONAIS -->
+  <article class="card" id="regra-4" open>
+    <button class="card__head" aria-expanded="true" aria-controls="body-4">
+      <span class="card__num">04</span>
+      <span class="card__icon" aria-hidden="true">➕</span>
+      <span class="card__title">Taxas Adicionais</span>
+      <span class="card__chevron" aria-hidden="true">▾</span>
+    </button>
+    <div class="card__body" id="body-4">
+      <p>Taxas extras devem ser aplicadas conforme a tabela oficial do grupo.</p>
+      <div class="callout callout--info">
+        <span class="callout__icon">ℹ️</span>
+        <p>Todas as taxas cobradas pelo grupo estão disponíveis para cálculo dentro da <strong>tabela de preços local</strong>, que deve ser consultada.</p>
+      </div>
+    </div>
+  </article>
 
-<!-- 🔥 TODO O CONTEÚDO ORIGINAL FOI MANTIDO EXATAMENTE IGUAL -->
-<!-- (NÃO FOI ALTERADA NENHUMA REGRA) -->
+  <!-- 5. TAXA SEMANAL -->
+  <article class="card" id="regra-5" open>
+    <button class="card__head" aria-expanded="true" aria-controls="body-5">
+      <span class="card__num">05</span>
+      <span class="card__icon" aria-hidden="true">💰</span>
+      <span class="card__title">Taxa Semanal</span>
+      <span class="card__chevron" aria-hidden="true">▾</span>
+    </button>
+    <div class="card__body" id="body-5">
+      <p>A contribuição semanal no valor de <strong>R$ 10,00</strong> deve ser paga para manter a participação ativa.</p>
+      <ul>
+        <li>O pagamento deve ser feito toda <strong>segunda-feira</strong>, via Pix informado no grupo de contribuição.</li>
+        <li>Caso o pagamento não seja realizado dentro do período determinado, o motorista fica automaticamente <strong>suspenso</strong> do grupo até a regularização do débito.</li>
+        <li>Débitos em atraso por no mínimo <strong>2 semanas</strong>, sem justificativa, somados à ausência do motorista no grupo, poderão resultar na sua <strong>exclusão</strong>.</li>
+        <li>Em caso de contribuição em atraso e motorista suspenso, para retornar ele deve pagar o correspondente a <strong>uma semana (R$ 10,00)</strong>. O valor não é somado às semanas paradas e não corre juros.</li>
+        <li><strong>Exceção:</strong> se o motorista que deveria estar suspenso continuar rodando, por autorização da administração, mesmo inadimplente, passará a ser cobrado o correspondente a todas as semanas sem pagamento.</li>
+        <li>Caso o motorista tenha algum impedimento para o pagamento, deve informar a qualquer administrador do grupo, indicando o período em que poderá efetuar o pagamento.</li>
+      </ul>
+    </div>
+  </article>
 
-<!-- COLEI EXATAMENTE O MESMO BLOCO ABAIXO -->
+  <!-- 6. BÔNUS SEMANAL -->
+  <article class="card" id="regra-6" open>
+    <button class="card__head" aria-expanded="true" aria-controls="body-6">
+      <span class="card__num">06</span>
+      <span class="card__icon" aria-hidden="true">🏆</span>
+      <span class="card__title">Bônus Semanal</span>
+      <span class="card__chevron" aria-hidden="true">▾</span>
+    </button>
+    <div class="card__body" id="body-6">
+      <p>O motorista que mais pegar viagens durante a semana pode ganhar até <strong>R$ 100,00</strong>.</p>
+      <ul>
+        <li>De <strong>segunda a sábado</strong>: o motorista que mais realizar viagens (mínimo de <strong>30</strong>) ganhará <strong>R$ 50,00</strong> via Pix, sem sorteio, na segunda-feira seguinte à semana contabilizada.</li>
+        <li><strong>Domingo</strong>: o motorista que mais fizer viagens ganhará <strong>R$ 50,00</strong> via Pix, sem sorteio, na segunda-feira seguinte.</li>
+        <li><strong>Critério de desempate:</strong> será eleito o motorista que mais trabalhou em horários de maior fluxo de viagens.</li>
+        <li>Se mesmo assim os dois empatarem, o pagamento será dividido em duas vezes: a primeira no dia correspondente e a segunda na semana seguinte.</li>
+        <li>Todos os motoristas são elegíveis, desde que estejam em dia com a contribuição semanal até o dia do recebimento do bônus (segunda-feira). <strong>Não recebe quem pagar em atraso</strong> e devem seguir as regras descritas na página de Bônus.</li>
+      </ul>
+    </div>
+  </article>
 
-<h2>1. Localização</h2>
-<p>Para participar das solicitações de viagens, é obrigatório manter a localização atual de 8h ativa.</p>
-<ul>
-<li>Localização ativa por no mínimo 8 horas!</li>
-<li>Sem localização não será possivel participar das solicitações de viagens!</li>
-<li>Administradores não são obrigados a colocar localizção para participar das solicitações de viagens!</li>
-<li>Para aceitar uma viagem agendada não é necessario está com localização ativa!</li>
-</ul>
+  <!-- 7. SEGURANÇA -->
+  <article class="card" id="regra-7" open>
+    <button class="card__head" aria-expanded="true" aria-controls="body-7">
+      <span class="card__num">07</span>
+      <span class="card__icon" aria-hidden="true">🛡️</span>
+      <span class="card__title">Segurança</span>
+      <span class="card__chevron" aria-hidden="true">▾</span>
+    </button>
+    <div class="card__body" id="body-7">
+      <div class="callout callout--success">
+        <span class="callout__icon">✅</span>
+        <p>Qualquer motorista pode <strong>cancelar uma viagem</strong> se não se sentir seguro. A segurança vem sempre em primeiro lugar.</p>
+      </div>
+    </div>
+  </article>
 
-<h2>2. Condições do Veículo</h2>
-<p>O veículo deve estar em boas condições de uso, limpeza e segurança.</p>
-<p>Em viagem é terminantemente proibido colocar o som alto, no maximo deve estar em altura ambiente</p>
+  <!-- 8. CANCELAMENTO -->
+  <article class="card" id="regra-8" open>
+    <button class="card__head" aria-expanded="true" aria-controls="body-8">
+      <span class="card__num">08</span>
+      <span class="card__icon" aria-hidden="true">❌</span>
+      <span class="card__title">Cancelamento</span>
+      <span class="card__chevron" aria-hidden="true">▾</span>
+    </button>
+    <div class="card__body" id="body-8">
+      <div class="callout callout--warning">
+        <span class="callout__icon">⚠️</span>
+        <p>Cancelamentos <strong>sem motivo real</strong> da viagem aceita poderão acarretar penalidades ao motorista.</p>
+      </div>
+      <ul>
+        <li>Se o passageiro que solicitou a viagem cancelar após a confirmação, estando o motorista chegando ou já no local de embarque, o grupo garante a <strong>taxa de deslocamento</strong> no valor de <strong>R$ 5,00</strong>, podendo chegar até <strong>R$ 10,00</strong> dependendo da situação.</li>
+      </ul>
+    </div>
+  </article>
 
-<h2>3. Solicitação de Viagens</h2>
-<p>As viagens devem ser aceitas de forma responsável e dentro das regras do grupo. Caso a solicitação da viagem envolva algum risco a segurança fisica do motorista ou do veículo o motorista pode cancelar a qualquer momento.</p>
-<li>3.1 Para Viagem ser válida é necessario conter nela as informações de embarque e desembarque, ficando terminantemente proibido a aceitação de solicitações sem estas informações.(Salvo se Após algumas tentativas de pedir para o passageiro enviar embarque e desembarque, o passageiro em questão tem dificuldades para solicitação de forma correta por ser leigo ou algo assim, porém o motorista ao aceitar a solicitação desta forma deverá realizar a viagem independente do destino ou origem da solicitação!)</li>
-<li>3.2 Ao sinalizar a intenção de aceitar a viagem o motorista deve colocar "EU" ou "PV" informando assim a intenção de realizar a viagem em questão!</li>
-<li>3.3 Erros de digitação são aceitavés desde que o motorista sinalize de alguma forma a intenção de realizar a viagem!</li>
-<li>3.4 Quando houver concorrencia na solicitação de viagem o motorista que concorrer deverá esperar a marcação para poder entrar em contato com o passageiro solicitante da viagem!</li>
-<li>3.5 Todos os preços das viagens solicitadas devem ser consultadas pela tabela. É terminantemente proibido cobrar valor diferente da tabela, salvo se a administração altorizar previamente!</li>
-<li>3.6 Se por acaso a viagem solicitada não tiver descrita na tabela o motorista deverá solicitar o preço com a administração do grupo, não podendo assim cobrar o valor que acha ser! Caso faça e cobre valor a mais deverá devolver ao passageiro o valor excedente cobrado.</li>
-<li>3.7 Toda Viagem deve ser aceita na sequencia desde que sejam viagens locais!</li>
-<li>3.8 Caso apareça uma viagem para buscar em local distante e o motorista em questão estiver proximo da viagem seguinte o mesmo poderá pular a vaiagem e pegar a viagem mais proxima dele. Porem o mesmo deve explicar no grupo o pq que aceitou a viagem seguinte!</li>
-<li>3.9 Se aparecer uma viagem para buscar em local distante tipo outra cidade o motorista não é obrigado a buscar e neste caso tambem não é obrigado a seguir a sequencia de solicitação!</li>
-<li>3.10 Quando o houver uma solicitação para buscar em outra cidade ou em viagens longas tipo de praias a prioridade da viagem é de quem esteja no local de embarque, mesmo que o motorista em questão não tenha sido o primeiro a aceitar, o motorista que foi o primeiro deve passar a viagem para o motrista que está no local de embarque!</li>
-<li>3.11 Viagens agendadas uma vez aceita o motorista em questão se compromete em realizar a viagem porem caso ache necessário pode solicitar 50% adiantado para assegurar a viagem. Caso tenha cancelamento o motorista so será obrigado a devolver 50% do valor ja recebido!</li>
-</ul>
-  
-<h2>4. Taxas Adicionais</h2>
-<p>Taxas extras devem ser aplicadas conforme tabela oficial do grupo.</p>
-<li>TODAS AS TAXAS QUE SÃO COBRADAS PELO GRUPO ESTÃO DISPONIVEIS PARA CALCULO DENTRO DA TABELA DE PREÇOS LOCAL POR ONDE DEVE SER CONSULTADO!</li>
-</ul>
-  
-<h2>5. Taxa Semanal</h2>
-<p>A contribuição semanal no valor de R$ 10,00 deve ser paga para manter participação ativa.</p>
-<li>O valor deve ser pago toda segunda no pix informado dentro do grupo de contribuição!</li>  
-<li>Caso o pagamento não seja realizado dentro do periodo determinado dentro do grupo de contribuição o motorista fica automaticamente suspenso do grupo até a regularização do débito. Débitos em atraso por no mínimo 2 semanas, sem justificativa, somados à ausência do motorista no grupo, poderão resultar na sua exclusão do grupo.</li>  
-<li>Em casos de Contribuição em atraso e motorista suspenso, para poder retornar o motorista deve pagar o correspondente a uma semana de taxa ou seja R$ 10. O valor da taxa não eh somado as semanas parados e nem corre juros. A única excessão é se o motorista que deveria está suspenso, não for suspenso por autorização da administração e continuar rodando mesmo inadimplente, ai neste caso passa a ser cobrado o correspondente as semanas sem pagar!</li> 
-<li>Caso o motorista tenha algum impedimento para o pagamento da contribuição deve informar o impedimento a qualquer administrador do grupo, e informando o periodo que poderá efetuar o pagamento!</li>
-</ul>
-  
-<h2>6. Bônus Semanal</h2>
-<p>O motorista que mais pegar viagem durante a semana pode ganhar R$ 100,00.</p>
-<li>De segunda a sábado o motorista que mais realizar viagens (no mínimo 30) ganhará sem sorteio o valor de R$ 50,00 no pix na segunda seguinte a semana vigente a contabilidade do bônus!</li>  
-<li>O motorista que mais fizer viagem no domingo ganhará sem sorteio o valor de R$ 50,00 sem sorteio diretamente no pix na segunda seguinte a semana vigente a contabilidade!</li>  
-<li>A critério de desempate: Será eleito o motorista que mais trabalhou em horarios de maior fluxo de viagens!</li>  
-<li>Se mesmo assim os dois ganharem o pagamento será realizado em duas vezes 1ª no dia correspondente ao pagamento e a segunda na semana seguinte!</li>
-<li>Todos os motoristas são elegiveis para contemplação deste bônus, desde que estejam em dias com a contribuição semanal efetuando o pagamento até dia do recebimento do bônus semanal que é na segunda-feira dia pagamento da contribuição semanal (Não recebe se pagar em atraso) e sigam as regras descritas na pagina de Bônus!</li>
-</ul>
-  
-<h2>7. SEGURANÇA</h2>
-<p>Qualquer Motorista pode cancelar uma viagem se o mesmo não se sentir seguro.</p>
+  <!-- 9. TEMPO DE RESPOSTA -->
+  <article class="card" id="regra-9" open>
+    <button class="card__head" aria-expanded="true" aria-controls="body-9">
+      <span class="card__num">09</span>
+      <span class="card__icon" aria-hidden="true">⏱️</span>
+      <span class="card__title">Tempo de Resposta</span>
+      <span class="card__chevron" aria-hidden="true">▾</span>
+    </button>
+    <div class="card__body" id="body-9">
+      <p>O motorista tem até <strong>10 minutos</strong> para chegar ao passageiro após a confirmação da viagem, contados a partir do envio da localização.</p>
+      <ul>
+        <li>O motorista que não chegar no tempo descrito poderá <strong>perder o valor do deslocamento</strong>, caso seja necessária a restituição.</li>
+      </ul>
+    </div>
+  </article>
 
-<h2>8. Cancelamento</h2>
-<p>Cancelamentos Sem motivo Real da viagem aceita poderá acarretar em penalidades oara o motorista em questão!</p>
-<li>Se acaso o passageiro que solicitou a viagem cancelar a viagem apos confirmação e o motorista está chegando ou tiver chegado ao local de embarque, o grupo garante a taxa de deslocamento no valor de R$ 5,00 podendo chegar até R$ 10,00 dependendo da situação!</li>
-</ul>
-  
-<h2>9. Tempo de Resposta</h2>
-<p>O motorista tem até 10min para chegar no passageiro após confirmação da viagem através do envio da localização do passageiro!</p>
-<li>O motorista que não chegar no tempo descrito nesta regra poderá perder o valor do deslocamento caso seja necessário a restituição do valor!</li>
-</ul>
-  
-<h2>10. Vestimenta do Motorista</h2>
-<p>Para manter o padrão de qualidade e profissionalismo do grupo RF o perfil do motorista no whatsapp deve conter a foto de rosto do mesmo sendo proibido qualquer outra foto onde não tenha o motorista em questao, além disso todos os motoristas devem apresentar-se com vestimenta adequada durante a realização das viagens.</p>
-<li>É obrigatório o uso de roupas limpas, organizadas e em bom estado de conservação.</li>
-<li>Não é permitido trabalhar com roupas rasgadas, sujas ou com aparência inadequada.</li>
-<li>Evitar o uso de roupas excessivamente informais, como:</li>
-<li>Regatas</li>
-<li>Shorts muito curtos</li>
-<li>Roupas de banho</li>
-<li>Recomenda-se o uso de camiseta, camisa ou polo para Homens!</li>
-<li>Bermudas devem ser discretas e adequadas para homens!</li>
-<li>Para Mulheres Roupas devem ser confortáveis, porém discretas e profissionais!</li>  
-<li>Para Mulheres Evitar roupas muito curtas ou excessivamente decotadas</li>
-<li>O uso de chinelos ou sandálias não é recomendado durante o trabalho
-Higiene pessoal é obrigatória (odor, aparência e cuidados básicos</li> 
-</ul>
-<li>OBJETIVO:</li>  
-<li>O objetivo desta regra não é limitar o estilo pessoal, mas garantir respeito, confiança e credibilidade junto aos passageiros.</li>
-</ul>
+  <!-- 10. VESTIMENTA -->
+  <article class="card" id="regra-10" open>
+    <button class="card__head" aria-expanded="true" aria-controls="body-10">
+      <span class="card__num">10</span>
+      <span class="card__icon" aria-hidden="true">👔</span>
+      <span class="card__title">Vestimenta e Apresentação do Motorista</span>
+      <span class="card__chevron" aria-hidden="true">▾</span>
+    </button>
+    <div class="card__body" id="body-10">
+      <p>Para manter o padrão de qualidade e profissionalismo do grupo RF, o perfil do motorista no WhatsApp deve conter a <strong>foto de rosto</strong>, sendo proibido qualquer outra imagem que não seja a do próprio motorista. Além disso, todos devem se apresentar com vestimenta adequada durante a realização das viagens.</p>
+      <ul>
+        <li>É obrigatório o uso de roupas <strong>limpas, organizadas e em bom estado</strong> de conservação.</li>
+        <li>Não é permitido trabalhar com roupas rasgadas, sujas ou com aparência inadequada.</li>
+        <li>Evitar o uso de roupas excessivamente informais, como: regatas, shorts muito curtos e roupas de banho.</li>
+        <li><strong>Homens:</strong> recomenda-se o uso de camiseta, camisa ou polo. Bermudas devem ser discretas e adequadas.</li>
+        <li><strong>Mulheres:</strong> roupas confortáveis, porém discretas e profissionais. Evitar peças muito curtas ou excessivamente decotadas.</li>
+        <li>O uso de chinelos ou sandálias não é recomendado durante o trabalho.</li>
+        <li><strong>Higiene pessoal é obrigatória</strong> (odor, aparência e cuidados básicos).</li>
+      </ul>
+      <div class="callout callout--info">
+        <span class="callout__icon">🎯</span>
+        <p><strong>Objetivo:</strong> não é limitar o estilo pessoal, mas garantir <strong>respeito, confiança e credibilidade</strong> junto aos passageiros.</p>
+      </div>
+    </div>
+  </article>
 
-<h2>11. Tempo de Resposta</h2>
-<p>Para manter a organização, transparência e igualdade dentro do grupo, não será permitido:</p>
-<li>Práticas de fidelização de passageiros fora do sistema/grupo</li>
-<li>Combinação direta de corridas com passageiros visando evitar o grupo</li>
-<li>Formação de grupos paralelos para divisão de corridas</li>
-<li>Qualquer tentativa de desvio de corridas ou quebra da ordem estabelecida, ir por tras do motorista da vez na corrida e tomar a viagem dele independente de motivo!</li>  
-</ul> 
+  <!-- 11. PRÁTICAS PROIBIDAS -->
+  <article class="card" id="regra-11" open>
+    <button class="card__head" aria-expanded="true" aria-controls="body-11">
+      <span class="card__num">11</span>
+      <span class="card__icon" aria-hidden="true">⚠️</span>
+      <span class="card__title">Práticas Proibidas e Penalidades</span>
+      <span class="card__chevron" aria-hidden="true">▾</span>
+    </button>
+    <div class="card__body" id="body-11">
+      <p>Para manter a organização, a transparência e a igualdade dentro do grupo, <strong>não será permitido</strong>:</p>
+      <ul>
+        <li>Práticas de fidelização de passageiros fora do sistema/grupo.</li>
+        <li>Combinação direta de corridas com passageiros visando evitar o grupo.</li>
+        <li>Formação de grupos paralelos para divisão de corridas.</li>
+        <li>Qualquer tentativa de desvio de corridas ou quebra da ordem estabelecida, como passar por trás do motorista da vez e tomar a viagem dele, independentemente do motivo.</li>
+      </ul>
+      <div class="callout callout--danger">
+        <span class="callout__icon">🚫</span>
+        <p><strong>Penalidade:</strong> qualquer motorista envolvido nessas práticas será <strong>removido imediatamente do grupo</strong>, sem necessidade de aviso prévio.</p>
+      </div>
+    </div>
+  </article>
 
-<li>PENALIDADE</li>  
+  <!-- GERAL -->
+  <article class="card" id="regra-geral" open>
+    <button class="card__head" aria-expanded="true" aria-controls="body-geral">
+      <span class="card__num">📌</span>
+      <span class="card__icon" aria-hidden="true">📚</span>
+      <span class="card__title">Cumprimento das Regras e Atualizações (Geral)</span>
+      <span class="card__chevron" aria-hidden="true">▾</span>
+    </button>
+    <div class="card__body" id="body-geral">
+      <p>Todos os motoristas participantes do grupo RF devem estar cientes e de acordo com as regras estabelecidas.</p>
+      <ul>
+        <li>As regras devem ser cumpridas integralmente por todos os membros.</li>
+        <li>O regulamento pode ser alterado a qualquer momento, sem aviso prévio.</li>
+        <li>É responsabilidade de cada motorista acompanhar e se manter atualizado sobre as regras do grupo.</li>
+      </ul>
+      <p>O não cumprimento das regras poderá resultar em:</p>
+      <ul>
+        <li><strong>Advertência</strong></li>
+        <li><strong>Suspensão</strong></li>
+        <li><strong>Expulsão definitiva do grupo</strong></li>
+      </ul>
+    </div>
+  </article>
 
-<li>Qualquer motorista envolvido nessas práticas será removido imediatamente do grupo, sem necessidade de aviso prévio.</li> 
-</ul>
-  
-<h2>Cumprimento das Regras e Atualizações (GERAL)</h2>
-<p>Todos os motoristas participantes do grupo RF devem estar cientes e de acordo com as regras estabelecidas.</p>
-<li>As regras devem ser cumpridas integralmente por todos os membros</li>
-<li>O regulamento pode ser alterado a qualquer momento, sem aviso prévio</li>
-<li>É responsabilidade de cada motorista acompanhar e se manter atualizado sobre as regras do grupo</li>
-<li>O não cumprimento das regras poderá resultar em:</li>
-<li>Advertência</li>
-<li>Suspensão</li>
-<li>Expulsão definitiva do grupo</li>
+</main>
 
-</div>
+<footer>
+  <p>© WS Viagens • Política de Uso dos Motoristas<br>
+  Última atualização: Junho de 2026</p>
+</footer>
 
+<!-- FAB -->
+<div class="fab" id="fab">
+  <div class="fab__menu" role="menu">
+    <button class="fab__item" id="expandAll" role="menuitem">
+      <span aria-hidden="true">📂</span><span class="label">Expandir tudo</span>
+    </button>
+    <button class="fab__item" id="collapseAll" role="menuitem">
+      <span aria-hidden="true">📁</span><span class="label">Recolher tudo</span>
+    </button>
+    <button class="fab__item" id="toTop" role="menuitem">
+      <span aria-hidden="true">⬆️</span><span class="label">Voltar ao topo</span>
+    </button>
+  </div>
+  <button class="fab__main" id="fabMain" aria-label="Menu de ações" aria-expanded="false">
+    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14"/><path d="M5 12h14"/></svg>
+  </button>
 </div>
 
 <script>
+/* =========================================================
+   ACCORDION
+   ========================================================= */
+document.querySelectorAll('.card').forEach(card => {
+  const head = card.querySelector('.card__head');
+  const body = card.querySelector('.card__body');
+  // Estado inicial aberto
+  card.setAttribute('open','');
+  body.style.display = '';
 
-/* TEMA */
-(function(){
-  const tema = localStorage.getItem("rf_theme") || "dark";
-  document.documentElement.setAttribute("data-theme", tema);
-})();
-
-/* BUSCA (MANTIDA ORIGINAL) */
-const busca = document.getElementById("busca");
-const conteudo = document.getElementById("conteudo");
-const navBusca = document.getElementById("navBusca");
-const contador = document.getElementById("contadorBusca");
-
-let resultados = [];
-let indexAtual = 0;
-
-const originalHTML = conteudo.innerHTML;
-
-function normalizar(txt){
-  return txt.toLowerCase()
-    .normalize("NFD")
-    .replace(/[\u0300-\u036f]/g,"")
-    .replace(/[.,!?;:()]/g,"");
-}
-
-busca.addEventListener("input", () => {
-
-  const termoOriginal = busca.value.trim();
-
-  resultados = [];
-  indexAtual = 0;
-
-  if(!termoOriginal){
-    conteudo.innerHTML = originalHTML;
-    navBusca.style.display = "none";
-    return;
-  }
-
-  const termo = normalizar(termoOriginal);
-
-  const temp = document.createElement("div");
-  temp.innerHTML = originalHTML;
-
-  const elementos = temp.querySelectorAll("p, li, h2");
-
-  elementos.forEach(el => {
-
-    const texto = el.innerText;
-    const textoNorm = normalizar(texto);
-
-    if(textoNorm.includes(termo)){
-
-      const regex = new RegExp(`(${termoOriginal})`, "gi");
-      el.innerHTML = texto.replace(regex, `<mark>$1</mark>`);
-
-      el.classList.add("resultado");
+  head.addEventListener('click', () => {
+    const isOpen = card.hasAttribute('open');
+    if (isOpen){
+      card.removeAttribute('open');
+      body.style.display = 'none';
+      head.setAttribute('aria-expanded','false');
+    } else {
+      card.setAttribute('open','');
+      body.style.display = '';
+      head.setAttribute('aria-expanded','true');
     }
-
   });
-
-  conteudo.innerHTML = temp.innerHTML;
-
-  resultados = conteudo.querySelectorAll(".resultado");
-
-  if(resultados.length === 0){
-    navBusca.style.display = "none";
-    return;
-  }
-
-  navBusca.style.display = "block";
-
-  destacarAtual();
-
 });
 
-function destacarAtual(){
+function openCard(card){
+  card.setAttribute('open','');
+  card.querySelector('.card__body').style.display = '';
+  card.querySelector('.card__head').setAttribute('aria-expanded','true');
+}
+function closeCard(card){
+  card.removeAttribute('open');
+  card.querySelector('.card__body').style.display = 'none';
+  card.querySelector('.card__head').setAttribute('aria-expanded','false');
+}
 
-  resultados.forEach(el => el.classList.remove("resultado-ativo"));
+document.getElementById('expandAll').addEventListener('click', () => {
+  document.querySelectorAll('.card').forEach(openCard);
+  closeFab();
+});
+document.getElementById('collapseAll').addEventListener('click', () => {
+  document.querySelectorAll('.card').forEach(closeCard);
+  closeFab();
+});
+document.getElementById('toTop').addEventListener('click', () => {
+  window.scrollTo({top:0, behavior:'smooth'});
+  closeFab();
+});
 
-  const atual = resultados[indexAtual];
+/* =========================================================
+   FAB
+   ========================================================= */
+const fab = document.getElementById('fab');
+const fabMain = document.getElementById('fabMain');
+function closeFab(){ fab.classList.remove('open'); fabMain.setAttribute('aria-expanded','false'); }
+fabMain.addEventListener('click', () => {
+  const open = fab.classList.toggle('open');
+  fabMain.setAttribute('aria-expanded', String(open));
+});
+document.addEventListener('click', (e) => {
+  if (!fab.contains(e.target)) closeFab();
+});
 
-  if(atual){
-    atual.classList.add("resultado-ativo");
+/* =========================================================
+   TÓPICOS RÁPIDOS — scroll suave + destaque
+   ========================================================= */
+document.querySelectorAll('.topic').forEach(btn => {
+  btn.addEventListener('click', () => {
+    const id = btn.dataset.target;
+    const card = document.getElementById(id);
+    if (!card) return;
+    openCard(card);
+    card.scrollIntoView({behavior:'smooth', block:'start'});
+    document.querySelectorAll('.card.is-target').forEach(c => c.classList.remove('is-target'));
+    card.classList.add('is-target');
+    setTimeout(() => card.classList.remove('is-target'), 1600);
+  });
+});
 
-    atual.scrollIntoView({
-      behavior:"smooth",
-      block:"center"
-    });
+/* =========================================================
+   BARRA DE PROGRESSO
+   ========================================================= */
+const progressBar = document.getElementById('progressBar');
+function updateProgress(){
+  const h = document.documentElement;
+  const scrolled = h.scrollTop;
+  const max = h.scrollHeight - h.clientHeight;
+  const pct = max > 0 ? (scrolled / max) * 100 : 0;
+  progressBar.style.width = pct + '%';
+}
+document.addEventListener('scroll', updateProgress, {passive:true});
+updateProgress();
+
+/* =========================================================
+   BUSCA INTELIGENTE
+   - Normaliza (sem acentos, lowercase)
+   - Tolerante a parciais
+   - Sugestões
+   - Highlight + navegação entre ocorrências
+   ========================================================= */
+const searchInput   = document.getElementById('search');
+const searchClear   = document.getElementById('searchClear');
+const searchNav     = document.getElementById('searchNav');
+const searchCount   = document.getElementById('searchCount');
+const suggestionsEl = document.getElementById('suggestions');
+const prevHitBtn    = document.getElementById('prevHit');
+const nextHitBtn    = document.getElementById('nextHit');
+
+function normalize(t){
+  return (t||'').toString().toLowerCase()
+    .normalize('NFD').replace(/[\u0300-\u036f]/g,'')
+    .replace(/[^\p{L}\p{N}\s]/gu,' ')
+    .replace(/\s+/g,' ').trim();
+}
+
+// Indexa cards (título + texto)
+const indexedCards = Array.from(document.querySelectorAll('.card')).map(card => {
+  const title = card.querySelector('.card__title').textContent.trim();
+  const text  = card.querySelector('.card__body').textContent.trim();
+  return {
+    id: card.id,
+    el: card,
+    title,
+    text,
+    norm: normalize(title + ' ' + text),
+    normTitle: normalize(title),
+  };
+});
+
+// Guarda HTML original do body de cada card para restaurar após highlight
+indexedCards.forEach(c => { c.originalBody = c.el.querySelector('.card__body').innerHTML; });
+
+let currentHits = [];
+let currentHitIndex = -1;
+
+function clearHighlights(){
+  indexedCards.forEach(c => {
+    c.el.querySelector('.card__body').innerHTML = c.originalBody;
+  });
+}
+
+function escapeRegex(s){ return s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'); }
+
+function highlightInNode(node, terms){
+  // Percorre nós de texto e envolve correspondências
+  const walker = document.createTreeWalker(node, NodeFilter.SHOW_TEXT, null);
+  const targets = [];
+  while(walker.nextNode()){
+    const n = walker.currentNode;
+    if (n.parentElement.closest('mark.hit')) continue;
+    targets.push(n);
+  }
+  targets.forEach(textNode => {
+    const original = textNode.nodeValue;
+    const normOriginal = normalize(original);
+    // Encontra ocorrências (em normalizado) e mapeia de volta
+    let result = '';
+    let i = 0;
+    while (i < original.length){
+      let matched = false;
+      for (const term of terms){
+        if (!term) continue;
+        // Compara janela normalizada começando em i
+        const slice = original.slice(i, i + term.length + 6); // folga para diacríticos
+        const normSlice = normalize(slice);
+        if (normSlice.startsWith(term)){
+          // Pega substring real correspondente
+          // Avança até que normalize(original.slice(i, i+k)) tenha length == term.length
+          let k = 1;
+          while (i + k <= original.length && normalize(original.slice(i, i + k)).length < term.length) k++;
+          const real = original.slice(i, i + k);
+          result += '<mark class="hit">' + real.replace(/</g,'&lt;') + '</mark>';
+          i += k;
+          matched = true;
+          break;
+        }
+      }
+      if (!matched){
+        const ch = original[i];
+        result += ch === '<' ? '&lt;' : ch === '>' ? '&gt;' : ch === '&' ? '&amp;' : ch;
+        i++;
+      }
+    }
+    if (result !== original){
+      const span = document.createElement('span');
+      span.innerHTML = result;
+      textNode.replaceWith(...span.childNodes);
+    }
+  });
+}
+
+function performSearch(raw){
+  clearHighlights();
+  currentHits = [];
+  currentHitIndex = -1;
+
+  const q = normalize(raw);
+  if (!q){
+    searchNav.classList.remove('show');
+    searchCount.textContent = '0 / 0';
+    return;
+  }
+  const terms = q.split(' ').filter(t => t.length >= 2);
+  if (!terms.length){
+    searchNav.classList.remove('show');
+    searchCount.textContent = '0 / 0';
+    return;
   }
 
-  contador.innerText = `${indexAtual + 1} / ${resultados.length}`;
+  // Para cada card cujo texto normalizado contenha algum termo, destacar
+  indexedCards.forEach(c => {
+    const has = terms.some(t => c.norm.includes(t));
+    if (has){
+      openCard(c.el);
+      highlightInNode(c.el.querySelector('.card__body'), terms);
+      // Também destacar no título
+      const titleEl = c.el.querySelector('.card__title');
+      titleEl.innerHTML = c.title; // reset
+      highlightInNode(titleEl, terms);
+    }
+  });
+
+  currentHits = Array.from(document.querySelectorAll('mark.hit'));
+  if (currentHits.length){
+    currentHitIndex = 0;
+    activateHit();
+    searchNav.classList.add('show');
+  } else {
+    searchNav.classList.remove('show');
+    searchCount.textContent = '0 / 0';
+  }
 }
 
-function proximo(){
-  if(resultados.length === 0) return;
-  indexAtual = (indexAtual + 1) % resultados.length;
-  destacarAtual();
+function activateHit(){
+  currentHits.forEach(h => h.classList.remove('active'));
+  const hit = currentHits[currentHitIndex];
+  if (!hit) return;
+  hit.classList.add('active');
+  hit.scrollIntoView({behavior:'smooth', block:'center'});
+  searchCount.textContent = (currentHitIndex + 1) + ' / ' + currentHits.length;
 }
 
-function anterior(){
-  if(resultados.length === 0) return;
-  indexAtual = (indexAtual - 1 + resultados.length) % resultados.length;
-  destacarAtual();
+prevHitBtn.addEventListener('click', () => {
+  if (!currentHits.length) return;
+  currentHitIndex = (currentHitIndex - 1 + currentHits.length) % currentHits.length;
+  activateHit();
+});
+nextHitBtn.addEventListener('click', () => {
+  if (!currentHits.length) return;
+  currentHitIndex = (currentHitIndex + 1) % currentHits.length;
+  activateHit();
+});
+
+/* SUGESTÕES */
+function renderSuggestions(raw){
+  const q = normalize(raw);
+  suggestionsEl.innerHTML = '';
+  if (!q || q.length < 2){ suggestionsEl.classList.remove('show'); return; }
+
+  const terms = q.split(' ').filter(t => t.length >= 2);
+  const matches = indexedCards
+    .map(c => {
+      let score = 0;
+      terms.forEach(t => {
+        if (c.normTitle.includes(t)) score += 5;
+        if (c.norm.includes(t)) score += 1;
+      });
+      return {c, score};
+    })
+    .filter(x => x.score > 0)
+    .sort((a,b) => b.score - a.score)
+    .slice(0, 6);
+
+  if (!matches.length){ suggestionsEl.classList.remove('show'); return; }
+
+  matches.forEach(({c}) => {
+    const item = document.createElement('div');
+    item.className = 'suggestion';
+    item.setAttribute('role','option');
+    const icon = c.el.querySelector('.card__icon')?.textContent || '📄';
+    item.innerHTML = `
+      <div class="suggestion__icon">${icon}</div>
+      <div>
+        <div class="suggestion__title">${c.title}</div>
+        <div class="suggestion__sub">${c.text.slice(0,80).trim()}…</div>
+      </div>`;
+    item.addEventListener('mousedown', (e) => {
+      e.preventDefault();
+      openCard(c.el);
+      c.el.scrollIntoView({behavior:'smooth', block:'start'});
+      c.el.classList.add('is-target');
+      setTimeout(() => c.el.classList.remove('is-target'), 1600);
+      suggestionsEl.classList.remove('show');
+    });
+    suggestionsEl.appendChild(item);
+  });
+  suggestionsEl.classList.add('show');
 }
 
+let searchDebounce;
+searchInput.addEventListener('input', () => {
+  const v = searchInput.value;
+  searchClear.classList.toggle('show', v.length > 0);
+  renderSuggestions(v);
+  clearTimeout(searchDebounce);
+  searchDebounce = setTimeout(() => performSearch(v), 180);
+});
+searchInput.addEventListener('focus', () => renderSuggestions(searchInput.value));
+searchInput.addEventListener('blur', () => setTimeout(() => suggestionsEl.classList.remove('show'), 150));
+
+searchClear.addEventListener('click', () => {
+  searchInput.value = '';
+  searchClear.classList.remove('show');
+  suggestionsEl.classList.remove('show');
+  performSearch('');
+  searchInput.focus();
+});
+
+/* Atalhos teclado */
+document.addEventListener('keydown', (e) => {
+  if ((e.ctrlKey || e.metaKey) && e.key === 'k'){
+    e.preventDefault(); searchInput.focus(); searchInput.select();
+  }
+  if (e.key === 'Escape' && document.activeElement === searchInput){
+    searchInput.value = ''; performSearch(''); searchClear.classList.remove('show'); suggestionsEl.classList.remove('show');
+  }
+  if (document.activeElement === searchInput){
+    if (e.key === 'Enter' && currentHits.length){
+      e.preventDefault();
+      currentHitIndex = (currentHitIndex + 1) % currentHits.length;
+      activateHit();
+    }
+  }
+});
 </script>
-
 </body>
 </html>
